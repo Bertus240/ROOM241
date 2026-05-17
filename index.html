@@ -8,12 +8,18 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<!-- Vercel Web Analytics (Static Integration) -->
+<script>
+  window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+</script>
+<script src="/_vercel/insights/script.js"></script>
+
 <style>
   :root {
     --gold: #FFAD00;
     --gold-dark: #CC8A00;
     --gold-glow: rgba(255, 173, 0, 0.22);
-    /* Fonds de page sombres haut de gamme */
     --bg: #030407;
     /* Verre dépoli translucide */
     --glass-bg: rgba(14, 16, 22, 0.45);
@@ -43,7 +49,7 @@
     position: relative;
   }
 
-  /* ─── FLOATING ORBS (Essentiel pour faire ressortir le glassmorphism) ─── */
+  /* ─── FLOATING ORBS (Essentiel pour animer le verre dépoli) ─── */
   .orb {
     position: fixed;
     border-radius: 50%;
@@ -352,7 +358,7 @@
     50% { opacity: 1; transform: scaleY(1.1); }
   }
 
-  /* ─── FORMATTAGE DES SECTIONS ─── */
+  /* ─── CADRE DE SECTION GENERAL ─── */
   section { padding: 100px 5%; position: relative; z-index: 10; }
   .section-label {
     display: inline-flex;
@@ -456,7 +462,7 @@
   .portfolio-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 20px; /* Ajout d'un espacement élégant */
+    gap: 20px;
   }
   .project-card {
     position: relative;
@@ -535,7 +541,7 @@
   }
   .project-card:hover .project-arrow { opacity: 1; transform: translate(0,0); }
 
-  /* Gradients thématiques abstraits */
+  /* project thumb backgrounds */
   .p1 { background: linear-gradient(135deg, #120e03, #2e1a00); }
   .p2 { background: linear-gradient(135deg, #071515, #0a251c); }
   .p3 { background: linear-gradient(135deg, #0b0716, #160a28); }
@@ -1266,7 +1272,7 @@
     .cursor, .cursor-ring { display: none; }
   }
 
-  /* Navigation mobile déliée */
+  /* Navigation mobile */
   .mobile-nav {
     display: none;
     position: fixed;
@@ -1300,11 +1306,11 @@
 <div class="orb orb-1"></div>
 <div class="orb orb-2"></div>
 
-<!-- Custom physical cursor -->
+<!-- Curseur physique -->
 <div class="cursor" id="cursor"></div>
 <div class="cursor-ring" id="cursor-ring"></div>
 
-<!-- NAV -->
+<!-- MENU DE NAVIGATION -->
 <nav id="navbar">
   <a href="#hero" class="nav-logo">
     <div class="nav-logo-box">R241</div>
