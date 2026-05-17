@@ -1,0 +1,2088 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Room241 — Rémi Brocart | Design d'Impact & Stratégie Digitale</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+  :root {
+    --gold: #FFAD00;
+    --gold-dark: #CC8A00;
+    --gold-glow: rgba(255, 173, 0, 0.22);
+    /* Fonds de page sombres haut de gamme */
+    --bg: #030407;
+    /* Verre dépoli translucide */
+    --glass-bg: rgba(14, 16, 22, 0.45);
+    --glass-bg-hover: rgba(255, 173, 0, 0.03);
+    --glass-border: rgba(255, 255, 255, 0.05);
+    --glass-border-hover: rgba(255, 173, 0, 0.35);
+    --text: #f0ede6;
+    --muted: #888890;
+    --radius: 16px;
+    --radius-lg: 24px;
+    --font-display: 'Bebas Neue', sans-serif;
+    --font-body: 'DM Sans', sans-serif;
+    --nav-h: 76px;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.65;
+    overflow-x: hidden;
+    position: relative;
+  }
+
+  /* ─── FLOATING ORBS (Essentiel pour faire ressortir le glassmorphism) ─── */
+  .orb {
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(140px);
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.16;
+  }
+  .orb-1 {
+    width: 450px;
+    height: 450px;
+    background: var(--gold);
+    top: 15%;
+    right: 10%;
+    animation: floatOrb 25s infinite alternate ease-in-out;
+  }
+  .orb-2 {
+    width: 550px;
+    height: 550px;
+    background: #0055ff;
+    bottom: 10%;
+    left: 5%;
+    animation: floatOrb 30s infinite alternate-reverse ease-in-out;
+  }
+  @keyframes floatOrb {
+    0% { transform: translate(0, 0) scale(1); }
+    100% { transform: translate(50px, -70px) scale(1.15); }
+  }
+
+  /* ─── SCROLLBAR ─── */
+  ::-webkit-scrollbar { width: 5px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 2px; }
+
+  /* ─── CURSEUR PHYSIQUE PERSONNALISÉ ─── */
+  .cursor {
+    position: fixed;
+    width: 10px; height: 10px;
+    background: var(--gold);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: transform 0.08s, width 0.2s, height 0.2s, opacity 0.2s;
+    mix-blend-mode: screen;
+  }
+  .cursor-ring {
+    position: fixed;
+    width: 36px; height: 36px;
+    border: 1px solid var(--gold);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9998;
+    transform: translate(-50%, -50%);
+    transition: transform 0.18s ease, width 0.2s, height 0.2s, border-color 0.2s;
+    opacity: 0.5;
+  }
+
+  /* ─── BARRE DE NAVIGATION GLASS ─── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    height: var(--nav-h);
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 5%;
+    border-bottom: 1px solid transparent;
+    transition: background 0.3s, border-color 0.3s;
+  }
+  nav.scrolled {
+    background: rgba(3, 4, 7, 0.75);
+    backdrop-filter: blur(28px);
+    -webkit-backdrop-filter: blur(28px);
+    border-color: var(--glass-border);
+    box-shadow: 0 10px 30px -10px rgba(0,0,0,0.5);
+  }
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+  }
+  .nav-logo-box {
+    width: 38px; height: 38px;
+    border: 1.5px solid var(--gold);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-display);
+    font-size: 15px;
+    color: var(--gold);
+    letter-spacing: 0.5px;
+    box-shadow: 0 0 12px var(--gold-glow);
+  }
+  .nav-brand {
+    font-family: var(--font-display);
+    font-size: 20px;
+    color: var(--text);
+    letter-spacing: 2px;
+  }
+  .nav-brand span { color: var(--gold); }
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    list-style: none;
+  }
+  .nav-links a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--text); }
+  .nav-cta {
+    background: var(--gold) !important;
+    color: #000 !important;
+    padding: 8px 20px !important;
+    border-radius: 6px;
+    font-weight: 600 !important;
+    transition: background 0.2s, transform 0.15s !important;
+  }
+  .nav-cta:hover { background: var(--gold-dark) !important; transform: translateY(-1px); }
+  .burger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    padding: 4px;
+  }
+  .burger span { display: block; width: 24px; height: 2px; background: var(--text); border-radius: 2px; transition: 0.3s; }
+
+  /* ─── HERO SECTION ─── */
+  #hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: calc(var(--nav-h) + 60px) 5% 80px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 50% at 75% 50%, rgba(255,173,0,0.06) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 60% at 10% 80%, rgba(0,85,255,0.03) 0%, transparent 60%);
+  }
+  .hero-grid-lines {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px);
+    background-size: 80px 80px;
+    mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 40%, transparent 100%);
+  }
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 780px;
+  }
+  .hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 28px;
+  }
+  .hero-eyebrow::before {
+    content: '';
+    display: block;
+    width: 32px; height: 1px;
+    background: var(--gold);
+  }
+  .hero-title {
+    font-family: var(--font-display);
+    font-size: clamp(68px, 10vw, 130px);
+    line-height: 0.9;
+    letter-spacing: 2px;
+    margin-bottom: 24px;
+  }
+  .hero-title .line2 {
+    color: var(--gold);
+    display: block;
+    text-shadow: 0 0 60px rgba(255,173,0,0.3);
+  }
+  .hero-sub {
+    font-size: clamp(16px, 2.2vw, 20px);
+    color: var(--muted);
+    max-width: 560px;
+    line-height: 1.6;
+    margin-bottom: 44px;
+    font-weight: 300;
+  }
+  .hero-sub strong { color: var(--text); font-weight: 500; }
+  .hero-ctas {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--gold);
+    color: #000;
+    font-family: var(--font-body);
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: 16px 32px;
+    border-radius: 8px;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+  }
+  .btn-primary:hover {
+    background: var(--gold-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 12px 32px rgba(255,173,0,0.25);
+  }
+  .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    color: var(--text);
+    font-family: var(--font-body);
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: 16px 32px;
+    border-radius: 8px;
+    text-decoration: none;
+    border: 1px solid var(--glass-border);
+    cursor: pointer;
+    transition: border-color 0.2s, transform 0.15s, color 0.2s, background 0.2s;
+  }
+  .btn-secondary:hover {
+    border-color: var(--gold);
+    background: var(--glass-bg-hover);
+    color: var(--gold);
+    transform: translateY(-2px);
+  }
+  .hero-stats {
+    position: absolute;
+    right: 5%;
+    bottom: 10%;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    z-index: 2;
+  }
+  .stat-item {
+    text-align: right;
+  }
+  .stat-num {
+    font-family: var(--font-display);
+    font-size: 42px;
+    color: var(--gold);
+    line-height: 1;
+  }
+  .stat-label {
+    font-size: 12px;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .scroll-cue {
+    position: absolute;
+    bottom: 32px;
+    left: 5%;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--muted);
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    z-index: 2;
+  }
+  .scroll-line {
+    width: 1px;
+    height: 48px;
+    background: linear-gradient(to bottom, var(--gold), transparent);
+    animation: scrollPulse 2s ease-in-out infinite;
+  }
+  @keyframes scrollPulse {
+    0%, 100% { opacity: 0.4; transform: scaleY(1); }
+    50% { opacity: 1; transform: scaleY(1.1); }
+  }
+
+  /* ─── FORMATTAGE DES SECTIONS ─── */
+  section { padding: 100px 5%; position: relative; z-index: 10; }
+  .section-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 16px;
+  }
+  .section-label::before {
+    content: '';
+    width: 24px; height: 1px;
+    background: var(--gold);
+  }
+  .section-title {
+    font-family: var(--font-display);
+    font-size: clamp(42px, 6vw, 72px);
+    line-height: 0.95;
+    letter-spacing: 1px;
+    margin-bottom: 12px;
+  }
+  .section-title span { color: var(--gold); }
+  .section-desc {
+    color: var(--muted);
+    font-size: 16px;
+    max-width: 540px;
+    line-height: 1.7;
+    font-weight: 300;
+  }
+
+  /* ─── BANDREAU DÉFILANT (MARQUEE) ─── */
+  .marquee-wrap {
+    overflow: hidden;
+    border-top: 1px solid var(--glass-border);
+    border-bottom: 1px solid var(--glass-border);
+    padding: 18px 0;
+    background: rgba(14, 16, 22, 0.4);
+    backdrop-filter: blur(8px);
+    position: relative;
+    z-index: 10;
+  }
+  .marquee-track {
+    display: flex;
+    gap: 0;
+    animation: marquee 22s linear infinite;
+    white-space: nowrap;
+  }
+  .marquee-track span {
+    font-family: var(--font-display);
+    font-size: 14px;
+    letter-spacing: 0.2em;
+    color: var(--muted);
+    padding: 0 32px;
+    text-transform: uppercase;
+  }
+  .marquee-track span.gold { color: var(--gold); }
+  @keyframes marquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
+  /* ─── PORTFOLIO (EFFET VERRE AMÉLIORÉ) ─── */
+  #portfolio { background: rgba(14, 16, 22, 0.3); }
+  .portfolio-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-bottom: 48px;
+    flex-wrap: wrap;
+    gap: 24px;
+  }
+  .filter-tabs {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .filter-btn {
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--glass-border);
+    color: var(--muted);
+    padding: 8px 18px;
+    border-radius: 100px;
+    font-family: var(--font-body);
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .filter-btn.active, .filter-btn:hover {
+    background: var(--gold);
+    border-color: var(--gold);
+    color: #000;
+  }
+  .portfolio-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px; /* Ajout d'un espacement élégant */
+  }
+  .project-card {
+    position: relative;
+    aspect-ratio: 4/3;
+    overflow: hidden;
+    background: var(--glass-bg);
+    border-radius: var(--radius);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .project-card.large { grid-column: span 2; aspect-ratio: auto; }
+  .project-thumb {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 54px;
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .project-card:hover {
+    border-color: var(--glass-border-hover);
+    box-shadow: 0 15px 40px -10px rgba(0,0,0,0.6), 0 0 20px var(--gold-glow);
+    transform: translateY(-4px);
+  }
+  .project-card:hover .project-thumb { transform: scale(1.08); }
+  .project-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(3,4,7,0.96) 0%, rgba(3,4,7,0.4) 60%, transparent 100%);
+    opacity: 0;
+    transition: opacity 0.35s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 28px;
+  }
+  .project-card:hover .project-overlay { opacity: 1; }
+  .project-cat {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
+  .project-name {
+    font-family: var(--font-display);
+    font-size: 28px;
+    letter-spacing: 1px;
+    line-height: 1.1;
+    margin-bottom: 12px;
+  }
+  .project-desc {
+    font-size: 13px;
+    color: rgba(240,237,230,0.7);
+    line-height: 1.5;
+  }
+  .project-arrow {
+    position: absolute;
+    top: 20px; right: 20px;
+    width: 36px; height: 36px;
+    border: 1px solid var(--gold);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--gold);
+    font-size: 14px;
+    opacity: 0;
+    transition: opacity 0.3s, transform 0.3s;
+    transform: translate(4px, -4px);
+  }
+  .project-card:hover .project-arrow { opacity: 1; transform: translate(0,0); }
+
+  /* Gradients thématiques abstraits */
+  .p1 { background: linear-gradient(135deg, #120e03, #2e1a00); }
+  .p2 { background: linear-gradient(135deg, #071515, #0a251c); }
+  .p3 { background: linear-gradient(135deg, #0b0716, #160a28); }
+  .p4 { background: linear-gradient(135deg, #150903, #251000); }
+  .p5 { background: linear-gradient(135deg, #041016, #091a27); }
+  .p6 { background: linear-gradient(135deg, #0a1407, #13240e); }
+  .p7 { background: linear-gradient(135deg, #1b0a11, #2f121d); }
+  .p8 { background: linear-gradient(135deg, #12141c, #1f2535); }
+
+  /* ─── SECTIONS OFFRES & TARIFS (VERRE COMPOSITE) ─── */
+  #offres { background: var(--bg); }
+  .offres-intro {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: end;
+    margin-bottom: 60px;
+  }
+  .tarif-horaire {
+    border: 1px solid var(--glass-border-hover);
+    border-radius: var(--radius-lg);
+    padding: 28px 32px;
+    background: rgba(255,173,0,0.04);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  .tarif-icon {
+    width: 52px; height: 52px;
+    background: var(--gold);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    color: #000;
+    flex-shrink: 0;
+  }
+  .tarif-label {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 4px;
+  }
+  .tarif-price {
+    font-family: var(--font-display);
+    font-size: 32px;
+    color: var(--text);
+    line-height: 1;
+  }
+  .tarif-note {
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 4px;
+  }
+
+  /* ─── CALCULATEUR DYNAMIQUE GLASSMOPRHIC ─── */
+  .calc-container {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border-radius: var(--radius-lg);
+    padding: 40px;
+    margin-bottom: 60px;
+    box-shadow: 0 20px 50px -15px rgba(0,0,0,0.6);
+  }
+  .calc-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  .calc-title {
+    font-family: var(--font-display);
+    font-size: 28px;
+    letter-spacing: 1px;
+    color: var(--text);
+  }
+  .calc-hours-badge {
+    background: rgba(255,173,0,0.12);
+    border: 1px solid var(--glass-border-hover);
+    color: var(--gold);
+    font-family: var(--font-body);
+    font-size: 13px;
+    font-weight: 600;
+    padding: 6px 16px;
+    border-radius: 100px;
+  }
+  .calc-slider-wrap {
+    margin: 32px 0;
+  }
+  .calc-slider {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 6px;
+    border-radius: 3px;
+    background: rgba(255,255,255,0.08);
+    outline: none;
+    cursor: pointer;
+  }
+  .calc-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: var(--gold);
+    box-shadow: 0 0 15px rgba(255,173,0,0.5);
+    cursor: pointer;
+    transition: transform 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .calc-slider::-webkit-slider-thumb:hover {
+    transform: scale(1.2);
+  }
+  .calc-slider-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-top: 10px;
+  }
+  .calc-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid var(--glass-border);
+    padding-top: 24px;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  .calc-bullets {
+    font-size: 12px;
+    color: var(--muted);
+    list-style: none;
+  }
+  .calc-bullets li {
+    margin-bottom: 6px;
+  }
+  .calc-bullets li i {
+    color: var(--gold);
+    margin-right: 6px;
+  }
+  .calc-total {
+    text-align: right;
+  }
+  .calc-total-label {
+    font-size: 11px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+  }
+  .calc-total-val {
+    font-family: var(--font-display);
+    font-size: 48px;
+    color: var(--text);
+    line-height: 1;
+    margin-top: 4px;
+  }
+
+  /* ─── CONFIGURATION DES PACKS ─── */
+  .packs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+    margin-bottom: 60px;
+  }
+  .pack-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-lg);
+    padding: 32px 28px;
+    position: relative;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    display: flex;
+    flex-direction: column;
+  }
+  .pack-card:hover { 
+    border-color: var(--glass-border-hover); 
+    box-shadow: 0 15px 40px -10px rgba(0,0,0,0.6), 0 0 20px var(--gold-glow);
+    transform: translateY(-4px); 
+  }
+  .pack-card.featured {
+    border-color: var(--gold);
+    background: linear-gradient(160deg, rgba(255,173,0,0.06) 0%, rgba(14, 16, 22, 0.65) 60%);
+  }
+  .pack-badge {
+    position: absolute;
+    top: -13px; left: 50%; transform: translateX(-50%);
+    background: var(--gold);
+    color: #000;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 5px 16px;
+    border-radius: 100px;
+    white-space: nowrap;
+  }
+  .pack-icon {
+    font-size: 28px;
+    margin-bottom: 20px;
+  }
+  .pack-name {
+    font-family: var(--font-display);
+    font-size: 26px;
+    letter-spacing: 0.5px;
+    margin-bottom: 4px;
+  }
+  .pack-tagline {
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 24px;
+    line-height: 1.5;
+  }
+  .pack-price {
+    font-family: var(--font-display);
+    font-size: 44px;
+    color: var(--gold);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .pack-price-note {
+    font-size: 12px;
+    color: var(--muted);
+    margin-bottom: 28px;
+  }
+  .pack-features {
+    list-style: none;
+    flex: 1;
+    margin-bottom: 28px;
+  }
+  .pack-features li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 14px;
+    padding: 7px 0;
+    border-bottom: 1px solid var(--glass-border);
+    color: var(--muted);
+    line-height: 1.4;
+  }
+  .pack-features li:last-child { border-bottom: none; }
+  .pack-features li .check {
+    color: var(--gold);
+    flex-shrink: 0;
+    margin-top: 2px;
+    font-size: 13px;
+  }
+  .pack-cta {
+    display: block;
+    width: 100%;
+    text-align: center;
+    padding: 13px 20px;
+    border-radius: 8px;
+    font-family: var(--font-body);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .pack-cta-outline {
+    background: transparent;
+    border: 1px solid var(--glass-border);
+    color: var(--text);
+  }
+  .pack-cta-outline:hover { border-color: var(--gold); color: var(--gold); }
+  .pack-cta-solid {
+    background: var(--gold);
+    border: 1px solid var(--gold);
+    color: #000;
+  }
+  .pack-cta-solid:hover { background: var(--gold-dark); border-color: var(--gold-dark); }
+
+  .social-section {
+    margin-top: 0;
+  }
+  .social-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 20px;
+    margin-top: 32px;
+  }
+  .social-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-lg);
+    padding: 28px;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .social-card:hover { 
+    border-color: var(--glass-border-hover); 
+    box-shadow: 0 15px 40px -10px rgba(0,0,0,0.6), 0 0 20px var(--gold-glow);
+    transform: translateY(-3px); 
+  }
+  .social-card-icon { font-size: 24px; margin-bottom: 14px; }
+  .social-card-name {
+    font-family: var(--font-display);
+    font-size: 20px;
+    margin-bottom: 6px;
+    letter-spacing: 0.5px;
+  }
+  .social-card-desc { font-size: 13px; color: var(--muted); line-height: 1.5; margin-bottom: 16px; }
+  .social-card-price { font-family: var(--font-display); font-size: 28px; color: var(--gold); }
+  .social-card-period { font-size: 12px; color: var(--muted); }
+
+  /* ─── METHODOLOGIE ─── */
+  #process { background: rgba(14, 16, 22, 0.3); }
+  .process-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2px;
+    margin-top: 60px;
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+  }
+  .process-step {
+    padding: 40px 32px;
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-right: 1px solid var(--glass-border);
+    position: relative;
+    transition: background 0.3s;
+  }
+  .process-step:last-child { border-right: none; }
+  .process-step:hover { background: rgba(14, 16, 22, 0.65); }
+  .step-num {
+    font-family: var(--font-display);
+    font-size: 64px;
+    color: rgba(255,173,0,0.06);
+    line-height: 1;
+    margin-bottom: 20px;
+    position: absolute;
+    top: 24px; right: 24px;
+  }
+  .step-icon {
+    width: 48px; height: 48px;
+    border: 1px solid var(--glass-border-hover);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    color: var(--gold);
+    margin-bottom: 20px;
+  }
+  .step-title {
+    font-family: var(--font-display);
+    font-size: 22px;
+    letter-spacing: 0.5px;
+    margin-bottom: 12px;
+  }
+  .step-desc {
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  /* ─── ABOUT / PROFIL (DASHBOARD CV) ─── */
+  #about { background: var(--bg); }
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+    margin-top: 60px;
+  }
+  .about-photo-wrap {
+    position: relative;
+  }
+  .about-photo-frame {
+    width: 100%;
+    aspect-ratio: 3/4;
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--glass-border);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 80px;
+  }
+  .about-badge {
+    position: absolute;
+    bottom: -20px; right: -20px;
+    background: var(--gold);
+    color: #000;
+    padding: 20px;
+    border-radius: var(--radius);
+    font-family: var(--font-display);
+    font-size: 28px;
+    line-height: 1.1;
+    text-align: center;
+    box-shadow: 0 12px 32px rgba(255,173,0,0.35);
+  }
+  .about-badge small {
+    display: block;
+    font-family: var(--font-body);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 2px;
+  }
+  .about-skills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 28px 0;
+  }
+  .skill-tag {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    padding: 7px 16px;
+    border-radius: 100px;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--muted);
+    transition: all 0.2s;
+  }
+  .skill-tag:hover { border-color: var(--gold); color: var(--gold); }
+  .about-text h3 {
+    font-family: var(--font-display);
+    font-size: 36px;
+    margin-bottom: 20px;
+    letter-spacing: 0.5px;
+  }
+  .about-text p {
+    color: var(--muted);
+    font-size: 15px;
+    line-height: 1.75;
+    font-weight: 300;
+    margin-bottom: 16px;
+  }
+  .about-text p strong { color: var(--text); font-weight: 500; }
+  .exp-list { margin-top: 28px; display: flex; flex-direction: column; gap: 12px; }
+  .exp-item {
+    display: flex;
+    gap: 16px;
+    padding: 16px;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-radius: var(--radius);
+    align-items: center;
+    transition: all 0.2s;
+  }
+  .exp-item:hover { border-color: var(--glass-border-hover); }
+  .exp-dot {
+    width: 8px; height: 8px;
+    background: var(--gold);
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .exp-role { font-size: 14px; font-weight: 500; margin-bottom: 2px; }
+  .exp-co { font-size: 12px; color: var(--muted); }
+  .exp-date { font-size: 12px; color: var(--gold); margin-left: auto; white-space: nowrap; }
+
+  /* ─── FORMULAIRE DE CONTACT ─── */
+  #contact { background: rgba(14, 16, 22, 0.3); }
+  .contact-wrap {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    margin-top: 60px;
+    align-items: start;
+  }
+  .contact-info h3 {
+    font-family: var(--font-display);
+    font-size: 36px;
+    margin-bottom: 16px;
+    letter-spacing: 0.5px;
+  }
+  .contact-info p {
+    color: var(--muted);
+    font-size: 15px;
+    line-height: 1.7;
+    font-weight: 300;
+    margin-bottom: 32px;
+  }
+  .contact-links { display: flex; flex-direction: column; gap: 12px; }
+  .contact-link {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    color: var(--text);
+    text-decoration: none;
+    font-size: 15px;
+    padding: 14px 18px;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-radius: var(--radius);
+    transition: border-color 0.2s, color 0.2s, transform 0.2s;
+  }
+  .contact-link:hover { border-color: var(--gold); color: var(--gold); transform: translateX(4px); }
+  .contact-link i { color: var(--gold); font-size: 16px; width: 16px; }
+  .contact-form { 
+    display: flex; 
+    flex-direction: column; 
+    gap: 16px; 
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border-radius: var(--radius-lg);
+    padding: 40px;
+  }
+  .form-group { display: flex; flex-direction: column; gap: 6px; }
+  .form-label { font-size: 12px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+  .form-input {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--glass-border);
+    border-radius: 8px;
+    padding: 14px 18px;
+    color: var(--text);
+    font-family: var(--font-body);
+    font-size: 15px;
+    outline: none;
+    transition: border-color 0.2s;
+    resize: none;
+    width: 100%;
+  }
+  .form-input:focus { border-color: var(--gold); }
+  .form-input::placeholder { color: var(--muted); }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .form-success {
+    display: none;
+    text-align: center;
+    padding: 20px;
+    background: rgba(255,173,0,0.08);
+    border: 1px solid var(--border-gold);
+    border-radius: var(--radius);
+    color: var(--gold);
+    font-size: 14px;
+    font-weight: 500;
+  }
+
+  /* ─── MODALE COMPLÈTE GLASSMOPRHIC (PORTFOLIO DETAILS) ─── */
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(3, 4, 7, 0.82);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.35s ease, visibility 0.35s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+  }
+  .modal-overlay.active {
+    opacity: 1;
+    visibility: visible;
+  }
+  .modal-box {
+    background: rgba(14, 16, 22, 0.7);
+    border: 1px solid var(--glass-border-hover);
+    border-radius: var(--radius-lg);
+    backdrop-filter: blur(36px);
+    -webkit-backdrop-filter: blur(36px);
+    box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.8), 0 0 40px var(--gold-glow);
+    max-width: 800px;
+    width: 100%;
+    max-height: 85vh;
+    overflow-y: auto;
+    position: relative;
+    padding: 40px;
+    transform: translateY(30px);
+    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .modal-overlay.active .modal-box {
+    transform: translateY(0);
+  }
+  .modal-close {
+    position: absolute;
+    top: 24px; right: 24px;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    color: var(--muted);
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .modal-close:hover {
+    border-color: var(--gold);
+    color: var(--gold);
+  }
+  .modal-header {
+    margin-bottom: 24px;
+  }
+  .modal-cat {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
+  .modal-title {
+    font-family: var(--font-display);
+    font-size: 38px;
+    letter-spacing: 1px;
+    line-height: 1.1;
+  }
+  .modal-image-mock {
+    aspect-ratio: 16/9;
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: var(--radius);
+    border: 1px solid var(--glass-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 72px;
+    margin-bottom: 28px;
+  }
+  .modal-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 32px;
+  }
+  .modal-info-label {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 4px;
+  }
+  .modal-info-val {
+    font-size: 13px;
+    color: var(--text);
+    margin-bottom: 16px;
+  }
+
+  /* ─── FOOTER ─── */
+  footer {
+    background: var(--bg);
+    border-top: 1px solid var(--glass-border);
+    padding: 40px 5%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px;
+    position: relative;
+    z-index: 10;
+  }
+  .footer-logo {
+    font-family: var(--font-display);
+    font-size: 24px;
+    letter-spacing: 2px;
+    color: var(--text);
+  }
+  .footer-logo span { color: var(--gold); }
+  .footer-copy { font-size: 13px; color: var(--muted); }
+  .footer-links { display: flex; gap: 20px; }
+  .footer-links a { font-size: 13px; color: var(--muted); text-decoration: none; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--gold); }
+
+  /* ─── SCROLL REVEAL (FADE-UP) ─── */
+  .fade-up {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .fade-up.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .fade-up:nth-child(2) { transition-delay: 0.1s; }
+  .fade-up:nth-child(3) { transition-delay: 0.2s; }
+  .fade-up:nth-child(4) { transition-delay: 0.3s; }
+
+  /* ─── DESIGN ADAPTATIF (MEDIA QUERIES) ─── */
+  @media (max-width: 1024px) {
+    .portfolio-grid { grid-template-columns: repeat(2, 1fr); }
+    .project-card.large { grid-column: span 1; aspect-ratio: 4/3; }
+    .process-grid { grid-template-columns: repeat(2, 1fr); }
+    .process-step { border-right: 1px solid var(--glass-border); }
+    .process-step:nth-child(2n) { border-right: none; }
+    .process-step:nth-child(1), .process-step:nth-child(2) { border-bottom: 1px solid var(--glass-border); }
+    .offres-intro { grid-template-columns: 1fr; gap: 32px; }
+    .about-grid { grid-template-columns: 1fr; gap: 48px; }
+    .contact-wrap { grid-template-columns: 1fr; gap: 48px; }
+    .hero-stats { display: none; }
+    .modal-grid { grid-template-columns: 1fr; gap: 24px; }
+  }
+  @media (max-width: 768px) {
+    section { padding: 72px 5%; }
+    .nav-links { display: none; }
+    .burger { display: flex; }
+    .portfolio-grid { grid-template-columns: 1fr; }
+    .process-grid { grid-template-columns: 1fr; }
+    .process-step { border-right: none; border-bottom: 1px solid var(--glass-border); }
+    .packs-grid { grid-template-columns: 1fr; }
+    .form-row { grid-template-columns: 1fr; }
+    footer { flex-direction: column; text-align: center; }
+    .cursor, .cursor-ring { display: none; }
+  }
+
+  /* Navigation mobile déliée */
+  .mobile-nav {
+    display: none;
+    position: fixed;
+    top: var(--nav-h); left: 0; right: 0;
+    background: rgba(6,7,10,0.96);
+    backdrop-filter: blur(28px);
+    -webkit-backdrop-filter: blur(28px);
+    padding: 24px 5%;
+    z-index: 99;
+    border-bottom: 1px solid var(--glass-border);
+    flex-direction: column;
+    gap: 4px;
+  }
+  .mobile-nav.open { display: flex; }
+  .mobile-nav a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 500;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--glass-border);
+    transition: color 0.2s;
+  }
+  .mobile-nav a:hover { color: var(--gold); }
+  .mobile-nav a:last-child { border-bottom: none; }
+</style>
+</head>
+<body>
+
+<!-- Sphères lumineuses d'ambiance d'arrière-plan -->
+<div class="orb orb-1"></div>
+<div class="orb orb-2"></div>
+
+<!-- Custom physical cursor -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursor-ring"></div>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a href="#hero" class="nav-logo">
+    <div class="nav-logo-box">R241</div>
+    <span class="nav-brand">ROOM<span>241</span></span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#portfolio">Portfolio</a></li>
+    <li><a href="#offres">Offres</a></li>
+    <li><a href="#process">Process</a></li>
+    <li><a href="#about">Profil</a></li>
+    <li><a href="#contact" class="nav-cta">Brief gratuit</a></li>
+  </ul>
+  <div class="burger" id="burger" onclick="toggleMobile()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+<div class="mobile-nav" id="mobile-nav">
+  <a href="#portfolio" onclick="toggleMobile()">Portfolio</a>
+  <a href="#offres" onclick="toggleMobile()">Offres & Tarifs</a>
+  <a href="#process" onclick="toggleMobile()">Process</a>
+  <a href="#about" onclick="toggleMobile()">Profil</a>
+  <a href="#contact" onclick="toggleMobile()">Brief gratuit →</a>
+</div>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid-lines"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">Design d'Impact & Stratégie Digitale</div>
+    <h1 class="hero-title">
+      VOTRE MARQUE,<br>
+      <span class="line2">SANS COMPROMIS.</span>
+    </h1>
+    <p class="hero-sub">
+      Je transforme vos idées en <strong>identités visuelles et dispositifs digitaux qui convertissent</strong>. Chaque décision créative est motivée par un objectif business concret.
+    </p>
+    <div class="hero-ctas">
+      <a href="#offres" class="btn-primary">
+        <i class="fa-solid fa-bolt"></i>
+        Voir les packs
+      </a>
+      <a href="#portfolio" class="btn-secondary">
+        <i class="fa-solid fa-arrow-right"></i>
+        Explorer le portfolio
+      </a>
+    </div>
+  </div>
+  <div class="hero-stats">
+    <div class="stat-item">
+      <div class="stat-num">250+</div>
+      <div class="stat-label">Heures freelance</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">15+</div>
+      <div class="stat-label">Clients accompagnés</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">SUB 2H50</div>
+      <div class="stat-label">Record Marathon (2h48)</div>
+    </div>
+  </div>
+  <div class="scroll-cue">
+    <div class="scroll-line"></div>
+    Scroll
+  </div>
+</section>
+
+<!-- MARQUEE (BANDEAU DEFILANT) -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <span>Identité Visuelle</span><span class="gold">✦</span>
+    <span>Branding Premium</span><span class="gold">✦</span>
+    <span>Social Media d'Impact</span><span class="gold">✦</span>
+    <span>Motion Design</span><span class="gold">✦</span>
+    <span>Design Graphique</span><span class="gold">✦</span>
+    <span>Stratégie Digitale</span><span class="gold">✦</span>
+    <span>Direction Artistique</span><span class="gold">✦</span>
+    <span>Design Événementiel</span><span class="gold">✦</span>
+    <span>Identité Visuelle</span><span class="gold">✦</span>
+    <span>Branding Premium</span><span class="gold">✦</span>
+    <span>Social Media d'Impact</span><span class="gold">✦</span>
+    <span>Motion Design</span><span class="gold">✦</span>
+    <span>Design Graphique</span><span class="gold">✦</span>
+    <span>Stratégie Digitale</span><span class="gold">✦</span>
+    <span>Direction Artistique</span><span class="gold">✦</span>
+    <span>Design Événementiel</span><span class="gold">✦</span>
+  </div>
+</div>
+
+<!-- PORTFOLIO -->
+<section id="portfolio">
+  <div class="portfolio-header">
+    <div>
+      <div class="section-label">Réalisations</div>
+      <h2 class="section-title">SÉLECTION DE <span>PROJETS</span></h2>
+    </div>
+    <div class="filter-tabs">
+      <button class="filter-btn active" onclick="filterProjects('all', this)">Tous</button>
+      <button class="filter-btn" onclick="filterProjects('branding', this)">Branding</button>
+      <button class="filter-btn" onclick="filterProjects('digital', this)">Digital</button>
+      <button class="filter-btn" onclick="filterProjects('motion', this)">Événementiel & Motion</button>
+    </div>
+  </div>
+
+  <div class="portfolio-grid" id="portfolio-grid">
+    <!-- Projet 1: Culture Book Vade -->
+    <div class="project-card large p1 fade-up" data-cat="branding" onclick="openModal('vade-culture-book')">
+      <div class="project-thumb">📖</div>
+      <div class="project-overlay">
+        <div class="project-cat">Branding · Édition</div>
+        <div class="project-name">Culture Guide - Vade</div>
+        <div class="project-desc">Actualisation graphique complète et harmonisation des supports de communication interne.</div>
+      </div>
+      <div class="project-arrow"><i class="fa-solid fa-arrow-up-right"></i></div>
+    </div>
+
+    <!-- Projet 2: Hornet Olympics -->
+    <div class="project-card p2 fade-up" data-cat="digital" onclick="openModal('hornet-olympics')">
+      <div class="project-thumb">🏆</div>
+      <div class="project-overlay">
+        <div class="project-cat">Digital · Événementiel</div>
+        <div class="project-name">Hornet Olympics Games</div>
+        <div class="project-desc">Identité sportive interne unifiée : affiches, bannières et signatures e-mails.</div>
+      </div>
+      <div class="project-arrow"><i class="fa-solid fa-arrow-up-right"></i></div>
+    </div>
+
+    <!-- Projet 3: Stand Zénith 1800m2 -->
+    <div class="project-card p3 fade-up" data-cat="motion" onclick="openModal('stand-zenith')">
+      <div class="project-thumb">🎪</div>
+      <div class="project-overlay">
+        <div class="project-cat">Événementiel · Design d'Espace</div>
+        <div class="project-name">Stand InCyber Forum Zénith</div>
+        <div class="project-desc">Design global d'un stand monumental de fusion (1800m²), habillage et door stickers.</div>
+      </div>
+      <div class="project-arrow"><i class="fa-solid fa-arrow-up-right"></i></div>
+    </div>
+
+    <!-- Projet 4: Actualisation de Brochures SAS -->
+    <div class="project-card p4 fade-up" data-cat="digital" onclick="openModal('sas-brochures')">
+      <div class="project-thumb">📄</div>
+      <div class="project-overlay">
+        <div class="project-cat">Digital · B2B</div>
+        <div class="project-name">Brochures SAS</div>
+        <div class="project-desc">Mise aux normes graphiques et traduction anglaise des outils de sensibilisation.</div>
+      </div>
+      <div class="project-arrow"><i class="fa-solid fa-arrow-up-right"></i></div>
+    </div>
+
+    <!-- Projet 5: Montage Vidéo Corporate -->
+    <div class="project-card p5 fade-up" data-cat="motion" onclick="openModal('motion-corporate')">
+      <div class="project-thumb">🎥</div>
+      <div class="project-overlay">
+        <div class="project-cat">Motion · Vidéo</div>
+        <div class="project-name">40+ Contenus de Sensibilisation</div>
+        <div class="project-desc">Production et montage de capsules animées à vocation pédagogique.</div>
+      </div>
+      <div class="project-arrow"><i class="fa-solid fa-arrow-up-right"></i></div>
+    </div>
+
+    <!-- Projet 6: Webinar Mind The Gap -->
+    <div class="project-card p6 fade-up" data-cat="digital" onclick="openModal('webinar-mind-gap')">
+      <div class="project-thumb">💻</div>
+      <div class="project-overlay">
+        <div class="project-cat">Digital · LinkedIn</div>
+        <div class="project-name">Campagnes Webinars B2B</div>
+        <div class="project-desc">Kits de communication digitaux pour événements d'envergure européenne.</div>
+      </div>
+      <div class="project-arrow"><i class="fa-solid fa-arrow-up-right"></i></div>
+    </div>
+
+    <!-- Projet 7: Implantation Marque Employeur -->
+    <div class="project-card p7 fade-up" data-cat="branding" onclick="openModal('brand-employeur')">
+      <div class="project-thumb">👥</div>
+      <div class="project-overlay">
+        <div class="project-cat">Branding · Guideline</div>
+        <div class="project-name">User Guide Marque Employeur</div>
+        <div class="project-desc">Élaboration d'une charte globale de cohérence de fin d'année.</div>
+      </div>
+      <div class="project-arrow"><i class="fa-solid fa-arrow-up-right"></i></div>
+    </div>
+
+    <!-- Projet 8: Captain Security Event -->
+    <div class="project-card p8 fade-up" data-cat="motion" onclick="openModal('captain-security')">
+      <div class="project-thumb">🛡️</div>
+      <div class="project-overlay">
+        <div class="project-cat">Événementiel · Salons</div>
+        <div class="project-name">Incarnation Captain Security</div>
+        <div class="project-desc">Présence active au salon international InCyber et augmentation de la notoriété.</div>
+      </div>
+      <div class="project-arrow"><i class="fa-solid fa-arrow-up-right"></i></div>
+    </div>
+  </div>
+</section>
+
+<!-- OFFRES -->
+<section id="offres">
+  <div class="offres-intro">
+    <div>
+      <div class="section-label">Tarifs</div>
+      <h2 class="section-title">PACKS &<br><span>OFFRES</span></h2>
+      <p class="section-desc">Des solutions transparentes et calibrées selon le niveau d'exigence de vos objectifs.</p>
+    </div>
+    <div class="tarif-horaire fade-up">
+      <div class="tarif-icon"><i class="fa-solid fa-clock"></i></div>
+      <div>
+        <div class="tarif-label">Accompagnement sur-mesure</div>
+        <div class="tarif-price">45 €<span style="font-size:20px; color: var(--muted)">/h</span></div>
+        <div class="tarif-note">Consulting · Direction artistique · Itérations complexes</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CALCULATEUR DE BUDGET INTERACTIF -->
+  <div class="calc-container fade-up">
+    <div class="calc-header">
+      <div class="calc-title">Estimez votre budget d'heures sur-mesure</div>
+      <div class="calc-hours-badge" id="calc-hours-label">25 Heures</div>
+    </div>
+    
+    <div class="calc-slider-wrap">
+      <input type="range" class="calc-slider" id="budget-slider" min="5" max="120" value="25" oninput="calculateEstimate(this.value)">
+      <div class="calc-slider-labels">
+        <span>5 Heures (Sprint)</span>
+        <span>60 Heures (Intermédiaire)</span>
+        <span>120 Heures (Mensuel d'élite)</span>
+      </div>
+    </div>
+
+    <div class="calc-footer">
+      <ul class="calc-bullets">
+        <li><i class="fa-solid fa-circle-check"></i> Prise de brief stratégique de 30 min gratuite</li>
+        <li><i class="fa-solid fa-circle-check"></i> Livraison de 100% des sources éditables HD (Illustrator, Photoshop, etc.)</li>
+        <li><i class="fa-solid fa-circle-check"></i> Cycles d'itérations réactifs basés sur vos retours précis</li>
+      </ul>
+      <div class="calc-total">
+        <div class="calc-total-label">Investissement sur-mesure estimé</div>
+        <div class="calc-total-val" id="calc-total-output">1 125 €</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-bottom: 20px;">
+    <div class="section-label">Identité & Branding</div>
+  </div>
+  <div class="packs-grid">
+    <div class="pack-card fade-up">
+      <div class="pack-icon">🎯</div>
+      <div class="pack-name">Logo Starter</div>
+      <div class="pack-tagline">Pour les créateurs & startups qui veulent poser une assise visuelle forte.</div>
+      <div class="pack-price">650<span style="font-size:22px">–850€</span></div>
+      <div class="pack-price-note">Livraison sous 5–7 jours ouvrés</div>
+      <ul class="pack-features">
+        <li><span class="check"><i class="fa-solid fa-check"></i></span> 2–3 propositions créatives distinctes</li>
+        <li><span class="check"><i class="fa-solid fa-check"></i></span> Fichier final vectoriel HD propre</li>
+        <li><span class="check"><i class="fa-solid fa-check"></i></span> 2 déclinaisons de couleurs</li>
+        <li><span class="check"><i class="fa-solid fa-check"></i></span> Formats d'exports prêts à l'usage (SVG, PNG, PDF)</li>
+      </ul>
+      <a href="#contact" onclick="selectPack('logo-starter')" class="pack-cta pack-cta-outline">Démarrer</a>
+    </div>
+
+    <div class="pack-card fade-up">
+      <div class="pack-icon">🎨</div>
+      <div class="pack-name">Identité Light</div>
+      <div class="pack-tagline">Logo + charte graphique élémentaire pour asseoir vos repères de marque.</div>
+      <div class="pack-price">1 200<span style="font-size:22px">–1 600€</span></div>
+      <div class="pack-price-note">Livraison sous 10–14 jours ouvrés</div>
+      <ul class="pack-features">
+        <li><span class="check"><i class="fa-solid fa-check"></i></span> Tout l'écosystème du pack Logo Starter</li>
+        <li><span class="check"><i class="fa-solid fa-check"></i></span> Charte graphique d'usage</li>
+        <li><span class="check"><i class="fa-solid fa-check"></i></span> Codes couleurs (CMJN, RVB, Hex), typographies</li>
+        <li><span class="check"><i class="fa-solid fa-check"></i></span> Guide de marque au format PDF</li>
+      </ul>
+      <a href="#contact" onclick="selectPack('identite-light')" class="pack-cta pack-cta-outline">Démarrer</a>
+    </div>
+
+    <div class="pack-card featured fade-up">
+      <div class="pack-badge">⚡ Meilleur ROI</div>
+      <div class="pack-icon">💎</div>
+      <div class="pack-name">Identité Complète</div>
+      <div class="pack-tagline">La réponse ultime pour une marque forte, cohérente et mémorable.</div>
+      <div class="pack-price">2 200<span style="font-size:22px">–2 800€</span></div>
+      <div class="pack-price-note">Livraison sous 14–21 jours ouvrés</div>
+      <ul class="pack-features">
+        <li><span class="check"><i class="fa-solid fa-check"></i></span> Logo + charte graphique complète de référence</li>
+        <li><span class="check"><i class="fa-solid fa-check"></i></span> Gabarit cartes de visite</li>
+        <li><span class="check"><i class="fa-solid fa-check"></i></span> Gabarits réseaux sociaux éditables</li>
+        <li><span class="check"><i class="fa-solid fa-check"></i></span> Signature e-mail d'impact</li>
+        <li><span class="check"><i class="fa-solid fa-check"></i></span> 1 révision majeure incluse</li>
+      </ul>
+      <a href="#contact" onclick="selectPack('identite-complete')" class="pack-cta pack-cta-solid">Je veux ça →</a>
+    </div>
+
+    <div class="pack-card fade-up" style="border-color: rgba(255,173,0,0.2);">
+      <div class="pack-icon">🚀</div>
+      <div class="pack-name">Pack Branding PME</div>
+      <div class="pack-tagline">Identité globale premium + armature digitale de conversion.</div>
+      <div class="pack-price">2 900<span style="font-size:22px">–3 600€</span></div>
+      <div class="pack-price-note">Livraison sous 21–30 jours ouvrés</div>
+      <ul class="pack-features">
+        <li><span class="check"><i class="fa-solid fa-check"></i></span> Logo + charte complète enrichie</li>
+        <li><span class="check"><i class="fa-solid fa-check"></i></span> Pack de 10 bannières réseaux sociaux</li>
+        <li><span class="check"><i class="fa-solid fa-check"></i></span> Templates visuels déclinables</li>
+        <li><span class="check"><i class="fa-solid fa-check"></i></span> Relooking visuel e-commerce (bannières, homepage)</li>
+        <li><span class="check"><i class="fa-solid fa-check"></i></span> 2 révisions majeures incluses</li>
+      </ul>
+      <a href="#contact" onclick="selectPack('branding-pme')" class="pack-cta pack-cta-outline">Démarrer</a>
+    </div>
+  </div>
+
+  <div class="social-section">
+    <div class="section-label" style="margin-top: 20px;">Social Media & Digital</div>
+    <div class="social-grid">
+      <div class="social-card fade-up">
+        <div class="social-card-icon">📊</div>
+        <div class="social-card-name">Pack Social Media Mensuel</div>
+        <div class="social-card-desc">8–12 visuels/mois + stories + carrousels. Modèles & créations sur-mesure pour maintenir un niveau de communication d'élite.</div>
+        <div class="social-card-price">650<span style="font-size:18px">–950€</span></div>
+        <div class="social-card-period">/mois — engagement sur 3 mois min.</div>
+      </div>
+      <div class="social-card fade-up">
+        <div class="social-card-icon">🎯</div>
+        <div class="social-card-name">Campagne Réseaux (1 mois)</div>
+        <div class="social-card-desc">Stratégie éditoriale complète + kit de 15–20 visuels + 4 carrousels. Idéal pour un lancement de produit à fort impact.</div>
+        <div class="social-card-price">1 400<span style="font-size:18px">–1 900€</span></div>
+        <div class="social-card-period">par campagne — livraison sous 2 semaines</div>
+      </div>
+      <div class="social-card fade-up">
+        <div class="social-card-icon">🛍️</div>
+        <div class="social-card-name">Refonte Site E-commerce</div>
+        <div class="social-card-desc">Pack de 10–15 visuels clés : bannières principales, visuels produits et homepage. Un coup de fouet graphique pour booster vos conversions.</div>
+        <div class="social-card-price">1 800<span style="font-size:18px">–2 500€</span></div>
+        <div class="social-card-period">par projet — livraison sous 10–14 jours</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section id="process">
+  <div class="section-label">Méthodologie</div>
+  <h2 class="section-title">MON <span>PROCESS</span></h2>
+  <p class="section-desc">Inspiré des <i>First Principles</i> : déconstruire votre besoin à sa racine pour édifier des solutions visuelles sans fioritures.</p>
+
+  <div class="process-grid">
+    <div class="process-step fade-up">
+      <div class="step-num">01</div>
+      <div class="step-icon"><i class="fa-solid fa-comments"></i></div>
+      <div class="step-title">Brief & Diagnostic</div>
+      <div class="step-desc">Un échange ciblé de 30 min pour analyser vos enjeux business réels, vos cibles de marché et l'état de l'art de votre univers de marque.</div>
+    </div>
+    <div class="process-step fade-up">
+      <div class="step-num">02</div>
+      <div class="step-icon"><i class="fa-solid fa-pen-nib"></i></div>
+      <div class="step-title">Exploration Créative</div>
+      <div class="step-desc">Je soumets 2 à 3 pistes graphiques distinctes, chacune étayée par une argumentation marketing logique.</div>
+    </div>
+    <div class="process-step fade-up">
+      <div class="step-num">03</div>
+      <div class="step-icon"><i class="fa-solid fa-rotate"></i></div>
+      <div class="step-title">Itération Rapide</div>
+      <div class="step-desc">Nous façonnons les choix par cycles de retours structurés et de corrections précises jusqu'à l'approbation définitive.</div>
+    </div>
+    <div class="process-step fade-up">
+      <div class="step-num">04</div>
+      <div class="step-icon"><i class="fa-solid fa-box-open"></i></div>
+      <div class="step-title">Livraison & Suivi</div>
+      <div class="step-desc">Remise des livrables éditables HD dans tous les formats attendus. Accompagnement rigoureux à la prise en main de vos nouveaux supports.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT / PROFIL -->
+<section id="about">
+  <div class="section-label">Profil</div>
+  <h2 class="section-title">RÉMI <span>BROCART</span></h2>
+
+  <div class="about-grid">
+    <div class="about-photo-wrap">
+      <div class="about-photo-frame">
+        <div class="emoji-placeholder" style="display:flex; align-items:center; justify-content:center; width:100%; height:100%; flex-direction:column; gap:16px">
+          <span style="font-size:80px">👤</span>
+          <span style="font-size:13px; color:var(--muted); letter-spacing:0.1em; text-transform:uppercase">Rémi Brocart</span>
+        </div>
+      </div>
+      <div class="about-badge">
+        <small>Disponible</small>
+        Freelance<br>2026
+      </div>
+    </div>
+
+    <div class="about-text">
+      <h3>Designer de formation,<br>stratège par conviction.</h3>
+      <p>
+        Je suis <strong>Rémi Brocart</strong>, designer freelance basé à Lille et fondateur de l'entité <strong>Room241</strong>. Mon postulat de travail est sans équivoque : <strong>un design performant sert d'abord un objectif commercial quantifiable.</strong> Diplômé de l'ISEG (Master Marketing & Communication) et animé par la rigueur exigeante du marathon de compétition (performance de <strong>2h48 au Marathon de Venise</strong>), j'allie exigence créative et discipline athlétique.
+      </p>
+      <p>
+        Actuellement Graphic Designer Junior en CDI au sein du groupe international Hornetsecurity, je mène de front des missions freelance ciblées pour des marques en quête d'impact visuel et marketing.
+      </p>
+      <div class="about-skills">
+        <span class="skill-tag">Adobe Illustrator</span>
+        <span class="skill-tag">Photoshop</span>
+        <span class="skill-tag">InDesign</span>
+        <span class="skill-tag">Premiere Pro</span>
+        <span class="skill-tag">After Effects</span>
+        <span class="skill-tag">Canva Pro</span>
+        <span class="skill-tag">Stratégie Éditoriale</span>
+        <span class="skill-tag">Motion Design</span>
+        <span class="skill-tag">Direction Artistique</span>
+        <span class="skill-tag">RSE & Marque Employeur</span>
+      </div>
+      <div class="exp-list">
+        <div class="exp-item">
+          <div class="exp-dot"></div>
+          <div>
+            <div class="exp-role">Graphic Designer Junior (CDI)</div>
+            <div class="exp-co">Hornetsecurity by Proofpoint</div>
+          </div>
+          <div class="exp-date">Sept. 2025 → En cours</div>
+        </div>
+        <div class="exp-item">
+          <div class="exp-dot"></div>
+          <div>
+            <div class="exp-role">Freelance Design & Marketing</div>
+            <div class="exp-co">Room241 — France</div>
+          </div>
+          <div class="exp-date">Oct. 2024 → En cours</div>
+        </div>
+        <div class="exp-item">
+          <div class="exp-dot"></div>
+          <div>
+            <div class="exp-role">Responsable Marque Employeur (Alternance)</div>
+            <div class="exp-co">Hornetsecurity (Vade)</div>
+          </div>
+          <div class="exp-date">2023–2025</div>
+        </div>
+        <div class="exp-item">
+          <div class="exp-dot"></div>
+          <div>
+            <div class="exp-role">Master en Marketing & Communication</div>
+            <div class="exp-co">ISEG Lille (Diplômé)</div>
+          </div>
+          <div class="exp-date">Promotion 2025</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-label">Contact</div>
+  <h2 class="section-title">PARLONS <span>PROJET</span></h2>
+  <p class="section-desc">Un échange gratuit de 30 min pour cerner vos besoins. Pas de forcing commercial, juste une analyse sincère de votre projet.</p>
+
+  <div class="contact-wrap">
+    <div class="contact-info">
+      <h3>Vous amenez la vision.<br>Je fournis les leviers.</h3>
+      <p>
+        Que vous fondiez les bases d'une jeune pousse, que vous orchestriez la refonte de votre marque historique ou que vous recherchiez de l'impact sur vos campagnes LinkedIn : contactez-moi. Je m'engage à répondre sous 24h ouvrées.
+      </p>
+      <div class="contact-links">
+        <a href="mailto:remibrocart@free.fr" class="contact-link">
+          <i class="fa-solid fa-envelope"></i>
+          remibrocart@free.fr
+        </a>
+        <a href="tel:+33767123858" class="contact-link">
+          <i class="fa-solid fa-phone"></i>
+          07 67 12 38 58
+        </a>
+        <a href="https://linkedin.com/in/remibrocart" target="_blank" class="contact-link">
+          <i class="fa-brands fa-linkedin"></i>
+          linkedin.com/in/remibrocart
+        </a>
+        <a href="#contact" class="contact-link" style="border-color: var(--border-gold); color: var(--gold);">
+          <i class="fa-solid fa-calendar-check"></i>
+          Réserver un brief gratuit →
+        </a>
+      </div>
+    </div>
+
+    <div>
+      <form class="contact-form" id="contact-form" onsubmit="handleSubmit(event)">
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Prénom</label>
+            <input type="text" class="form-input" placeholder="Jean" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Nom</label>
+            <input type="text" class="form-input" placeholder="Dupont" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Email</label>
+          <input type="email" class="form-input" placeholder="jean@entreprise.fr" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Votre besoin</label>
+          <select class="form-input" id="pack-selector" style="cursor:pointer">
+            <option value="" disabled selected>Sélectionnez un type de projet</option>
+            <option value="logo-starter">Logo Starter</option>
+            <option value="identite-light">Identité Visuelle Light</option>
+            <option value="identite-complete">Identité Visuelle Complète</option>
+            <option value="branding-pme">Pack Branding PME</option>
+            <option value="social-media">Social Media Mensuel</option>
+            <option value="sur-mesure">Mission sur-mesure (45€/h)</option>
+            <option value="autre">Autre demande</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Dites-m'en plus</label>
+          <textarea class="form-input" rows="5" placeholder="Décrivez votre projet, vos objectifs et vos jalons temporels..." required></textarea>
+        </div>
+        <button type="submit" class="btn-primary" style="width:100%; justify-content:center">
+          <i class="fa-solid fa-paper-plane"></i>
+          Envoyer mon brief
+        </button>
+        <div class="form-success" id="form-success">
+          ✓ Message transmis ! Rémi revient vers vous dans les 24 heures ouvrées.
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">ROOM<span>241</span></div>
+  <div class="footer-copy">© 2026 Rémi Brocart — Room241. Tous droits réservés.</div>
+  <div class="footer-links">
+    <a href="#portfolio">Portfolio</a>
+    <a href="#offres">Offres</a>
+    <a href="#contact">Contact</a>
+    <a href="https://linkedin.com/in/remibrocart" target="_blank">LinkedIn</a>
+  </div>
+</footer>
+
+<!-- MODALE COMPLÈTE GLASSMOPRHIC -->
+<div class="modal-overlay" id="custom-modal" onclick="closeModalOutside(event)">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal()"><i class="fa-solid fa-xmark"></i></button>
+    <div class="modal-header">
+      <div class="modal-cat" id="modal-project-cat">Branding</div>
+      <h2 class="modal-title" id="modal-project-title">Titre du Projet</h2>
+    </div>
+    <div class="modal-image-mock" id="modal-project-emoji">🏷️</div>
+    <div class="modal-grid">
+      <div>
+        <h4 class="modal-info-label">Contexte & Enjeux</h4>
+        <p id="modal-project-desc-full" style="font-size: 14px; color: rgba(240,237,230,0.8); line-height: 1.6; margin-bottom: 24px; font-weight: 300;"></p>
+        <h4 class="modal-info-label">Impact & Résultats</h4>
+        <p id="modal-project-results" style="font-size: 14px; color: rgba(240,237,230,0.8); line-height: 1.6; font-weight: 300;"></p>
+      </div>
+      <div>
+        <h4 class="modal-info-label">Client / Marque</h4>
+        <div class="modal-info-val" id="modal-project-client">Hornetsecurity</div>
+        
+        <h4 class="modal-info-label">Compétences clés</h4>
+        <div class="modal-info-val" id="modal-project-tech">Adobe Illustrator</div>
+        
+        <h4 class="modal-info-label">Contexte Temporel</h4>
+        <div class="modal-info-val" id="modal-project-duration">CDI</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// Base de données interactive issue de ton parcours
+const projectDatabase = {
+  'vade-culture-book': {
+    title: 'Culture Guide - Vade',
+    cat: 'Branding · Édition',
+    emoji: '📖',
+    client: 'Vade (Hornetsecurity)',
+    tech: 'Adobe InDesign, Adobe Illustrator, Direction Artistique',
+    duration: '4e année d\'études (Alternance)',
+    desc: 'Pilotage complet de l\'édition et de la refonte du guide culturel de l\'entreprise. Un document stratégique structuré autour de nos trois piliers fondamentaux : Protect (pôle technique et innovation), Impact (nos actions de RSE) et Connect (fluidifier la cohésion d\'équipe).',
+    results: 'Création d\'un livre de onboarding d\'exception distribué à chaque nouvelle recrue, renforçant de manière mesurable le sentiment d\'intégration.'
+  },
+  'hornet-olympics': {
+    title: 'Hornet Olympics Games',
+    cat: 'Digital · Événementiel',
+    emoji: '🏆',
+    client: 'Hornetsecurity / Vade',
+    tech: 'Canva Pro, Adobe Illustrator, Signitic',
+    duration: 'Juin 2024',
+    desc: 'Bâtir de zéro l\'identité visuelle et sportive unifiée de l\'événement de cohésion interne "Hornet Olympics Games" pour la session estivale de juin 2024.',
+    results: 'Création et déclinaison des affiches d\'affichage physiques, des bandeaux pour les messageries d\'équipe et signatures e-mails personnalisées déployées via Signitic.'
+  },
+  'stand-zenith': {
+    title: 'Stand InCyber Forum Zénith',
+    cat: 'Événementiel · Design d\'Espace',
+    emoji: '🎪',
+    client: 'Hornetsecurity France (Formerly Vade)',
+    tech: 'Adobe Illustrator, Design d\'Espace, Impératifs d\'Impression Standiste',
+    duration: '5e année d\'études',
+    desc: 'Habillage graphique complet et signalétique géante pour un stand d\'exposition monumental de 1800m² au Zénith de Lille lors du salon Cyber de référence en France.',
+    results: 'Conception des stickers géants de bienvenue sur les portes vitrées d\'accès et signalétique d\'orientation globale pour propulser l\'image unifiée du nouveau groupe.'
+  },
+  'sas-brochures': {
+    title: 'Brochures SAS (Security Awareness)',
+    cat: 'Digital · Édition B2B',
+    emoji: '📄',
+    client: 'Hornetsecurity by Proofpoint',
+    tech: 'Adobe InDesign, Rigueur de mise en page, Traduction Anglaise',
+    duration: 'CDI - Depuis Septembre 2025',
+    desc: 'Mise à jour graphique en profondeur et mise en forme des brochures documentant le Security Awareness Service (SAS). Ce service propose des modules interactifs d\'e-learning de 2 à 10 minutes sous un angle "storytelling" ainsi que des courtes vidéos de 60 secondes pour maximiser l\'engagement.',
+    results: 'Harmonisation de dizaines de feuillets promotionnels et guides d\'usage. Adaptation rigoureuse des argumentaires en anglais pour le marché international.'
+  },
+  'motion-corporate': {
+    title: 'Capsules Vidéos de Sensibilisation',
+    cat: 'Motion Design · Vidéo',
+    emoji: '🎥',
+    client: 'Hornetsecurity Group',
+    tech: 'Premiere Pro, After Effects, Conception de Slides Animées',
+    duration: 'CDI',
+    desc: 'Création et montage dynamique de plus de 40 vidéos et contenus animés de sensibilisation à la cybersécurité.',
+    results: 'Formats courts hautement optimisés avec un focus sur le dynamisme visuel pour captiver l\'attention des utilisateurs et maximiser le taux d\'apprentissage.'
+  },
+  'webinar-mind-gap': {
+    title: 'Campagnes Visuels Webinars',
+    cat: 'Digital · LinkedIn',
+    emoji: '💻',
+    client: 'Hornetsecurity / Proofpoint',
+    tech: 'Adobe Illustrator, Social Media Strategy, Kits de Com',
+    duration: 'CDI - 2025/2026',
+    desc: 'Développement d\'identités pour des webinars et événements majeurs ("Mind The Gap", salons internationaux "IT & Cybersecurity Meetings" à Cannes, Tech Show à Londres, MSP Roadshow).',
+    results: 'Génération de kits de communication digitaux hautement qualitatifs augmentant le taux d\'inscription et d\'engagement sur LinkedIn de façon mesurable.'
+  },
+  'brand-employeur': {
+    title: 'User Guide Marque Employeur',
+    cat: 'Branding · Guideline',
+    emoji: '👥',
+    client: 'Hornetsecurity France',
+    tech: 'Adobe Illustrator, Direction Artistique, RSE Guidelines',
+    duration: '4e/5e année',
+    desc: 'Conception d\'un "User Guide" marque employeur de fin d\'année pour guider l\'implantation de la cohérence de marque sur nos différentes antennes géographiques.',
+    results: 'Lancement d\'une charte solide articulée autour d\'activités concrètes et d\'initiatives RSE d\'équipe (Office touch).'
+  },
+  'captain-security': {
+    title: 'Incarnation Captain Security',
+    cat: 'Événementiel · Salons',
+    emoji: '🛡️',
+    client: 'Hornetsecurity Group',
+    tech: 'Animation Événementielle, Prise de parole en public, Anglais',
+    duration: '2023 - 2025',
+    desc: 'Présence active et incarnation de l\'emblème ludique de l\'entreprise sur l\'espace d\'exposition du salon mondial InCyber Forum à Lille.',
+    results: 'Levier de communication puissant qui a démultiplié la mémorisation de la marque, attirant des flux continus de visiteurs vers notre stand.'
+  }
+};
+
+// Physique de décalage du curseur (Snappy & fluide)
+const cursor = document.getElementById('cursor');
+const ring = document.getElementById('cursor-ring');
+let mx = 0, my = 0, rx = 0, ry = 0;
+
+document.addEventListener('mousemove', e => {
+  mx = e.clientX; my = e.clientY;
+  cursor.style.left = mx + 'px';
+  cursor.style.top = my + 'px';
+});
+
+function animateRing() {
+  rx += (mx - rx) * 0.15;
+  ry += (my - ry) * 0.15;
+  ring.style.left = rx + 'px';
+  ring.style.top = ry + 'px';
+  requestAnimationFrame(animateRing);
+}
+animateRing();
+
+// Écouteurs de survol universels pour gonfler le curseur
+document.querySelectorAll('a, button, .project-card, .pack-card, .filter-btn, input[type="range"]').forEach(el => {
+  el.addEventListener('mouseenter', () => {
+    cursor.style.width = '20px'; cursor.style.height = '20px';
+    ring.style.width = '56px'; ring.style.height = '56px';
+    ring.style.borderColor = 'var(--gold)';
+  });
+  el.addEventListener('mouseleave', () => {
+    cursor.style.width = '10px'; cursor.style.height = '10px';
+    ring.style.width = '36px'; ring.style.height = '36px';
+    ring.style.borderColor = 'var(--gold)';
+  });
+});
+
+// Apparition du fond de menu au scroll
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+  navbar.classList.toggle('scrolled', window.scrollY > 20);
+});
+
+// Navigation mobile
+function toggleMobile() {
+  document.getElementById('mobile-nav').classList.toggle('open');
+}
+
+// Déclencheur des animations scroll (Scroll reveal)
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+}, { threshold: 0.12 });
+document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+// Système de filtrage de projets du portfolio
+function filterProjects(cat, btn) {
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.project-card').forEach(card => {
+    if (cat === 'all' || card.dataset.cat === cat) {
+      card.style.display = '';
+    } else {
+      card.style.display = 'none';
+    }
+  });
+}
+
+// Calculateur d'heures interactif
+function calculateEstimate(hours) {
+  const rate = 45;
+  const total = hours * rate;
+  document.getElementById('calc-hours-label').innerText = `${hours} Heures`;
+  document.getElementById('calc-total-output').innerText = `${total.toLocaleString('fr-FR')} €`;
+}
+
+// Présélection d'un pack dans le formulaire
+function selectPack(packId) {
+  const selector = document.getElementById('pack-selector');
+  selector.value = packId;
+}
+
+// Mécanique d'ouverture et de fermeture de la modale en JS pur
+function openModal(projectId) {
+  const data = projectDatabase[projectId];
+  if (!data) return;
+
+  document.getElementById('modal-project-title').innerText = data.title;
+  document.getElementById('modal-project-cat').innerText = data.cat;
+  document.getElementById('modal-project-emoji').innerText = data.emoji;
+  document.getElementById('modal-project-client').innerText = data.client;
+  document.getElementById('modal-project-tech').innerText = data.tech;
+  document.getElementById('modal-project-duration').innerText = data.duration;
+  document.getElementById('modal-project-desc-full').innerText = data.desc;
+  document.getElementById('modal-project-results').innerText = data.results;
+
+  document.getElementById('custom-modal').classList.add('active');
+  document.body.style.overflow = 'hidden'; // Bloquer le défilement de fond
+}
+
+function closeModal() {
+  document.getElementById('custom-modal').classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+function closeModalOutside(event) {
+  if (event.target === document.getElementById('custom-modal')) {
+    closeModal();
+  }
+}
+
+// Animation de soumission du formulaire
+function handleSubmit(e) {
+  e.preventDefault();
+  const btn = e.target.querySelector('button[type="submit"]');
+  btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Traitement du brief...';
+  btn.disabled = true;
+  setTimeout(() => {
+    e.target.style.display = 'none';
+    document.getElementById('form-success').style.display = 'block';
+  }, 1200);
+}
+
+// Lancement de l'état initial
+document.addEventListener('DOMContentLoaded', () => {
+  calculateEstimate(25);
+  document.querySelector('.hero-content').style.opacity = '1';
+});
+</script>
+</body>
+</html>
