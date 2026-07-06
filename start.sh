@@ -11,5 +11,5 @@ multica workspace use "$MULTICA_WORKSPACE_ID"
 echo "Starting daemon..."
 multica daemon start
 
-echo "Daemon started. Streaming logs..."
+echo "Daemon started. Keeping container alive..."
 tail -f /home/app/.multica/daemon.log
