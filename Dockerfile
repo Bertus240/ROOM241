@@ -8,16 +8,15 @@ ENV MULTICA_WORKSPACE_ID=$MULTICA_WORKSPACE_ID
 
 USER root
 
-# Dépendances système nécessaires
+# Dépendances système compatibles Render (fix exit code 100)
 RUN apt-get update && apt-get install -y \
     curl \
     bash \
     git \
     python3 \
-    libxcrypt-compat \
-    libssl3 \
+    ca-certificates \
     libstdc++6 \
-    libgcc1 \
+    libgcc-s1 \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /home/app
