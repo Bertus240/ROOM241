@@ -1,4 +1,4 @@
-FROM node:20-slim
+FROM node:20-alpine
 
 ENV HOME=/home/app
 ENV PATH=/home/app/node_modules/.bin:/usr/local/bin:/home/app/.multica/bin:$PATH
@@ -8,26 +8,23 @@ ENV MULTICA_WORKSPACE_ID=$MULTICA_WORKSPACE_ID
 
 USER root
 
-# Dépendances système compatibles Render (fix exit code 100)
-RUN apt-get update && apt-get install -y \
-    curl \
+# Dépendances système minimales (Alpine = super léger)
+RUN apk update && apk add --no-cache \
     bash \
+    curl \
     git \
     python3 \
-    ca-certificates \
-    libstdc++6 \
-    libgcc-s1 \
-    && rm -rf /var/lib/apt/lists/*
+    libc6-compat
 
 WORKDIR /home/app
 
-# Installation du vrai agent Cursor
+# Installation du vrai agent Cursor (npm sur Alpine = léger)
 RUN npm install -g cursor-agent
 
 # Alias pour Multica
 RUN echo '#!/bin/bash\ncursor-agent "$@"' > /usr/local/bin/cursor-agent && chmod +x /usr/local/bin/cursor-agent
 
-# Installation du CLI Multica
+# Installation du CLI Multica (compatible Alpine)
 RUN curl -fsSL https://raw.githubusercontent.com/multica-ai/multica/main/scripts/install.sh | bash
 
 # Script de démarrage
