@@ -8,7 +8,6 @@ ENV MULTICA_WORKSPACE_ID=$MULTICA_WORKSPACE_ID
 
 USER root
 
-# Dépendances système minimales (Alpine = super léger)
 RUN apk update && apk add --no-cache \
     bash \
     curl \
@@ -18,31 +17,17 @@ RUN apk update && apk add --no-cache \
 
 WORKDIR /home/app
 
-# Installation du vrai agent Cursor (npm sur Alpine = léger)
+# Installer cursor-agent
 RUN npm install -g cursor-agent
 
-# Alias pour Multica
 RUN echo '#!/bin/bash\ncursor-agent "$@"' > /usr/local/bin/cursor-agent && chmod +x /usr/local/bin/cursor-agent
 
-# Installation du CLI Multica (compatible Alpine)
+# Installer Multica
 RUN curl -fsSL https://raw.githubusercontent.com/multica-ai/multica/main/scripts/install.sh | bash
 
-# Script de démarrage
-RUN echo '#!/bin/bash\n\
-export PATH="/home/app/node_modules/.bin:/usr/local/bin:/home/app/.multica/bin:$PATH"\n\
-\n\
-multica config set server_url https://api.multica.ai\n\
-multica config set app_url https://multica.ai\n\
-multica login --token "$MULTICA_TOKEN"\n\
-\n\
-echo \"Starting Multica daemon...\"\n\
-multica daemon start\n\
-\n\
-mkdir -p /home/app/.multica\n\
-touch /home/app/.multica/daemon.log\n\
-\n\
-echo \"Streaming logs...\"\n\
-exec tail -f /home/app/.multica/daemon.log\n' \
-> /home/app/start.sh && chmod +x /home/app/start.sh
+# Copier ton script de démarrage
+COPY start.sh /home/app/start.sh
+RUN chmod +x /home/app/start.sh
 
+# Lancer ton script au démarrage
 CMD ["/bin/bash", "/home/app/start.sh"]
