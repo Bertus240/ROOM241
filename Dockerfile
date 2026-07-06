@@ -1,35 +1,57 @@
-FROM node:20-slim
+# ==============================================================================
+# 1. ÉTAPE DE BASE & DÉPENDANCES SYSTÈME
+# ==============================================================================
+FROM debian:bookworm-slim
 
-ENV HOME=/home/app
-ENV PATH=/home/app/node_modules/.bin:/home/app/.multica/bin:/usr/local/bin:$PATH
-ENV MULTICA_CONFIG_DIR=/home/app/.multica
+# Évite les prompts interactifs pendant l'installation
+ENV DEBIAN_FRONTEND=noninteractive
+ENV PATH="/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin"
 
-USER root
-
-# Installation des dépendances sur base Debian (apt-get au lieu de apk)
-RUN apt-get update && apt-get install -y \
+# Installation des outils de base indispensables
+RUN apt-get update && apt-get install -y --no-install-recommends \
     curl \
-    bash \
+    ca-certificates \
+    openssh-server \
     git \
-    python3 \
+    sudo \
     && rm -rf /var/lib/apt/lists/*
+
+# ==============================================================================
+# 2. INSTALLATION DE NODE.JS & CURSOR-AGENT (Le chaînon manquant)
+# ==============================================================================
+# Installation propre de Node.js 20.x via le dépôt officiel de NodeSource
+RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
+    && apt-get install -y --no-install-recommends nodejs \
+    && rm -rf /var/lib/apt/lists/*
+
+# Installation globale de l'agent exigé par le démon Multica
+RUN npm install -g @cursor/agent
+
+# Sécurité : Forçage du lien symbolique pour s'assurer que le démon le trouve dans le PATH
+RUN ln -sf $(which cursor-agent) /usr/local/bin/cursor-agent
+
+# ==============================================================================
+# 3. CONFIGURATION DE L'ENVIRONNEMENT APPLICATIF (user: app)
+# ==============================================================================
+# Création de l'utilisateur 'app' présent dans tes logs de boot
+RUN useradd -m -s /bin/bash app && echo "app ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 
 WORKDIR /home/app
 
-# Installation LOCALE de l'agent
-RUN npm install cursor-agent
+# Création et sécurisation du dossier où Multica écrit ses logs (.multica/daemon.log)
+RUN mkdir -p /home/app/.multica && chown -R app:app /home/app
 
-# Installation du CLI Multica
-RUN curl -fsSL https://raw.githubusercontent.com/multica-ai/multica/main/scripts/install.sh | bash
+# Copie de tes scripts locaux vers la machine
+COPY --chown=app:app . .
 
-# Intégration du script start.sh local
-COPY start.sh /home/app/start.sh
+# Rendre le script de démarrage exécutable
 RUN chmod +x /home/app/start.sh
 
-# Droits d'exécution totaux
-RUN chmod -R 777 /home/app
+# ==============================================================================
+# 4. EXÉCUTION
+# ==============================================================================
+# On bascule sur l'utilisateur root par défaut (ton log indique qu'init tourne en root)
+USER root
 
-# On vide l'entrypoint Node
-ENTRYPOINT []
-
+# Lancement du script d'initialisation de ta machine Fly.io
 CMD ["/bin/bash", "/home/app/start.sh"]
