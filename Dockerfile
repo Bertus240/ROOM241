@@ -1,11 +1,8 @@
 FROM node:20-alpine
 
 ENV HOME=/home/app
-ENV PATH=/home/app/.npm-global/bin:/home/app/.multica/bin:$PATH
+ENV PATH=/home/app/node_modules/.bin:/home/app/.multica/bin:/usr/local/bin:$PATH
 ENV MULTICA_CONFIG_DIR=/home/app/.multica
-
-# Configuration de npm pour installer dans le home de l'app
-ENV NPM_CONFIG_PREFIX=/home/app/.npm-global
 
 USER root
 
@@ -18,13 +15,16 @@ RUN apk update && apk add --no-cache \
 
 WORKDIR /home/app
 
-# Installation propre de cursor-agent
-RUN npm install -g cursor-agent
+# Installation LOCALE (sans -g) pour garantir la présence dans node_modules/.bin
+RUN npm install cursor-agent
 
-# Installer Multica
+# Installation Multica
 RUN curl -fsSL https://raw.githubusercontent.com/multica-ai/multica/main/scripts/install.sh | bash
 
 COPY start.sh /home/app/start.sh
 RUN chmod +x /home/app/start.sh
+
+# Permissions globales pour éviter les blocages système
+RUN chmod -R 777 /home/app
 
 CMD ["/bin/bash", "/home/app/start.sh"]
