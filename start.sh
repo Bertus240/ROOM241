@@ -1,57 +1,65 @@
-# ==============================================================================
-# 1. ÉTAPE DE BASE & DÉPENDANCES SYSTÈME
-# ==============================================================================
-FROM debian:bookworm-slim
-
-# Évite les prompts interactifs pendant l'installation
-ENV DEBIAN_FRONTEND=noninteractive
-ENV PATH="/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin"
-
-# Installation des outils de base indispensables
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    curl \
-    ca-certificates \
-    openssh-server \
-    git \
-    sudo \
-    && rm -rf /var/lib/apt/lists/*
+#!/bin/bash
 
 # ==============================================================================
-# 2. INSTALLATION DE NODE.JS & CURSOR-AGENT (Le chaînon manquant)
+# 1. CONFIGURATION DE L'ENVIRONNEMENT & PATH
 # ==============================================================================
-# Installation propre de Node.js 20.x via le dépôt officiel de NodeSource
-RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
-    && apt-get install -y --no-install-recommends nodejs \
-    && rm -rf /var/lib/apt/lists/*
+# Force l'inclusion des dossiers de binaires globaux (Node/NPM/Agents)
+export PATH="/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin:$PATH"
 
-# Installation globale de l'agent exigé par le démon Multica
-RUN npm install -g @cursor/agent
+# Configuration des URLs de la plateforme Multica
+export server_url="https://api.multica.ai"
+export app_url="https://multica.ai"
+export workspace_id="894029da-910d-4041-9587-7fb06536afc4"
 
-# Sécurité : Forçage du lien symbolique pour s'assurer que le démon le trouve dans le PATH
-RUN ln -sf $(which cursor-agent) /usr/local/bin/cursor-agent
-
-# ==============================================================================
-# 3. CONFIGURATION DE L'ENVIRONNEMENT APPLICATIF (user: app)
-# ==============================================================================
-# Création de l'utilisateur 'app' présent dans tes logs de boot
-RUN useradd -m -s /bin/bash app && echo "app ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
-
-WORKDIR /home/app
-
-# Création et sécurisation du dossier où Multica écrit ses logs (.multica/daemon.log)
-RUN mkdir -p /home/app/.multica && chown -R app:app /home/app
-
-# Copie de tes scripts locaux vers la machine
-COPY --chown=app:app . .
-
-# Rendre le script de démarrage exécutable
-RUN chmod +x /home/app/start.sh
+echo "=== Initialisation de la configuration Multica ==="
+echo "Set server_url = $server_url"
+echo "Set app_url = $app_url"
+echo "Set workspace_id = $workspace_id"
 
 # ==============================================================================
-# 4. EXÉCUTION
+# 2. VÉRIFICATION DES PRÉREQUIS AVANT LANCEMENT
 # ==============================================================================
-# On bascule sur l'utilisateur root par défaut (ton log indique qu'init tourne en root)
-USER root
+echo "=== Alignement des liens binaires ==="
 
-# Lancement du script d'initialisation de ta machine Fly.io
-CMD ["/bin/bash", "/home/app/start.sh"]
+# Double vérification de la présence de l'agent requis dans le PATH
+if command -v cursor-agent >/dev/null 2>&1; then
+    echo "Vérification de l'agent : cursor-agent trouvé à l'emplacement $(command -v cursor-agent)"
+else
+    echo "CRITICAL: cursor-agent introuvable dans le PATH actuel."
+    echo "PATH actuel : $PATH"
+    # Secours : si jamais le lien symbolique a sauté, on tente de le recréer à la volée
+    if [ -f "/usr/bin/cursor-agent" ]; then
+        ln -sf /usr/bin/cursor-agent /usr/local/bin/cursor-agent
+    fi
+fi
+
+# ==============================================================================
+# 3. LANCEMENT DU DÉMON MULTICA
+# ==============================================================================
+echo "=== Lancement du démon Multica ==="
+
+# Assure-toi que les répertoires de logs existent et appartiennent au bon user
+mkdir -p /home/app/.multica
+touch /home/app/.multica/daemon.log
+
+# Exécution du démon Multica (Remplace 'multica-daemon' par le nom exact de ton binaire démon si nécessaire)
+# On le lance en tâche de fond pour pouvoir streamer les logs juste après
+if command -v multica-daemon >/dev/null 2>&1; then
+    multica-daemon start --workspace $workspace_id >> /home/app/.multica/daemon.log 2>&1 &
+else
+    # Si le démon est appelé via un script d'initialisation spécifique ou un autre binaire :
+    echo "Démarrage via le service d'initialisation..."
+    # Intègre ici la commande exacte qui lance ton binaire démon original
+fi
+
+# Laisse le temps au démon de s'initialiser (2 à 3 secondes)
+sleep 3
+
+# ==============================================================================
+# 4. STREAMING DES LOGS ET MAINTIEN DE LA VM EN VIE
+# ==============================================================================
+echo "=== Streaming des logs en direct ==="
+
+# On utilise 'tail -f' sur le fichier log. 
+# C'est ce qui maintient le conteneur/VM Fly.io en vie au premier plan (PID 1)
+tail -f /home/app/.multica/daemon.log
