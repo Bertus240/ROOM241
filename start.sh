@@ -1,30 +1,26 @@
 #!/bin/bash
-# On s'assure que tout est bien dans le PATH au runtime
-export PATH="/home/app/.npm-global/bin:/home/app/.multica/bin:$PATH"
+# Forcer la détection absolue de cursor-agent et de multica
+export PATH="/usr/local/bin:/usr/bin:/bin:/home/app/.multica/bin:$PATH"
 
 echo "=== Initialisation de la configuration Multica ==="
 multica config set server_url https://api.multica.ai
 multica config set app_url https://multica.ai
 
-# FORCE LOGIN : On passe explicitement la clé API enregistrée dans tes secrets Fly.io
-if [ -n "$MULTICA_API_KEY" ]; then
-    echo "Authentification via la clé API détectée..."
-    multica login --token "$MULTICA_API_KEY"
-else
-    echo "ERREUR : Aucune MULTICA_API_KEY trouvée dans les variables d'environnement !"
+# Sécurité si fly secrets a sauté
+if [ -z "$MULTICA_API_KEY" ]; then
+    echo "Forçage manuel de la clé API..."
+    export MULTICA_API_KEY="mul_ff7f9760c2c55d65ae0b74b728fdc18b8049c08f"
 fi
 
-# FORCE WORKSPACE : On s'assure que le démon sait exactement où se brancher
-if [ -n "$MULTICA_WORKSPACE_ID" ]; then
-    echo "Criblage du Workspace ID : $MULTICA_WORKSPACE_ID"
-    multica config set workspace_id "$MULTICA_WORKSPACE_ID"
-fi
+multica config set workspace_id "894029da-910d-4041-9587-7fb06536afc4"
+
+echo "=== Vérification de l'agent ==="
+which cursor-agent || echo "cursor-agent introuvable dans le PATH"
 
 echo "=== Lancement du démon Multica ==="
-# On lance le démon au premier plan ou proprement pour générer les logs
 multica daemon start
 
-# Création du fichier de log si pas encore existant pour éviter un crash du tail
+sleep 2
 mkdir -p /home/app/.multica
 touch /home/app/.multica/daemon.log
 
