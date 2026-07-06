@@ -15,16 +15,20 @@ RUN apk update && apk add --no-cache \
 
 WORKDIR /home/app
 
-# Installation LOCALE (sans -g) pour garantir la présence dans node_modules/.bin
+# Installation LOCALE de l'agent dans node_modules
 RUN npm install cursor-agent
 
-# Installation Multica
+# Installation du CLI Multica
 RUN curl -fsSL https://raw.githubusercontent.com/multica-ai/multica/main/scripts/install.sh | bash
 
-COPY start.sh /home/app/start.sh
-RUN chmod +x /home/app/start.sh
+# Récupération automatique de ton start.sh depuis GitHub
+# REMPLACE l'URL ci-dessous par ton lien "Raw" GitHub (ex: https://raw.githubusercontent.com/...)
+RUN curl -fsSL "TON_URL_GITHUB_RAW_VERS_START_SH" -o /home/app/start.sh && chmod +x /home/app/start.sh
 
-# Permissions globales pour éviter les blocages système
+# Droits d'exécution totaux pour éliminer les blocages
 RUN chmod -R 777 /home/app
+
+# On vide l'entrypoint Node pour conserver notre PATH au runtime
+ENTRYPOINT []
 
 CMD ["/bin/bash", "/home/app/start.sh"]
