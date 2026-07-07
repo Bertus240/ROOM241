@@ -1,7 +1,4 @@
-# fly.toml app configuration file generated for room241 on 2026-07-06T07:00:15Z
-#
-# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
-#
+# fly.toml app configuration file generated for room241
 
 app = 'room241'
 primary_region = 'iad'
@@ -11,13 +8,12 @@ primary_region = 'iad'
 [http_service]
   internal_port = 8080
   force_https = true
-  auto_stop_machines = 'stop'
-  auto_start_machines = true
-  min_machines_running = 0
+  auto_stop_machines = 'off'      # Désactive l'extinction automatique
+  auto_start_machines = false     # Pas de démarrage à la demande via HTTP
+  min_machines_running = 1        # Garde toujours au moins 1 machine active H24
   processes = ['app']
 
 [[vm]]
-  memory = '1gb'
   cpu_kind = 'shared'
   cpus = 1
-  memory_mb = 256
+  memory_mb = 512                 # Augmenté à 512Mo pour stabiliser l'agent sans surcoût majeur
