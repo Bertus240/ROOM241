@@ -69,42 +69,67 @@ export default function Home({ navigate }) {
                 </a>
               </div>
 
-              {/* Repères éditoriaux typographiques (style studio suisse épuré) */}
-              <div className="pt-8 border-t border-zinc-200/80 grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-8 text-left">
-                <div className="space-y-1">
-                  <div className="text-3xl sm:text-4xl font-extrabold font-mono text-[#09090B] tracking-tight">
-                    3+ ans
+              {/* Repères d'impact éditoriaux — Finition Glass Studio ROOM241 */}
+              <div className="pt-8">
+                <div className="p-5 sm:p-7 rounded-2xl sm:rounded-3xl bg-white/70 backdrop-blur-xl border border-zinc-200/80 shadow-[0_4px_25px_rgba(0,0,0,0.03)] grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-0 sm:divide-x divide-zinc-200/70 text-left">
+                  
+                  {/* Stat 1 */}
+                  <div className="space-y-1 sm:pr-6">
+                    <div className="flex items-center gap-1.5">
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#FFAD00]" />
+                      <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-zinc-400">
+                        Polyvalence
+                      </span>
+                    </div>
+                    <div className="text-3xl sm:text-4xl font-extrabold font-mono text-[#09090B] tracking-tight">
+                      3+ ans
+                    </div>
+                    <div className="text-xs font-bold text-zinc-900">
+                      Expérience 360°
+                    </div>
+                    <p className="text-xs text-zinc-500 leading-relaxed">
+                      Design graphique, scénographie et vidéo de terrain.
+                    </p>
                   </div>
-                  <div className="text-xs font-semibold text-zinc-900">
-                    Expérience 360°
-                  </div>
-                  <p className="text-xs text-zinc-500 leading-snug">
-                    Design graphique, scénographie et vidéo de terrain.
-                  </p>
-                </div>
 
-                <div className="space-y-1">
-                  <div className="text-3xl sm:text-4xl font-extrabold font-mono text-[#09090B] tracking-tight">
-                    4 000+
+                  {/* Stat 2 */}
+                  <div className="space-y-1 sm:px-6 pt-4 sm:pt-0 border-t sm:border-t-0 border-zinc-100">
+                    <div className="flex items-center gap-1.5">
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#FFAD00]" />
+                      <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-zinc-400">
+                        Événementiel
+                      </span>
+                    </div>
+                    <div className="text-3xl sm:text-4xl font-extrabold font-mono text-[#09090B] tracking-tight">
+                      4 000+
+                    </div>
+                    <div className="text-xs font-bold text-zinc-900">
+                      Contacts FIC
+                    </div>
+                    <p className="text-xs text-zinc-500 leading-relaxed">
+                      Enregistrés collectivement sur le stand &gt; 150 m².
+                    </p>
                   </div>
-                  <div className="text-xs font-semibold text-zinc-900">
-                    Contacts FIC
-                  </div>
-                  <p className="text-xs text-zinc-500 leading-snug">
-                    Enregistrés collectivement sur le stand &gt; 150 m².
-                  </p>
-                </div>
 
-                <div className="space-y-1">
-                  <div className="text-3xl sm:text-4xl font-extrabold font-mono text-[#09090B] tracking-tight">
-                    Succès
+                  {/* Stat 3 */}
+                  <div className="space-y-1 sm:pl-6 pt-4 sm:pt-0 border-t sm:border-t-0 border-zinc-100">
+                    <div className="flex items-center gap-1.5">
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#FFAD00]" />
+                      <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-zinc-400">
+                        Crowdfunding
+                      </span>
+                    </div>
+                    <div className="text-3xl sm:text-4xl font-extrabold font-mono text-[#09090B] tracking-tight">
+                      116 %
+                    </div>
+                    <div className="text-xs font-bold text-zinc-900">
+                      Validé à 116 %
+                    </div>
+                    <p className="text-xs text-zinc-500 leading-relaxed">
+                      Campagne Ulule Fresh Data validée avec succès.
+                    </p>
                   </div>
-                  <div className="text-xs font-semibold text-zinc-900">
-                    Objectif Ulule
-                  </div>
-                  <p className="text-xs text-zinc-500 leading-snug">
-                    Campagne Fresh Data financée avec succès.
-                  </p>
+
                 </div>
               </div>
             </motion.div>
@@ -264,13 +289,13 @@ export default function Home({ navigate }) {
             <div className="space-y-2">
               <div className="flex items-center justify-between text-xs">
                 <span className="font-semibold text-[#FFAD00]">Retail Data &amp; Crowdfunding</span>
-                <span className="text-zinc-400">Ulule validé</span>
+                <span className="text-zinc-400">Validé à 116 %</span>
               </div>
               <h3 className="text-xl sm:text-2xl font-extrabold text-[#09090B] group-hover:text-zinc-700 transition-colors">
                 Fresh Data
               </h3>
               <p className="text-sm text-[#52525B] leading-relaxed">
-                Création de l'univers visuel d'une solution de veille concurrentielle et de pige publicitaire grande distribution, campagne Ulule financée avec succès et supports d'aide à la vente pour les centrales d'achats (Auchan, Grand Frais, E.Leclerc).
+                Création de l'univers visuel d'une solution de veille concurrentielle et de pige publicitaire grande distribution, campagne Ulule validée à 116 % et supports d'aide à la vente pour les centrales d'achats (Auchan, Grand Frais, E.Leclerc).
               </p>
             </div>
 

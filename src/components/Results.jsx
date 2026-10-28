@@ -20,7 +20,7 @@ export default function Results({ navigate }) {
     {
       outcome: "Campagne de lancement financée au-delà de l'objectif",
       client: "Fresh Data (Retail Data & Veille)",
-      story: "Pour leur participation au salon MEDFEL, nous avons tourné une vidéo de terrain au contact direct de leurs premiers utilisateurs. L'identité graphique de la campagne Ulule a permis de dépasser le premier palier en validant les objectifs de la campagne avec succès.",
+      story: "Pour leur participation au salon MEDFEL, nous avons tourné une vidéo de terrain au contact direct de leurs premiers utilisateurs. L'identité graphique de la campagne Ulule a permis de dépasser le premier palier en validant la campagne de financement à 116 % avec succès.",
       route: "/realisations/fresh-data",
       tag: "Vidéo terrain & Lancement"
     }

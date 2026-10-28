@@ -796,11 +796,11 @@ export default function Projects({ navigate }) {
           {/* 1. Chapeau factuel & Badges sobres */}
           <div className="max-w-3xl mb-8">
             <p className="text-zinc-600 text-sm md:text-base leading-relaxed">
-              Création de l'univers visuel et vulgarisation des données de Fresh Data aux côtés du fondateur Marc-Henri Blarel. Solution SaaS de pige publicitaire et de veille concurrentielle multicanale (tracts promos, prospectus, spots radio) pour la grande distribution, Fresh Data analyse la pression promotionnelle au jour le jour pour permettre aux enseignes d'anticiper la demande, d'ajuster leurs prix et de caler leurs stocks en magasin. L'enjeu de mon intervention : rendre compréhensibles des flux massifs de données tarifaires, concevoir l'architecture graphique de la campagne de financement participatif Ulule validée avec succès et outiller la prospection commerciale auprès des centrales d'achats.
+              Création de l'univers visuel et vulgarisation des données de Fresh Data aux côtés du fondateur Marc-Henri Blarel. Solution SaaS de pige publicitaire et de veille concurrentielle multicanale (tracts promos, prospectus, spots radio) pour la grande distribution, Fresh Data analyse la pression promotionnelle au jour le jour pour permettre aux enseignes d'anticiper la demande, d'ajuster leurs prix et de caler leurs stocks en magasin. L'enjeu de mon intervention : rendre compréhensibles des flux massifs de données tarifaires, concevoir l'architecture graphique de la campagne de financement participatif Ulule validée à 116 % et outiller la prospection commerciale auprès des centrales d'achats.
             </p>
             <div className="flex flex-wrap items-center gap-2 mt-4">
               <span className="px-3 py-1 text-xs font-medium rounded-full bg-zinc-100 text-zinc-800 border border-zinc-200/60">
-                Campagne Ulule validée avec succès
+                Campagne Ulule validée à 116 %
               </span>
               <span className="px-3 py-1 text-xs font-medium rounded-full bg-zinc-100 text-zinc-700 border border-zinc-200/60">
                 Financement participatif atteint
@@ -828,9 +828,9 @@ export default function Projects({ navigate }) {
             {/* Volet 02 */}
             <div className="bg-white border border-zinc-200/70 rounded-2xl p-5 shadow-sm hover:border-zinc-300 transition-all">
               <div className="text-[11px] font-mono text-zinc-400 mb-2">02 • FINANCEMENT</div>
-              <div className="text-zinc-900 font-semibold text-sm mb-2">Campagne Ulule</div>
+              <div className="text-zinc-900 font-semibold text-sm mb-2">Campagne Ulule (validée à 116 %)</div>
               <p className="text-zinc-600 text-xs leading-relaxed">
-                Conception de l'architecture graphique complète du crowdfunding : bannières narratives, infographies pédagogiques, visuels des contreparties et habillage des paliers de la campagne de financement participatif validée avec succès.
+                Conception de l'architecture graphique complète du crowdfunding : bannières narratives, infographies pédagogiques, visuels des contreparties et habillage des paliers de la campagne de financement participatif validée à 116 %.
               </p>
             </div>
 
@@ -925,11 +925,11 @@ export default function Projects({ navigate }) {
               <div className="flex items-center justify-between mb-3">
                 <span className="text-zinc-900 font-semibold text-sm">1. Campagne participative Ulule</span>
                 <span className="bg-zinc-100 text-zinc-700 text-[11px] font-medium px-2.5 py-1 rounded-full border border-zinc-200/60">
-                  Financement validé
+                  Validé à 116 %
                 </span>
               </div>
               <p className="text-zinc-600 text-xs md:text-sm leading-relaxed">
-                Conception de l'architecture graphique complète de la campagne de financement participatif : bannières narratives, infographies pédagogiques vulgarisant les analyses de pression promotionnelle et visuels des contreparties ayant permis d'atteindre les objectifs de financement.
+                Conception de l'architecture graphique complète de la campagne de financement participatif : bannières narratives, infographies pédagogiques vulgarisant les analyses de pression promotionnelle et visuels des contreparties, permettant de valider la campagne à 116 %.
               </p>
             </div>
 

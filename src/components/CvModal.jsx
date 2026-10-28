@@ -250,7 +250,7 @@ export default function CvModal({ isOpen, onClose }) {
                       Directeur artistique &amp; Graphiste
                     </h3>
                     <p className="text-xs sm:text-sm text-zinc-600 leading-relaxed">
-                      Direction artistique et vulgarisation visuelle pour Fresh Data (Retail Data & veille promo : identité, campagne Ulule financée avec succès, captation vidéo salon MEDFEL et dossiers commerciaux B2B) et Résin'Architecte (BTP haut de gamme : cadrage de projet, charte, modèles d'avant/après et stratégie de contenu).
+                      Direction artistique et vulgarisation visuelle pour Fresh Data (Retail Data & veille promo : identité, campagne Ulule validée à 116 %, captation vidéo salon MEDFEL et dossiers commerciaux B2B) et Résin'Architecte (BTP haut de gamme : cadrage de projet, charte, modèles d'avant/après et stratégie de contenu).
                     </p>
                   </div>
                 </article>

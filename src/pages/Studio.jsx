@@ -93,7 +93,7 @@ export default function Studio({ navigate }) {
           </div>
           <div className="flex flex-col md:flex-row md:items-baseline justify-between gap-4">
             <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-[#09090B]">
-              Fresh Data — Univers visuel &amp; Campagne Ulule
+              Fresh Data — Univers visuel &amp; Campagne Ulule (validée à 116 %)
             </h2>
             <span className="text-xs font-semibold text-zinc-500 bg-zinc-100 px-3 py-1 rounded-full w-fit">
               Validation : Marc-Henri Blarel
@@ -157,7 +157,7 @@ export default function Studio({ navigate }) {
               1. Identité &amp; Financement
             </h3>
             <p className="text-sm text-[#52525B] leading-relaxed">
-              Création des supports graphiques pour la campagne Ulule qui a dépassé son objectif initial en validant les objectifs de financement grâce à une mise en scène claire de la proposition de valeur.
+              Création des supports graphiques pour la campagne Ulule qui a dépassé son objectif initial en validant la campagne à 116 % grâce à une mise en scène claire de la proposition de valeur.
             </p>
           </div>
 

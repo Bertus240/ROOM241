@@ -874,7 +874,7 @@ export default function Parcours({ navigate, onOpenCvModal }) {
               Studio ROOM241 — Communication &amp; Design
             </h4>
             <p className="text-xs text-zinc-500 leading-relaxed">
-              Accompagnement de projets reliant réflexion stratégique, création graphique et production de terrain : campagne Fresh Data Ulule financée avec succès et formalisation de l'identité de Résin'Architecte avec 8 chantiers documentés.
+              Accompagnement de projets reliant réflexion stratégique, création graphique et production de terrain : campagne Fresh Data Ulule validée à 116 % et formalisation de l'identité de Résin'Architecte avec 8 chantiers documentés.
             </p>
           </div>
 

@@ -268,13 +268,13 @@ export const projectsData = {
     year: "2026",
     statusLabel: "VEILLE PROMO & FINANCEMENT",
     tags: ["Retail Data", "Veille Concurrentielle", "Crowdfunding", "Vidéo Terrain"],
-    metric: "Financé",
-    metricLabel: "Objectif de campagne Ulule atteint avec succès",
+    metric: "116 %",
+    metricLabel: "Campagne Ulule validée avec succès",
     metrics: [
       {
-        value: "Succès",
+        value: "116 %",
         label: "Objectif Ulule",
-        detail: "Campagne de crowdfunding bouclée avec succès"
+        detail: "Campagne de crowdfunding validée à 116 %"
       },
       {
         value: "50+",
@@ -299,7 +299,7 @@ export const projectsData = {
     youtubeEmbedUrl: "https://www.youtube-nocookie.com/embed/mf6eguKkok8?rel=0&modestbranding=1&playsinline=1",
     videoTitle: "Fresh Data — Captation vidéo au salon MEDFEL",
     alt: "Direction artistique Retail Data — Fresh Data",
-    description: "Création graphique et vulgarisation visuelle d'une solution de veille concurrentielle et de pige publicitaire multicanale grande distribution. Campagne Ulule financée avec succès, dossiers commerciaux B2B et captation salon MEDFEL.",
+    description: "Création graphique et vulgarisation visuelle d'une solution de veille concurrentielle et de pige publicitaire multicanale grande distribution. Campagne Ulule validée à 116 %, dossiers commerciaux B2B et captation salon MEDFEL.",
     cta: "Consulter l'étude de cas ↗",
     act1: {
       title: "01. Le Défi initial",
@@ -311,7 +311,7 @@ export const projectsData = {
     },
     act3: {
       title: "03. L'Impact Mesurable",
-      text: "Campagne Ulule financée avec succès au-delà des objectifs initiaux. Structuration de dossiers commerciaux B2B ouvrant des échanges qualifiés avec les centrales d'achats d'Auchan, Grand Frais et E.Leclerc."
+      text: "Campagne Ulule validée à 116 % avec succès. Structuration de dossiers commerciaux B2B ouvrant des échanges qualifiés avec les centrales d'achats d'Auchan, Grand Frais et E.Leclerc."
     },
     nextSlug: "hornetsecurity",
     nextTitle: "Hornetsecurity (Cybersécurité B2B)"
