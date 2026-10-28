@@ -881,7 +881,7 @@ export default function Projects({ navigate }) {
                       setIsPlayingFreshVideo(true);
                     }
                   }}
-                  className="relative w-full h-full cursor-pointer group flex items-center justify-center select-none"
+                  className="relative w-full h-full cursor-pointer group select-none overflow-hidden"
                 >
                   <img
                     src="/assets/fresh-data-video-cover.jpg"
@@ -891,11 +891,15 @@ export default function Projects({ navigate }) {
                   />
                   <div className="absolute inset-0 bg-black/40 group-hover:bg-black/30 transition-colors" />
 
-                  <div className="relative z-10 flex flex-col items-center gap-3">
-                    <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-[#FFAD00] text-black flex items-center justify-center shadow-[0_0_30px_rgba(255,173,0,0.5)] group-hover:scale-110 active:scale-95 transition-all">
-                      <Play className="w-7 h-7 sm:w-8 sm:h-8 fill-current ml-1 text-black" />
+                  {/* Bouton de lecture parfaitement centré dans le cadre 16:9 */}
+                  <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 z-10 pointer-events-none">
+                    <div className="relative flex items-center justify-center">
+                      <span className="absolute w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-[#FFAD00]/30 animate-ping opacity-75" />
+                      <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-[#FFAD00] text-black flex items-center justify-center shadow-[0_0_30px_rgba(255,173,0,0.5)] group-hover:scale-110 active:scale-95 transition-all">
+                        <Play className="w-7 h-7 sm:w-8 sm:h-8 fill-current ml-1 text-black" />
+                      </div>
                     </div>
-                    <span className="text-white text-xs sm:text-sm font-semibold px-4 py-1.5 rounded-full bg-black/60 backdrop-blur-md border border-white/20">
+                    <span className="text-white text-xs sm:text-sm font-semibold px-4 py-1.5 rounded-full bg-black/70 backdrop-blur-md border border-white/20 shadow-lg">
                       Visionner l'interview vidéo (Salon MEDFEL)
                     </span>
                   </div>
