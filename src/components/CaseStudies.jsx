@@ -219,7 +219,7 @@ export default function CaseStudies({ isPreview, isFullPage, navigate }) {
 
 
           {/* ========================================================
-              PROJET 03 : FRESH DATA (AGTECH & CROWDFUNDING)
+              PROJET 03 : FRESH DATA (RETAIL DATA & CROWDFUNDING)
              ======================================================== */}
           <article
             role="link"

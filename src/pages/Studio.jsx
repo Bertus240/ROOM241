@@ -82,7 +82,7 @@ export default function Studio({ navigate }) {
       </section>
 
       {/* ========================================================
-          PROJET 1 : FRESH DATA (AGTECH & FINANCEMENT PARTICIPATIF)
+          PROJET 1 : FRESH DATA (RETAIL DATA & FINANCEMENT)
          ======================================================== */}
       <section className="max-w-[1280px] mx-auto px-6 sm:px-10 space-y-12">
         

@@ -105,6 +105,14 @@ export default function Header({ currentPath = '/', navigate }) {
     };
   }, [activeIndex]);
 
+  // Vérifie si un chemin est actif
+  const isActive = (path) => {
+    if (path === '/') return activeIndex === 0;
+    if (path.startsWith('/projets')) return activeIndex === 1;
+    if (path.startsWith('/parcours')) return activeIndex === 2;
+    return currentPath === path;
+  };
+
   const handleNav = (path) => (e) => {
     if (e) e.preventDefault();
     setMobileMenuOpen(false);
@@ -241,21 +249,22 @@ export default function Header({ currentPath = '/', navigate }) {
           </div>
 
           <nav className="flex flex-col gap-2">
-            {navLinks.map((link) => {
-              const active = isActive(link.path);
+            {navLinks.map((link, index) => {
+              const active = index === activeIndex || isActive(link.path);
               return (
                 <a
                   key={link.path}
                   href={link.path}
                   onClick={handleNav(link.path)}
-                  className={`px-4 py-3 rounded-xl text-sm font-semibold transition-colors flex items-center justify-between ${active
+                  className={`px-4 py-3 rounded-xl text-sm font-semibold transition-colors flex items-center justify-between ${
+                    active
                       ? 'bg-zinc-100 text-[#09090B] font-bold'
                       : 'text-[#52525B] hover:bg-zinc-50 hover:text-[#09090B]'
-                    }`}
+                  }`}
                   aria-current={active ? 'page' : undefined}
                 >
                   <span>{link.label}</span>
-                  {active && <span className="w-2 h-2 rounded-full bg-[#09090B]" />}
+                  {active && <span className="w-2 h-2 rounded-full bg-[#FFAD00]" />}
                 </a>
               );
             })}

@@ -780,7 +780,7 @@ export default function Projects({ navigate }) {
       )}
 
       {/* ========================================================
-          ÉTUDE 2 : FRESH DATA (AGTECH & FINANCEMENT ULULE)
+          ÉTUDE 2 : FRESH DATA (RETAIL DATA & FINANCEMENT)
           Cas d'école complet et documenté en 10 dimensions vérifiées
          ======================================================== */}
       {(activeTab === 'all' || activeTab === 'fresh-data') && (

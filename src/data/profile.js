@@ -118,7 +118,7 @@ export const profileData = {
       context: "Accompagnement opérationnel de projets reliant réflexion stratégique, création graphique et exécution de terrain.",
       highlights: [
         {
-          title: "Fresh Data (AgTech) — Campagne Ulule & Salon MEDFEL",
+          title: "Fresh Data (Retail Data & Veille) — Campagne Ulule & Salon MEDFEL",
           desc: "Contribution à la visibilité de la campagne Ulule (financée à 116 % de son objectif), actions radio et captation vidéo d'interviews au salon international MEDFEL ayant ouvert des conversations qualifiées avec Auchan, Grand Frais et E.Leclerc."
         },
         {
