@@ -280,7 +280,7 @@ export default function Kuro({ navigate }) {
     lastPhraseIndexRef.current = nextIdx;
 
     const path = window.location.pathname;
-    let messageData = { key: 'general', title: 'Kuro // Notes de studio', text: GENERAL_PHRASES[nextIdx] };
+    let messageData = { key: 'general', title: 'Kuro | Notes de studio', text: GENERAL_PHRASES[nextIdx] };
     if (path.includes('projets') || path.includes('hornet')) messageData = CONTEXT_MESSAGES.hornetsecurity;
     if (path.includes('parcours')) messageData = CONTEXT_MESSAGES.parcours;
 
@@ -356,22 +356,22 @@ export default function Kuro({ navigate }) {
             : 'inset 0 1px 2px rgba(255, 255, 255, 0.35), inset 0 -2px 4px rgba(255, 173, 0, 0.25), 0 2px 8px rgba(0,0,0,0.5)',
         }}
       >
-        {/* Reflet spéculaire doux, organique et asymétrique (verre poli sphérique, zéro gélule) */}
+        {/* Reflet spéculaire doux, organique et asymétrique (verre poli sphérique, zéro forme rigide de gélule) */}
         <div
           className="absolute inset-0 rounded-full pointer-events-none overflow-hidden"
           style={{
             background: isLarge
-              ? 'radial-gradient(ellipse at 32% 23%, rgba(255, 255, 255, 0.42) 0%, rgba(255, 255, 255, 0.16) 24%, rgba(255, 255, 255, 0.03) 45%, transparent 65%)'
-              : 'radial-gradient(ellipse at 32% 23%, rgba(255, 255, 255, 0.45) 0%, rgba(255, 255, 255, 0.18) 26%, transparent 60%)',
+              ? 'radial-gradient(circle at 30% 24%, rgba(255, 255, 255, 0.42) 0%, rgba(255, 255, 255, 0.14) 28%, rgba(255, 255, 255, 0.02) 50%, transparent 70%)'
+              : 'radial-gradient(circle at 30% 24%, rgba(255, 255, 255, 0.45) 0%, rgba(255, 255, 255, 0.16) 28%, transparent 65%)',
           }}
           aria-hidden="true"
         />
 
-        {/* Micro-liseré de courbure supérieure de verre */}
+        {/* Liseré de courbure supérieure de verre délicat */}
         <div
           className="absolute inset-0 rounded-full pointer-events-none"
           style={{
-            background: 'radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.18) 0%, transparent 40%)',
+            background: 'radial-gradient(circle at 50% 2%, rgba(255, 255, 255, 0.22) 0%, transparent 35%)',
           }}
           aria-hidden="true"
         />
@@ -380,7 +380,7 @@ export default function Kuro({ navigate }) {
         <div
           className="absolute inset-0 rounded-full pointer-events-none"
           style={{
-            background: 'radial-gradient(circle at 50% 92%, rgba(255, 173, 0, 0.22) 0%, transparent 45%)',
+            background: 'radial-gradient(circle at 50% 95%, rgba(255, 173, 0, 0.25) 0%, transparent 45%)',
           }}
           aria-hidden="true"
         />
@@ -476,11 +476,16 @@ export default function Kuro({ navigate }) {
                     <X className="w-5 h-5" />
                   </button>
 
-                  {/* Kuro en vedette au centre avec halo ambré subtil */}
+                  {/* Kuro en vedette au centre avec halo ambré subtil et flottement doux */}
                   <div className="flex flex-col items-center justify-center pt-2">
                     <div className="relative">
                       <div className="absolute -inset-4 rounded-full bg-gradient-to-tr from-[#FFAD00]/30 to-transparent blur-2xl animate-pulse pointer-events-none" />
-                      {renderKuroCapsule(true)}
+                      <motion.div
+                        animate={prefersReducedMotion ? {} : { y: [0, -4, 0] }}
+                        transition={{ duration: 4.8, repeat: Infinity, ease: 'easeInOut' }}
+                      >
+                        {renderKuroCapsule(true)}
+                      </motion.div>
                     </div>
                   </div>
 
@@ -499,7 +504,7 @@ export default function Kuro({ navigate }) {
 
                     {/* Texte descriptif exact */}
                     <p className="text-sm sm:text-base text-zinc-300 leading-relaxed max-w-md mx-auto font-normal">
-                      Moi, c’est Kuro. Je vous accompagne à travers les projets de Rémi : du design, de la vidéo et des idées qui prennent vie sur le terrain.
+                      Moi, c’est Kuro. Je vous accompagne à travers les projets de Rémi : du design, de la vidéo et des idées qui prennent vie sur le terrain. Par ici, je vous montre tout ça.
                     </p>
                   </div>
 

@@ -34,8 +34,23 @@ export default function Parcours({ navigate, onOpenCvModal }) {
   };
 
   // Liste complète des images pour la visionneuse plein écran
+  // Liste complète des images pour la visionneuse plein écran (incluant réalisations in situ)
   const allModalImages = [
     ...editorialPhotos,
+    {
+      src: "/assets/hornetsecurity/fic/Stand/IMG20250401075301.jpg",
+      alt: "Stand Hornetsecurity > 150 m² au FIC Lille Grand Palais",
+      caption: "Scénographie et flux visiteurs — Stand 150 m² au FIC 2026 (Lille Grand Palais)",
+      place: "Lille, France",
+      category: "Scénographie"
+    },
+    {
+      src: "/assets/hornetsecurity/arch_back_motion.png",
+      alt: "Rendu After Effects de l'arche vidéo d'accueil LED",
+      caption: "Animation After Effects 1080p 60fps diffusée sur l'arche LED du FIC 2026",
+      place: "After Effects 1080p",
+      category: "Motion Design"
+    },
     {
       src: marathonPhoto.src,
       alt: marathonPhoto.alt,
@@ -76,11 +91,9 @@ export default function Parcours({ navigate, onOpenCvModal }) {
 
   const { identity, manifesto, experiences, education, skills, athleticProof } = profileData;
 
-  // Normalisation sécurisée et adaptative des compétences selon la structure réelle de profileData.skills
+  // Organisation sécurisée, défensive et structurée par 4 catégories Glass Studio
   const safeSkillGroups = React.useMemo(() => {
-    if (!skills) return [];
-
-    // Cas 1 : Si skills est un tableau de groupes [{ category, items }]
+    // Cas 1 : Si skills est un tableau personnalisé de catégories
     if (Array.isArray(skills)) {
       return skills.map((group, idx) => ({
         id: `skill-group-${idx}`,
@@ -89,63 +102,52 @@ export default function Parcours({ navigate, onOpenCvModal }) {
       }));
     }
 
-    // Cas 2 : Si skills est un objet structuré par catégories (business, software, aiTools...)
-    if (typeof skills === 'object') {
-      const categoryMeta = {
-        business: 'Compétences Métier & Direction Artistique',
-        software: 'Logiciels & Création (Adobe CC, Figma)',
-        aiTools: 'Intelligence Artificielle & Veille',
-      };
-
-      const result = [];
-
-      // A. Compétences Métier
-      if (Array.isArray(skills.business) && skills.business.length > 0) {
-        result.push({
-          id: 'business',
-          category: categoryMeta.business,
-          items: skills.business.map((item) => (typeof item === 'string' ? item : item?.name || '')),
-        });
+    // Cas 2 : Catégories éditoriales Glass Studio à partir des compétences documentées
+    const glassStudioSkills = [
+      {
+        id: 'scenography',
+        category: 'Scénographie & 3D',
+        items: [
+          'Scénographie événementielle & Stands (> 150 m²)',
+          'Signalétique & Habillage d\'espaces',
+          'Parcours visiteurs & Salons européens',
+          'Coordination prestataires techniques'
+        ]
+      },
+      {
+        id: 'motion',
+        category: 'Motion & Vidéo',
+        items: [
+          'Adobe After Effects (Animations & Boucles LED)',
+          'Adobe Premiere Pro (Montage & Titrages)',
+          'Production vidéo & Captations de terrain',
+          'Direction de contenus audiovisuels'
+        ]
+      },
+      {
+        id: 'art-direction',
+        category: 'Direction Artistique & UI',
+        items: [
+          'Direction artistique & Identité de marque',
+          'Adobe Illustrator (Design vectoriel, chartes)',
+          'Adobe Photoshop (Retouche photo, compositing)',
+          'Adobe InDesign (Édition, fiches techniques, print)',
+          'Figma (Design system & Ergonomie d\'interfaces)'
+        ]
+      },
+      {
+        id: 'tools-tech',
+        category: 'Outils & Tech',
+        items: [
+          'Suite Adobe Creative Cloud',
+          'Figma UI/UX',
+          'Intelligence Artificielle (ChatGPT, Claude, Gemini)',
+          'Supports commerciaux & Sales Enablement'
+        ]
       }
+    ];
 
-      // B. Logiciels Créatifs
-      if (Array.isArray(skills.software) && skills.software.length > 0) {
-        result.push({
-          id: 'software',
-          category: categoryMeta.software,
-          items: skills.software.map((item) => (typeof item === 'string' ? item : item?.name || '')),
-        });
-      }
-
-      // C. Outils d'Intelligence Artificielle
-      if (Array.isArray(skills.aiTools) && skills.aiTools.length > 0) {
-        result.push({
-          id: 'aiTools',
-          category: categoryMeta.aiTools,
-          items: skills.aiTools.map((tool) => {
-            if (typeof tool === 'string') return tool;
-            if (tool?.name && tool?.usage) return `${tool.name} (${tool.usage})`;
-            return tool?.name || '';
-          }),
-        });
-      }
-
-      // D. Clés supplémentaires éventuelles
-      Object.entries(skills).forEach(([key, val]) => {
-        if (['business', 'software', 'aiTools'].includes(key)) return;
-        if (Array.isArray(val) && val.length > 0) {
-          result.push({
-            id: key,
-            category: key.charAt(0).toUpperCase() + key.slice(1),
-            items: val.map((item) => (typeof item === 'string' ? item : item?.name || JSON.stringify(item))),
-          });
-        }
-      });
-
-      return result;
-    }
-
-    return [];
+    return glassStudioSkills;
   }, [skills]);
 
   return (
@@ -583,20 +585,400 @@ export default function Parcours({ navigate, onOpenCvModal }) {
       </section>
 
       {/* ========================================================
-          3. LE MARATHON DE VENISE : DISCIPLINE DE L'ENDURANCE
-          (Faits réels : 26 oct 2025, 42.195 km, chrono 02h48'25)
+          3. EXPÉRIENCE CENTRALE : HORNETSECURITY (GLASS STUDIO)
+          (Point central du parcours avec 3 piliers de réalisation documentés)
+         ======================================================== */}
+      <section id="experiences" className="max-w-[1280px] mx-auto px-5 sm:px-8 lg:px-10 scroll-mt-24 space-y-12">
+        
+        {/* En-tête de section sobre et éditorial */}
+        <div className="border-t border-zinc-200/80 pt-10 space-y-3">
+          <div className="flex items-center gap-2">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#FFAD00]" />
+            <span className="text-xs font-semibold uppercase tracking-wider text-zinc-500 font-mono">
+              Parcours professionnel · Direction &amp; Réalisations
+            </span>
+          </div>
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight text-zinc-950">
+            Expérience internationale &amp; créativité opérationnelle
+          </h2>
+          <p className="text-sm sm:text-base text-zinc-500 max-w-2xl leading-relaxed">
+            De la stratégie de marque employeur jusqu'à la scénographie de stands monumentaux (&gt; 150 m²) et la création vidéo de terrain pour des événements européens.
+          </p>
+        </div>
+
+        {/* ========================================================
+            BLOC MAÎTRE : EXPÉRIENCE PRINCIPALE HORNETSECURITY (CDI)
+           ======================================================== */}
+        <div className="p-7 sm:p-9 md:p-10 rounded-3xl bg-white/70 backdrop-blur-xl border border-zinc-200/50 shadow-sm shadow-zinc-950/[0.03] space-y-9 transition-all duration-300 hover:bg-white/90 hover:border-zinc-300/60 hover:shadow-md hover:shadow-zinc-950/[0.05]">
+          
+          {/* Ligne d'en-tête de l'expérience */}
+          <div className="flex flex-col lg:flex-row lg:items-start justify-between gap-4 border-b border-zinc-200/50 pb-6">
+            <div className="space-y-1.5">
+              <div className="flex flex-wrap items-center gap-2.5">
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-zinc-950 text-white text-xs font-semibold shadow-xs">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#FFAD00]" />
+                  <span>Poste CDI</span>
+                </span>
+                <span className="text-xs font-mono font-medium text-zinc-500">
+                  Septembre 2025 – Octobre 2026
+                </span>
+              </div>
+              <h3 className="text-2xl sm:text-3xl font-extrabold text-zinc-950 tracking-tight">
+                Graphic Designer &amp; Brand Production
+              </h3>
+              <p className="text-sm sm:text-base font-semibold text-zinc-700">
+                Hornetsecurity by Proofpoint
+              </p>
+            </div>
+
+            <div className="flex flex-col lg:items-end gap-1 shrink-0">
+              <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-zinc-800 bg-zinc-100/80 px-3.5 py-1.5 rounded-full border border-zinc-200/60 w-fit">
+                <MapPin className="w-3.5 h-3.5 text-zinc-400" />
+                <span>Lille • Salons européens (Nuremberg, Hanovre)</span>
+              </span>
+              <span className="text-[11px] text-zinc-400 font-mono pt-1">
+                Équipe design internationale • Travail quotidien en anglais
+              </span>
+            </div>
+          </div>
+
+          {/* Contexte éditorial synthétique */}
+          <p className="text-sm text-zinc-600 leading-relaxed max-w-3xl">
+            Leader européen de la cybersécurité Cloud. Évolution au sein d'une équipe design internationale basée principalement en Allemagne : conception d'espaces événementiels à fort enjeu, direction graphique de supports publicitaires de performance et coordination quotidienne en anglais avec les partenaires scéniques.
+          </p>
+
+          {/* Repères chiffrés et chronologiques (Style studio suisse épuré) */}
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 pt-2 border-t border-zinc-100">
+            <div className="space-y-0.5">
+              <span className="text-2xl sm:text-3xl font-extrabold font-mono text-zinc-950 block">&gt; 150 m²</span>
+              <span className="text-xs text-zinc-500 font-medium block">Stand FIC Lille Grand Palais</span>
+            </div>
+            <div className="space-y-0.5">
+              <span className="text-2xl sm:text-3xl font-extrabold font-mono text-zinc-950 block">4 000+</span>
+              <span className="text-xs text-zinc-500 font-medium block">Contacts enregistrés (collectif)</span>
+            </div>
+            <div className="space-y-0.5">
+              <span className="text-2xl sm:text-3xl font-extrabold font-mono text-zinc-950 block">36 h</span>
+              <span className="text-xs text-zinc-500 font-medium block">Design Sprint autonome à Hanovre</span>
+            </div>
+            <div className="space-y-0.5">
+              <span className="text-2xl sm:text-3xl font-extrabold font-mono text-zinc-950 block">Europe</span>
+              <span className="text-xs text-zinc-500 font-medium block">Lille, Nuremberg, Hanovre</span>
+            </div>
+          </div>
+
+          {/* Les 3 Piliers de Réalisation différenciés */}
+          <div className="space-y-4 pt-2">
+            <div className="flex items-center gap-2">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#FFAD00]" />
+              <h4 className="text-xs font-mono font-bold uppercase tracking-wider text-zinc-700">
+                Trois piliers d'intervention documentés
+              </h4>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              
+              {/* Pilier 01 : Scénographie événementielle */}
+              <div className="p-6 rounded-2xl bg-zinc-50/70 border border-zinc-200/60 space-y-4 flex flex-col justify-between hover:bg-zinc-50 transition-colors">
+                <div className="space-y-3">
+                  <div className="flex items-center justify-between">
+                    <span className="text-[11px] font-mono font-bold uppercase text-[#FFAD00] tracking-wider">
+                      01 / Scénographie
+                    </span>
+                    <span className="text-[11px] text-zinc-400 font-mono">
+                      Stands &gt; 150 m²
+                    </span>
+                  </div>
+                  <h5 className="text-base font-bold text-zinc-950 leading-snug">
+                    Scénographie événementielle &amp; orientation des flux
+                  </h5>
+                  <p className="text-xs sm:text-sm text-zinc-600 leading-relaxed">
+                    Conception graphique et signalétique des stands pour les salons européens (dont le stand de plus de 150 m² au Forum InCyber à Lille Grand Palais, ainsi qu'à it-sa Nuremberg). Traitement de l'espace, hiérarchie de l'information et coordination avec les prestataires techniques pour une orientation fluide des visiteurs professionnels.
+                  </p>
+                </div>
+
+                {/* Miniature in situ cliquable vers la lightbox */}
+                <div
+                  onClick={() => setLightboxIndex(12)}
+                  role="button"
+                  tabIndex={0}
+                  className="relative aspect-video w-full rounded-xl overflow-hidden border border-zinc-200/80 bg-zinc-950 cursor-pointer group shadow-2xs mt-2"
+                >
+                  <img
+                    src="/assets/hornetsecurity/fic/Stand/IMG20250401075301.jpg"
+                    alt="Vue plongeante du stand Hornetsecurity > 150 m² au FIC Lille Grand Palais"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    loading="lazy"
+                  />
+                  <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors" />
+                  <div className="absolute top-2.5 right-2.5 p-1.5 rounded-full bg-white/90 text-zinc-900 opacity-0 group-hover:opacity-100 transition-opacity shadow-sm">
+                    <Maximize2 className="w-3 h-3" />
+                  </div>
+                  <div className="absolute bottom-2 left-2.5 right-2.5 flex items-center justify-between text-[11px] text-white">
+                    <span className="font-medium truncate drop-shadow">Stand 150 m² in situ (Lille Grand Palais)</span>
+                    <span className="font-mono text-[10px] text-white/80 shrink-0 ml-1">Agrandir ↗</span>
+                  </div>
+                </div>
+
+                <div className="pt-2 border-t border-zinc-200/50 flex items-center gap-2 text-xs text-zinc-500 font-medium">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#FFAD00]" />
+                  <span>Résultat collectif : plus de 4 000 contacts B2B enregistrés sur l'événement.</span>
+                </div>
+              </div>
+
+              {/* Pilier 02 : Motion design et vidéo */}
+              <div className="p-6 rounded-2xl bg-zinc-50/70 border border-zinc-200/60 space-y-4 flex flex-col justify-between hover:bg-zinc-50 transition-colors">
+                <div className="space-y-3">
+                  <div className="flex items-center justify-between">
+                    <span className="text-[11px] font-mono font-bold uppercase text-[#FFAD00] tracking-wider">
+                      02 / Motion Design
+                    </span>
+                    <span className="text-[11px] text-zinc-400 font-mono">
+                      After Effects 1080p
+                    </span>
+                  </div>
+                  <h5 className="text-base font-bold text-zinc-950 leading-snug">
+                    Animation de l'arche vidéo LED monumentale
+                  </h5>
+                  <p className="text-xs sm:text-sm text-zinc-600 leading-relaxed">
+                    Conception et réalisation sur Adobe After Effects de l’animation vidéo diffusée sur l’arche lumineuse monumentale à l’entrée du stand. Cette boucle dynamique accompagnait la transition de co-branding « HORNETSECURITY FORMERLY Vade », captivait le regard des flux visiteurs et scénarisait l'entrée sur le stand.
+                  </p>
+                </div>
+
+                {/* Miniature After Effects cliquable vers la lightbox */}
+                <div
+                  onClick={() => setLightboxIndex(13)}
+                  role="button"
+                  tabIndex={0}
+                  className="relative aspect-video w-full rounded-xl overflow-hidden border border-zinc-200/80 bg-zinc-950 cursor-pointer group shadow-2xs mt-2"
+                >
+                  <img
+                    src="/assets/hornetsecurity/arch_back_motion.png"
+                    alt="Rendu After Effects 1080p de l'animation de l'arche LED"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    loading="lazy"
+                  />
+                  <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors" />
+                  <div className="absolute top-2.5 right-2.5 p-1.5 rounded-full bg-white/90 text-zinc-900 opacity-0 group-hover:opacity-100 transition-opacity shadow-sm">
+                    <Maximize2 className="w-3 h-3" />
+                  </div>
+                  <div className="absolute bottom-2 left-2.5 right-2.5 flex items-center justify-between text-[11px] text-white">
+                    <span className="font-medium truncate drop-shadow">Rendu After Effects 1080p 60fps</span>
+                    <span className="font-mono text-[10px] text-white/80 shrink-0 ml-1">Agrandir ↗</span>
+                  </div>
+                </div>
+
+                <div className="pt-2 border-t border-zinc-200/50 flex items-center gap-2 text-xs text-zinc-500 font-medium">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#FFAD00]" />
+                  <span>Boucle 60 fps synchronisée pour un impact visuel direct dès l'accueil.</span>
+                </div>
+              </div>
+
+              {/* Pilier 03 : Création et expérimentation */}
+              <div className="p-6 rounded-2xl bg-zinc-50/70 border border-zinc-200/60 space-y-3 md:col-span-2 hover:bg-zinc-50 transition-colors">
+                <div className="flex items-center justify-between">
+                  <span className="text-[11px] font-mono font-bold uppercase text-[#FFAD00] tracking-wider">
+                    03 / Création &amp; Expérimentation
+                  </span>
+                  <span className="text-[11px] text-zinc-400 font-mono">
+                    Hanovre · Scène plénière
+                  </span>
+                </div>
+                <h5 className="text-base font-bold text-zinc-950 leading-snug">
+                  Design Sprint de 36 h à Hanovre &amp; Incarnation de marque sur scène
+                </h5>
+                <p className="text-xs sm:text-sm text-zinc-600 leading-relaxed">
+                  Participation active au Design Sprint de 36 heures en Allemagne au sein de l'équipe internationale : développement narratif, univers cyber et modélisation 3D du personnage dans un cadre temporel strict. En complément, incarnation en costume du personnage Captain Security sur la grande scène plénière du FIC et dans les allées, créant une passerelle directe et humaine entre la marque et le public professionnel.
+                </p>
+                <div className="pt-2 border-t border-zinc-200/50 flex items-center gap-2 text-xs text-zinc-500 font-medium">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#FFAD00]" />
+                  <span>Distinction claire : travail d'équipe collectif international et contribution personnelle en création de contenus et animation de terrain.</span>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+
+        {/* ========================================================
+            EXPÉRIENCE PRÉCÉDENTE : HORNETSECURITY / VADE (ALTERNANCE)
+           ======================================================== */}
+        <div className="p-6 sm:p-8 rounded-3xl bg-zinc-50/70 backdrop-blur-xl border border-zinc-200/50 shadow-sm shadow-zinc-950/[0.03] space-y-5 transition-all duration-300 hover:bg-white/90 hover:border-zinc-300/60 hover:shadow-md hover:shadow-zinc-950/[0.05]">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-zinc-200/50 pb-4">
+            <div>
+              <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-zinc-500 block">
+                Alternance Master · 2 ans
+              </span>
+              <h3 className="text-lg sm:text-xl font-extrabold text-zinc-950 mt-0.5">
+                Chargé de marque employeur — Vade, puis Hornetsecurity
+              </h3>
+            </div>
+            <div className="flex flex-col sm:items-end">
+              <span className="text-xs font-semibold text-zinc-800 bg-white px-3 py-1 rounded-full border border-zinc-200/60 w-fit">
+                Septembre 2023 – Août 2025
+              </span>
+              <span className="text-[11px] text-zinc-400 font-mono mt-1">
+                Métropole Européenne de Lille
+              </span>
+            </div>
+          </div>
+
+          <p className="text-xs sm:text-sm text-zinc-600 leading-relaxed">
+            Accompagnement de la transition d'identité suite au rachat de Vade par Hornetsecurity, en lien direct avec les équipes RH et communication.
+          </p>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5 text-xs sm:text-sm text-zinc-600">
+            <div className="space-y-1.5 p-4 rounded-xl bg-white/60 border border-zinc-200/40">
+              <h4 className="text-xs font-bold text-zinc-950">
+                Attractivité &amp; Recrutement tech
+              </h4>
+              <p className="text-xs text-zinc-500 leading-relaxed">
+                Campagnes de communication pour attirer des profils techniques pointus (ingénieurs en détection de menaces, développeurs).
+              </p>
+            </div>
+            <div className="space-y-1.5 p-4 rounded-xl bg-white/60 border border-zinc-200/40">
+              <h4 className="text-xs font-bold text-zinc-950">
+                Employee Advocacy sur LinkedIn
+              </h4>
+              <p className="text-xs text-zinc-500 leading-relaxed">
+                Structuration du programme d'ambassadeurs internes et accompagnement individuel des collaborateurs pour valoriser leur prise de parole.
+              </p>
+            </div>
+            <div className="space-y-1.5 p-4 rounded-xl bg-white/60 border border-zinc-200/40">
+              <h4 className="text-xs font-bold text-zinc-950">
+                Vidéos internes &amp; Séminaires
+              </h4>
+              <p className="text-xs text-zinc-500 leading-relaxed">
+                Production de vidéos d'onboarding, kits de communication et organisation des séminaires d'intégration post-acquisition.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* ========================================================
+            AUTRES EXPÉRIENCES : STUDIO ROOM241 (FREELANCE) & SENCROP
+           ======================================================== */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          
+          <div className="p-6 rounded-3xl bg-zinc-50/70 backdrop-blur-xl border border-zinc-200/50 shadow-sm shadow-zinc-950/[0.03] space-y-3 hover:bg-white/90 hover:border-zinc-300/60 transition-all duration-300">
+            <div className="flex items-center justify-between">
+              <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-[#FFAD00]">
+                Activité indépendante
+              </span>
+              <span className="text-xs font-semibold text-zinc-700 bg-white px-2.5 py-0.5 rounded border border-zinc-200/60">
+                Depuis Octobre 2024
+              </span>
+            </div>
+            <h4 className="text-base font-bold text-zinc-950">
+              Studio ROOM241 — Communication &amp; Design
+            </h4>
+            <p className="text-xs text-zinc-500 leading-relaxed">
+              Accompagnement de projets reliant réflexion stratégique, création graphique et production de terrain : campagne Fresh Data Ulule financée à 116 % et formalisation de l'identité de Résin'Architecte avec 8 chantiers documentés.
+            </p>
+          </div>
+
+          <div className="p-6 rounded-3xl bg-zinc-50/70 backdrop-blur-xl border border-zinc-200/50 shadow-sm shadow-zinc-950/[0.03] space-y-3 hover:bg-white/90 hover:border-zinc-300/60 transition-all duration-300">
+            <div className="flex items-center justify-between">
+              <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-zinc-400">
+                Stage conventionné
+              </span>
+              <span className="text-xs font-semibold text-zinc-700 bg-white px-2.5 py-0.5 rounded border border-zinc-200/60">
+                Lille
+              </span>
+            </div>
+            <h4 className="text-base font-bold text-zinc-950">
+              Sencrop — Community Management
+            </h4>
+            <p className="text-xs text-zinc-500 leading-relaxed">
+              Entreprise européenne de stations météo connectées et d'agriculture de précision : gestion de communauté, déclinaison de visuels digitaux et participation au planning éditorial.
+            </p>
+          </div>
+
+        </div>
+
+      </section>
+
+      {/* ========================================================
+          4. FORMATION ACADÉMIQUE STRUCTURÉE (SOBRE & SANS BADGE SSI)
+         ======================================================== */}
+      <section id="formation" className="max-w-[1280px] mx-auto px-5 sm:px-8 lg:px-10 space-y-8">
+        <div className="border-t border-zinc-200/80 pt-10 space-y-2">
+          <div className="flex items-center gap-2">
+            <GraduationCap className="w-4 h-4 text-[#FFAD00]" />
+            <span className="text-xs font-semibold uppercase tracking-wider text-zinc-500 font-mono">
+              Formation académique
+            </span>
+          </div>
+          <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-zinc-950">
+            Double cursus scientifique et stratégique
+          </h2>
+          <p className="text-sm text-zinc-500 max-w-2xl leading-relaxed">
+            L'alliance entre la structure de pensée cartésienne d'un parcours scientifique initial et la vision stratégique de marque développée en école de communication.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          
+          {/* Master ISEG */}
+          <div className="p-7 rounded-3xl bg-white/70 backdrop-blur-xl border border-zinc-200/50 shadow-sm shadow-zinc-950/[0.03] space-y-3 hover:bg-white/90 hover:border-zinc-300/60 transition-all duration-300">
+            <span className="font-mono text-xs font-bold text-zinc-950 block">
+              2023 — 2025 · Cérémonie 2026
+            </span>
+            <h3 className="text-base font-bold text-zinc-950 leading-snug">
+              Master Marketing, communication et digital
+            </h3>
+            <p className="text-xs font-semibold text-zinc-600">ISEG Lille</p>
+            <p className="text-xs text-zinc-500 leading-relaxed pt-1">
+              Vision stratégique globale, positionnement concurrentiel, architecture de marque, direction de campagnes et pilotage de projets de communication digitaux et événementiels.
+            </p>
+          </div>
+
+          {/* Sciences de l'Ingénieur */}
+          <div className="p-7 rounded-3xl bg-white/70 backdrop-blur-xl border border-zinc-200/50 shadow-sm shadow-zinc-950/[0.03] space-y-3 hover:bg-white/90 hover:border-zinc-300/60 transition-all duration-300">
+            <span className="font-mono text-xs font-bold text-zinc-950 block">
+              Mention Bien · 2020
+            </span>
+            <h3 className="text-base font-bold text-zinc-950 leading-snug">
+              Sciences de l'Ingénieur
+            </h3>
+            <p className="text-xs font-semibold text-zinc-600">Parcours scientifique initial</p>
+            <p className="text-xs text-zinc-500 leading-relaxed pt-1">
+              Formation scientifique axée sur la méthode, la résolution logique de problèmes, la modélisation et la rigueur dans la gestion des contraintes techniques.
+            </p>
+          </div>
+
+          {/* BAFA */}
+          <div className="p-7 rounded-3xl bg-white/70 backdrop-blur-xl border border-zinc-200/50 shadow-sm shadow-zinc-950/[0.03] space-y-3 hover:bg-white/90 hover:border-zinc-300/60 transition-all duration-300">
+            <span className="font-mono text-xs font-bold text-zinc-950 block">
+              2019
+            </span>
+            <h3 className="text-base font-bold text-zinc-950 leading-snug">
+              Brevet d'Aptitude aux Fonctions d'Animateur (BAFA)
+            </h3>
+            <p className="text-xs font-semibold text-zinc-600">Animation &amp; Dynamique de groupe</p>
+            <p className="text-xs text-zinc-500 leading-relaxed pt-1">
+              Sens du collectif, prise de parole en public, écoute active, animation de groupe et pédagogie opérationnelle en situation réelle.
+            </p>
+          </div>
+
+        </div>
+      </section>
+
+      {/* ========================================================
+          5. COMPLÉMENTS DE PARCOURS : MARATHON DE VENISE & RIGUEUR
          ======================================================== */}
       <section className="max-w-[1280px] mx-auto px-5 sm:px-8 lg:px-10">
-        <div className="p-7 sm:p-12 rounded-3xl bg-zinc-50 border border-zinc-200/80">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        <div className="p-7 sm:p-10 md:p-12 rounded-3xl bg-white/70 backdrop-blur-xl border border-zinc-200/50 shadow-sm shadow-zinc-950/[0.03] hover:bg-white/90 hover:border-zinc-300/60 transition-all duration-300">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
             
             <div className="lg:col-span-5 space-y-2">
               <div
-                onClick={() => setLightboxIndex(allModalImages.length - 1)}
+                onClick={() => setLightboxIndex(14)}
                 role="button"
                 tabIndex={0}
                 aria-label="Agrandir la photographie du Marathon de Venise"
-                className="aspect-[4/3] w-full rounded-2xl overflow-hidden border border-zinc-200 bg-zinc-950 cursor-pointer group shadow-sm relative"
+                className="aspect-[4/3] w-full rounded-2xl overflow-hidden border border-zinc-200/80 bg-zinc-950 cursor-pointer group shadow-sm relative"
               >
                 <img
                   src={athleticProof.image}
@@ -604,11 +986,15 @@ export default function Parcours({ navigate, onOpenCvModal }) {
                   className="w-full h-full object-cover object-[center_35%] transition-transform duration-500 group-hover:scale-105"
                   loading="lazy"
                 />
-                <div className="absolute top-3 right-3 p-2 rounded-full bg-white/90 text-black opacity-0 group-hover:opacity-100 transition-opacity">
+                <div className="absolute top-3 right-3 p-2 rounded-full bg-white/90 text-zinc-900 opacity-0 group-hover:opacity-100 transition-opacity">
                   <Maximize2 className="w-3.5 h-3.5" />
                 </div>
+                <div className="absolute bottom-2.5 left-3 right-3 flex items-center justify-between text-[11px] text-white">
+                  <span className="font-medium truncate drop-shadow">Venise, Italie</span>
+                  <span className="font-mono text-[10px] text-white/80 shrink-0">Agrandir ↗</span>
+                </div>
               </div>
-              <p className="text-xs text-[#71717A] text-center">
+              <p className="text-xs text-zinc-400 text-center">
                 {marathonPhoto.caption}
               </p>
             </div>
@@ -619,30 +1005,30 @@ export default function Parcours({ navigate, onOpenCvModal }) {
                 <span>Endurance &amp; Rigueur personnelle</span>
               </div>
 
-              <h3 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-[#09090B]">
+              <h3 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-zinc-950">
                 Le Marathon de Venise : La discipline de l'effort continu
               </h3>
 
-              <p className="text-sm text-[#52525B] leading-relaxed">
+              <p className="text-sm text-zinc-600 leading-relaxed">
                 Courir un marathon en 2 h 48 min 25 s, c’est surtout des mois d’entraînement, des sorties par tous les temps et beaucoup de régularité. Il faut apprendre à gérer son effort, à tenir son allure et à continuer même quand les jambes commencent à peser.
               </p>
 
-              <p className="text-sm text-[#52525B] leading-relaxed">
+              <p className="text-sm text-zinc-600 leading-relaxed">
                 J’y retrouve quelque chose qui me parle aussi dans la création : avancer avec méthode, accepter que tout ne se passe pas comme prévu et rester concentré jusqu’au bout. Le résultat compte, bien sûr, mais il représente surtout tout le travail réalisé en amont.
               </p>
 
-              <div className="pt-2 grid grid-cols-3 gap-3 border-t border-zinc-200 text-xs">
+              <div className="pt-2 grid grid-cols-3 gap-3 border-t border-zinc-200/60 text-xs">
                 <div>
-                  <span className="text-[#71717A] block text-[11px]">Épreuve</span>
-                  <span className="font-bold text-[#09090B]">{athleticProof.event}</span>
+                  <span className="text-zinc-400 block text-[11px]">Épreuve</span>
+                  <span className="font-bold text-zinc-950">{athleticProof.event}</span>
                 </div>
                 <div>
-                  <span className="text-[#71717A] block text-[11px]">Distance</span>
-                  <span className="font-bold text-[#09090B]">{athleticProof.distance}</span>
+                  <span className="text-zinc-400 block text-[11px]">Distance</span>
+                  <span className="font-bold text-zinc-950">{athleticProof.distance}</span>
                 </div>
                 <div>
-                  <span className="text-[#71717A] block text-[11px]">Chrono officiel</span>
-                  <span className="font-bold text-[#09090B] font-mono">{athleticProof.officialChrono}</span>
+                  <span className="text-zinc-400 block text-[11px]">Chrono officiel</span>
+                  <span className="font-bold text-zinc-950 font-mono">{athleticProof.officialChrono}</span>
                 </div>
               </div>
             </div>
@@ -652,158 +1038,60 @@ export default function Parcours({ navigate, onOpenCvModal }) {
       </section>
 
       {/* ========================================================
-          4. PARCOURS PROFESSIONNEL STRUCTURÉ & INTERNATIONAL
-         ======================================================== */}
-      <section id="experiences" className="max-w-[1280px] mx-auto px-5 sm:px-8 lg:px-10 scroll-mt-24 space-y-10">
-        
-        <div className="border-t border-zinc-200/80 pt-10 space-y-2">
-          <span className="text-xs font-semibold uppercase tracking-wider text-[#FFAD00] flex items-center gap-1.5">
-            <Briefcase className="w-4 h-4" />
-            Parcours professionnel
-          </span>
-          <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-[#09090B]">
-            Trois années structurantes en B2B international &amp; studio indépendant
-          </h2>
-          <p className="text-sm text-[#52525B] max-w-2xl leading-relaxed">
-            De la communication d'attractivité RH en cybersécurité jusqu'à la création d'espaces événementiels monumentaux en Europe et l'incarnation de marque sur le terrain.
-          </p>
-        </div>
-
-        <div className="space-y-8">
-          {experiences.map((exp) => (
-            <div
-              key={exp.id}
-              className="p-6 sm:p-9 rounded-3xl bg-zinc-50 border border-zinc-200/80 space-y-6"
-            >
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-zinc-200/60 pb-4">
-                <div>
-                  <span className="text-xs font-bold uppercase tracking-wider text-[#FFAD00] block">
-                    {exp.type}
-                  </span>
-                  <h3 className="text-lg sm:text-xl font-extrabold text-[#09090B] mt-0.5">
-                    {exp.role} — {exp.company}
-                  </h3>
-                </div>
-                <div className="flex flex-col sm:items-end">
-                  <span className="text-xs font-semibold text-zinc-900 bg-white px-3 py-1 rounded-full border border-zinc-200 w-fit">
-                    {exp.period}
-                  </span>
-                  <span className="text-[11px] text-[#71717A] mt-1">
-                    {exp.location}
-                  </span>
-                </div>
-              </div>
-
-              <p className="text-xs sm:text-sm text-[#71717A] leading-relaxed">
-                {exp.context}
-              </p>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs sm:text-sm text-[#52525B] leading-relaxed">
-                {exp.highlights.map((h, i) => (
-                  <div key={i} className="space-y-1.5">
-                    <h4 className="text-xs font-bold uppercase tracking-wider text-[#09090B]">
-                      {h.title}
-                    </h4>
-                    <p>{h.desc}</p>
-                  </div>
-                ))}
-              </div>
-
-              {exp.resultCollective && (
-                <div className="pt-3 border-t border-zinc-200/60 flex items-center gap-2 text-xs text-[#71717A]">
-                  <span className="w-2 h-2 rounded-full bg-[#FFAD00]" />
-                  <span className="font-semibold text-[#09090B]">{exp.resultCollective}</span>
-                </div>
-              )}
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* ========================================================
-          5. FORMATION ACADÉMIQUE
-         ======================================================== */}
-      <section id="formation" className="max-w-[1280px] mx-auto px-5 sm:px-8 lg:px-10 space-y-8">
-        <div className="border-t border-zinc-200/80 pt-10 space-y-2">
-          <span className="text-xs font-semibold uppercase tracking-wider text-[#FFAD00] flex items-center gap-1.5">
-            <GraduationCap className="w-4 h-4" />
-            Formation académique
-          </span>
-          <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-[#09090B]">
-            Double cursus scientifique et stratégique
-          </h2>
-          <p className="text-sm text-[#52525B] max-w-2xl leading-relaxed">
-            L'alliance entre la structure de pensée d'un profil scientifique et la compréhension des enjeux de marque globaux.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {education.map((edu, idx) => (
-            <div
-              key={idx}
-              className="p-7 rounded-3xl bg-zinc-50 border border-zinc-200/80 space-y-3"
-            >
-              <span className="font-mono text-xs font-bold text-zinc-900 block">
-                {edu.period}
-              </span>
-              <h3 className="text-base font-bold text-[#09090B]">
-                {edu.degree}
-              </h3>
-              <p className="text-xs font-semibold text-[#71717A]">{edu.institution}</p>
-              <p className="text-xs text-[#52525B] leading-relaxed pt-1">
-                {edu.description}
-              </p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* ========================================================
-          6. COMPÉTENCES OPÉRATIONNELLES & STACK TECHNIQUE
+          6. COMPÉTENCES OPÉRATIONNELLES & STACK TECHNIQUE (TAGS GLASS STUDIO)
          ======================================================== */}
       <section className="max-w-[1280px] mx-auto px-5 sm:px-8 lg:px-10 space-y-8">
         <div className="border-t border-zinc-200/80 pt-10 space-y-2">
-          <span className="text-xs font-semibold uppercase tracking-wider text-[#FFAD00] flex items-center gap-1.5">
+          <div className="flex items-center gap-2">
             <span className="w-1.5 h-1.5 rounded-full bg-[#FFAD00]" />
-            Compétences &amp; Maîtrise logicielle
-          </span>
-          <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-[#09090B]">
+            <span className="text-xs font-semibold uppercase tracking-wider text-zinc-500 font-mono">
+              Compétences &amp; Stack logicielle
+            </span>
+          </div>
+          <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-zinc-950">
             Capacités d'exécution autonome
           </h2>
+          <p className="text-sm text-zinc-500 max-w-2xl leading-relaxed">
+            Organisation des compétences clés mobilisées au quotidien dans la conception graphique, le motion design et les projets de marque.
+          </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {safeSkillGroups.map((skillGroup) => (
             <div
               key={skillGroup.id}
-              className="p-6 sm:p-7 rounded-3xl bg-white/70 dark:bg-zinc-900/60 backdrop-blur-xl border border-zinc-200/80 dark:border-white/10 space-y-4 shadow-[0_4px_20px_rgba(0,0,0,0.02)] hover:shadow-md transition-all duration-300 flex flex-col justify-between"
+              className="p-6 sm:p-7 rounded-3xl bg-white/70 backdrop-blur-xl border border-zinc-200/50 shadow-sm shadow-zinc-950/[0.03] space-y-4 hover:bg-white/90 hover:border-zinc-300/60 hover:shadow-md hover:shadow-zinc-950/[0.05] transition-all duration-300 flex flex-col justify-between"
             >
-              <div className="space-y-3">
-                <div className="flex items-center gap-2 border-b border-zinc-100 dark:border-white/10 pb-3">
+              <div className="space-y-4">
+                <div className="flex items-center gap-2 border-b border-zinc-100 pb-3">
                   <span className="w-1.5 h-1.5 rounded-full bg-[#FFAD00]" />
-                  <h3 className="text-xs font-mono font-bold uppercase tracking-wider text-[#09090B] dark:text-white">
+                  <h3 className="text-xs font-mono font-bold uppercase tracking-wider text-zinc-950">
                     {skillGroup.category}
                   </h3>
                 </div>
-                <ul className="space-y-2.5 text-xs text-[#52525B] dark:text-zinc-300 leading-relaxed">
+
+                {/* Tags discrets Glass Studio */}
+                <div className="flex flex-wrap gap-2 pt-1">
                   {skillGroup.items.map((item, i) => (
-                    <li key={i} className="flex items-start gap-2">
-                      <span className="text-[#FFAD00] shrink-0 font-bold">—</span>
-                      <span>{item}</span>
-                    </li>
+                    <span
+                      key={i}
+                      className="inline-flex items-center px-3 py-1.5 rounded-xl bg-white/60 border border-zinc-200/50 text-xs font-medium text-zinc-700 backdrop-blur-sm shadow-2xs hover:bg-white transition-colors"
+                    >
+                      {item}
+                    </span>
                   ))}
-                </ul>
+                </div>
               </div>
             </div>
           ))}
         </div>
       </section>
 
-            {/* ========================================================
+      {/* ========================================================
           7. SECTION ÉDITORIALE CV SYNTHÉTIQUE (GLASS DESIGN)
          ======================================================== */}
       <section className="max-w-[1280px] mx-auto px-5 sm:px-8 lg:px-10 pb-8">
-        <div className="p-8 sm:p-10 rounded-3xl backdrop-blur-xl bg-white/75 dark:bg-zinc-900/70 border border-zinc-200/90 dark:border-white/10 shadow-[0_8px_30px_rgba(0,0,0,0.04)] flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+        <div className="p-8 sm:p-10 rounded-3xl backdrop-blur-xl bg-white/75 border border-zinc-200/50 shadow-sm shadow-zinc-950/[0.03] flex flex-col md:flex-row items-start md:items-center justify-between gap-6 hover:bg-white/90 hover:border-zinc-300/60 transition-all duration-300">
           <div className="space-y-2 max-w-2xl">
             <div className="flex items-center gap-2">
               <span className="w-2 h-2 rounded-full bg-[#FFAD00] shadow-[0_0_8px_rgba(255,173,0,0.6)]" />
@@ -811,10 +1099,10 @@ export default function Parcours({ navigate, onOpenCvModal }) {
                 Document de synthèse
               </span>
             </div>
-            <h3 className="text-2xl sm:text-3xl font-extrabold text-[#09090B] dark:text-white tracking-tight">
+            <h3 className="text-2xl sm:text-3xl font-extrabold text-zinc-950 tracking-tight">
               Consulter mon CV synthétique
             </h3>
-            <p className="text-xs sm:text-sm text-[#52525B] dark:text-zinc-300 leading-relaxed">
+            <p className="text-xs sm:text-sm text-zinc-500 leading-relaxed">
               Consultez et téléchargez la version condensée de mon parcours professionnel, mes compétences logicielles et mes diplômes académiques dans une mise en page claire et imprimable.
             </p>
           </div>
@@ -823,7 +1111,7 @@ export default function Parcours({ navigate, onOpenCvModal }) {
             <button
               type="button"
               onClick={onOpenCvModal}
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#09090B] dark:bg-white text-white dark:text-zinc-900 text-xs font-bold hover:bg-zinc-800 transition-all shadow-md hover:scale-[1.02] active:scale-[0.98] cursor-pointer"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-zinc-950 text-white text-xs font-bold hover:bg-zinc-800 transition-all shadow-md hover:scale-[1.02] active:scale-[0.98] cursor-pointer"
             >
               <FileText className="w-4 h-4 text-[#FFAD00]" />
               <span>Ouvrir le CV interactif</span>
@@ -836,7 +1124,7 @@ export default function Parcours({ navigate, onOpenCvModal }) {
                 const el = document.getElementById('contact');
                 if (el) el.scrollIntoView({ behavior: 'smooth' });
               }}
-              className="inline-flex items-center gap-1.5 px-5 py-3 rounded-full border border-zinc-200/90 dark:border-white/10 bg-white dark:bg-zinc-800 text-[#09090B] dark:text-white text-xs font-semibold hover:border-[#FFAD00] transition-colors"
+              className="inline-flex items-center gap-1.5 px-5 py-3 rounded-full border border-zinc-200/90 bg-white text-zinc-950 text-xs font-semibold hover:border-[#FFAD00] transition-colors"
             >
               <span>Prendre contact</span>
               <ArrowRight className="w-3.5 h-3.5 text-[#FFAD00]" />
@@ -845,7 +1133,7 @@ export default function Parcours({ navigate, onOpenCvModal }) {
         </div>
       </section>
 
-{/* ========================================================
+      {/* ========================================================
           VISIONNEUSE PLEIN ÉCRAN (LIGHTBOX INTERACTIVE ÉDITORIALE)
           Portalisée directement sur document.body (zéro fuite d'arrière-plan au sommet)
          ======================================================== */}

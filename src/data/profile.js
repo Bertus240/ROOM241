@@ -55,7 +55,7 @@ export const profileData = {
   experiences: [
     {
       id: "hornetsecurity-cdi",
-      role: "Graphic Designer Junior",
+      role: "Graphic Designer & Brand Production",
       company: "Hornetsecurity by Proofpoint",
       type: "Poste CDI",
       period: "Septembre 2025 – Octobre 2026",

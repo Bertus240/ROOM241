@@ -5,7 +5,7 @@ export default function Header({ currentPath = '/', navigate }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
-  const [indicatorStyle, setIndicatorStyle] = useState({ left: 0, top: 0, width: 0, height: 0, ready: false });
+  const [indicatorStyle, setIndicatorStyle] = useState({ left: 0, width: 0, ready: false });
   const navRef = useRef(null);
   const tabRefs = useRef([]);
 
@@ -79,10 +79,8 @@ export default function Header({ currentPath = '/', navigate }) {
     const tabRect = activeTab.getBoundingClientRect();
 
     setIndicatorStyle({
-      left: tabRect.left - navRect.left,
-      top: tabRect.top - navRect.top,
+      left: tabRect.left - navRect.left - nav.clientLeft,
       width: tabRect.width,
-      height: tabRect.height,
       ready: true,
     });
   };
@@ -148,14 +146,13 @@ export default function Header({ currentPath = '/', navigate }) {
           className="hidden md:flex items-center gap-1 p-1 rounded-full bg-zinc-100/90 border border-zinc-200/70 relative backdrop-blur-sm select-none"
           aria-label="Navigation principale"
         >
-          {/* Curseur de sélection unique animé par GPU — ne décroche jamais et reste toujours actif */}
+          {/* Curseur de sélection unique animé par GPU — parfaitement centré verticalement via top-1 bottom-1 */}
           <span
             aria-hidden="true"
-            className="absolute rounded-full bg-white shadow-[0_2px_8px_rgba(0,0,0,0.06)] border border-zinc-200/80 pointer-events-none transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] z-0"
+            className="absolute top-1 bottom-1 left-0 rounded-full bg-white shadow-[0_2px_8px_rgba(0,0,0,0.06)] border border-zinc-200/80 pointer-events-none transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] z-0"
             style={{
-              transform: `translate3d(${indicatorStyle.left}px, ${indicatorStyle.top}px, 0)`,
+              transform: `translate3d(${indicatorStyle.left}px, 0, 0)`,
               width: `${indicatorStyle.width}px`,
-              height: `${indicatorStyle.height}px`,
               opacity: indicatorStyle.ready ? 1 : 0,
             }}
           />
