@@ -262,16 +262,16 @@ export default function MotionVideoCarousel() {
               </div>
 
               {/* Titre et sous-titre complets, lisibles sans troncature tronquée */}
-              <div className="space-y-1 px-0.5 flex-1 flex flex-col justify-between">
+              <div className="space-y-1.5 px-0.5 flex-1 flex flex-col justify-between">
                 <span
-                  className={`text-[12px] font-bold leading-snug block line-clamp-2 ${
+                  className={`text-[12px] font-bold leading-snug block line-clamp-2 min-h-[2.4rem] ${
                     active ? 'text-[#09090B] dark:text-white' : 'text-zinc-800 dark:text-zinc-200 group-hover:text-black dark:group-hover:text-white'
                   }`}
                   title={vid.title}
                 >
                   {vid.title}
                 </span>
-                <span className="text-[10px] font-mono text-[#71717A] dark:text-zinc-400 block truncate">
+                <span className="text-[11px] font-mono text-[#71717A] dark:text-zinc-400 block truncate">
                   {vid.subtitle}
                 </span>
               </div>

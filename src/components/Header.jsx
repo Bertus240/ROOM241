@@ -114,17 +114,18 @@ export default function Header({ currentPath = '/', navigate }) {
                   key={link.path}
                   href={link.path}
                   onClick={handleNav(link.path)}
-                  className={`relative px-4 py-1.5 rounded-full text-xs font-semibold transition-colors duration-200 z-10 select-none ${active
+                  className={`relative px-4 py-1.5 rounded-full text-xs font-semibold transition-colors duration-200 select-none ${
+                    active
                       ? 'text-[#09090B]'
                       : 'text-[#52525B] hover:text-[#09090B]'
-                    }`}
+                  }`}
                   aria-current={active ? 'page' : undefined}
                 >
                   {active && (
                     <motion.span
                       layoutId="activeHeaderPill"
-                      className="absolute inset-0 rounded-full bg-white shadow-xs border border-zinc-200/70 z-[-1] pointer-events-none"
-                      transition={{ type: 'spring', stiffness: 500, damping: 35 }}
+                      className="absolute inset-0 rounded-full bg-white shadow-[0_2px_8px_rgba(0,0,0,0.06)] border border-zinc-200/80 pointer-events-none z-0"
+                      transition={{ type: 'spring', bounce: 0.15, duration: 0.35 }}
                     />
                   )}
                   <span className="relative z-10">{link.label}</span>

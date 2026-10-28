@@ -9,7 +9,7 @@ import AdminDashboard from './components/AdminDashboard';
 import ProjectDetail from './components/ProjectDetail';
 import BackToTop from './components/BackToTop';
 import StudioPointer from './components/StudioPointer';
-import Kuro from './components/Mochi';
+import Kuro from './components/Kuro';
 import { projectsData } from './data/projects';
 import { incrementPageView } from './lib/telemetry';
 import { initTheme } from './lib/theme';

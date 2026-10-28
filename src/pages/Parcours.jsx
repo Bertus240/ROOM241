@@ -76,6 +76,78 @@ export default function Parcours({ navigate, onOpenCvModal }) {
 
   const { identity, manifesto, experiences, education, skills, athleticProof } = profileData;
 
+  // Normalisation sécurisée et adaptative des compétences selon la structure réelle de profileData.skills
+  const safeSkillGroups = React.useMemo(() => {
+    if (!skills) return [];
+
+    // Cas 1 : Si skills est un tableau de groupes [{ category, items }]
+    if (Array.isArray(skills)) {
+      return skills.map((group, idx) => ({
+        id: `skill-group-${idx}`,
+        category: group?.category || 'Compétences',
+        items: Array.isArray(group?.items) ? group.items : [],
+      }));
+    }
+
+    // Cas 2 : Si skills est un objet structuré par catégories (business, software, aiTools...)
+    if (typeof skills === 'object') {
+      const categoryMeta = {
+        business: 'Compétences Métier & Direction Artistique',
+        software: 'Logiciels & Création (Adobe CC, Figma)',
+        aiTools: 'Intelligence Artificielle & Veille',
+      };
+
+      const result = [];
+
+      // A. Compétences Métier
+      if (Array.isArray(skills.business) && skills.business.length > 0) {
+        result.push({
+          id: 'business',
+          category: categoryMeta.business,
+          items: skills.business.map((item) => (typeof item === 'string' ? item : item?.name || '')),
+        });
+      }
+
+      // B. Logiciels Créatifs
+      if (Array.isArray(skills.software) && skills.software.length > 0) {
+        result.push({
+          id: 'software',
+          category: categoryMeta.software,
+          items: skills.software.map((item) => (typeof item === 'string' ? item : item?.name || '')),
+        });
+      }
+
+      // C. Outils d'Intelligence Artificielle
+      if (Array.isArray(skills.aiTools) && skills.aiTools.length > 0) {
+        result.push({
+          id: 'aiTools',
+          category: categoryMeta.aiTools,
+          items: skills.aiTools.map((tool) => {
+            if (typeof tool === 'string') return tool;
+            if (tool?.name && tool?.usage) return `${tool.name} (${tool.usage})`;
+            return tool?.name || '';
+          }),
+        });
+      }
+
+      // D. Clés supplémentaires éventuelles
+      Object.entries(skills).forEach(([key, val]) => {
+        if (['business', 'software', 'aiTools'].includes(key)) return;
+        if (Array.isArray(val) && val.length > 0) {
+          result.push({
+            id: key,
+            category: key.charAt(0).toUpperCase() + key.slice(1),
+            items: val.map((item) => (typeof item === 'string' ? item : item?.name || JSON.stringify(item))),
+          });
+        }
+      });
+
+      return result;
+    }
+
+    return [];
+  }, [skills]);
+
   return (
     <div className="pt-24 sm:pt-28 pb-28 space-y-24 sm:space-y-36">
 
@@ -702,23 +774,28 @@ export default function Parcours({ navigate, onOpenCvModal }) {
           </h2>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {skills.map((skillGroup, idx) => (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {safeSkillGroups.map((skillGroup) => (
             <div
-              key={idx}
-              className="p-6 rounded-2xl bg-white border border-zinc-200/80 space-y-3 shadow-sm"
+              key={skillGroup.id}
+              className="p-6 sm:p-7 rounded-3xl bg-white/70 dark:bg-zinc-900/60 backdrop-blur-xl border border-zinc-200/80 dark:border-white/10 space-y-4 shadow-[0_4px_20px_rgba(0,0,0,0.02)] hover:shadow-md transition-all duration-300 flex flex-col justify-between"
             >
-              <h3 className="text-xs font-bold uppercase tracking-wider text-[#09090B] border-b border-zinc-100 pb-2">
-                {skillGroup.category}
-              </h3>
-              <ul className="space-y-2 text-xs text-[#52525B]">
-                {skillGroup.items.map((item, i) => (
-                  <li key={i} className="flex items-start gap-1.5 leading-snack">
-                    <span className="text-[#FFAD00] font-bold">•</span>
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
+              <div className="space-y-3">
+                <div className="flex items-center gap-2 border-b border-zinc-100 dark:border-white/10 pb-3">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#FFAD00]" />
+                  <h3 className="text-xs font-mono font-bold uppercase tracking-wider text-[#09090B] dark:text-white">
+                    {skillGroup.category}
+                  </h3>
+                </div>
+                <ul className="space-y-2.5 text-xs text-[#52525B] dark:text-zinc-300 leading-relaxed">
+                  {skillGroup.items.map((item, i) => (
+                    <li key={i} className="flex items-start gap-2">
+                      <span className="text-[#FFAD00] shrink-0 font-bold">—</span>
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
           ))}
         </div>
@@ -783,33 +860,33 @@ export default function Parcours({ navigate, onOpenCvModal }) {
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
-                className="fixed inset-0 z-[9999] w-screen h-screen bg-black/98 backdrop-blur-xl flex flex-col justify-between p-3 sm:p-6 select-none"
+                className="fixed inset-0 z-[99999] w-screen h-screen bg-white/95 backdrop-blur-2xl flex flex-col justify-between p-3 sm:p-6 select-none"
                 onClick={() => setLightboxIndex(null)}
               >
-                {/* Barre supérieure flottante — Contraste maximal et style glassmorphic */}
+                {/* Barre supérieure flottante — Glass Design Premium Luminous */}
                 <div
-                  className="flex items-center justify-between text-white text-xs w-full max-w-5xl mx-auto z-40 px-4 py-2.5 rounded-full bg-black/85 backdrop-blur-xl border border-white/20 shadow-2xl"
+                  className="flex items-center justify-between text-zinc-900 text-xs w-full max-w-5xl mx-auto z-40 px-4 py-2.5 rounded-full bg-white/90 backdrop-blur-xl border border-zinc-200/90 shadow-[0_8px_30px_rgba(0,0,0,0.06)]"
                   onClick={(e) => e.stopPropagation()}
                 >
                   <div className="flex items-center gap-3">
-                    <span className="font-mono text-white font-bold text-xs px-3 py-1 rounded-full bg-white/15 border border-white/20 tracking-wider">
+                    <span className="font-mono text-zinc-950 font-bold text-xs px-3 py-1 rounded-full bg-zinc-100 border border-zinc-200 tracking-wider">
                       {String(lightboxIndex + 1).padStart(2, '0')} <span className="text-[#FFAD00]">/</span> {String(allModalImages.length).padStart(2, '0')}
                     </span>
                     {allModalImages[lightboxIndex]?.category && (
-                      <span className="inline-flex px-3 py-1 rounded-full bg-white/15 text-white border border-white/20 text-xs font-semibold tracking-wide">
+                      <span className="inline-flex px-3 py-1 rounded-full bg-zinc-100 text-zinc-800 border border-zinc-200 text-xs font-semibold tracking-wide">
                         {allModalImages[lightboxIndex].category}
                       </span>
                     )}
                   </div>
 
                   <div className="flex items-center gap-3">
-                    <span className="hidden md:inline-block text-[11px] text-zinc-300 font-mono">
+                    <span className="hidden md:inline-block text-[11px] text-zinc-500 font-mono">
                       Échap pour fermer • Flèches pour naviguer
                     </span>
                     <button
                       type="button"
                       onClick={() => setLightboxIndex(null)}
-                      className="px-3 py-1.5 rounded-full bg-white/15 hover:bg-white/30 text-white border border-white/25 transition-all flex items-center gap-1.5 text-xs font-semibold cursor-pointer shadow-sm hover:scale-105 active:scale-95"
+                      className="px-3.5 py-1.5 rounded-full bg-zinc-100 hover:bg-zinc-200 text-zinc-900 border border-zinc-200 transition-all flex items-center gap-1.5 text-xs font-semibold cursor-pointer shadow-xs hover:scale-105 active:scale-95"
                       aria-label="Fermer la visionneuse"
                     >
                       <X className="w-4 h-4 text-[#FFAD00]" />
@@ -818,14 +895,14 @@ export default function Parcours({ navigate, onOpenCvModal }) {
                   </div>
                 </div>
 
-                {/* Boutons de navigation déportés dans les marges latérales (aucun chevauchement sur la photo) */}
+                {/* Boutons de navigation latéraux Glass Design */}
                 <button
                   type="button"
                   onClick={(e) => {
                     e.stopPropagation();
                     setLightboxIndex((prev) => (prev - 1 + allModalImages.length) % allModalImages.length);
                   }}
-                  className="fixed left-3 sm:left-6 md:left-8 top-1/2 -translate-y-1/2 z-40 w-11 h-11 sm:w-13 sm:h-13 rounded-full bg-black/60 hover:bg-black/90 text-white border border-white/20 transition-all hover:scale-105 active:scale-95 shadow-2xl backdrop-blur-md flex items-center justify-center cursor-pointer"
+                  className="fixed left-3 sm:left-6 md:left-8 top-1/2 -translate-y-1/2 z-40 w-11 h-11 sm:w-13 sm:h-13 rounded-full bg-white/90 hover:bg-white text-zinc-900 border border-zinc-200/90 transition-all hover:scale-105 active:scale-95 shadow-xl backdrop-blur-md flex items-center justify-center cursor-pointer"
                   aria-label="Photographie précédente"
                 >
                   <ChevronLeft className="w-6 h-6" />
@@ -837,7 +914,7 @@ export default function Parcours({ navigate, onOpenCvModal }) {
                     e.stopPropagation();
                     setLightboxIndex((prev) => (prev + 1) % allModalImages.length);
                   }}
-                  className="fixed right-3 sm:right-6 md:right-8 top-1/2 -translate-y-1/2 z-40 w-11 h-11 sm:w-13 sm:h-13 rounded-full bg-black/60 hover:bg-black/90 text-white border border-white/20 transition-all hover:scale-105 active:scale-95 shadow-2xl backdrop-blur-md flex items-center justify-center cursor-pointer"
+                  className="fixed right-3 sm:right-6 md:right-8 top-1/2 -translate-y-1/2 z-40 w-11 h-11 sm:w-13 sm:h-13 rounded-full bg-white/90 hover:bg-white text-zinc-900 border border-zinc-200/90 transition-all hover:scale-105 active:scale-95 shadow-xl backdrop-blur-md flex items-center justify-center cursor-pointer"
                   aria-label="Photographie suivante"
                 >
                   <ChevronRight className="w-6 h-6" />
@@ -857,24 +934,24 @@ export default function Parcours({ navigate, onOpenCvModal }) {
                       animate={{ opacity: 1, scale: 1 }}
                       exit={{ opacity: 0, scale: 0.98 }}
                       transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
-                      className="max-h-full max-w-full w-auto h-auto object-contain rounded-xl sm:rounded-2xl shadow-2xl border border-white/10"
+                      className="max-h-[72vh] max-w-full w-auto h-auto object-contain rounded-xl sm:rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.12)] border border-zinc-200/80"
                     />
                   </AnimatePresence>
                 </div>
 
                 {/* Légende intégrée haute lisibilité et sélecteur de miniatures */}
                 <div
-                  className="text-center text-white max-w-2xl mx-auto w-full space-y-3 z-40 py-2"
+                  className="text-center text-zinc-900 max-w-2xl mx-auto w-full space-y-3 z-40 py-2"
                   onClick={(e) => e.stopPropagation()}
                 >
-                  <div className="bg-black/85 backdrop-blur-xl border border-white/20 rounded-2xl px-6 py-3.5 shadow-2xl max-w-xl mx-auto space-y-1">
-                    <p className="font-bold text-sm sm:text-base text-white tracking-tight">
+                  <div className="bg-white/90 backdrop-blur-xl border border-zinc-200/90 rounded-2xl px-6 py-3.5 shadow-xl max-w-xl mx-auto space-y-1">
+                    <p className="font-bold text-sm sm:text-base text-zinc-950 tracking-tight">
                       {allModalImages[lightboxIndex].caption || allModalImages[lightboxIndex].alt}
                     </p>
                     {allModalImages[lightboxIndex].place && (
                       <div className="flex items-center justify-center gap-1.5 text-[#FFAD00] text-xs font-mono font-medium">
                         <MapPin className="w-3.5 h-3.5" />
-                        <span>{allModalImages[lightboxIndex].place}</span>
+                        <span className="text-zinc-600 font-semibold">{allModalImages[lightboxIndex].place}</span>
                       </div>
                     )}
                   </div>
@@ -886,10 +963,10 @@ export default function Parcours({ navigate, onOpenCvModal }) {
                         key={idx}
                         type="button"
                         onClick={() => setLightboxIndex(idx)}
-                        className={`h-7 w-9 sm:h-9 sm:w-12 rounded-md overflow-hidden border transition-all shrink-0 cursor-pointer ${
+                        className={`h-8 w-11 sm:h-10 sm:w-14 rounded-md overflow-hidden border transition-all shrink-0 cursor-pointer ${
                           idx === lightboxIndex
-                            ? 'border-[#FFAD00] scale-105 opacity-100 ring-2 ring-[#FFAD00]/40'
-                            : 'border-white/20 opacity-50 hover:opacity-80'
+                            ? 'border-[#FFAD00] scale-105 opacity-100 ring-2 ring-[#FFAD00]/40 shadow-md'
+                            : 'border-zinc-200 opacity-60 hover:opacity-100'
                         }`}
                         aria-label={`Afficher la photo ${idx + 1}`}
                       >

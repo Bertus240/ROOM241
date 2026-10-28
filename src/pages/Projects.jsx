@@ -34,7 +34,59 @@ export default function Projects({ navigate }) {
   const [isVideoFicPlaying, setIsVideoFicPlaying] = useState(false);
   const [isPlayingFreshVideo, setIsPlayingFreshVideo] = useState(false);
   const [isPlayingHelixVideo, setIsPlayingHelixVideo] = useState(false);
-  const [hornetMediaIndex, setHornetMediaIndex] = useState(0); // 0 = photo stand, 1 = video arche
+  const [hornetMediaIndex, setHornetMediaIndex] = useState(0);
+  // Liste ordonnée des 6 médias du dispositif scénographique FIC 2026
+  const ficMediaList = [
+    {
+      id: 'stand-view',
+      tabLabel: 'Vue du stand',
+      title: "Stand d'exposition de plus de 150 m² — Vue in situ à Lille Grand Palais",
+      type: 'image',
+      src: '/assets/hornetsecurity/fic/Stand/IMG20250401075104.jpg',
+      badge: "Photographie in situ • Stand actif"
+    },
+    {
+      id: 'arch-ae',
+      tabLabel: 'Arche After Effects',
+      title: "Arche vidéo LED — Boucle motion design d'accueil (After Effects)",
+      type: 'arch-video',
+      badge: "Animation After Effects • 1080p"
+    },
+    {
+      id: 'vid-stand',
+      tabLabel: 'Stand & signalétique',
+      title: "Stand & Totems — Intégration de la signalétique et des écrans interactifs",
+      type: 'video',
+      src: '/assets/hornetsecurity/fic/Videos/vid1_fic.mp4',
+      badge: "Captation in situ • Signalétique"
+    },
+    {
+      id: 'vid-karting',
+      tabLabel: 'Piste e-karting',
+      title: "Dispositif e-karting — Animation événementielle et engagement visiteurs",
+      type: 'video',
+      src: '/assets/hornetsecurity/fic/Videos/vid2_fic.mp4',
+      badge: "Expérience événementielle • E-Karting"
+    },
+    {
+      id: 'vid-salon',
+      tabLabel: 'Vie du salon',
+      title: "Vie du salon & Affluence — Interactions et échanges professionnels",
+      type: 'video',
+      src: '/assets/hornetsecurity/fic/Videos/vid3_fic.mp4',
+      badge: "Ambiance salon • FIC 2026"
+    },
+    {
+      id: 'vid-recap',
+      tabLabel: 'Récapitulatif',
+      title: "Récapitulatif de l'événement — Synthèse visuelle de l'édition 2026",
+      type: 'video',
+      src: '/assets/hornetsecurity/fic/Videos/vid4_fic.mp4',
+      badge: "Aftermovie • Synthèse 3 jours"
+    }
+  ];
+
+ // 0 = photo stand, 1 = video arche
   const [isHornetVideoPlaying, setIsHornetVideoPlaying] = useState(false);
   const [selectedRaAsset, setSelectedRaAsset] = useState(0);
 
@@ -88,8 +140,8 @@ export default function Projects({ navigate }) {
     },
     {
       src: "/assets/social-proof-ra/post_pool_craft.png",
-      title: "Précision artisanale aux abords d'une piscine",
-      caption: "Valorisation du savoir-faire technique et de la précision de pose sur chantier résidentiel."
+      title: "Précision artisanale aux abords d’une piscine",
+      caption: "Mise en valeur photographique et éditoriale de la précision de pose de résine drainante aux abords d'un bassin résidentiel. La communication documente le geste artisanal, la régularité du talochage et les finitions soignées pour démontrer le savoir-faire technique auprès d'une clientèle exigeante sans recours à des allégations publicitaires agressives."
     },
     {
       src: "/assets/social-proof-ra/post_trowel_craft.png",
@@ -305,90 +357,57 @@ export default function Projects({ navigate }) {
 
           </div>
 
-          {/* Dispositif FIC 2025 à Lille Grand Palais */}
+          {/* Dispositif FIC 2026 à Lille Grand Palais — Refonte Scénographie & Médias */}
           <div className="space-y-6">
-            <div className="space-y-1">
-              <span className="text-xs font-bold uppercase tracking-wider text-[#FFAD00] block">
-                Forum InCyber (FIC) 2025 • Lille Grand Palais
+            <div className="space-y-2">
+              <span className="text-[11px] font-mono font-bold uppercase tracking-widest text-[#FFAD00] flex items-center gap-2">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#FFAD00] shadow-[0_0_6px_rgba(255,173,0,0.8)]" />
+                <span>FORUM INCYBER (FIC) • LILLE GRAND PALAIS</span>
               </span>
-              <h3 className="text-lg sm:text-xl font-extrabold text-[#09090B]">
-                Stand de plus de 150 m², arche vidéo After Effects et piste e-karting
+              <h3 className="text-xl sm:text-2xl font-extrabold text-[#09090B] dark:text-white tracking-tight">
+                Scénographie immersive &amp; stand de plus de 150 m²
               </h3>
+              <p className="text-xs sm:text-sm text-[#52525B] dark:text-zinc-300 max-w-3xl leading-relaxed">
+                Habillage graphique du stand, animation motion design sur l’arche d’entrée et dispositifs événementiels pensés pour accompagner le parcours des visiteurs.
+              </p>
             </div>
             
-            {/* Carrousel Hornetsecurity : Alternance Stand in situ & Vidéo After Effects */}
+            {/* Module Média 6 Onglets : Stand in situ, Arche After Effects & 4 Captations terrain */}
             <div className="p-6 sm:p-8 rounded-3xl bg-white dark:bg-zinc-900/70 border border-zinc-200/90 dark:border-white/10 shadow-[0_10px_35px_rgba(0,0,0,0.03)] space-y-6">
               
-              {/* En-tête éditorial du carrousel */}
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-zinc-200/60 dark:border-white/10 pb-4">
-                <div>
+              {/* En-tête éditorial et barre des 6 onglets */}
+              <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-zinc-200/60 dark:border-white/10 pb-4">
+                <div className="space-y-1">
                   <div className="flex items-center gap-2">
                     <span className="w-2 h-2 rounded-full bg-[#FFAD00] shadow-[0_0_8px_rgba(255,173,0,0.6)]" />
                     <span className="text-xs font-mono font-bold uppercase tracking-wider text-[#09090B] dark:text-white">
-                      Scénographie &amp; Motion Design • Forum InCyber (FIC 2025)
+                      {ficMediaList[hornetMediaIndex]?.tabLabel || "Média"} • FIC 2026
                     </span>
                   </div>
-                  <h4 className="text-lg sm:text-xl font-extrabold text-[#09090B] dark:text-white mt-1 tracking-tight">
-                    {hornetMediaIndex === 0
-                      ? "Stand d'exposition de plus de 150 m² — Vue in situ à Lille Grand Palais"
-                      : "Arche vidéo LED — Boucle motion design d'accueil (After Effects)"}
+                  <h4 className="text-base sm:text-lg font-extrabold text-[#09090B] dark:text-white tracking-tight">
+                    {ficMediaList[hornetMediaIndex]?.title}
                   </h4>
                 </div>
 
-                {/* Commandes de navigation et pagination */}
-                <div className="flex items-center gap-3 shrink-0">
-                  <div className="flex items-center gap-1.5 p-1 rounded-full bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-white/10 text-xs font-mono">
+                {/* 6 Onglets de sélection fluide */}
+                <div className="flex items-center gap-1.5 p-1 rounded-full bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-white/10 text-xs font-mono overflow-x-auto max-w-full">
+                  {ficMediaList.map((m, idx) => (
                     <button
+                      key={m.id}
                       type="button"
                       onClick={() => {
-                        setHornetMediaIndex(0);
+                        setHornetMediaIndex(idx);
                         setIsHornetVideoPlaying(false);
                       }}
-                      className={`px-3 py-1 rounded-full transition-all cursor-pointer ${
-                        hornetMediaIndex === 0
-                          ? "bg-white dark:bg-zinc-700 text-black dark:text-white font-bold shadow-xs"
+                      className={`px-3 py-1.5 rounded-full transition-all shrink-0 cursor-pointer font-medium ${
+                        hornetMediaIndex === idx
+                          ? "bg-white dark:bg-zinc-700 text-[#09090B] dark:text-white font-bold shadow-xs"
                           : "text-zinc-500 hover:text-black dark:hover:text-white"
                       }`}
                     >
-                      01 · Photo du stand
+                      {String(idx + 1).padStart(2, '0')} · {m.tabLabel}
                     </button>
-                    <button
-                      type="button"
-                      onClick={() => setHornetMediaIndex(1)}
-                      className={`px-3 py-1 rounded-full transition-all cursor-pointer ${
-                        hornetMediaIndex === 1
-                          ? "bg-white dark:bg-zinc-700 text-black dark:text-white font-bold shadow-xs"
-                          : "text-zinc-500 hover:text-black dark:hover:text-white"
-                      }`}
-                    >
-                      02 · Vidéo After Effects
-                    </button>
-                  </div>
-
-                  <div className="flex items-center gap-1">
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setHornetMediaIndex((prev) => (prev === 0 ? 1 : 0));
-                        setIsHornetVideoPlaying(false);
-                      }}
-                      className="w-9 h-9 rounded-full bg-white dark:bg-zinc-800 border border-zinc-200 dark:border-white/10 flex items-center justify-center text-zinc-700 dark:text-zinc-200 hover:bg-zinc-100 dark:hover:bg-zinc-700 transition-transform active:scale-95 cursor-pointer shadow-xs"
-                      aria-label="Média précédent"
-                    >
-                      <ChevronLeft className="w-4 h-4" />
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setHornetMediaIndex((prev) => (prev === 1 ? 0 : 1));
-                        setIsHornetVideoPlaying(false);
-                      }}
-                      className="w-9 h-9 rounded-full bg-white dark:bg-zinc-800 border border-zinc-200 dark:border-white/10 flex items-center justify-center text-zinc-700 dark:text-zinc-200 hover:bg-zinc-100 dark:hover:bg-zinc-700 transition-transform active:scale-95 cursor-pointer shadow-xs"
-                      aria-label="Média suivant"
-                    >
-                      <ChevronRight className="w-4 h-4" />
-                    </button>
-                  </div>
+                  ))}
                 </div>
               </div>
 
@@ -396,7 +415,7 @@ export default function Projects({ navigate }) {
               <div className="relative aspect-video w-full rounded-2xl sm:rounded-3xl overflow-hidden border border-zinc-200 dark:border-white/10 bg-zinc-950 shadow-md">
                 <AnimatePresence mode="wait">
                   {hornetMediaIndex === 0 ? (
-                    /* SLIDE 1 : Photographie authentique in situ du stand */
+                    /* ONGLETS 1 : Vue du stand (Photo réelle in situ) */
                     <motion.div
                       key="stand-photo"
                       initial={{ opacity: 0 }}
@@ -407,28 +426,28 @@ export default function Projects({ navigate }) {
                     >
                       <img
                         src="/assets/hornetsecurity/fic/Stand/IMG20250401075104.jpg"
-                        alt="Stand événementiel de plus de 150 m² Hornetsecurity au Forum InCyber 2025"
-                        className="w-full h-full object-cover object-[center_35%]"
+                        alt="Stand événementiel de plus de 150 m² Hornetsecurity au Forum InCyber 2026"
+                        className="w-full h-full object-cover object-[center_40%]"
                         loading="eager"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent pointer-events-none" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-transparent pointer-events-none" />
                       
                       <div className="absolute bottom-4 left-4 right-4 flex items-end justify-between gap-4 text-white">
                         <div className="space-y-0.5 max-w-xl">
-                          <span className="text-[10px] font-mono uppercase tracking-widest text-[#FFAD00] px-2 py-0.5 rounded bg-black/60 backdrop-blur-md border border-white/15">
+                          <span className="text-[10px] font-mono uppercase tracking-widest text-[#FFAD00] px-2.5 py-0.5 rounded-full bg-black/60 backdrop-blur-md border border-white/15">
                             Photographie in situ • Stand actif
                           </span>
                           <p className="text-xs sm:text-sm font-semibold pt-1">
-                            Lille Grand Palais • Plus de 150 m² accueillant plus de 4 000 contacts B2B
+                            Lille Grand Palais • Stand de plus de 150 m² accueillant plus de 4 000 contacts B2B
                           </p>
                         </div>
                         <span className="hidden sm:inline-block text-[11px] font-mono text-zinc-300 bg-black/60 px-3 py-1 rounded-full border border-white/15 backdrop-blur-md">
-                          01 / 02
+                          01 / 06
                         </span>
                       </div>
                     </motion.div>
-                  ) : (
-                    /* SLIDE 2 : Vidéo authentique de l'arche After Effects */
+                  ) : hornetMediaIndex === 1 ? (
+                    /* ONGLETS 2 : Arche After Effects (Face avant / Face arrière) */
                     <motion.div
                       key="arche-video"
                       initial={{ opacity: 0 }}
@@ -481,7 +500,7 @@ export default function Projects({ navigate }) {
 
                           <div className="absolute bottom-4 left-4 right-4 flex items-end justify-between gap-4 text-white z-10">
                             <div className="space-y-0.5 max-w-xl">
-                              <span className="text-[10px] font-mono uppercase tracking-widest text-[#FFAD00] px-2 py-0.5 rounded bg-black/60 backdrop-blur-md border border-white/15">
+                              <span className="text-[10px] font-mono uppercase tracking-widest text-[#FFAD00] px-2.5 py-0.5 rounded-full bg-black/60 backdrop-blur-md border border-white/15">
                                 Animation After Effects • {selectedArchFace === "front" ? "Face avant" : "Face arrière"}
                               </span>
                               <p className="text-xs sm:text-sm font-semibold pt-1">
@@ -489,27 +508,46 @@ export default function Projects({ navigate }) {
                               </p>
                             </div>
                             <span className="hidden sm:inline-block text-[11px] font-mono text-zinc-300 bg-black/60 px-3 py-1 rounded-full border border-white/15 backdrop-blur-md">
-                              02 / 02
+                              02 / 06
                             </span>
                           </div>
                         </div>
                       )}
                     </motion.div>
+                  ) : (
+                    /* ONGLETS 3 à 6 : Captations réelles du salon (Stand, Karting, Vie du salon, Récapitulatif) */
+                    <motion.div
+                      key={ficMediaList[hornetMediaIndex].id}
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.3 }}
+                      className="relative w-full h-full flex items-center justify-center bg-black"
+                    >
+                      <video
+                        src={ficMediaList[hornetMediaIndex].src}
+                        controls
+                        preload="metadata"
+                        playsInline
+                        className="w-full h-full object-contain"
+                      >
+                        Votre navigateur ne supporte pas la lecture vidéo.
+                      </video>
+                      <div className="absolute top-4 left-4 pointer-events-none">
+                        <span className="text-[10px] font-mono uppercase tracking-widest text-white px-2.5 py-1 rounded-full bg-black/75 backdrop-blur-md border border-white/20">
+                          {ficMediaList[hornetMediaIndex].badge}
+                        </span>
+                      </div>
+                    </motion.div>
                   )}
                 </AnimatePresence>
               </div>
 
-              {/* Commandes complémentaires : Bascule Face avant / Face arrière pour la vidéo */}
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-1">
-                <p className="text-xs sm:text-sm text-[#52525B] dark:text-zinc-300 max-w-2xl leading-relaxed">
-                  {hornetMediaIndex === 0
-                    ? "Scénographie, habillage graphique et signalétique du stand immersif de plus de 150 m² au FIC 2026, avec intégration des totems vidéo et direction visuelle des flux visiteurs."
-                    : "Conception et réalisation sur Adobe After Effects de l’animation vidéo diffusée sur l’arche LED à l’entrée du salon. Cette boucle de motion design accompagnait la transition de marque « HORNETSECURITY FORMERLY Vade » et guidait visuellement les visiteurs vers les espaces partenaires."}
-                </p>
-
-                {hornetMediaIndex === 1 && (
-                  <div className="flex items-center gap-2 shrink-0">
-                    <span className="text-[11px] text-zinc-400 font-mono">Angle régie :</span>
+              {/* Angle régie pour l'arche After Effects */}
+              {hornetMediaIndex === 1 && (
+                <div className="flex items-center justify-between gap-4 pt-1 border-t border-zinc-100 dark:border-white/10">
+                  <span className="text-xs text-zinc-500 font-mono">Angle de diffusion :</span>
+                  <div className="flex items-center gap-2">
                     <button
                       type="button"
                       onClick={() => {
@@ -539,7 +577,46 @@ export default function Projects({ navigate }) {
                       Face arrière
                     </button>
                   </div>
-                )}
+                </div>
+              )}
+
+              {/* Fiche explicative en 3 colonnes : Motion Design, Habillage graphique, Présence terrain */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-5 pt-3 border-t border-zinc-200/60 dark:border-white/10">
+                <div className="p-4 sm:p-5 rounded-2xl bg-zinc-50/70 dark:bg-zinc-900/50 border border-zinc-200/80 dark:border-white/10 space-y-2">
+                  <div className="flex items-center gap-2">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#FFAD00]" />
+                    <h5 className="font-mono text-xs font-bold uppercase tracking-wider text-zinc-900 dark:text-white">
+                      Motion design
+                    </h5>
+                  </div>
+                  <p className="text-xs text-[#52525B] dark:text-zinc-300 leading-relaxed">
+                    Animation réalisée sur Adobe After Effects et diffusée sur l’arche LED à l’entrée du salon. Une boucle de motion design accompagnait la transition de marque « HORNETSECURITY FORMERLY Vade ».
+                  </p>
+                </div>
+
+                <div className="p-4 sm:p-5 rounded-2xl bg-zinc-50/70 dark:bg-zinc-900/50 border border-zinc-200/80 dark:border-white/10 space-y-2">
+                  <div className="flex items-center gap-2">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#FFAD00]" />
+                    <h5 className="font-mono text-xs font-bold uppercase tracking-wider text-zinc-900 dark:text-white">
+                      Habillage graphique
+                    </h5>
+                  </div>
+                  <p className="text-xs text-[#52525B] dark:text-zinc-300 leading-relaxed">
+                    Habillage graphique et signalétique du stand de plus de 150 m² pour le FIC 2026. En lien avec les équipes de design, j’ai contribué à l’identité visuelle de l’espace et à l’organisation des parcours visiteurs.
+                  </p>
+                </div>
+
+                <div className="p-4 sm:p-5 rounded-2xl bg-zinc-50/70 dark:bg-zinc-900/50 border border-zinc-200/80 dark:border-white/10 space-y-2">
+                  <div className="flex items-center gap-2">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#FFAD00]" />
+                    <h5 className="font-mono text-xs font-bold uppercase tracking-wider text-zinc-900 dark:text-white">
+                      Présence sur le terrain
+                    </h5>
+                  </div>
+                  <p className="text-xs text-[#52525B] dark:text-zinc-300 leading-relaxed">
+                    Présence sur les trois jours du salon, au contact des visiteurs et autour des dispositifs événementiels, notamment Captain Security et la piste de e-karting (+4 000 contacts qualifiés enregistrés collectivement).
+                  </p>
+                </div>
               </div>
 
             </div>
@@ -1321,7 +1398,7 @@ export default function Projects({ navigate }) {
                 </div>
                 <div className="pt-3 border-t border-zinc-100 dark:border-white/10 flex items-center justify-between text-[11px] font-mono text-zinc-500">
                   <span>Phase : Fondations</span>
-                  <span className="text-emerald-700 dark:text-emerald-400 font-semibold font-mono">100 % opérationnel</span>
+                  <span className="text-zinc-800 dark:text-zinc-200 font-semibold font-mono">100 % opérationnel</span>
                 </div>
               </div>
 
@@ -1484,113 +1561,122 @@ export default function Projects({ navigate }) {
               )}
             </AnimatePresence>
 
-            {/* MODAL 3 : ZOOM HAUTE RÉSOLUTION DES PREUVES RÉSIN'ARCHITECTE */}
+            {/* MODAL 3 : LIGHTBOX ÉDITORIALE CLAIRE — RÉSIN'ARCHITECTE */}
             <AnimatePresence>
               {raModalIndex !== null && (
                 <motion.div
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
-                  transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
-                  className="fixed inset-0 z-[9999] w-screen h-screen bg-black/98 backdrop-blur-xl flex flex-col justify-between p-3 sm:p-6 select-none"
+                  transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
+                  role="dialog"
+                  aria-modal="true"
+                  aria-label="Visionneuse de réalisation Résin'Architecte"
+                  className="fixed inset-0 z-[9999] w-screen h-screen bg-black/45 backdrop-blur-md flex items-center justify-center p-3 sm:p-6 md:p-8 select-none"
                   onClick={() => setRaModalIndex(null)}
                 >
-                  {/* Barre haute — Contraste maximal et design glassmorphism */}
-                  <div
-                    className="flex items-center justify-between text-white text-xs w-full max-w-5xl mx-auto z-40 px-4 py-2.5 rounded-full bg-black/85 backdrop-blur-xl border border-white/20 shadow-2xl"
+                  {/* Carte principale claire et éditoriale (Glass Design ROOM241) */}
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.96, y: 12 }}
+                    animate={{ opacity: 1, scale: 1, y: 0 }}
+                    exit={{ opacity: 0, scale: 0.96, y: 12 }}
+                    transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
                     onClick={(e) => e.stopPropagation()}
+                    className="relative w-full max-w-4xl sm:max-w-5xl bg-white/95 dark:bg-zinc-950/95 backdrop-blur-2xl rounded-3xl p-5 sm:p-7 md:p-8 shadow-[0_24px_80px_rgba(24,24,27,0.12)] border border-zinc-200/90 dark:border-white/15 flex flex-col max-h-[92vh] overflow-y-auto space-y-4"
                   >
-                    <div className="flex items-center gap-3">
-                      <span className="font-mono text-white font-bold text-xs px-3 py-1 rounded-full bg-white/15 border border-white/20 tracking-wider">
-                        {String(raModalIndex + 1).padStart(2, '0')} <span className="text-[#FFAD00]">/</span> {String(raAssets.length).padStart(2, '0')}
-                      </span>
-                      <span className="text-white font-semibold text-xs sm:text-sm tracking-tight hidden xs:inline">
-                        Résin'Architecte · Réalisation &amp; Analyse
-                      </span>
+                    {/* En-tête intégré sobre : pagination dynamique, indication Échap et fermeture */}
+                    <div className="flex items-center justify-between pb-3 border-b border-zinc-100 dark:border-white/10 select-none">
+                      <div className="flex items-center gap-2.5">
+                        <span className="w-1.5 h-1.5 rounded-full bg-[#FFAD00] shadow-[0_0_6px_rgba(255,173,0,0.8)]" />
+                        <span className="font-mono text-xs font-bold text-zinc-900 dark:text-white tracking-wider">
+                          {String(raModalIndex + 1).padStart(2, '0')} sur {String(raAssets.length).padStart(2, '0')}
+                        </span>
+                        <span className="text-zinc-300 dark:text-zinc-600">·</span>
+                        <span className="text-xs font-medium text-zinc-500 dark:text-zinc-400 hidden sm:inline">
+                          Résin’Architecte · Réalisation &amp; Analyse
+                        </span>
+                      </div>
+
+                      <div className="flex items-center gap-4">
+                        <span className="hidden md:inline-block text-[11px] text-zinc-400 font-mono">
+                          Échap pour fermer
+                        </span>
+                        <button
+                          type="button"
+                          onClick={() => setRaModalIndex(null)}
+                          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-zinc-100 dark:bg-zinc-800 hover:bg-zinc-200 dark:hover:bg-zinc-700 text-zinc-700 dark:text-zinc-200 text-xs font-semibold transition-colors cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FFAD00]"
+                          aria-label="Fermer la vue agrandie"
+                        >
+                          <X className="w-4 h-4 text-zinc-600 dark:text-zinc-300" />
+                          <span>Fermer</span>
+                        </button>
+                      </div>
                     </div>
 
-                    <div className="flex items-center gap-3">
-                      <span className="hidden md:inline-block text-[11px] text-zinc-300 font-mono">
-                        Échap pour fermer • Flèches pour naviguer
-                      </span>
+                    {/* Cadre média équilibré avec boutons de navigation discrets */}
+                    <div className="relative w-full flex items-center justify-center min-h-[260px] sm:min-h-[380px] max-h-[56vh] bg-zinc-50/70 dark:bg-zinc-900/40 rounded-2xl p-2 sm:p-4 overflow-hidden border border-zinc-100 dark:border-white/5">
+                      {/* Bouton Précédent discret */}
                       <button
                         type="button"
-                        onClick={() => setRaModalIndex(null)}
-                        className="px-3 py-1.5 rounded-full bg-white/15 hover:bg-white/30 text-white border border-white/25 transition-all flex items-center gap-1.5 text-xs font-semibold cursor-pointer shadow-sm hover:scale-105 active:scale-95"
-                        aria-label="Fermer la prévisualisation"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setRaModalIndex((prev) => (prev - 1 + raAssets.length) % raAssets.length);
+                        }}
+                        className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-white/90 dark:bg-zinc-800/90 hover:bg-white dark:hover:bg-zinc-700 text-zinc-700 dark:text-zinc-200 hover:text-zinc-950 border border-zinc-200/90 dark:border-white/10 shadow-md backdrop-blur-sm flex items-center justify-center transition-all hover:scale-105 active:scale-95 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FFAD00]"
+                        aria-label="Capture précédente"
                       >
-                        <X className="w-4 h-4 text-[#FFAD00]" />
-                        <span>Fermer</span>
+                        <ChevronLeft className="w-5 h-5" />
                       </button>
+
+                      {/* Bouton Suivant discret */}
+                      <button
+                        type="button"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setRaModalIndex((prev) => (prev + 1) % raAssets.length);
+                        }}
+                        className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-white/90 dark:bg-zinc-800/90 hover:bg-white dark:hover:bg-zinc-700 text-zinc-700 dark:text-zinc-200 hover:text-zinc-950 border border-zinc-200/90 dark:border-white/10 shadow-md backdrop-blur-sm flex items-center justify-center transition-all hover:scale-105 active:scale-95 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FFAD00]"
+                        aria-label="Capture suivante"
+                      >
+                        <ChevronRight className="w-5 h-5" />
+                      </button>
+
+                      {/* Image responsive plein format, respectant les dimensions et le ratio naturel */}
+                      <AnimatePresence mode="wait">
+                        <motion.img
+                          key={raModalIndex}
+                          src={raAssets[raModalIndex].src}
+                          alt={raAssets[raModalIndex].title}
+                          initial={{ opacity: 0, scale: 0.98 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          exit={{ opacity: 0, scale: 0.98 }}
+                          transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
+                          className="max-h-[52vh] max-w-full w-auto h-auto object-contain rounded-xl shadow-xs"
+                        />
+                      </AnimatePresence>
                     </div>
-                  </div>
 
-                  {/* Boutons de navigation déportés dans les marges latérales */}
-                  <button
-                    type="button"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setRaModalIndex((prev) => (prev - 1 + raAssets.length) % raAssets.length);
-                    }}
-                    className="fixed left-3 sm:left-6 md:left-8 top-1/2 -translate-y-1/2 z-40 w-11 h-11 sm:w-13 sm:h-13 rounded-full bg-black/60 hover:bg-black/90 text-white border border-white/20 transition-all hover:scale-105 active:scale-95 shadow-2xl backdrop-blur-md flex items-center justify-center cursor-pointer"
-                    aria-label="Capture précédente"
-                  >
-                    <ChevronLeft className="w-6 h-6" />
-                  </button>
-
-                  <button
-                    type="button"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setRaModalIndex((prev) => (prev + 1) % raAssets.length);
-                    }}
-                    className="fixed right-3 sm:right-6 md:right-8 top-1/2 -translate-y-1/2 z-40 w-11 h-11 sm:w-13 sm:h-13 rounded-full bg-black/60 hover:bg-black/90 text-white border border-white/20 transition-all hover:scale-105 active:scale-95 shadow-2xl backdrop-blur-md flex items-center justify-center cursor-pointer"
-                    aria-label="Capture suivante"
-                  >
-                    <ChevronRight className="w-6 h-6" />
-                  </button>
-
-                  {/* Zone centrale : Image plein format sans rognage */}
-                  <div
-                    className="relative flex-1 min-h-0 w-full flex items-center justify-center px-4 sm:px-12 md:px-20 py-2 overflow-hidden"
-                    onClick={(e) => e.stopPropagation()}
-                  >
-                    <AnimatePresence mode="wait">
-                      <motion.img
-                        key={raModalIndex}
-                        src={raAssets[raModalIndex].src}
-                        alt={raAssets[raModalIndex].title}
-                        initial={{ opacity: 0, scale: 0.98 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        exit={{ opacity: 0, scale: 0.98 }}
-                        transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
-                        className="max-h-full max-w-full w-auto h-auto object-contain rounded-xl sm:rounded-2xl shadow-2xl border border-white/10"
-                      />
-                    </AnimatePresence>
-                  </div>
-
-                  {/* Barre basse avec légende haute lisibilité et aperçu des vignettes */}
-                  <div className="text-center text-white max-w-2xl mx-auto w-full space-y-3 z-40 py-2" onClick={(e) => e.stopPropagation()}>
-                    <div className="bg-black/85 backdrop-blur-xl border border-white/20 rounded-2xl px-6 py-3.5 shadow-2xl max-w-xl mx-auto space-y-1">
-                      <p className="font-bold text-sm sm:text-base text-white tracking-tight">
+                    {/* Légende éditoriale intégrée dans le flux de la carte (zéro bandeau noir, lisibilité intégrale) */}
+                    <div className="space-y-1.5 pt-1">
+                      <h3 className="font-extrabold text-base sm:text-lg text-[#09090B] dark:text-white tracking-tight">
                         {raAssets[raModalIndex].title}
-                      </p>
-                      <p className="text-zinc-200 text-xs sm:text-sm leading-relaxed">
+                      </h3>
+                      <p className="text-xs sm:text-sm text-[#52525B] dark:text-zinc-300 leading-relaxed max-w-3xl">
                         {raAssets[raModalIndex].caption}
                       </p>
                     </div>
 
-                    {/* Vignettes de sélection directe */}
-                    <div className="flex items-center justify-center gap-2 pt-1 overflow-x-auto max-w-full pb-1">
+                    {/* Rangée de miniatures discrètes */}
+                    <div className="flex items-center gap-2 pt-2 border-t border-zinc-100 dark:border-white/10 overflow-x-auto pb-1 max-w-full">
                       {raAssets.map((asset, idx) => (
                         <button
                           key={idx}
                           type="button"
                           onClick={() => setRaModalIndex(idx)}
-                          className={`h-7 w-12 sm:h-9 sm:w-14 rounded-md overflow-hidden border transition-all shrink-0 cursor-pointer ${
+                          className={`h-9 w-14 sm:h-11 sm:w-16 rounded-lg overflow-hidden border transition-all shrink-0 cursor-pointer ${
                             idx === raModalIndex
-                              ? 'border-[#FFAD00] scale-105 opacity-100 ring-2 ring-[#FFAD00]/40'
-                              : 'border-white/20 opacity-50 hover:opacity-80'
+                              ? 'border-[#FFAD00] ring-2 ring-[#FFAD00]/40 scale-105 shadow-xs opacity-100'
+                              : 'border-zinc-200/80 dark:border-white/10 opacity-60 hover:opacity-100 hover:border-zinc-300'
                           }`}
                           aria-label={`Afficher ${asset.title}`}
                         >
@@ -1598,7 +1684,7 @@ export default function Projects({ navigate }) {
                         </button>
                       ))}
                     </div>
-                  </div>
+                  </motion.div>
                 </motion.div>
               )}
             </AnimatePresence>
