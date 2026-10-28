@@ -32,13 +32,13 @@ export const profileData = {
     title: "L'image, le terrain & la rigueur de l'effort.",
     hook: "Une pratique du design ancrée dans le réel, où la rigueur logique rencontre la créativité opérationnelle.",
     paragraphs: [
-      "Formé aux Sciences de l’Ingénieur puis au marketing, à la communication et au digital à l’ISEG Lille, je travaille sur des projets qui mêlent identité visuelle, création vidéo et expérience de marque. Du stand événementiel aux contenus réalisés sur le terrain, j’aime donner forme à des idées et les rendre concrètes.",
+      "Après un parcours en Sciences de l’Ingénieur, je me suis orienté vers le marketing, la communication et le digital à l’ISEG Lille. Aujourd’hui, je travaille sur des projets qui mêlent identité visuelle, création vidéo et expérience de marque. Du stand événementiel aux contenus réalisés sur le terrain, j’aime donner forme aux idées et les rendre concrètes.",
       "Je privilégie le concret. De l'habillage de stands de plus de 150 m² lors de salons internationaux en cybersécurité à la création d'animations motion design sur After Effects, en passant par l'incarnation de marque et la captation vidéo, je m'assure que chaque projet tienne ses promesses une fois déployé dans le réel."
     ],
     pillars: [
       {
         label: "Culture scientifique & stratégique",
-        desc: "Rigueur cartésienne (Bac S SI) consolidée par la vision stratégique de marque (Master ISEG Lille)."
+        desc: "Rigueur cartésienne consolidée par la vision stratégique de marque (Master ISEG Lille)."
       },
       {
         label: "Conception & exécution de terrain",
@@ -59,12 +59,12 @@ export const profileData = {
       company: "Hornetsecurity by Proofpoint",
       type: "Poste CDI",
       period: "Septembre 2025 – Octobre 2026",
-      location: "Lille • Salons européens (Nuremberg, Londres, Hanovre)",
+      location: "Lille • Salons européens (Nuremberg, Hanovre)",
       context: "Leader européen de la cybersécurité Cloud. Travail quotidien en anglais au sein d'une équipe de design internationale.",
       highlights: [
         {
           title: "Stands & Scénographie européenne",
-          desc: "Conception graphique et habillage de stands événementiels européens, notamment le stand de plus de 150 m² au Forum InCyber (FIC) à Lille Grand Palais, ainsi qu'aux salons it-sa à Nuremberg et InfoSec à Londres. Collaboration avec les prestataires techniques."
+          desc: "Conception graphique et habillage de stands événementiels européens, notamment le stand de plus de 150 m² au Forum InCyber (FIC) à Lille Grand Palais, ainsi qu'au salon it-sa à Nuremberg. Collaboration avec les prestataires techniques."
         },
         {
           title: "Arche vidéo d'accueil (After Effects)",
@@ -158,7 +158,7 @@ export const profileData = {
       description: "Vision stratégique globale, positionnement concurrentiel, architecture de marque et pilotage de projets de communication digitaux et événementiels."
     },
     {
-      degree: "Baccalauréat Scientifique (Bac S SI)",
+      degree: "Baccalauréat Scientifique (Sciences de l'Ingénieur)",
       institution: "Sciences de l'Ingénieur",
       period: "Mention Bien · 2020",
       field: "Rigueur logique, analyse & méthode",

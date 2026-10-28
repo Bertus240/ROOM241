@@ -50,7 +50,7 @@ export default function SectionMethodStack() {
               Formation &amp; Vision
             </h3>
             <p className="text-base text-[#09090B] font-semibold">
-              Bac S Sciences de l'Ingénieur • Master Stratégie &amp; Marketing (ISEG)
+              Sciences de l'Ingénieur • Master Stratégie &amp; Marketing (ISEG)
             </p>
             <p className="text-sm text-[#3F3F46] leading-relaxed">
               Une articulation rare entre esprit d'analyse technique et sensibilité créative. Chaque choix visuel ou scénographique est guidé par une intention stratégique documentée, au service de la clarté et de l'atteinte d'objectifs business concrets.

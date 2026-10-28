@@ -28,7 +28,7 @@ export const projectsData = {
       {
         value: "3 Salons",
         label: "Envergure européenne",
-        detail: "FIC (Forum InCyber), InfoSec London, it-sa Nuremberg"
+        detail: "FIC (Forum InCyber), it-sa Nuremberg"
       },
       {
         value: "360°",
@@ -40,12 +40,12 @@ export const projectsData = {
       {
         id: "stands",
         title: "Stands & Événementiel international",
-        subtitle: "Conception et modélisation pour les grands salons européens (FIC / Forum InCyber, InfoSec London, it-sa Nuremberg).",
-        description: "Conception graphique et habillage de stands événementiels, dont le stand de plus de 150 m² au FIC à Lille avec animation e-karting, ainsi que les salons it-sa à Nuremberg et InfoSec à Londres.",
+        subtitle: "Conception et modélisation pour les grands salons européens (FIC / Forum InCyber, it-sa Nuremberg).",
+        description: "Conception graphique et habillage de stands événementiels, dont le stand de plus de 150 m² au FIC à Lille avec animation e-karting, ainsi que le salon it-sa à Nuremberg.",
         image: "/assets/hornetsecurity/fic/Stand/IMG20250401075104.jpg",
         tag: "Grand Format · Salons Europe",
         highlight: "+4 000 leads (collectif)",
-        salons: ["FIC / Forum InCyber (Lille)", "InfoSec London", "it-sa Nuremberg"]
+        salons: ["FIC / Forum InCyber (Lille)", "it-sa Nuremberg"]
       },
       {
         id: "print",

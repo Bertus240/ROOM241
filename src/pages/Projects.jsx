@@ -283,7 +283,7 @@ export default function Projects({ navigate }) {
               </div>
 
               <span className="text-xs font-semibold text-zinc-900 bg-zinc-100 px-3.5 py-1.5 rounded-full border border-zinc-200 w-fit shrink-0">
-                Lille • Nuremberg • Londres • Hanovre
+                Lille • Nuremberg • Hanovre
               </span>
             </div>
 
@@ -303,7 +303,7 @@ export default function Projects({ navigate }) {
               </div>
               <div className="space-y-0.5">
                 <span className="text-2xl sm:text-3xl font-extrabold font-mono text-[#09090B] block">Europe</span>
-                <span className="text-xs text-zinc-500 font-medium block">Lille, Nuremberg, Londres</span>
+                <span className="text-xs text-zinc-500 font-medium block">Lille, Nuremberg</span>
               </div>
             </div>
           </div>
@@ -343,7 +343,7 @@ export default function Projects({ navigate }) {
                 Graphic Designer (Hornetsecurity by Proofpoint)
               </h3>
               <ul className="text-xs sm:text-sm text-[#52525B] space-y-1.5 leading-relaxed">
-                <li>• Création graphique et habillage de stands pour les salons européens (dont le stand de plus de 150 m² au FIC à Lille, ainsi qu'à it-sa Nuremberg et InfoSec Londres).</li>
+                <li>• Création graphique et habillage de stands pour les salons européens (dont le stand de plus de 150 m² au FIC à Lille, ainsi qu'à it-sa Nuremberg).</li>
                 <li>• Coordination graphique avec les prestataires techniques et scénographes internationaux.</li>
                 <li>• Supports marketing et publicitaires B2B (Paid Ads comparatives), fiches techniques et visuels pour webinaires.</li>
                 <li>• Travail quotidien en anglais au sein d'une équipe de design basée principalement en Allemagne.</li>
@@ -842,13 +842,13 @@ export default function Projects({ navigate }) {
         </section>
       )}
 
-      {/* Transition éditoriale entre Projets 01 & 02 */}
+      {/* Séparateur architectural entre Projets 01 & 02 avec design glassmorphism */}
       {activeTab === 'all' && (
-        <div className="max-w-[1280px] mx-auto px-5 sm:px-8 lg:px-10 py-10">
-          <div className="flex items-center justify-between border-t border-zinc-200/80 pt-6">
-            <span className="text-xs font-mono text-zinc-400 tracking-wider">
-              PROJET SUIVANT
-            </span>
+        <div className="max-w-[1280px] mx-auto px-5 sm:px-8 lg:px-10 py-10 sm:py-14">
+          <div className="relative flex items-center justify-center">
+            <div className="absolute inset-0 flex items-center" aria-hidden="true">
+              <div className="w-full h-px bg-gradient-to-r from-transparent via-zinc-200 dark:via-white/10 to-transparent" />
+            </div>
             <a
               href="#fresh-data"
               onClick={(e) => {
@@ -856,10 +856,13 @@ export default function Projects({ navigate }) {
                 const el = document.getElementById('fresh-data');
                 if (el) el.scrollIntoView({ behavior: 'smooth' });
               }}
-              className="inline-flex items-center gap-2 text-xs font-semibold text-zinc-900 hover:text-[#FFAD00] transition-colors"
+              className="group relative select-none backdrop-blur-xl bg-white/80 dark:bg-zinc-900/80 hover:bg-white dark:hover:bg-zinc-800 px-6 py-2.5 rounded-full border border-zinc-200/90 dark:border-white/15 shadow-[0_8px_30px_rgba(0,0,0,0.04)] hover:shadow-[0_12px_36px_rgba(0,0,0,0.08)] hover:border-[#FFAD00]/60 transition-all duration-300 flex items-center gap-3 text-xs font-mono cursor-pointer"
             >
-              <span>02 · Fresh Data (AgTech &amp; Ulule)</span>
-              <ArrowRight className="w-3.5 h-3.5" />
+              <span className="w-2 h-2 rounded-full bg-[#FFAD00] shadow-[0_0_8px_rgba(255,173,0,0.7)] group-hover:scale-125 transition-transform" />
+              <span className="font-bold text-[#09090B] dark:text-white tracking-wide">Projet suivant</span>
+              <span className="text-zinc-300 dark:text-zinc-600">·</span>
+              <span className="text-zinc-500 dark:text-zinc-400">02 — 03</span>
+              <span className="text-zinc-400 group-hover:text-black dark:group-hover:text-white group-hover:translate-x-0.5 transition-all">↓</span>
             </a>
           </div>
         </div>
@@ -1042,13 +1045,13 @@ export default function Projects({ navigate }) {
         </section>
       )}
 
-      {/* Transition éditoriale entre Projets 02 & 03 */}
+      {/* Séparateur architectural entre Projets 02 & 03 avec design glassmorphism */}
       {activeTab === 'all' && (
-        <div className="max-w-[1280px] mx-auto px-5 sm:px-8 lg:px-10 py-10">
-          <div className="flex items-center justify-between border-t border-zinc-200/80 pt-6">
-            <span className="text-xs font-mono text-zinc-400 tracking-wider">
-              PROJET SUIVANT
-            </span>
+        <div className="max-w-[1280px] mx-auto px-5 sm:px-8 lg:px-10 py-10 sm:py-14">
+          <div className="relative flex items-center justify-center">
+            <div className="absolute inset-0 flex items-center" aria-hidden="true">
+              <div className="w-full h-px bg-gradient-to-r from-transparent via-zinc-200 dark:via-white/10 to-transparent" />
+            </div>
             <a
               href="#resin-architecte"
               onClick={(e) => {
@@ -1056,10 +1059,13 @@ export default function Projects({ navigate }) {
                 const el = document.getElementById('resin-architecte');
                 if (el) el.scrollIntoView({ behavior: 'smooth' });
               }}
-              className="inline-flex items-center gap-2 text-xs font-semibold text-zinc-900 hover:text-[#FFAD00] transition-colors"
+              className="group relative select-none backdrop-blur-xl bg-white/80 dark:bg-zinc-900/80 hover:bg-white dark:hover:bg-zinc-800 px-6 py-2.5 rounded-full border border-zinc-200/90 dark:border-white/15 shadow-[0_8px_30px_rgba(0,0,0,0.04)] hover:shadow-[0_12px_36px_rgba(0,0,0,0.08)] hover:border-[#FFAD00]/60 transition-all duration-300 flex items-center gap-3 text-xs font-mono cursor-pointer"
             >
-              <span>03 · Résin'Architecte (BTP Haut de gamme)</span>
-              <ArrowRight className="w-3.5 h-3.5" />
+              <span className="w-2 h-2 rounded-full bg-[#FFAD00] shadow-[0_0_8px_rgba(255,173,0,0.7)] group-hover:scale-125 transition-transform" />
+              <span className="font-bold text-[#09090B] dark:text-white tracking-wide">Projet suivant</span>
+              <span className="text-zinc-300 dark:text-zinc-600">·</span>
+              <span className="text-zinc-500 dark:text-zinc-400">03 — 03</span>
+              <span className="text-zinc-400 group-hover:text-black dark:group-hover:text-white group-hover:translate-x-0.5 transition-all">↓</span>
             </a>
           </div>
         </div>
@@ -1348,10 +1354,7 @@ export default function Projects({ navigate }) {
                     <span className="font-mono text-xs font-bold text-zinc-900 dark:text-white tracking-wider">
                       HORIZON 01
                     </span>
-                    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-zinc-200/80 dark:border-white/15 bg-zinc-100/90 dark:bg-zinc-800 text-zinc-800 dark:text-zinc-200 text-[10px] font-mono font-bold tracking-wider uppercase">
-                      <span className="w-1.5 h-1.5 rounded-full bg-[#09090B] dark:bg-white" />
-                      RÉALISÉ (30 JOURS)
-                    </span>
+                    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-zinc-200/80 dark:border-white/10 bg-zinc-100/80 dark:bg-zinc-800/80 text-zinc-700 dark:text-zinc-300 text-[10px] font-mono font-semibold tracking-wider uppercase"><span className="w-1.5 h-1.5 rounded-full bg-[#FFAD00] shadow-[0_0_6px_rgba(255,173,0,0.8)]" />RÉALISÉ · 30 JOURS</span>
                   </div>
                   <h4 className="text-base font-extrabold text-zinc-900 dark:text-white tracking-tight">
                     01 · Socle &amp; Contenus de terrain
@@ -1388,10 +1391,7 @@ export default function Projects({ navigate }) {
                     <span className="font-mono text-xs font-bold text-zinc-900 dark:text-white tracking-wider">
                       HORIZON 02
                     </span>
-                    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-zinc-200/80 dark:border-white/15 bg-zinc-100/90 dark:bg-zinc-800 text-zinc-800 dark:text-zinc-200 text-[10px] font-mono font-bold tracking-wider uppercase">
-                      <span className="w-1.5 h-1.5 rounded-full border border-zinc-600 dark:border-zinc-400" />
-                      PRIORITÉS SUIVANTES
-                    </span>
+                    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-zinc-200/80 dark:border-white/10 bg-zinc-100/80 dark:bg-zinc-800/80 text-zinc-700 dark:text-zinc-300 text-[10px] font-mono font-semibold tracking-wider uppercase"><span className="w-1.5 h-1.5 rounded-full bg-zinc-400 dark:bg-zinc-500" />PRIORITÉS SUIVANTES</span>
                   </div>
                   <h4 className="text-base font-extrabold text-zinc-900 dark:text-white tracking-tight">
                     02 · Consolidation &amp; Double flux
@@ -1424,10 +1424,7 @@ export default function Projects({ navigate }) {
                     <span className="font-mono text-xs font-bold text-zinc-900 dark:text-white tracking-wider">
                       HORIZON 03
                     </span>
-                    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-zinc-200/80 dark:border-white/15 bg-zinc-100/90 dark:bg-zinc-800 text-zinc-800 dark:text-zinc-200 text-[10px] font-mono font-bold tracking-wider uppercase">
-                      <span className="w-1.5 h-1.5 rounded-full bg-zinc-400" />
-                      VISION À MOYEN TERME
-                    </span>
+                    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-zinc-200/80 dark:border-white/10 bg-zinc-100/80 dark:bg-zinc-800/80 text-zinc-700 dark:text-zinc-300 text-[10px] font-mono font-semibold tracking-wider uppercase"><span className="w-1.5 h-1.5 rounded-full border border-zinc-400 dark:border-zinc-500" />VISION MOYEN TERME</span>
                   </div>
                   <h4 className="text-base font-extrabold text-zinc-900 dark:text-white tracking-tight">
                     03 · Autorité technique &amp; Visibilité IA

@@ -40,8 +40,7 @@ export default function Hero() {
             </h1>
 
             <p className="text-base sm:text-lg text-[#3F3F46] font-normal leading-relaxed max-w-xl">
-              Bac S Sciences de l'Ingénieur, Master Stratégie &amp; Marketing à l'ISEG, 3 ans d'accompagnement continu auprès du leader européen de la cybersécurité Hornetsecurity.
-              J'articule modélisation de stands internationaux, direction artistique, campagnes print, motion design et production vidéo en totale autonomie.
+              Après un parcours en Sciences de l'Ingénieur, je me suis orienté vers le marketing, la communication et le digital à l'ISEG Lille. Aujourd'hui, je travaille sur des projets qui mêlent identité visuelle, création vidéo et expérience de marque. Du stand événementiel aux contenus réalisés sur le terrain, j'aime donner forme aux idées et les rendre concrètes.
             </p>
 
             {/* CTAs sobres sans boîtes lourdes */}

@@ -201,7 +201,7 @@ export default function HornetsecurityBento() {
                 Action
               </h3>
               <p className="text-sm text-[#3F3F46] leading-relaxed">
-                Conception graphique et habillage de stands internationaux, dont le stand de plus de 150 m² au Forum InCyber à Lille (avec e-karting), ainsi que les salons it-sa à Nuremberg et InfoSec à Londres, et création des assets publicitaires (Paid Ads, webinaires, plaquettes commerciales).
+                Conception graphique et habillage de stands internationaux, dont le stand de plus de 150 m² au Forum InCyber à Lille (avec e-karting), ainsi que le salon it-sa à Nuremberg, et création des assets publicitaires (Paid Ads, webinaires, plaquettes commerciales).
               </p>
             </div>
 

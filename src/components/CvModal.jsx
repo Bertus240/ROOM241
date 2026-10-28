@@ -103,7 +103,7 @@ export default function CvModal({ isOpen, onClose }) {
                       Graphic Designer &amp; Direction artistique <span className="text-zinc-400">·</span> <span className="font-mono text-xs uppercase text-zinc-500">{identity.brand}</span>
                     </p>
                     <p className="text-xs sm:text-sm text-zinc-600 max-w-xl leading-relaxed pt-0.5">
-                      Double culture alliant la rigueur des sciences de l'ingénieur (Bac S SI), la vision stratégique de marque (Master ISEG Lille) et l'exécution créative sur le terrain.
+                      Double culture alliant la rigueur des sciences de l'ingénieur, la vision stratégique de marque (Master ISEG Lille) et l'exécution créative sur le terrain.
                     </p>
                   </div>
                 </div>
@@ -183,7 +183,7 @@ export default function CvModal({ isOpen, onClose }) {
                     <ul className="space-y-2 pt-1 text-xs text-zinc-700 leading-relaxed">
                       <li className="flex items-start gap-2">
                         <span className="text-[#FFAD00] font-bold shrink-0">—</span>
-                        <span><strong>Stands &amp; Scénographie européenne (FIC 2026) :</strong> Habillage et signalétique du stand de plus de 150 m² au Forum InCyber à Lille Grand Palais, ainsi qu'à it-sa Nuremberg et InfoSec London (+4 000 contacts qualifiés enregistrés collectivement).</span>
+                        <span><strong>Stands &amp; Scénographie européenne (FIC 2026) :</strong> Habillage et signalétique du stand de plus de 150 m² au Forum InCyber à Lille Grand Palais, ainsi qu'à it-sa Nuremberg (+4 000 contacts qualifiés enregistrés collectivement).</span>
                       </li>
                       <li className="flex items-start gap-2">
                         <span className="text-[#FFAD00] font-bold shrink-0">—</span>

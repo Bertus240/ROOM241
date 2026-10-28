@@ -45,7 +45,7 @@ export default function Home({ navigate }) {
               </h1>
 
               <p className="text-base sm:text-lg text-[#52525B] leading-relaxed max-w-xl font-normal">
-                Formé aux Sciences de l’Ingénieur puis au marketing, à la communication et au digital à l’ISEG Lille, je travaille sur des projets qui mêlent identité visuelle, création vidéo et expérience de marque. Du stand événementiel aux contenus réalisés sur le terrain, j’aime donner forme à des idées et les rendre concrètes.
+                Après un parcours en Sciences de l’Ingénieur, je me suis orienté vers le marketing, la communication et le digital à l’ISEG Lille. Aujourd’hui, je travaille sur des projets qui mêlent identité visuelle, création vidéo et expérience de marque. Du stand événementiel aux contenus réalisés sur le terrain, j’aime donner forme aux idées et les rendre concrètes.
               </p>
 
               {/* Actions directes */}
