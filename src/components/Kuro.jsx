@@ -10,7 +10,7 @@ import { X, ArrowRight } from 'lucide-react';
  * 1. Présentation centrale au chargement (desktop uniquement, >= 768px) :
  *    - Signature supérieure : ROOM241 | KURO, COMPAGNON CRÉATIF
  *    - Titre : Bienvenue chez ROOM241.
- *    - Texte : Moi, c’est Kuro. Je vous accompagne à travers les projets de Rémi : du design, de la vidéo et des idées qui prennent vie sur le terrain.
+ *    - Texte : Moi, c’est Kuro. Je vous accompagne à travers les projets de Rémi : du design, de la vidéo et des idées qui prennent vie sur le terrain. Par ici, je vous montre tout ça.
  *    - Bouton principal : Explorer le portfolio ↗ (conduit vers /projets)
  *    - Fermeture explicite par bouton de fermeture et touche Échap (ne se ferme pas au clic aléatoire).
  * 2. Mobile (< 768px) :
@@ -24,54 +24,59 @@ import { X, ArrowRight } from 'lucide-react';
 
 // Vivier de répliques éditoriales sans répétition immédiate
 const GENERAL_PHRASES = [
-  "Je t'accompagne dans la découverte des projets de Rémi. N'hésite pas à explorer !",
+  "Chaque projet a son histoire. Je vous emmène découvrir celles que Rémi a contribué à construire, de la première idée au résultat final.",
+  "Pour comprendre son travail, il faut aussi connaître le chemin parcouru. Je vous présente les expériences qui ont façonné son regard et sa manière de créer.",
+  "Des stands de grande envergure aux animations diffusées sur écran géant, voici comment Rémi a contribué à faire vivre une identité de marque sur le terrain.",
+  "Rémi aime aussi prendre le temps de regarder. Des lumières, des lieux, des détails parfois discrets… Je vous laisse découvrir ce qui attire son œil en dehors du travail.",
+  "Vous avez un projet en tête ? Une idée à explorer ? Je peux vous orienter pour prendre contact avec Rémi.",
   "Chaque projet présenté ici correspond à un travail réel, documenté et vérifiable.",
-  "De la conception 3D à l'habillage de stand, le design s'exprime sur tous les formats.",
-  "Le motion design permet de donner du rythme et de la clarté aux messages complexes.",
-  "Une identité visuelle réussie doit vivre aussi bien sur un écran que sur un chantier.",
-  "Curieux d'en savoir plus sur une réalisation ? Les études de cas détaillent la démarche.",
+  "Une identité visuelle réussie doit vivre aussi bien sur un écran que sur un stand ou sur un chantier.",
   "La rigueur technique et la sensibilité graphique forment un équilibre précieux.",
-  "N'hésite pas à consulter le CV pour découvrir le parcours académique et professionnel.",
-  "Derrière chaque chiffre affiché, il y a une réalité mesurée et documentée.",
-  "Bonne visite ! Je reste disponible si tu as besoin d'un éclairage."
+  "N'hésitez pas à consulter le CV pour découvrir le parcours académique et professionnel.",
+  "Bonne visite ! Je reste disponible si vous avez besoin d'un éclairage."
 ];
 
 // Phrases contextuelles selon la section
 const CONTEXT_MESSAGES = {
   home: {
     key: 'home',
-    text: "Je t'accompagne dans la découverte des projets de Rémi. N'hésite pas à explorer !",
+    text: "Moi, c’est Kuro. Je vous accompagne à travers les projets de Rémi : du design, de la vidéo et des idées qui prennent vie sur le terrain. Par ici, je vous montre tout ça.",
     title: "Bienvenue chez ROOM241"
+  },
+  projets: {
+    key: 'projets',
+    text: "Chaque projet a son histoire. Je vous emmène découvrir celles que Rémi a contribué à construire, de la première idée au résultat final.",
+    title: "Projets • Réalisations"
+  },
+  parcours: {
+    key: 'parcours',
+    text: "Pour comprendre son travail, il faut aussi connaître le chemin parcouru. Je vous présente les expériences qui ont façonné son regard et sa manière de créer.",
+    title: "Parcours • Expériences"
   },
   hornetsecurity: {
     key: 'hornetsecurity',
-    text: "Ici, il y a du graphisme, du motion design et du concret sur le terrain.",
+    text: "Des stands de grande envergure aux animations diffusées sur écran géant, voici comment Rémi a contribué à faire vivre une identité de marque sur le terrain.",
     title: "Hornetsecurity • Salons européens"
-  },
-  captain: {
-    key: 'captain',
-    text: "Le design ne s'arrête pas à l'écran : il prend aussi vie sur les salons et stands.",
-    title: "Captain Security • Présence terrain"
-  },
-  helix: {
-    key: 'helix',
-    text: "36 heures pour imaginer un personnage 3D, écrire son histoire et réaliser un teaser.",
-    title: "Helix Nova • Sprint de Hanovre"
   },
   freshdata: {
     key: 'freshdata',
-    text: "Un univers graphique pensé pour accompagner un projet jusqu'à son financement Ulule.",
+    text: "Vulgarisation technique et campagne participative : un univers graphique complet conçu pour porter un projet jusqu'au financement Ulule (+116 %).",
     title: "Fresh Data • Financement Ulule"
   },
   resin: {
     key: 'resin',
-    text: "L'identité visuelle se déploie sur les réseaux, les supports commerciaux et sur les chantiers.",
+    text: "L'identité visuelle se déploie sur les réseaux, les supports d'aide à la vente et directement sur les chantiers sans démolition.",
     title: "Résin'Architecte • Sur le terrain"
   },
-  parcours: {
-    key: 'parcours',
-    text: "Un pied dans la technique, l'autre dans la communication : c'est ce qui façonne ma vision.",
-    title: "Parcours • Double profil"
+  photographie: {
+    key: 'photographie',
+    text: "Rémi aime aussi prendre le temps de regarder. Des lumières, des lieux, des détails parfois discrets… Je vous laisse découvrir ce qui attire son œil en dehors du travail.",
+    title: "Photographie • Regard"
+  },
+  contact: {
+    key: 'contact',
+    text: "Vous avez un projet en tête ? Une idée à explorer ? Je peux vous orienter pour prendre contact avec Rémi.",
+    title: "Contact • Échange"
   }
 };
 
@@ -293,11 +298,13 @@ export default function Kuro({ navigate }) {
     if (isCenterStage) return;
 
     const sections = [
+      { id: 'projets', data: CONTEXT_MESSAGES.projets },
       { id: 'hornetsecurity', data: CONTEXT_MESSAGES.hornetsecurity },
-      { id: 'captain-security', data: CONTEXT_MESSAGES.captain },
-      { id: 'helix-nova', data: CONTEXT_MESSAGES.helix },
       { id: 'fresh-data', data: CONTEXT_MESSAGES.freshdata },
       { id: 'resin-architecte', data: CONTEXT_MESSAGES.resin },
+      { id: 'parcours', data: CONTEXT_MESSAGES.parcours },
+      { id: 'hors-cadre', data: CONTEXT_MESSAGES.photographie },
+      { id: 'contact', data: CONTEXT_MESSAGES.contact },
     ];
 
     const handleScroll = () => {
@@ -337,8 +344,7 @@ export default function Kuro({ navigate }) {
       : 'w-8 h-8 sm:w-9 sm:h-9'; // Exactement 32px sur mobile (w-8 h-8)
     const eyeWidth = isLarge ? 'w-4 h-5' : 'w-2 h-2.5 sm:w-2.5 sm:h-3';
     const pupilSize = isLarge ? 'w-2.5 h-2.5' : 'w-1.5 h-1.5';
-    const shineSize = isLarge ? 'top-2 left-3 w-7 h-3' : 'top-0.5 left-1.5 w-3 h-1 sm:top-1 sm:left-2 sm:w-3.5 sm:h-1.5';
-
+    
     return (
       <div
         className={`relative ${sizeClasses} rounded-full bg-[#09090B] flex items-center justify-center transition-transform duration-300 select-none ${
@@ -350,9 +356,32 @@ export default function Kuro({ navigate }) {
             : 'inset 0 1px 2px rgba(255, 255, 255, 0.35), inset 0 -2px 4px rgba(255, 173, 0, 0.25), 0 2px 8px rgba(0,0,0,0.5)',
         }}
       >
-        {/* Reflet brillant 3D sur le dessus */}
+        {/* Reflet spéculaire doux, organique et asymétrique (verre poli sphérique, zéro gélule) */}
         <div
-          className={`absolute ${shineSize} rounded-full bg-white/35 blur-[0.6px] pointer-events-none -rotate-12`}
+          className="absolute inset-0 rounded-full pointer-events-none overflow-hidden"
+          style={{
+            background: isLarge
+              ? 'radial-gradient(ellipse at 32% 23%, rgba(255, 255, 255, 0.42) 0%, rgba(255, 255, 255, 0.16) 24%, rgba(255, 255, 255, 0.03) 45%, transparent 65%)'
+              : 'radial-gradient(ellipse at 32% 23%, rgba(255, 255, 255, 0.45) 0%, rgba(255, 255, 255, 0.18) 26%, transparent 60%)',
+          }}
+          aria-hidden="true"
+        />
+
+        {/* Micro-liseré de courbure supérieure de verre */}
+        <div
+          className="absolute inset-0 rounded-full pointer-events-none"
+          style={{
+            background: 'radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.18) 0%, transparent 40%)',
+          }}
+          aria-hidden="true"
+        />
+
+        {/* Halo ambré micro-réfléchi au bas de la sphère de verre */}
+        <div
+          className="absolute inset-0 rounded-full pointer-events-none"
+          style={{
+            background: 'radial-gradient(circle at 50% 92%, rgba(255, 173, 0, 0.22) 0%, transparent 45%)',
+          }}
           aria-hidden="true"
         />
 
@@ -555,7 +584,7 @@ export default function Kuro({ navigate }) {
             )}
           </AnimatePresence>
 
-          {/* Bouton tactile capsule Kuro dans son coin */}
+          {/* Bouton tactile capsule Kuro dans son coin avec flottement organique subtil */}
           <div className="relative group">
             {/* Halo d'aura ambré subtil */}
             <div
@@ -565,29 +594,53 @@ export default function Kuro({ navigate }) {
               aria-hidden="true"
             />
 
-            <motion.button
-              type="button"
-              animate={controls}
-              onClick={handleCornerClick}
-              onMouseEnter={() => setIsHovered(true)}
-              onMouseLeave={() => setIsHovered(false)}
-              className="relative flex items-center gap-2 px-2 py-1.5 sm:px-3 sm:py-2 rounded-full bg-[#09090B]/95 hover:bg-[#09090B] backdrop-blur-xl border border-white/15 hover:border-[#FFAD00]/50 shadow-[0_8px_25px_rgba(0,0,0,0.4)] transition-all cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FFAD00]"
-              aria-label="Kuro, compagnon interactif du studio ROOM241. Cliquez pour échanger."
-              title="Kuro · Cliquez pour échanger"
+            {/* Wrapper d'animation organique lente (flottement 3-4px & micro-inclinaison 1°, désactivé sur reduced-motion et scroll) */}
+            <motion.div
+              animate={
+                prefersReducedMotion || isScrolling
+                  ? {}
+                  : {
+                      y: [0, -3.5, 0],
+                      rotate: [-0.75, 0.75, -0.75],
+                    }
+              }
+              transition={{
+                y: {
+                  duration: 5.2,
+                  repeat: Infinity,
+                  ease: 'easeInOut',
+                },
+                rotate: {
+                  duration: 6.8,
+                  repeat: Infinity,
+                  ease: 'easeInOut',
+                },
+              }}
             >
-              {renderKuroCapsule(false)}
+              <motion.button
+                type="button"
+                animate={controls}
+                onClick={handleCornerClick}
+                onMouseEnter={() => setIsHovered(true)}
+                onMouseLeave={() => setIsHovered(false)}
+                className="relative flex items-center gap-2 px-2 py-1.5 sm:px-3 sm:py-2 rounded-full bg-[#09090B]/95 hover:bg-[#09090B] backdrop-blur-xl border border-white/15 hover:border-[#FFAD00]/50 shadow-[0_8px_25px_rgba(0,0,0,0.4)] transition-all cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FFAD00]"
+                aria-label="Kuro, compagnon interactif du studio ROOM241. Cliquez pour échanger."
+                title="Kuro · Cliquez pour échanger"
+              >
+                {renderKuroCapsule(false)}
 
-              <span className="text-xs font-semibold text-zinc-200 group-hover:text-white transition-colors pr-1">
-                Kuro
-              </span>
+                <span className="text-xs font-semibold text-zinc-200 group-hover:text-white transition-colors pr-1">
+                  Kuro
+                </span>
 
-              <span
-                className={`w-1.5 h-1.5 rounded-full bg-[#FFAD00] transition-transform duration-300 ${
-                  isHappy ? 'scale-150 animate-ping' : ''
-                }`}
-                aria-hidden="true"
-              />
-            </motion.button>
+                <span
+                  className={`w-1.5 h-1.5 rounded-full bg-[#FFAD00] transition-transform duration-300 ${
+                    isHappy ? 'scale-150 animate-ping' : ''
+                  }`}
+                  aria-hidden="true"
+                />
+              </motion.button>
+            </motion.div>
           </div>
         </motion.div>
       )}

@@ -69,53 +69,47 @@ export default function Home({ navigate }) {
                 </a>
               </div>
 
-              {/* 3 Indicateurs éditoriaux clairs et documentés */}
-              <div className="pt-7 border-t border-zinc-200/80 grid grid-cols-1 sm:grid-cols-3 gap-4 text-left">
-                <div className="p-4 rounded-2xl bg-zinc-50/80 border border-zinc-200/80 space-y-1">
-                  <div className="flex items-baseline gap-1.5">
-                    <span className="text-2xl sm:text-3xl font-extrabold font-mono text-[#09090B] tracking-tight">
-                      3+ ans
-                    </span>
-                    <span className="text-[11px] font-mono font-bold uppercase text-[#FFAD00]">
-                      d'expérience
-                    </span>
+              {/* Repères éditoriaux typographiques (style studio suisse épuré) */}
+              <div className="pt-8 border-t border-zinc-200/80 grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-8 text-left">
+                <div className="space-y-1">
+                  <div className="text-3xl sm:text-4xl font-extrabold font-mono text-[#09090B] tracking-tight">
+                    3+ ans
                   </div>
-                  <span className="text-xs text-[#52525B] block leading-tight">
-                    Design, communication et production de contenus
-                  </span>
+                  <div className="text-xs font-semibold text-zinc-900">
+                    Expérience 360°
+                  </div>
+                  <p className="text-xs text-zinc-500 leading-snug">
+                    Design graphique, scénographie et vidéo de terrain.
+                  </p>
                 </div>
 
-                <div className="p-4 rounded-2xl bg-zinc-50/80 border border-zinc-200/80 space-y-1">
-                  <div className="flex items-baseline gap-1.5">
-                    <span className="text-2xl sm:text-3xl font-extrabold font-mono text-[#09090B] tracking-tight">
-                      4 000+
-                    </span>
-                    <span className="text-[11px] font-mono font-bold uppercase text-[#FFAD00]">
-                      contacts B2B
-                    </span>
+                <div className="space-y-1">
+                  <div className="text-3xl sm:text-4xl font-extrabold font-mono text-[#09090B] tracking-tight">
+                    4 000+
                   </div>
-                  <span className="text-xs text-[#52525B] block leading-tight">
-                    Recueillis au FIC • Résultat collectif sur le stand
-                  </span>
+                  <div className="text-xs font-semibold text-zinc-900">
+                    Contacts FIC
+                  </div>
+                  <p className="text-xs text-zinc-500 leading-snug">
+                    Enregistrés collectivement sur le stand &gt; 150 m².
+                  </p>
                 </div>
 
-                <div className="p-4 rounded-2xl bg-zinc-50/80 border border-zinc-200/80 space-y-1">
-                  <div className="flex items-baseline gap-1.5">
-                    <span className="text-2xl sm:text-3xl font-extrabold font-mono text-[#09090B] tracking-tight">
-                      2
-                    </span>
-                    <span className="text-[11px] font-mono font-bold uppercase text-[#FFAD00]">
-                      campagnes
-                    </span>
+                <div className="space-y-1">
+                  <div className="text-3xl sm:text-4xl font-extrabold font-mono text-[#09090B] tracking-tight">
+                    116 %
                   </div>
-                  <span className="text-xs text-[#52525B] block leading-tight">
-                    Because et Fresh Data (116 % Ulule) — objectifs dépassés
-                  </span>
+                  <div className="text-xs font-semibold text-zinc-900">
+                    Objectif Ulule
+                  </div>
+                  <p className="text-xs text-zinc-500 leading-snug">
+                    Campagne Fresh Data financée avec succès.
+                  </p>
                 </div>
               </div>
             </motion.div>
 
-            {/* Colonne droite : Véritable vidéo de présentation */}
+            
             <motion.div
               initial={{ opacity: 0, scale: 0.98 }}
               animate={{ opacity: 1, scale: 1 }}

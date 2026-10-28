@@ -266,15 +266,10 @@ export default function Projects({ navigate }) {
           className="max-w-[1280px] mx-auto px-5 sm:px-8 lg:px-10 scroll-mt-24 space-y-12"
         >
           <div className="border-t border-zinc-200/90 pt-10 space-y-4">
-            <div className="flex items-center gap-2.5">
-              <span className="font-mono text-xs font-semibold tracking-widest text-[#71717A] bg-zinc-100 px-3 py-1 rounded-full border border-zinc-200/80">
-                01 — 03
-              </span>
-              <span className="text-zinc-300">•</span>
-              <div className="flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-[#FFAD00]">
-                <Shield className="w-3.5 h-3.5" />
-                <span>Cybersécurité B2B internationale</span>
-              </div>
+            <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-zinc-500">
+              <span className="font-bold text-zinc-950">01</span>
+              <span>/</span>
+              <span>Hornetsecurity • Cybersécurité B2B Européenne</span>
             </div>
             
             <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-4">
@@ -292,23 +287,23 @@ export default function Projects({ navigate }) {
               </span>
             </div>
 
-            {/* Repères chiffrés représentatifs & vérifiés (4 colonnes équilibrées) */}
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-3.5 pt-3">
-              <div className="p-4 rounded-2xl bg-zinc-50/80 border border-zinc-200/80">
-                <span className="text-xl sm:text-2xl font-extrabold font-mono text-[#09090B] block">&gt; 150 m²</span>
-                <span className="text-xs text-[#52525B] mt-0.5 block leading-tight">Stand FIC Lille Grand Palais</span>
+            {/* Repères chiffrés typographiques (style studio suisse, sans boîtes de dashboard) */}
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 pt-6 border-t border-zinc-200/70">
+              <div className="space-y-0.5">
+                <span className="text-2xl sm:text-3xl font-extrabold font-mono text-[#09090B] block">&gt; 150 m²</span>
+                <span className="text-xs text-zinc-500 font-medium block">Stand FIC Lille Grand Palais</span>
               </div>
-              <div className="p-4 rounded-2xl bg-zinc-50/80 border border-zinc-200/80">
-                <span className="text-xl sm:text-2xl font-extrabold font-mono text-[#09090B] block">4 000+</span>
-                <span className="text-xs text-[#52525B] mt-0.5 block leading-tight">Contacts B2B recueillis (collectif)</span>
+              <div className="space-y-0.5">
+                <span className="text-2xl sm:text-3xl font-extrabold font-mono text-[#09090B] block">4 000+</span>
+                <span className="text-xs text-zinc-500 font-medium block">Contacts B2B enregistrés (collectif)</span>
               </div>
-              <div className="p-4 rounded-2xl bg-zinc-50/80 border border-zinc-200/80">
-                <span className="text-xl sm:text-2xl font-extrabold font-mono text-[#09090B] block">36 h</span>
-                <span className="text-xs text-[#52525B] mt-0.5 block leading-tight">Design Sprint de Hanovre (3D)</span>
+              <div className="space-y-0.5">
+                <span className="text-2xl sm:text-3xl font-extrabold font-mono text-[#09090B] block">36 h</span>
+                <span className="text-xs text-zinc-500 font-medium block">Sprint autonome 3D à Hanovre</span>
               </div>
-              <div className="p-4 rounded-2xl bg-zinc-50/80 border border-zinc-200/80">
-                <span className="text-xl sm:text-2xl font-extrabold font-mono text-[#09090B] block">B2B</span>
-                <span className="text-xs text-[#52525B] mt-0.5 block leading-tight">Campagnes marketing &amp; supports</span>
+              <div className="space-y-0.5">
+                <span className="text-2xl sm:text-3xl font-extrabold font-mono text-[#09090B] block">Europe</span>
+                <span className="text-xs text-zinc-500 font-medium block">Lille, Nuremberg, Londres</span>
               </div>
             </div>
           </div>
@@ -847,13 +842,13 @@ export default function Projects({ navigate }) {
         </section>
       )}
 
-      {/* Séparateur architectural entre Projets 01 & 02 avec design glassmorphism */}
+      {/* Transition éditoriale entre Projets 01 & 02 */}
       {activeTab === 'all' && (
-        <div className="max-w-[1280px] mx-auto px-5 sm:px-8 lg:px-10 py-8 sm:py-12">
-          <div className="relative flex items-center justify-center">
-            <div className="absolute inset-0 flex items-center">
-              <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-zinc-300 to-transparent dark:via-white/15" />
-            </div>
+        <div className="max-w-[1280px] mx-auto px-5 sm:px-8 lg:px-10 py-10">
+          <div className="flex items-center justify-between border-t border-zinc-200/80 pt-6">
+            <span className="text-xs font-mono text-zinc-400 tracking-wider">
+              PROJET SUIVANT
+            </span>
             <a
               href="#fresh-data"
               onClick={(e) => {
@@ -861,13 +856,10 @@ export default function Projects({ navigate }) {
                 const el = document.getElementById('fresh-data');
                 if (el) el.scrollIntoView({ behavior: 'smooth' });
               }}
-              className="group relative select-none backdrop-blur-xl bg-white/70 dark:bg-zinc-900/70 hover:bg-white dark:hover:bg-zinc-800/90 px-5 sm:px-7 py-2.5 rounded-full border border-zinc-200/90 dark:border-white/15 shadow-[0_8px_30px_rgba(0,0,0,0.05)] hover:shadow-[0_12px_36px_rgba(0,0,0,0.1)] hover:border-[#FFAD00]/50 transition-all duration-300 flex items-center gap-3 text-xs font-mono cursor-pointer"
+              className="inline-flex items-center gap-2 text-xs font-semibold text-zinc-900 hover:text-[#FFAD00] transition-colors"
             >
-              <span className="w-2 h-2 rounded-full bg-[#FFAD00] shadow-[0_0_8px_rgba(255,173,0,0.6)] group-hover:scale-125 transition-transform" />
-              <span className="font-bold text-[#09090B] dark:text-white tracking-wide">Projet suivant</span>
-              <span className="text-zinc-400">·</span>
-              <span className="text-[#71717A] dark:text-zinc-400">02 — 03</span>
-              <span className="text-zinc-400 group-hover:translate-y-0.5 transition-transform">↓</span>
+              <span>02 · Fresh Data (AgTech &amp; Ulule)</span>
+              <ArrowRight className="w-3.5 h-3.5" />
             </a>
           </div>
         </div>
@@ -883,15 +875,10 @@ export default function Projects({ navigate }) {
           className="max-w-[1280px] mx-auto px-5 sm:px-8 lg:px-10 scroll-mt-24 space-y-10"
         >
           <div className="border-t border-zinc-200/90 pt-10 space-y-4">
-            <div className="flex items-center gap-2.5">
-              <span className="font-mono text-xs font-semibold tracking-widest text-[#71717A] bg-zinc-100 px-3 py-1 rounded-full border border-zinc-200/80">
-                02 — 03
-              </span>
-              <span className="text-zinc-300">•</span>
-              <div className="flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-[#FFAD00]">
-                <Sprout className="w-3.5 h-3.5" />
-                <span>AgTech &amp; R&amp;D Agricole • Graphisme Freelance</span>
-              </div>
+            <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-zinc-500">
+              <span className="font-bold text-zinc-950">02</span>
+              <span>/</span>
+              <span>Fresh Data • AgTech &amp; Financement Ulule</span>
             </div>
 
             <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-4">
@@ -1055,13 +1042,13 @@ export default function Projects({ navigate }) {
         </section>
       )}
 
-      {/* Séparateur architectural entre Projets 02 & 03 avec design glassmorphism */}
+      {/* Transition éditoriale entre Projets 02 & 03 */}
       {activeTab === 'all' && (
-        <div className="max-w-[1280px] mx-auto px-5 sm:px-8 lg:px-10 py-8 sm:py-12">
-          <div className="relative flex items-center justify-center">
-            <div className="absolute inset-0 flex items-center">
-              <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-zinc-300 to-transparent dark:via-white/15" />
-            </div>
+        <div className="max-w-[1280px] mx-auto px-5 sm:px-8 lg:px-10 py-10">
+          <div className="flex items-center justify-between border-t border-zinc-200/80 pt-6">
+            <span className="text-xs font-mono text-zinc-400 tracking-wider">
+              PROJET SUIVANT
+            </span>
             <a
               href="#resin-architecte"
               onClick={(e) => {
@@ -1069,13 +1056,10 @@ export default function Projects({ navigate }) {
                 const el = document.getElementById('resin-architecte');
                 if (el) el.scrollIntoView({ behavior: 'smooth' });
               }}
-              className="group relative select-none backdrop-blur-xl bg-white/70 dark:bg-zinc-900/70 hover:bg-white dark:hover:bg-zinc-800/90 px-5 sm:px-7 py-2.5 rounded-full border border-zinc-200/90 dark:border-white/15 shadow-[0_8px_30px_rgba(0,0,0,0.05)] hover:shadow-[0_12px_36px_rgba(0,0,0,0.1)] hover:border-[#FFAD00]/50 transition-all duration-300 flex items-center gap-3 text-xs font-mono cursor-pointer"
+              className="inline-flex items-center gap-2 text-xs font-semibold text-zinc-900 hover:text-[#FFAD00] transition-colors"
             >
-              <span className="w-2 h-2 rounded-full bg-[#FFAD00] shadow-[0_0_8px_rgba(255,173,0,0.6)] group-hover:scale-125 transition-transform" />
-              <span className="font-bold text-[#09090B] dark:text-white tracking-wide">Projet suivant</span>
-              <span className="text-zinc-400">·</span>
-              <span className="text-[#71717A] dark:text-zinc-400">03 — 03</span>
-              <span className="text-zinc-400 group-hover:translate-y-0.5 transition-transform">↓</span>
+              <span>03 · Résin'Architecte (BTP Haut de gamme)</span>
+              <ArrowRight className="w-3.5 h-3.5" />
             </a>
           </div>
         </div>
@@ -1091,15 +1075,10 @@ export default function Projects({ navigate }) {
           className="max-w-[1280px] mx-auto px-5 sm:px-8 lg:px-10 scroll-mt-24 space-y-10"
         >
           <div className="border-t border-zinc-200/90 pt-10 space-y-4">
-            <div className="flex items-center gap-2.5">
-              <span className="font-mono text-xs font-semibold tracking-widest text-[#71717A] bg-zinc-100 px-3 py-1 rounded-full border border-zinc-200/80">
-                03 — 03
-              </span>
-              <span className="text-zinc-300">•</span>
-              <div className="flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-[#FFAD00]">
-                <Building2 className="w-3.5 h-3.5" />
-                <span>BTP Haut de gamme • Cadrage, Contenus &amp; Stratégie</span>
-              </div>
+            <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-zinc-500">
+              <span className="font-bold text-zinc-950">03</span>
+              <span>/</span>
+              <span>Résin'Architecte • BTP Haut de Gamme</span>
             </div>
 
             <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-4">
