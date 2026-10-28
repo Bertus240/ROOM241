@@ -1,10 +1,8 @@
 // =========================================================================
 // DONNÉES ÉDITORIALES CENTRALISÉES — STUDIO ROOM241 • RÉMI BROCART
 // =========================================================================
-// Ce fichier est la source unique de vérité pour le profil, les expériences,
-// les formations, les compétences et les coordonnées de Rémi Brocart.
-// Modifiez ce fichier pour mettre à jour instantanément la page Parcours,
-// le CV synthétique, le Footer et les composants associés.
+// Source unique de vérité pour le profil, les expériences, les formations,
+// les compétences vérifiées et les coordonnées de Rémi Brocart.
 // =========================================================================
 
 export const profileData = {
@@ -12,8 +10,8 @@ export const profileData = {
   identity: {
     name: "Rémi Brocart",
     brand: "Studio ROOM241",
-    role: "Designer graphique & Direction artistique",
-    tagline: "Design graphique, scénographie de marque & production de contenus.",
+    role: "Graphic Designer & Direction artistique",
+    tagline: "Design graphique, scénographie de stands & production de contenus de terrain.",
     location: "Métropole Européenne de Lille / Erquinghem-Lys (Véhiculé)",
     status: "Disponible immédiatement · CDI & Collaborations",
     avatar: "/assets/remi-brocart-2026.png",
@@ -29,22 +27,22 @@ export const profileData = {
     }
   },
 
-  // 2. PRÉSENTATION & MANIFESTE ÉDITORIAL
+  // 2. PRÉSENTATION & MANIFESTE ÉDITORIAL (CHRONOLOGIE STRICTE ET EXACTE)
   manifesto: {
     title: "L'image, le terrain & la rigueur de l'effort.",
     hook: "Une pratique du design ancrée dans le réel, où la rigueur logique rencontre la créativité opérationnelle.",
     paragraphs: [
-      "Avec Room241, j'aborde le design par la structure avant la forme. C'est le résultat d'un double parcours : une base en sciences de l'ingénieur pour la méthode et la gestion des contraintes, consolidée par un Master en marketing et communication à l'ISEG Lille pour la cohérence business.",
+      "Après un Bac S Sciences de l'Ingénieur, j'ai poursuivi mon parcours jusqu'au Master Marketing, communication et digital à l'ISEG Lille. Aujourd'hui, je mets cette culture technique et créative au service de projets concrets : conception de stands pour des événements professionnels européens, motion design sur After Effects, identités visuelles et vidéos réalisées sur le terrain.",
       "Je privilégie le concret. De l'habillage de stands de plus de 150 m² lors de salons internationaux en cybersécurité à la création d'animations motion design sur After Effects, en passant par l'incarnation de marque et la captation vidéo, je m'assure que chaque projet tienne ses promesses une fois déployé dans le réel."
     ],
     pillars: [
       {
-        label: "Double profil hybride",
-        desc: "Rigueur scientifique (Bac S SI) & vision stratégique business (Master ISEG Lille)."
+        label: "Culture scientifique & stratégique",
+        desc: "Rigueur cartésienne (Bac S SI) consolidée par la vision stratégique de marque (Master ISEG Lille)."
       },
       {
-        label: "Exécution 360° complète",
-        desc: "De la réflexion stratégique au motion design After Effects et aux stands d'envergure européenne."
+        label: "Conception & exécution de terrain",
+        desc: "De la réflexion de marque aux stands d'envergure européenne (> 150 m²) et au motion design After Effects."
       },
       {
         label: "Discipline athlétique",
@@ -62,30 +60,30 @@ export const profileData = {
       type: "Poste CDI",
       period: "Septembre 2025 – Octobre 2026",
       location: "Lille • Salons européens (Nuremberg, Londres, Hanovre)",
-      context: "Leader européen de la cybersécurité Cloud. Travail quotidien en anglais au sein d'une équipe de design internationale basée principalement en Allemagne.",
+      context: "Leader européen de la cybersécurité Cloud. Travail quotidien en anglais au sein d'une équipe de design internationale.",
       highlights: [
         {
           title: "Stands & Scénographie européenne",
-          desc: "Conception graphique et habillage de stands événementiels européens, notamment le stand de plus de 150 m² au Forum InCyber (FIC) à Lille Grand Palais, ainsi qu'aux salons it-sa à Nuremberg et InfoSec à Londres. Coordination étroite avec les scénographes et prestataires techniques."
+          desc: "Conception graphique et habillage de stands événementiels européens, notamment le stand de plus de 150 m² au Forum InCyber (FIC) à Lille Grand Palais, ainsi qu'aux salons it-sa à Nuremberg et InfoSec à Londres. Collaboration avec les prestataires techniques."
         },
         {
           title: "Arche vidéo d'accueil (After Effects)",
-          desc: "Réalisation complète en motion design sur After Effects de l'animation vidéo diffusée sur l'arche vidéo LED du stand à l'entrée du FIC 2025 (boucle d'accueil et co-branding, la structure métallique physique étant assurée par les prestataires scéniques)."
+          desc: "Réalisation complète en motion design sur After Effects de l'animation vidéo diffusée sur l'arche vidéo LED du stand à l'entrée du FIC 2025 (boucle d'accueil et transition de co-branding, la structure métallique étant assurée par les prestataires scéniques)."
+        },
+        {
+          title: "Design Sprint de 36 h à Hanovre & Héros Helix Nova",
+          desc: "Participation en équipe bilingue sous forte contrainte de temps au Design Sprint de 36 heures : développement du concept, histoire du personnage, travail sur la création du personnage 3D, écriture des contenus et montage vidéo."
         },
         {
           title: "Incarnation de Captain Security",
-          desc: "Incarnation en costume du personnage héroïque de la marque sur la scène plénière et dans les allées du FIC et d'it-sa, créant un contact direct mémorable avec les congressistes."
+          desc: "Incarnation en costume du personnage sur scène plénière et dans les allées des salons professionnels (FIC, it-sa), créant un contact direct mémorable avec le public."
         },
         {
-          title: "Sprint de 36 h à Hanovre & Héros Helix Nova",
-          desc: "Conception en équipe bilingue sous forte contrainte de temps de l'affiche de présentation et des supports graphiques du héros cyber 3D Helix Nova (univers distinct de Captain Security)."
-        },
-        {
-          title: "Supports B2B & Système de certification",
-          desc: "Campagnes Paid Ads comparatives (SharePoint vs Proofpoint), fiches techniques d'aide à la vente, refonte complète des 7 insignes officiels du programme partenaires B2B."
+          title: "Supports B2B & Campagnes marketing",
+          desc: "Campagnes Paid Ads comparatives, fiches techniques d'aide à la vente, visuels webinaires et supports imprimés."
         }
       ],
-      resultCollective: "Plus de 4 000 contacts qualifiés enregistrés collectivement par les équipes commerciales au FIC."
+      resultCollective: "Plus de 4 000 contacts B2B recueillis en 3 jours sur le stand au FIC (résultat collectif de l'événement)."
     },
     {
       id: "vade-hornetsecurity-alternance",
@@ -97,121 +95,120 @@ export const profileData = {
       context: "Accompagnement de la transition de marque suite au rachat de Vade par Hornetsecurity, en lien direct avec les équipes RH et communication.",
       highlights: [
         {
-          title: "Attractivité RH & Recrutement de profils rares",
-          desc: "Conception de campagnes d'attractivité pour attirer des profils techniques pointus en cybersécurité (ingénieurs détection de menaces, développeurs logiciels)."
+          title: "Campagnes de recrutement métiers techniques",
+          desc: "Conception de campagnes de communication pour attirer des profils techniques pointus (ingénieurs détection de menaces, développeurs)."
         },
         {
-          title: "Programme d'Employee Advocacy",
-          desc: "Structuration d'un programme d'ambassadeurs internes et coaching individuel des collaborateurs pour valoriser leur prise de parole sur LinkedIn."
+          title: "Employee Advocacy sur LinkedIn",
+          desc: "Structuration du programme d'ambassadeurs internes et accompagnement individuel des collaborateurs pour valoriser leur prise de parole."
         },
         {
-          title: "Séminaires internes & Culture d'entreprise",
-          desc: "Organisation logistique des rassemblements d'équipes et renforcement de la cohésion interne post-acquisition."
+          title: "Séminaires internes & Cohésion",
+          desc: "Organisation et communication autour de séminaires et événements internes pour accompagner la transition post-acquisition."
         }
       ]
     },
     {
       id: "studio-room241-freelance",
-      role: "Directeur Artistique & Graphiste indépendant",
+      role: "Freelance en communication et design",
       company: "Studio ROOM241",
       type: "Activité indépendante (Freelance)",
-      period: "2024 – Présent",
+      period: "Depuis Octobre 2024",
       location: "Région Hauts-de-France & National",
-      context: "Activité indépendante de design graphique, communication et direction artistique pour entreprises innovantes et artisans du bâtiment.",
+      context: "Accompagnement opérationnel de projets reliant réflexion stratégique, création graphique et exécution de terrain.",
       highlights: [
         {
           title: "Fresh Data (AgTech) — Campagne Ulule & Salon MEDFEL",
-          desc: "Création de l'univers visuel validé par Marc-Henri Blarel, direction graphique de la campagne de financement participatif Ulule financée à 116 %, création des visuels pour passages radio et captation vidéo d'interviews au salon international MEDFEL ayant ouvert des discussions avec Auchan, Grand Frais et E.Leclerc."
+          desc: "Contribution à la visibilité de la campagne Ulule (financée à 116 % de son objectif), actions radio et captation vidéo d'interviews au salon international MEDFEL ayant ouvert des conversations qualifiées avec Auchan, Grand Frais et E.Leclerc."
         },
         {
-          title: "Résin'Architecte (BTP Haut de Gamme) — Mise en valeur de chantiers",
-          desc: "Captation vidéo sur chantier, formalisation de l'identité visuelle existante, gabarits éditoriaux réseaux sociaux, visuels avant/après et fiches techniques d'aide à la vente (+219 % de portée organique en 30 jours, 648 visites de profil, +209 % d'interactions, 0 € de publicité payante)."
+          title: "Résin'Architecte (BTP Haut de Gamme) — Communication & Terrain",
+          desc: "Adaptation et formalisation de l'identité visuelle existante, création de modèles réutilisables pour les réseaux sociaux, fiches d'aide à la vente (règle des 8 mm), captation vidéo directe et documentation de 8 projets de chantier."
         }
       ]
     },
     {
       id: "sencrop-communication",
-      role: "Chargé de communication & Community Management",
+      role: "Community Manager stagiaire",
       company: "Sencrop",
-      type: "Expérience AgriTech B2B",
-      period: "Missions AgriTech B2B",
+      type: "Stage",
+      period: "Stage conventionné",
       location: "Lille",
-      context: "Entreprise européenne de stations météo connectées et de solutions connectées pour l'agriculture de précision.",
+      context: "Entreprise européenne de stations météo connectées et de solutions d'agriculture de précision.",
       highlights: [
         {
-          title: "Community Management & Animation de communauté",
-          desc: "Animation des réseaux sociaux et valorisation des retours d'expérience des agriculteurs et distributeurs B2B."
+          title: "Participation à la stratégie éditoriale",
+          desc: "Contribution au planning de publication et à la valorisation des usages agricoles connectés."
         },
         {
-          title: "Communication de marque B2B",
-          desc: "Création de contenus digitaux pédagogiques et diffusion des innovations technologiques de la station météo connectée."
+          title: "Gestion et animation des réseaux sociaux",
+          desc: "Animation de la communauté et création de visuels et contenus digitaux."
         }
       ]
     }
   ],
 
-  // 4. FORMATION ACADÉMIQUE
+  // 4. FORMATION ACADÉMIQUE (CHRONOLOGIE EXACTE)
   education: [
     {
       degree: "Master Marketing, communication et digital",
       institution: "ISEG Lille",
+      period: "2023 — 2025",
       field: "Stratégie de marque, communication globale & business",
-      description: "Apprentissage de la vision stratégique globale, du positionnement concurrentiel, de l'architecture de marque et du pilotage de projets de communication digitaux et événementiels."
+      description: "Vision stratégique globale, positionnement concurrentiel, architecture de marque et pilotage de projets de communication digitaux et événementiels."
     },
     {
       degree: "Baccalauréat Scientifique (Bac S SI)",
-      institution: "Option Sciences de l'Ingénieur",
-      field: "Rigueur logique, analyse & compréhension technique",
-      description: "Formation cartésienne axée sur la résolution de problèmes, la modélisation spatiale 3D, la physique appliquée et la rigueur d'exécution sans approximation."
+      institution: "Sciences de l'Ingénieur",
+      period: "Mention Bien · 2020",
+      field: "Rigueur logique, analyse & méthode",
+      description: "Formation scientifique axée sur la méthode, la résolution de problèmes, la modélisation et la rigueur dans la gestion des contraintes techniques."
     },
     {
       degree: "Brevet d'Aptitude aux Fonctions d'Animateur (BAFA)",
       institution: "Animation & Pédagogie",
-      field: "Gestion de groupe, dynamisme & pédagogie",
-      description: "Développement du sens du collectif, prise de parole en public, encadrement d'équipes et capacité à transmettre clairement des idées complexes."
+      period: "2019",
+      field: "Pédagogie, animation & dynamique d'équipe",
+      description: "Sens du collectif, prise de parole en public, écoute active et encadrement d'équipe."
     }
   ],
 
-  // 5. STACK TECHNIQUE & COMPÉTENCES OPÉRATIONNELLES
-  skills: [
-    {
-      category: "Direction Artistique & Identité",
-      items: [
-        "Identités visuelles & Chartes graphiques",
-        "Harmonie typographique & Systèmes de grilles",
-        "Design éditorial & Plaquettes commerciales",
-        "Supports d'aide à la vente (Sales Enablement)"
-      ]
-    },
-    {
-      category: "Motion Design & Vidéo",
-      items: [
-        "Adobe After Effects (Animations vectorielles, titrages)",
-        "Adobe Premiere Pro (Montage dynamique & rythme)",
-        "Captation de terrain & Interviews",
-        "Étalonnage colorimétrique & Boucles d'affichage LED"
-      ]
-    },
-    {
-      category: "Scénographie & Événementiel",
-      items: [
-        "Stands grand format (> 150 m² au FIC Lille)",
-        "Arches vidéo de stand & Calibrage régie LED",
-        "Signalétique directionnelle & Affichage urbain",
-        "Incarnation terrain (Captain Security)"
-      ]
-    },
-    {
-      category: "Logiciels & Outils Maîtrisés",
-      items: [
-        "Adobe Illustrator (Vecteur & Logos)",
-        "Adobe Photoshop (Retouche & Compositions)",
-        "Adobe InDesign (Édition & Fiches techniques)",
-        "Figma (Design System & Maquettage)",
-        "HTML5 / Tailwind CSS / React"
-      ]
-    }
-  ],
+  // 5. COMPÉTENCES VÉRIFIÉES EN 3 GROUPES STRICTS (ZÉRO TECHNOLOGIE DEV / AUCUN CODE INVENTÉ)
+  skills: {
+    // A. Compétences métier
+    business: [
+      "Direction artistique & Identités de marque",
+      "Scénographie événementielle & Stands (> 150 m²)",
+      "Motion design & Animation After Effects",
+      "Stratégie éditoriale & Création de contenus",
+      "Production vidéo & Captations de terrain",
+      "Supports commerciaux & Fiches techniques (Sales Enablement)"
+    ],
+    // B. Logiciels et outils créatifs
+    software: [
+      "Adobe Illustrator (Design vectoriel, logos, chartes)",
+      "Adobe Photoshop (Retouche photo, compositing)",
+      "Adobe InDesign (Édition, fiches techniques, print)",
+      "Adobe Premiere Pro (Montage vidéo, titrages, rythme)",
+      "Adobe After Effects (Animation graphique, boucles LED)",
+      "Figma (Design system & maquettes d'interfaces)"
+    ],
+    // C. Outils d'Intelligence Artificielle (Usages professionnels documentés)
+    aiTools: [
+      {
+        name: "ChatGPT (OpenAI)",
+        usage: "Recherche documentaire, structuration de plans d'action et reformulation éditoriale."
+      },
+      {
+        name: "Claude (Anthropic)",
+        usage: "Analyse textuelle approfondie, relecture critique de contenus et synthèse conceptuelle."
+      },
+      {
+        name: "Gemini (Google)",
+        usage: "Exploration créative, veille d'informations et structuration de données de projets."
+      }
+    ]
+  },
 
   // 6. ENDURANCE ATHLÉTIQUE & MARATHON
   athleticProof: {
@@ -225,4 +222,3 @@ export const profileData = {
     narrative: "Courir un marathon en 2h48 relève de la même exigence qu'un projet créatif d'envergure : rigueur millimétrée de la préparation, gestion constante de l'effort, sang-froid face aux imprévus et refus total de relâcher l'attention avant la ligne d'arrivée."
   }
 };
-

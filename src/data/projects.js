@@ -23,7 +23,7 @@ export const projectsData = {
       {
         value: "> 150 m²",
         label: "Stand FIC Lille",
-        detail: "Pavillon d'exposition avec piste e-karting intégrée"
+        detail: "Stand d'exposition avec piste e-karting intégrée"
       },
       {
         value: "3 Salons",
@@ -41,7 +41,7 @@ export const projectsData = {
         id: "stands",
         title: "Stands & Événementiel international",
         subtitle: "Conception et modélisation pour les grands salons européens (FIC / Forum InCyber, InfoSec London, it-sa Nuremberg).",
-        description: "Conception graphique et habillage de pavillons événementiels, dont le stand de plus de 150 m² au FIC à Lille avec animation e-karting, ainsi que les salons it-sa à Nuremberg et InfoSec à Londres.",
+        description: "Conception graphique et habillage de stands événementiels, dont le stand de plus de 150 m² au FIC à Lille avec animation e-karting, ainsi que les salons it-sa à Nuremberg et InfoSec à Londres.",
         image: "/assets/hornetsecurity/fic/Stand/IMG20250401075104.jpg",
         tag: "Grand Format · Salons Europe",
         highlight: "+4 000 leads (collectif)",
@@ -142,7 +142,7 @@ export const projectsData = {
     },
     act2: {
       title: "02. L'Arbitrage Créatif & Déploiement",
-      text: "Habillage graphique d'un pavillon d'exposition de plus de 150 m² au FIC, intégrant une signalétique claire et une piste e-karting."
+      text: "Habillage graphique d'un stand d'exposition de plus de 150 m² au FIC, intégrant une signalétique claire et une piste e-karting."
     },
     act3: {
       title: "03. L'Impact Mesurable",

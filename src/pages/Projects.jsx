@@ -26,7 +26,6 @@ import {
   Compass
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import BadgesCarousel from '../components/BadgesCarousel';
 import MotionVideoCarousel from '../components/MotionVideoCarousel';
 
 export default function Projects({ navigate }) {
@@ -35,7 +34,8 @@ export default function Projects({ navigate }) {
   const [isVideoFicPlaying, setIsVideoFicPlaying] = useState(false);
   const [isPlayingFreshVideo, setIsPlayingFreshVideo] = useState(false);
   const [isPlayingHelixVideo, setIsPlayingHelixVideo] = useState(false);
-  const [selectedBadge, setSelectedBadge] = useState('Platinum');
+  const [hornetMediaIndex, setHornetMediaIndex] = useState(0); // 0 = photo stand, 1 = video arche
+  const [isHornetVideoPlaying, setIsHornetVideoPlaying] = useState(false);
   const [selectedRaAsset, setSelectedRaAsset] = useState(0);
 
   // Modals pour agrandissement haute résolution
@@ -50,7 +50,7 @@ export default function Projects({ navigate }) {
 
   // Verrouillage du scroll en arrière-plan lorsqu'un modal est ouvert
   useEffect(() => {
-    const isAnyModalOpen = badgeModalIndex !== null || isPosterModalOpen || raModalIndex !== null;
+    const isAnyModalOpen = isPosterModalOpen || raModalIndex !== null;
     if (isAnyModalOpen) {
       document.body.style.overflow = 'hidden';
     } else {
@@ -65,14 +65,10 @@ export default function Projects({ navigate }) {
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (e.key === 'Escape') {
-        setBadgeModalIndex(null);
         setIsPosterModalOpen(false);
         setRaModalIndex(null);
       }
-      if (badgeModalIndex !== null) {
-        if (e.key === 'ArrowRight') setBadgeModalIndex((prev) => (prev + 1) % partnerBadges.length);
-        if (e.key === 'ArrowLeft') setBadgeModalIndex((prev) => (prev - 1 + partnerBadges.length) % partnerBadges.length);
-      }
+
       if (raModalIndex !== null) {
         if (e.key === 'ArrowRight') setRaModalIndex((prev) => (prev + 1) % raAssets.length);
         if (e.key === 'ArrowLeft') setRaModalIndex((prev) => (prev - 1 + raAssets.length) % raAssets.length);
@@ -80,59 +76,9 @@ export default function Projects({ navigate }) {
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [badgeModalIndex, raModalIndex]);
+  }, [raModalIndex]);
 
-  const partnerBadges = [
-    {
-      name: 'Platinum',
-      file: 'Platinum_partner.png',
-      label: 'Platinum Partner',
-      level: 'Niveau 1 · Partenariat stratégique européen',
-      description: 'Plus haut niveau d\'accréditation B2B. Réservé aux intégrateurs certifiés générant des volumes majeurs de solutions de cybersécurité Cloud.'
-    },
-    {
-      name: 'Gold',
-      file: 'Gold_partner.png',
-      label: 'Gold Partner',
-      level: 'Niveau 2 · Partenaire certifié avancé',
-      description: 'Accréditation accordée aux partenaires disposant d\'ingénieurs formés et assurant un déploiement continu des briques 365 Total Protection.'
-    },
-    {
-      name: 'Silver',
-      file: 'Silver_partner.png',
-      label: 'Silver Partner',
-      level: 'Niveau 3 · Partenaire certifié',
-      description: 'Niveau intermédiaire validant une expertise commerciale régulière sur la protection des messageries d\'entreprises.'
-    },
-    {
-      name: 'Bronze',
-      file: 'Bronze_partner.png',
-      label: 'Bronze Partner',
-      level: 'Niveau 4 · Entrée réseau agréé',
-      description: 'Insigne d\'accueil officialisant l\'adhésion au programme partenaire Hornetsecurity pour les revendeurs informatiques.'
-    },
-    {
-      name: 'OEM',
-      file: 'OEM_partner.png',
-      label: 'OEM Partner',
-      level: 'Partenaire constructeur / OEM',
-      description: 'Programme spécifique d\'intégration directe des technologies de filtrage et de chiffrement dans des solutions tierces.'
-    },
-    {
-      name: 'VAR',
-      file: 'Value_Added_Reseller.png',
-      label: 'Value Added Reseller',
-      level: 'Revendeur à valeur ajoutée',
-      description: 'Certification des distributeurs apportant conseil, installation clé en main et support de proximité aux entreprises clientes.'
-    },
-    {
-      name: 'VAD',
-      file: 'Value_Added_Distributor.png',
-      label: 'Value Added Distributor',
-      level: 'Distributeur officiel à valeur ajoutée',
-      description: 'Insigne d\'autorité pour les grossistes et centrales d\'achats IT approvisionnant les réseaux de revendeurs européens.'
-    },
-  ];
+
 
   const raAssets = [
     {
@@ -294,27 +240,23 @@ export default function Projects({ navigate }) {
               </span>
             </div>
 
-            {/* Repères chiffrés représentatifs & vérifiés */}
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 pt-3">
-              <div className="p-3.5 rounded-2xl bg-zinc-50 border border-zinc-200/80">
+            {/* Repères chiffrés représentatifs & vérifiés (4 colonnes équilibrées) */}
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-3.5 pt-3">
+              <div className="p-4 rounded-2xl bg-zinc-50/80 border border-zinc-200/80">
                 <span className="text-xl sm:text-2xl font-extrabold font-mono text-[#09090B] block">&gt; 150 m²</span>
-                <span className="text-[11px] text-[#52525B] mt-0.5 block leading-tight">Pavillon FIC Lille Grand Palais</span>
+                <span className="text-xs text-[#52525B] mt-0.5 block leading-tight">Stand FIC Lille Grand Palais</span>
               </div>
-              <div className="p-3.5 rounded-2xl bg-zinc-50 border border-zinc-200/80">
-                <span className="text-xl sm:text-2xl font-extrabold font-mono text-[#09090B] block">&gt; 4 000</span>
-                <span className="text-[11px] text-[#52525B] mt-0.5 block leading-tight">Contacts qualifiés (collectif)</span>
+              <div className="p-4 rounded-2xl bg-zinc-50/80 border border-zinc-200/80">
+                <span className="text-xl sm:text-2xl font-extrabold font-mono text-[#09090B] block">4 000+</span>
+                <span className="text-xs text-[#52525B] mt-0.5 block leading-tight">Contacts B2B recueillis (collectif)</span>
               </div>
-              <div className="p-3.5 rounded-2xl bg-zinc-50 border border-zinc-200/80">
+              <div className="p-4 rounded-2xl bg-zinc-50/80 border border-zinc-200/80">
                 <span className="text-xl sm:text-2xl font-extrabold font-mono text-[#09090B] block">36 h</span>
-                <span className="text-[11px] text-[#52525B] mt-0.5 block leading-tight">Sprint créatif de Hanovre</span>
+                <span className="text-xs text-[#52525B] mt-0.5 block leading-tight">Design Sprint de Hanovre (3D)</span>
               </div>
-              <div className="p-3.5 rounded-2xl bg-zinc-50 border border-zinc-200/80">
-                <span className="text-xl sm:text-2xl font-extrabold font-mono text-[#09090B] block">6 créations</span>
-                <span className="text-[11px] text-[#52525B] mt-0.5 block leading-tight">Campagnes Paid Ads comparatives</span>
-              </div>
-              <div className="p-3.5 rounded-2xl bg-zinc-50 border border-zinc-200/80 col-span-2 sm:col-span-1">
-                <span className="text-xl sm:text-2xl font-extrabold font-mono text-[#09090B] block">7 insignes</span>
-                <span className="text-[11px] text-[#52525B] mt-0.5 block leading-tight">Badges vectoriels partenaires</span>
+              <div className="p-4 rounded-2xl bg-zinc-50/80 border border-zinc-200/80">
+                <span className="text-xl sm:text-2xl font-extrabold font-mono text-[#09090B] block">B2B</span>
+                <span className="text-xs text-[#52525B] mt-0.5 block leading-tight">Campagnes marketing &amp; supports</span>
               </div>
             </div>
           </div>
@@ -351,12 +293,12 @@ export default function Projects({ navigate }) {
                 </span>
               </div>
               <h3 className="text-base sm:text-lg font-bold text-[#09090B]">
-                Graphic Designer Junior (Hornetsecurity by Proofpoint)
+                Graphic Designer (Hornetsecurity by Proofpoint)
               </h3>
               <ul className="text-xs sm:text-sm text-[#52525B] space-y-1.5 leading-relaxed">
                 <li>• Création graphique et habillage de stands pour les salons européens (dont le stand de plus de 150 m² au FIC à Lille, ainsi qu'à it-sa Nuremberg et InfoSec Londres).</li>
                 <li>• Coordination graphique avec les prestataires techniques et scénographes internationaux.</li>
-                <li>• Supports publicitaires (Paid Ads SharePoint vs Proofpoint), fiches solutions et refonte de badges partenaires.</li>
+                <li>• Supports marketing et publicitaires B2B (Paid Ads comparatives), fiches techniques et visuels pour webinaires.</li>
                 <li>• Travail quotidien en anglais au sein d'une équipe de design basée principalement en Allemagne.</li>
               </ul>
             </div>
@@ -374,115 +316,232 @@ export default function Projects({ navigate }) {
               </h3>
             </div>
             
-            {/* Arche vidéo motion design */}
-            <div className="p-6 sm:p-8 rounded-3xl bg-zinc-50 border border-zinc-200/80 space-y-5">
-              <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2 border-b border-zinc-200/60 pb-3">
+            {/* Carrousel Hornetsecurity : Alternance Stand in situ & Vidéo After Effects */}
+            <div className="p-6 sm:p-8 rounded-3xl bg-white dark:bg-zinc-900/70 border border-zinc-200/90 dark:border-white/10 shadow-[0_10px_35px_rgba(0,0,0,0.03)] space-y-6">
+              
+              {/* En-tête éditorial du carrousel */}
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-zinc-200/60 dark:border-white/10 pb-4">
                 <div>
-                  <span className="text-xs font-bold uppercase tracking-wider text-[#09090B] flex items-center gap-1.5">
-                    <Video className="w-4 h-4 text-[#FFAD00]" />
-                    Création vidéo / Motion design événementiel
-                  </span>
-                  <h4 className="text-base sm:text-lg font-bold text-[#09090B] mt-0.5">
-                    Arche vidéo d'accueil animée sur After Effects
+                  <div className="flex items-center gap-2">
+                    <span className="w-2 h-2 rounded-full bg-[#FFAD00] shadow-[0_0_8px_rgba(255,173,0,0.6)]" />
+                    <span className="text-xs font-mono font-bold uppercase tracking-wider text-[#09090B] dark:text-white">
+                      Scénographie &amp; Motion Design • Forum InCyber (FIC 2025)
+                    </span>
+                  </div>
+                  <h4 className="text-lg sm:text-xl font-extrabold text-[#09090B] dark:text-white mt-1 tracking-tight">
+                    {hornetMediaIndex === 0
+                      ? "Stand d'exposition de plus de 150 m² — Vue in situ à Lille Grand Palais"
+                      : "Arche vidéo LED — Boucle motion design d'accueil (After Effects)"}
                   </h4>
                 </div>
-                <span className="text-xs text-[#71717A]">
-                  Lille Grand Palais • 1-3 Avril 2025
-                </span>
-              </div>
 
-              <p className="text-xs sm:text-sm text-[#52525B] leading-relaxed max-w-3xl">
-                Conception et réalisation sur Adobe After Effects de l'animation vidéo diffusée sur l'arche vidéo LED du stand à l'entrée du salon. Cette boucle motion design assurait la transition visuelle du co-branding « HORNETSECURITY FORMERLY Vade » et orientait les visiteurs vers les totems partenaires. La structure métallique physique a été montée par les équipes techniques du salon.
-              </p>
-
-              {/* Sélecteur Face avant / Face arrière */}
-              <div className="flex items-center gap-2 pt-1">
-                <button
-                  type="button"
-                  onClick={() => setSelectedArchFace('front')}
-                  className={`px-3 py-1 rounded-full text-xs font-semibold transition-all ${
-                    selectedArchFace === 'front'
-                      ? 'bg-[#09090B] text-white shadow-sm'
-                      : 'bg-zinc-200/80 text-zinc-700 hover:bg-zinc-300'
-                  }`}
-                >
-                  Face avant (Accueil salon)
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setSelectedArchFace('back')}
-                  className={`px-3 py-1 rounded-full text-xs font-semibold transition-all ${
-                    selectedArchFace === 'back'
-                      ? 'bg-[#09090B] text-white shadow-sm'
-                      : 'bg-zinc-200/80 text-zinc-700 hover:bg-zinc-300'
-                  }`}
-                >
-                  Face arrière (Partenaires &amp; Sortie)
-                </button>
-              </div>
-
-              {/* Présentation diptyque : Animation vidéo & Rendu in situ */}
-              <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start pt-2">
-                
-                {/* Vidéo de l'animation After Effects */}
-                <div className="lg:col-span-7 space-y-2">
-                  <div className="relative aspect-video w-full rounded-2xl overflow-hidden border border-zinc-300 bg-zinc-950 shadow-sm">
-                    <video
-                      key={selectedArchFace}
-                      src={
-                        selectedArchFace === 'front'
-                          ? '/assets/hornetsecurity/FIC_assets_2026/Video_arch/FRONT_Global_Arch_1920x1080.mp4'
-                          : '/assets/hornetsecurity/FIC_assets_2026/Video_arch/BACK_Global_Arch_1920x1080.mp4'
-                      }
-                      controls
-                      muted
-                      playsInline
-                      preload="metadata"
-                      poster="/assets/hornetsecurity/fic/Stand/IMG20250401075104.jpg"
-                      className="w-full h-full object-contain"
-                    />
+                {/* Commandes de navigation et pagination */}
+                <div className="flex items-center gap-3 shrink-0">
+                  <div className="flex items-center gap-1.5 p-1 rounded-full bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-white/10 text-xs font-mono">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setHornetMediaIndex(0);
+                        setIsHornetVideoPlaying(false);
+                      }}
+                      className={`px-3 py-1 rounded-full transition-all cursor-pointer ${
+                        hornetMediaIndex === 0
+                          ? "bg-white dark:bg-zinc-700 text-black dark:text-white font-bold shadow-xs"
+                          : "text-zinc-500 hover:text-black dark:hover:text-white"
+                      }`}
+                    >
+                      01 · Photo du stand
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setHornetMediaIndex(1)}
+                      className={`px-3 py-1 rounded-full transition-all cursor-pointer ${
+                        hornetMediaIndex === 1
+                          ? "bg-white dark:bg-zinc-700 text-black dark:text-white font-bold shadow-xs"
+                          : "text-zinc-500 hover:text-black dark:hover:text-white"
+                      }`}
+                    >
+                      02 · Vidéo After Effects
+                    </button>
                   </div>
-                  <div className="flex items-center justify-between text-xs text-[#71717A] px-1">
-                    <span className="font-medium text-[#09090B]">
-                      Boucle motion design (After Effects) • {selectedArchFace === 'front' ? 'Face avant' : 'Face arrière'}
-                    </span>
-                    <span className="font-mono text-[11px]">1920 × 1080</span>
+
+                  <div className="flex items-center gap-1">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setHornetMediaIndex((prev) => (prev === 0 ? 1 : 0));
+                        setIsHornetVideoPlaying(false);
+                      }}
+                      className="w-9 h-9 rounded-full bg-white dark:bg-zinc-800 border border-zinc-200 dark:border-white/10 flex items-center justify-center text-zinc-700 dark:text-zinc-200 hover:bg-zinc-100 dark:hover:bg-zinc-700 transition-transform active:scale-95 cursor-pointer shadow-xs"
+                      aria-label="Média précédent"
+                    >
+                      <ChevronLeft className="w-4 h-4" />
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setHornetMediaIndex((prev) => (prev === 1 ? 0 : 1));
+                        setIsHornetVideoPlaying(false);
+                      }}
+                      className="w-9 h-9 rounded-full bg-white dark:bg-zinc-800 border border-zinc-200 dark:border-white/10 flex items-center justify-center text-zinc-700 dark:text-zinc-200 hover:bg-zinc-100 dark:hover:bg-zinc-700 transition-transform active:scale-95 cursor-pointer shadow-xs"
+                      aria-label="Média suivant"
+                    >
+                      <ChevronRight className="w-4 h-4" />
+                    </button>
                   </div>
                 </div>
-
-                {/* Photographie in situ */}
-                <div className="lg:col-span-5 space-y-2">
-                  <div className="relative aspect-video w-full rounded-2xl overflow-hidden border border-zinc-200 bg-zinc-950 shadow-sm">
-                    <img
-                      src="/assets/hornetsecurity/fic/Stand/IMG20250401075104.jpg"
-                      alt="Arche vidéo d'accueil Hornetsecurity formerly Vade au Forum InCyber 2025"
-                      className="w-full h-full object-cover object-[center_35%]"
-                      loading="lazy"
-                    />
-                  </div>
-                  <div className="flex items-center justify-between text-xs text-[#71717A] px-1">
-                    <span>Installation active sur le salon</span>
-                    <span className="font-mono text-[11px]">In situ Lille Grand Palais</span>
-                  </div>
-                </div>
-
               </div>
 
-              {/* Rôles distincts */}
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-3 pt-2 text-xs text-[#52525B]">
-                <div className="p-3.5 rounded-xl bg-white border border-zinc-200/80 space-y-1">
-                  <span className="font-bold text-[#09090B] block">• Scénarisation graphique</span>
-                  <p>Définition du storyboard, rythme de transition des logos et lisibilité à distance.</p>
-                </div>
-                <div className="p-3.5 rounded-xl bg-white border border-zinc-200/80 space-y-1">
-                  <span className="font-bold text-[#09090B] block">• Production After Effects</span>
-                  <p>Animation vectorielle, effets de particules lumineuses et export calibré pour les régies LED.</p>
-                </div>
-                <div className="p-3.5 rounded-xl bg-white border border-zinc-200/80 space-y-1">
-                  <span className="font-bold text-[#09090B] block">• Intégration sur régie</span>
-                  <p>Vérification du calage des flux vidéo avec les prestataires audiovisuels de l'événement.</p>
-                </div>
+              {/* Conteneur principal 16:9 du média actif */}
+              <div className="relative aspect-video w-full rounded-2xl sm:rounded-3xl overflow-hidden border border-zinc-200 dark:border-white/10 bg-zinc-950 shadow-md">
+                <AnimatePresence mode="wait">
+                  {hornetMediaIndex === 0 ? (
+                    /* SLIDE 1 : Photographie authentique in situ du stand */
+                    <motion.div
+                      key="stand-photo"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.3 }}
+                      className="relative w-full h-full group"
+                    >
+                      <img
+                        src="/assets/hornetsecurity/fic/Stand/IMG20250401075104.jpg"
+                        alt="Stand événementiel de plus de 150 m² Hornetsecurity au Forum InCyber 2025"
+                        className="w-full h-full object-cover object-[center_35%]"
+                        loading="eager"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent pointer-events-none" />
+                      
+                      <div className="absolute bottom-4 left-4 right-4 flex items-end justify-between gap-4 text-white">
+                        <div className="space-y-0.5 max-w-xl">
+                          <span className="text-[10px] font-mono uppercase tracking-widest text-[#FFAD00] px-2 py-0.5 rounded bg-black/60 backdrop-blur-md border border-white/15">
+                            Photographie in situ • Stand actif
+                          </span>
+                          <p className="text-xs sm:text-sm font-semibold pt-1">
+                            Lille Grand Palais • Plus de 150 m² accueillant plus de 4 000 contacts B2B
+                          </p>
+                        </div>
+                        <span className="hidden sm:inline-block text-[11px] font-mono text-zinc-300 bg-black/60 px-3 py-1 rounded-full border border-white/15 backdrop-blur-md">
+                          01 / 02
+                        </span>
+                      </div>
+                    </motion.div>
+                  ) : (
+                    /* SLIDE 2 : Vidéo authentique de l'arche After Effects */
+                    <motion.div
+                      key="arche-video"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.3 }}
+                      className="relative w-full h-full flex items-center justify-center bg-black"
+                    >
+                      {isHornetVideoPlaying ? (
+                        <video
+                          src={
+                            selectedArchFace === "front"
+                              ? "/assets/hornetsecurity/FIC_assets_2026/Video_arch/FRONT_Global_Arch_1920x1080.mp4"
+                              : "/assets/hornetsecurity/FIC_assets_2026/Video_arch/BACK_Global_Arch_1920x1080.mp4"
+                          }
+                          controls
+                          autoPlay
+                          playsInline
+                          className="w-full h-full object-contain"
+                        />
+                      ) : (
+                        <div
+                          onClick={() => setIsHornetVideoPlaying(true)}
+                          role="button"
+                          tabIndex={0}
+                          aria-label="Lancer la vidéo de l'arche After Effects"
+                          onKeyDown={(e) => {
+                            if (e.key === "Enter" || e.key === " ") {
+                              e.preventDefault();
+                              setIsHornetVideoPlaying(true);
+                            }
+                          }}
+                          className="relative w-full h-full cursor-pointer group flex items-center justify-center select-none"
+                        >
+                          <img
+                            src="/assets/hornetsecurity/fic/Stand/IMG20250401075104.jpg"
+                            alt="Arche vidéo d'accueil animée"
+                            className="w-full h-full object-cover object-center opacity-85 group-hover:scale-102 transition-transform duration-500"
+                          />
+                          <div className="absolute inset-0 bg-black/45 group-hover:bg-black/35 transition-colors" />
+
+                          <div className="relative z-10 flex flex-col items-center gap-3">
+                            <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-[#FFAD00] text-black flex items-center justify-center shadow-[0_0_30px_rgba(255,173,0,0.5)] group-hover:scale-110 active:scale-95 transition-all">
+                              <Play className="w-7 h-7 sm:w-8 sm:h-8 fill-current ml-1 text-black" />
+                            </div>
+                            <span className="text-white text-xs sm:text-sm font-semibold px-4 py-1.5 rounded-full bg-black/70 backdrop-blur-md border border-white/20">
+                              Lancer l'animation After Effects (1080p)
+                            </span>
+                          </div>
+
+                          <div className="absolute bottom-4 left-4 right-4 flex items-end justify-between gap-4 text-white z-10">
+                            <div className="space-y-0.5 max-w-xl">
+                              <span className="text-[10px] font-mono uppercase tracking-widest text-[#FFAD00] px-2 py-0.5 rounded bg-black/60 backdrop-blur-md border border-white/15">
+                                Animation After Effects • {selectedArchFace === "front" ? "Face avant" : "Face arrière"}
+                              </span>
+                              <p className="text-xs sm:text-sm font-semibold pt-1">
+                                Boucle motion design diffusée sur l'arche d'accueil LED du stand
+                              </p>
+                            </div>
+                            <span className="hidden sm:inline-block text-[11px] font-mono text-zinc-300 bg-black/60 px-3 py-1 rounded-full border border-white/15 backdrop-blur-md">
+                              02 / 02
+                            </span>
+                          </div>
+                        </div>
+                      )}
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </div>
+
+              {/* Commandes complémentaires : Bascule Face avant / Face arrière pour la vidéo */}
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-1">
+                <p className="text-xs sm:text-sm text-[#52525B] dark:text-zinc-300 max-w-2xl leading-relaxed">
+                  {hornetMediaIndex === 0
+                    ? "Habillage graphique et signalétique du stand de plus de 150 m². La structure métallique a été montée par les prestataires scéniques, l'habillage visuel et la direction des flux assurés avec les équipes de design."
+                    : "Boucle d'animation After Effects diffusée sur l'arche vidéo d'accueil LED. Transition visuelle du co-branding 'HORNETSECURITY FORMERLY Vade' et orientation des visiteurs vers les totems partenaires."}
+                </p>
+
+                {hornetMediaIndex === 1 && (
+                  <div className="flex items-center gap-2 shrink-0">
+                    <span className="text-[11px] text-zinc-400 font-mono">Angle régie :</span>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setSelectedArchFace("front");
+                        setIsHornetVideoPlaying(false);
+                      }}
+                      className={`px-3 py-1 rounded-full text-xs font-semibold transition-all cursor-pointer ${
+                        selectedArchFace === "front"
+                          ? "bg-[#09090B] dark:bg-white text-white dark:text-black shadow-xs"
+                          : "bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-300 hover:bg-zinc-200"
+                      }`}
+                    >
+                      Face avant
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setSelectedArchFace("back");
+                        setIsHornetVideoPlaying(false);
+                      }}
+                      className={`px-3 py-1 rounded-full text-xs font-semibold transition-all cursor-pointer ${
+                        selectedArchFace === "back"
+                          ? "bg-[#09090B] dark:bg-white text-white dark:text-black shadow-xs"
+                          : "bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-300 hover:bg-zinc-200"
+                      }`}
+                    >
+                      Face arrière
+                    </button>
+                  </div>
+                )}
+              </div>
+
             </div>
 
             {/* Diptyque Bâche Zénith & Couloir karting */}
@@ -686,28 +745,7 @@ export default function Projects({ navigate }) {
             </div>
           </div>
 
-          {/* Système de badges partenaires B2B : Carrousel horizontal visuel sans texte */}
-          <div className="p-6 sm:p-10 rounded-3xl bg-white border border-zinc-200/80 space-y-4">
-            <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3">
-              <div className="space-y-1">
-                <span className="text-xs font-bold uppercase tracking-wider text-[#71717A]">
-                  Système de certification &amp; Branding B2B
-                </span>
-                <h3 className="text-xl sm:text-2xl font-extrabold text-[#09090B]">
-                  Refonte des 7 insignes officiels du programme de partenariat
-                </h3>
-                <p className="text-xs sm:text-sm text-[#52525B] max-w-2xl leading-relaxed">
-                  Harmonisation graphique et vectorielle des 7 niveaux d'accréditation utilisés sur l'ensemble des supports commerciaux et sites web du réseau de distribution européen. Cliquez sur un insigne pour l'examiner en haute résolution.
-                </p>
-              </div>
-              <span className="text-xs text-[#71717A] font-mono shrink-0">
-                7 insignes vectoriels
-              </span>
-            </div>
-
-            {/* Carrousel visuel horizontal : défilement fluide tactile et souris, pause au survol, aucun texte superflu */}
-            <BadgesCarousel />
-          </div>
+          
 
           {/* Section Motion Design & Vidéo : Carrousel interactif complet */}
           <div className="space-y-4 pt-2">
@@ -746,7 +784,7 @@ export default function Projects({ navigate }) {
                 const el = document.getElementById('fresh-data');
                 if (el) el.scrollIntoView({ behavior: 'smooth' });
               }}
-              className="group relative backdrop-blur-xl bg-white/70 dark:bg-zinc-900/70 hover:bg-white dark:hover:bg-zinc-800/90 px-5 sm:px-7 py-2.5 rounded-full border border-zinc-200/90 dark:border-white/15 shadow-[0_8px_30px_rgba(0,0,0,0.05)] hover:shadow-[0_12px_36px_rgba(0,0,0,0.1)] hover:border-[#FFAD00]/50 transition-all duration-300 flex items-center gap-3 text-xs font-mono cursor-pointer"
+              className="group relative select-none backdrop-blur-xl bg-white/70 dark:bg-zinc-900/70 hover:bg-white dark:hover:bg-zinc-800/90 px-5 sm:px-7 py-2.5 rounded-full border border-zinc-200/90 dark:border-white/15 shadow-[0_8px_30px_rgba(0,0,0,0.05)] hover:shadow-[0_12px_36px_rgba(0,0,0,0.1)] hover:border-[#FFAD00]/50 transition-all duration-300 flex items-center gap-3 text-xs font-mono cursor-pointer"
             >
               <span className="w-2 h-2 rounded-full bg-[#FFAD00] shadow-[0_0_8px_rgba(255,173,0,0.6)] group-hover:scale-125 transition-transform" />
               <span className="font-bold text-[#09090B] dark:text-white tracking-wide">Projet suivant</span>
@@ -954,7 +992,7 @@ export default function Projects({ navigate }) {
                 const el = document.getElementById('resin-architecte');
                 if (el) el.scrollIntoView({ behavior: 'smooth' });
               }}
-              className="group relative backdrop-blur-xl bg-white/70 dark:bg-zinc-900/70 hover:bg-white dark:hover:bg-zinc-800/90 px-5 sm:px-7 py-2.5 rounded-full border border-zinc-200/90 dark:border-white/15 shadow-[0_8px_30px_rgba(0,0,0,0.05)] hover:shadow-[0_12px_36px_rgba(0,0,0,0.1)] hover:border-[#FFAD00]/50 transition-all duration-300 flex items-center gap-3 text-xs font-mono cursor-pointer"
+              className="group relative select-none backdrop-blur-xl bg-white/70 dark:bg-zinc-900/70 hover:bg-white dark:hover:bg-zinc-800/90 px-5 sm:px-7 py-2.5 rounded-full border border-zinc-200/90 dark:border-white/15 shadow-[0_8px_30px_rgba(0,0,0,0.05)] hover:shadow-[0_12px_36px_rgba(0,0,0,0.1)] hover:border-[#FFAD00]/50 transition-all duration-300 flex items-center gap-3 text-xs font-mono cursor-pointer"
             >
               <span className="w-2 h-2 rounded-full bg-[#FFAD00] shadow-[0_0_8px_rgba(255,173,0,0.6)] group-hover:scale-125 transition-transform" />
               <span className="font-bold text-[#09090B] dark:text-white tracking-wide">Projet suivant</span>
@@ -1244,103 +1282,120 @@ export default function Projects({ navigate }) {
               Pour pérenniser la traction des premiers chantiers sans dépendre d'achats publicitaires continus, la réflexion stratégique pose trois priorités claires, conçues en synergie avec l'architecture technique d'AntheDesign.
             </p>
 
-            {/* 3 Cartes Glassmorphism Éditoriales */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-1">
+            {/* Perspectives de développement — Design Éditorial Glassmorphism */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-2">
               
               {/* Horizon 1 : Réalisé */}
-              <div className="group p-6 rounded-2xl bg-white/90 dark:bg-zinc-800/60 border border-zinc-200/80 dark:border-white/10 hover:border-zinc-300 dark:hover:border-white/20 transition-all duration-300 shadow-[0_4px_20px_rgba(0,0,0,0.02)] hover:shadow-lg space-y-4">
-                <div className="flex items-center justify-between">
-                  <span className="font-mono text-xs font-bold text-zinc-900 dark:text-white tracking-wider">
-                    HORIZON 01
-                  </span>
-                  <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full border border-emerald-500/30 bg-emerald-50 dark:bg-emerald-950/40 text-emerald-800 dark:text-emerald-300 text-[10px] font-mono font-bold tracking-wider">
-                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 shadow-[0_0_6px_rgba(16,185,129,0.8)]" />
-                    ACCOMPLI
-                  </span>
+              <div className="group p-7 rounded-3xl bg-white/70 dark:bg-zinc-900/60 backdrop-blur-xl border border-zinc-200/90 dark:border-white/10 hover:border-zinc-300 dark:hover:border-white/20 transition-all duration-300 shadow-[0_8px_30px_rgba(0,0,0,0.03)] hover:shadow-xl space-y-5 flex flex-col justify-between">
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between">
+                    <span className="font-mono text-xs font-bold text-zinc-900 dark:text-white tracking-wider">
+                      HORIZON 01
+                    </span>
+                    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-zinc-200/80 dark:border-white/15 bg-zinc-100/90 dark:bg-zinc-800 text-zinc-800 dark:text-zinc-200 text-[10px] font-mono font-bold tracking-wider uppercase">
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#09090B] dark:bg-white" />
+                      RÉALISÉ (30 JOURS)
+                    </span>
+                  </div>
+                  <h4 className="text-base font-extrabold text-zinc-900 dark:text-white tracking-tight">
+                    01 · Socle &amp; Contenus de terrain
+                  </h4>
+                  <ul className="text-xs text-zinc-600 dark:text-zinc-300 space-y-2.5 leading-relaxed">
+                    <li className="flex items-start gap-2">
+                      <span className="text-[#FFAD00] shrink-0 font-bold">—</span>
+                      <span>Stabilisation de la charte graphique et des modèles visuels avant/après.</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-[#FFAD00] shrink-0 font-bold">—</span>
+                      <span>Conception des fiches didactiques d'aide à la vente (règle des 8 mm).</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-[#FFAD00] shrink-0 font-bold">—</span>
+                      <span>Cadrage du circuit de captation sur chantiers et sessions Qualiopi.</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-[#FFAD00] shrink-0 font-bold">—</span>
+                      <span>Traction initiale mesurée en 30 jours (+219 % de portée, 648 visites de profil).</span>
+                    </li>
+                  </ul>
                 </div>
-                <h4 className="text-sm font-bold text-zinc-900 dark:text-white tracking-tight">
-                  Socle &amp; Contenus de terrain
-                </h4>
-                <ul className="text-xs text-zinc-600 dark:text-zinc-300 space-y-2 leading-relaxed">
-                  <li className="flex items-start gap-2">
-                    <span className="text-[#FFAD00] shrink-0 font-bold">▪</span>
-                    <span>Stabilisation de la charte graphique et des modèles visuels avant/après.</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-[#FFAD00] shrink-0 font-bold">▪</span>
-                    <span>Conception des fiches didactiques d'aide à la vente (règle des 8 mm).</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-[#FFAD00] shrink-0 font-bold">▪</span>
-                    <span>Cadrage du circuit de captation sur chantiers et sessions Qualiopi.</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-[#FFAD00] shrink-0 font-bold">▪</span>
-                    <span>Traction initiale mesurée en 30 jours (+219 % de portée, 648 visites de profil).</span>
-                  </li>
-                </ul>
+                <div className="pt-3 border-t border-zinc-100 dark:border-white/10 flex items-center justify-between text-[11px] font-mono text-zinc-500">
+                  <span>Phase : Fondations</span>
+                  <span className="text-emerald-700 dark:text-emerald-400 font-semibold font-mono">100 % opérationnel</span>
+                </div>
               </div>
 
               {/* Horizon 2 : Priorités suivantes */}
-              <div className="group p-6 rounded-2xl bg-white/90 dark:bg-zinc-800/60 border border-zinc-200/80 dark:border-white/10 hover:border-[#FFAD00]/40 transition-all duration-300 shadow-[0_4px_20px_rgba(0,0,0,0.02)] hover:shadow-lg space-y-4">
-                <div className="flex items-center justify-between">
-                  <span className="font-mono text-xs font-bold text-zinc-900 dark:text-white tracking-wider">
-                    HORIZON 02
-                  </span>
-                  <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full border border-[#FFAD00]/40 bg-amber-50 dark:bg-amber-950/40 text-amber-900 dark:text-amber-300 text-[10px] font-mono font-bold tracking-wider">
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#FFAD00] shadow-[0_0_6px_rgba(255,173,0,0.8)]" />
-                    EN COURS
-                  </span>
+              <div className="group p-7 rounded-3xl bg-white/70 dark:bg-zinc-900/60 backdrop-blur-xl border border-zinc-200/90 dark:border-white/10 hover:border-[#FFAD00]/50 transition-all duration-300 shadow-[0_8px_30px_rgba(0,0,0,0.03)] hover:shadow-xl space-y-5 flex flex-col justify-between">
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between">
+                    <span className="font-mono text-xs font-bold text-zinc-900 dark:text-white tracking-wider">
+                      HORIZON 02
+                    </span>
+                    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-zinc-200/80 dark:border-white/15 bg-zinc-100/90 dark:bg-zinc-800 text-zinc-800 dark:text-zinc-200 text-[10px] font-mono font-bold tracking-wider uppercase">
+                      <span className="w-1.5 h-1.5 rounded-full border border-zinc-600 dark:border-zinc-400" />
+                      PRIORITÉS SUIVANTES
+                    </span>
+                  </div>
+                  <h4 className="text-base font-extrabold text-zinc-900 dark:text-white tracking-tight">
+                    02 · Consolidation &amp; Double flux
+                  </h4>
+                  <ul className="text-xs text-zinc-600 dark:text-zinc-300 space-y-2.5 leading-relaxed">
+                    <li className="flex items-start gap-2">
+                      <span className="text-[#FFAD00] shrink-0 font-bold">—</span>
+                      <span><strong className="text-zinc-900 dark:text-white">Scission B2C / B2B :</strong> Séparer les flux pour les particuliers (devis terrasse/piscine) et les professionnels (formation Qualiopi).</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-[#FFAD00] shrink-0 font-bold">—</span>
+                      <span><strong className="text-zinc-900 dark:text-white">Avis Google Reviews :</strong> Concentration des avis clients sur Google pour distancer les concurrents locaux.</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-[#FFAD00] shrink-0 font-bold">—</span>
+                      <span><strong className="text-zinc-900 dark:text-white">Alimentation SEO :</strong> Transmission mensuelle de cas concrets à AntheDesign pour nourrir le cocon sémantique.</span>
+                    </li>
+                  </ul>
                 </div>
-                <h4 className="text-sm font-bold text-zinc-900 dark:text-white tracking-tight">
-                  Consolidation &amp; Double flux
-                </h4>
-                <ul className="text-xs text-zinc-600 dark:text-zinc-300 space-y-2 leading-relaxed">
-                  <li className="flex items-start gap-2">
-                    <span className="text-[#FFAD00] shrink-0 font-bold">▪</span>
-                    <span><strong className="text-zinc-900 dark:text-white">Scission B2C / B2B :</strong> Séparer les flux pour les particuliers (devis terrasse/piscine) et les professionnels (formation Qualiopi).</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-[#FFAD00] shrink-0 font-bold">▪</span>
-                    <span><strong className="text-zinc-900 dark:text-white">Avis Google Reviews :</strong> Concentration des avis clients sur Google pour distancer les concurrents locaux.</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-[#FFAD00] shrink-0 font-bold">▪</span>
-                    <span><strong className="text-zinc-900 dark:text-white">Alimentation SEO :</strong> Transmission mensuelle de cas concrets à AntheDesign pour nourrir le cocon sémantique.</span>
-                  </li>
-                </ul>
+                <div className="pt-3 border-t border-zinc-100 dark:border-white/10 flex items-center justify-between text-[11px] font-mono text-zinc-500">
+                  <span>Phase : Développement</span>
+                  <span className="text-zinc-800 dark:text-zinc-200 font-semibold font-mono">Plan d'action cadré</span>
+                </div>
               </div>
 
               {/* Horizon 3 : Vision à moyen terme */}
-              <div className="group p-6 rounded-2xl bg-white/90 dark:bg-zinc-800/60 border border-zinc-200/80 dark:border-white/10 hover:border-zinc-300 dark:hover:border-white/20 transition-all duration-300 shadow-[0_4px_20px_rgba(0,0,0,0.02)] hover:shadow-lg space-y-4">
-                <div className="flex items-center justify-between">
-                  <span className="font-mono text-xs font-bold text-zinc-900 dark:text-white tracking-wider">
-                    HORIZON 03
-                  </span>
-                  <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full border border-zinc-300 dark:border-white/15 bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 text-[10px] font-mono font-bold tracking-wider">
-                    <span className="w-1.5 h-1.5 rounded-full bg-zinc-400" />
-                    CAP 2026
-                  </span>
+              <div className="group p-7 rounded-3xl bg-white/70 dark:bg-zinc-900/60 backdrop-blur-xl border border-zinc-200/90 dark:border-white/10 hover:border-zinc-300 dark:hover:border-white/20 transition-all duration-300 shadow-[0_8px_30px_rgba(0,0,0,0.03)] hover:shadow-xl space-y-5 flex flex-col justify-between">
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between">
+                    <span className="font-mono text-xs font-bold text-zinc-900 dark:text-white tracking-wider">
+                      HORIZON 03
+                    </span>
+                    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-zinc-200/80 dark:border-white/15 bg-zinc-100/90 dark:bg-zinc-800 text-zinc-800 dark:text-zinc-200 text-[10px] font-mono font-bold tracking-wider uppercase">
+                      <span className="w-1.5 h-1.5 rounded-full bg-zinc-400" />
+                      VISION À MOYEN TERME
+                    </span>
+                  </div>
+                  <h4 className="text-base font-extrabold text-zinc-900 dark:text-white tracking-tight">
+                    03 · Autorité technique &amp; Visibilité IA
+                  </h4>
+                  <ul className="text-xs text-zinc-600 dark:text-zinc-300 space-y-2.5 leading-relaxed">
+                    <li className="flex items-start gap-2">
+                      <span className="text-[#FFAD00] shrink-0 font-bold">—</span>
+                      <span><strong className="text-zinc-900 dark:text-white">Essais documentés (RA LAB) :</strong> Bancs d'essais (résistance UV, perméabilité) créant des sources citables durables.</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-[#FFAD00] shrink-0 font-bold">—</span>
+                      <span><strong className="text-zinc-900 dark:text-white">GEO (Moteurs IA) :</strong> Structuration des données pour être naturellement cité par les assistants conversationnels.</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-[#FFAD00] shrink-0 font-bold">—</span>
+                      <span><strong className="text-zinc-900 dark:text-white">Réseau ambassadeur :</strong> Mobilisation des applicateurs formés pour démultiplier les réalisations locales.</span>
+                    </li>
+                  </ul>
                 </div>
-                <h4 className="text-sm font-bold text-zinc-900 dark:text-white tracking-tight">
-                  Autorité &amp; Visibilité IA
-                </h4>
-                <ul className="text-xs text-zinc-600 dark:text-zinc-300 space-y-2 leading-relaxed">
-                  <li className="flex items-start gap-2">
-                    <span className="text-[#FFAD00] shrink-0 font-bold">▪</span>
-                    <span><strong className="text-zinc-900 dark:text-white">Essais documentés (RA LAB) :</strong> Bancs d'essais (résistance UV, perméabilité) créant des sources citables durables.</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-[#FFAD00] shrink-0 font-bold">▪</span>
-                    <span><strong className="text-zinc-900 dark:text-white">GEO (Moteurs IA) :</strong> Structuration des données pour être naturellement cité par les assistants conversationnels.</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-[#FFAD00] shrink-0 font-bold">▪</span>
-                    <span><strong className="text-zinc-900 dark:text-white">Réseau ambassadeur :</strong> Mobilisation des applicateurs formés pour démultiplier les réalisations locales.</span>
-                  </li>
-                </ul>
+                <div className="pt-3 border-t border-zinc-100 dark:border-white/10 flex items-center justify-between text-[11px] font-mono text-zinc-500">
+                  <span>Phase : Pérennisation</span>
+                  <span className="text-zinc-800 dark:text-zinc-200 font-semibold font-mono">Vision stratégique</span>
+                </div>
               </div>
-
             </div>
           </div>
         </section>
@@ -1372,112 +1427,7 @@ export default function Projects({ navigate }) {
       {typeof document !== 'undefined' &&
         createPortal(
           <>
-            {/* MODAL 1 : ZOOM HAUTE RÉSOLUTION DES BADGES HORNETSECURITY */}
-            <AnimatePresence>
-              {badgeModalIndex !== null && (
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
-                  className="fixed inset-0 z-[9999] w-screen h-screen bg-black/98 backdrop-blur-xl flex flex-col justify-between p-3 sm:p-6 select-none"
-                  onClick={() => setBadgeModalIndex(null)}
-                >
-                  {/* Barre haute — Contraste maximal et design glassmorphic */}
-                  <div
-                    className="flex items-center justify-between text-white text-xs w-full max-w-5xl mx-auto z-40 px-4 py-2.5 rounded-full bg-black/85 backdrop-blur-xl border border-white/20 shadow-2xl"
-                    onClick={(e) => e.stopPropagation()}
-                  >
-                    <div className="flex items-center gap-3">
-                      <span className="font-mono text-white font-bold text-xs px-3 py-1 rounded-full bg-white/15 border border-white/20 tracking-wider">
-                        {String(badgeModalIndex + 1).padStart(2, '0')} <span className="text-[#FFAD00]">/</span> {String(partnerBadges.length).padStart(2, '0')}
-                      </span>
-                      <span className="text-white font-semibold text-xs sm:text-sm tracking-tight hidden xs:inline">
-                        Insignes officiels B2B Hornetsecurity
-                      </span>
-                    </div>
-
-                    <div className="flex items-center gap-3">
-                      <span className="hidden md:inline-block text-[11px] text-zinc-300 font-mono">
-                        Échap pour fermer • Flèches pour naviguer
-                      </span>
-                      <button
-                        type="button"
-                        onClick={() => setBadgeModalIndex(null)}
-                        className="px-3 py-1.5 rounded-full bg-white/15 hover:bg-white/30 text-white border border-white/25 transition-all flex items-center gap-1.5 text-xs font-semibold cursor-pointer shadow-sm hover:scale-105 active:scale-95"
-                        aria-label="Fermer la prévisualisation"
-                      >
-                        <X className="w-4 h-4 text-[#FFAD00]" />
-                        <span>Fermer</span>
-                      </button>
-                    </div>
-                  </div>
-
-                  {/* Boutons de navigation déportés */}
-                  <button
-                    type="button"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setBadgeModalIndex((prev) => (prev - 1 + partnerBadges.length) % partnerBadges.length);
-                    }}
-                    className="fixed left-3 sm:left-6 md:left-8 top-1/2 -translate-y-1/2 z-40 w-11 h-11 sm:w-13 sm:h-13 rounded-full bg-black/60 hover:bg-black/90 text-white border border-white/20 transition-all hover:scale-105 active:scale-95 shadow-2xl backdrop-blur-md flex items-center justify-center cursor-pointer"
-                    aria-label="Badge précédent"
-                  >
-                    <ChevronLeft className="w-6 h-6" />
-                  </button>
-
-                  <button
-                    type="button"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setBadgeModalIndex((prev) => (prev + 1) % partnerBadges.length);
-                    }}
-                    className="fixed right-3 sm:right-6 md:right-8 top-1/2 -translate-y-1/2 z-40 w-11 h-11 sm:w-13 sm:h-13 rounded-full bg-black/60 hover:bg-black/90 text-white border border-white/20 transition-all hover:scale-105 active:scale-95 shadow-2xl backdrop-blur-md flex items-center justify-center cursor-pointer"
-                    aria-label="Badge suivant"
-                  >
-                    <ChevronRight className="w-6 h-6" />
-                  </button>
-
-                  {/* Zone centrale avec badge */}
-                  <div
-                    className="relative flex-1 flex items-center justify-center my-auto w-full px-12 sm:px-20 select-none"
-                    onClick={(e) => e.stopPropagation()}
-                  >
-                    <div className="flex flex-col items-center justify-center p-8 sm:p-12 rounded-3xl bg-white/5 border border-white/10 max-w-md w-full backdrop-blur-sm shadow-2xl">
-                      <div className="w-44 h-44 sm:w-56 sm:h-56 flex items-center justify-center mb-6">
-                        <motion.img
-                          key={badgeModalIndex}
-                          src={`/assets/hornetsecurity/Badges/${partnerBadges[badgeModalIndex].file}`}
-                          alt={`Badge ${partnerBadges[badgeModalIndex].label}`}
-                          initial={{ opacity: 0, scale: 0.95 }}
-                          animate={{ opacity: 1, scale: 1 }}
-                          exit={{ opacity: 0, scale: 0.95 }}
-                          transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
-                          className="max-h-full max-w-full object-contain drop-shadow-[0_10px_25px_rgba(0,0,0,0.5)]"
-                        />
-                      </div>
-
-                      <div className="text-center space-y-2 text-white">
-                        <h3 className="text-lg sm:text-xl font-bold tracking-tight">
-                          {partnerBadges[badgeModalIndex].label}
-                        </h3>
-                        <span className="inline-block text-xs font-mono text-[#FFAD00] px-3 py-1 rounded-full bg-[#FFAD00]/10 border border-[#FFAD00]/30">
-                          {partnerBadges[badgeModalIndex].level}
-                        </span>
-                        <p className="text-xs text-zinc-300 leading-relaxed max-w-sm pt-2">
-                          {partnerBadges[badgeModalIndex].description}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Barre basse */}
-                  <div className="text-center text-zinc-400 text-xs py-2" onClick={(e) => e.stopPropagation()}>
-                    <span className="font-mono">Hornetsecurity Partner Program · Graphisme vectoriel Adobe Illustrator</span>
-                  </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
+            
 
             {/* MODAL 2 : ZOOM HAUTE RÉSOLUTION DE L'AFFICHE HELIX NOVA */}
             <AnimatePresence>

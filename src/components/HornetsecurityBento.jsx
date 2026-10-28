@@ -173,7 +173,7 @@ export default function HornetsecurityBento() {
               <div className="aspect-[4/3] w-full rounded-2xl overflow-hidden border border-zinc-200/80 bg-zinc-950 group">
                 <img
                   src="/assets/hornetsecurity/booth-xxl.jpg"
-                  alt="Pavillon d'exposition Forum InCyber FIC — Hornetsecurity"
+                  alt="Stand d'exposition Forum InCyber FIC — Hornetsecurity"
                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.02]"
                   loading="lazy"
                 />

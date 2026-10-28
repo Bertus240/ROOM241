@@ -79,14 +79,13 @@ export default function Header({ currentPath = '/', navigate }) {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
-        scrolled
+      className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${scrolled
           ? 'bg-white/95 backdrop-blur-md border-b border-zinc-200/80 py-3 shadow-[0_2px_15px_rgba(0,0,0,0.03)]'
           : 'bg-white/80 backdrop-blur-sm py-4 border-b border-zinc-100'
-      }`}
+        }`}
     >
       <div className="max-w-[1280px] mx-auto px-5 sm:px-8 lg:px-10 flex items-center justify-between">
-        
+
         {/* Gauche : Logo officiel ROOM241 pur sans point ambré */}
         <a
           href="/"
@@ -105,7 +104,7 @@ export default function Header({ currentPath = '/', navigate }) {
         {/* Centre : Navigation principale avec pilule coulissante fluide (sans glitch) */}
         <LayoutGroup id="header-nav">
           <nav
-            className="hidden md:flex items-center gap-1 p-1 rounded-full bg-zinc-100/90 border border-zinc-200/70 relative backdrop-blur-sm"
+            className="hidden md:flex items-center gap-1 p-1 rounded-full bg-zinc-100/90 border border-zinc-200/70 relative backdrop-blur-sm select-none"
             aria-label="Navigation principale"
           >
             {navLinks.map((link) => {
@@ -115,21 +114,20 @@ export default function Header({ currentPath = '/', navigate }) {
                   key={link.path}
                   href={link.path}
                   onClick={handleNav(link.path)}
-                  className={`relative px-4 py-1.5 rounded-full text-xs font-semibold transition-colors duration-200 z-10 ${
-                    active
+                  className={`relative px-4 py-1.5 rounded-full text-xs font-semibold transition-colors duration-200 z-10 select-none ${active
                       ? 'text-[#09090B]'
                       : 'text-[#52525B] hover:text-[#09090B]'
-                  }`}
+                    }`}
                   aria-current={active ? 'page' : undefined}
                 >
                   {active && (
                     <motion.span
                       layoutId="activeHeaderPill"
-                      className="absolute inset-0 rounded-full bg-white shadow-sm border border-zinc-200/60 z-[-1]"
-                      transition={{ type: 'spring', stiffness: 400, damping: 32 }}
+                      className="absolute inset-0 rounded-full bg-white shadow-xs border border-zinc-200/70 z-[-1] pointer-events-none"
+                      transition={{ type: 'spring', stiffness: 500, damping: 35 }}
                     />
                   )}
-                  <span>{link.label}</span>
+                  <span className="relative z-10">{link.label}</span>
                 </a>
               );
             })}
@@ -179,7 +177,7 @@ export default function Header({ currentPath = '/', navigate }) {
 
       {/* Menu mobile déroulant avec typographie nette et fermeture fiable */}
       {mobileMenuOpen && (
-        <div 
+        <div
           id="mobile-navigation"
           role="dialog"
           aria-modal="true"
@@ -206,11 +204,10 @@ export default function Header({ currentPath = '/', navigate }) {
                   key={link.path}
                   href={link.path}
                   onClick={handleNav(link.path)}
-                  className={`px-4 py-3 rounded-xl text-sm font-semibold transition-colors flex items-center justify-between ${
-                    active
+                  className={`px-4 py-3 rounded-xl text-sm font-semibold transition-colors flex items-center justify-between ${active
                       ? 'bg-zinc-100 text-[#09090B] font-bold'
                       : 'text-[#52525B] hover:bg-zinc-50 hover:text-[#09090B]'
-                  }`}
+                    }`}
                   aria-current={active ? 'page' : undefined}
                 >
                   <span>{link.label}</span>

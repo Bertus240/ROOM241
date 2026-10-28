@@ -45,7 +45,7 @@ export default function Home({ navigate }) {
               </h1>
 
               <p className="text-base sm:text-lg text-[#52525B] leading-relaxed max-w-xl font-normal">
-                Issu d'un double parcours en Sciences de l'Ingénieur (Bac S SI) et en Master Marketing, communication et digital à l'ISEG Lille, je conçois des dispositifs de communication concrets : pavillons d'exposition pour congrès européens (&gt; 150 m²), arches vidéo After Effects, identités visuelles et vidéos de terrain.
+                Après un Bac S Sciences de l'Ingénieur, j'ai poursuivi mon parcours jusqu'au Master Marketing, communication et digital à l'ISEG Lille. Aujourd'hui, je mets cette culture technique et créative au service de projets concrets : conception de stands pour des événements professionnels européens, motion design sur After Effects, identités visuelles et vidéos réalisées sur le terrain.
               </p>
 
               {/* Actions directes */}
@@ -69,32 +69,47 @@ export default function Home({ navigate }) {
                 </a>
               </div>
 
-              {/* Repères concrets d'expérience */}
-              <div className="pt-6 border-t border-zinc-100 grid grid-cols-3 gap-4 max-w-md text-left">
-                <div>
-                  <span className="text-lg sm:text-xl font-extrabold text-[#09090B] block tracking-tight">
-                    3 ans
-                  </span>
-                  <span className="text-[11px] sm:text-xs text-[#71717A] block mt-0.5 leading-tight">
-                    Hornetsecurity / Vade
-                  </span>
-                </div>
-
-                <div>
-                  <span className="text-lg sm:text-xl font-extrabold text-[#09090B] block tracking-tight">
-                    &gt; 150 m²
-                  </span>
-                  <span className="text-[11px] sm:text-xs text-[#71717A] block mt-0.5 leading-tight">
-                    Stand FIC Lille 2025
+              {/* 3 Indicateurs éditoriaux clairs et documentés */}
+              <div className="pt-7 border-t border-zinc-200/80 grid grid-cols-1 sm:grid-cols-3 gap-4 text-left">
+                <div className="p-4 rounded-2xl bg-zinc-50/80 border border-zinc-200/80 space-y-1">
+                  <div className="flex items-baseline gap-1.5">
+                    <span className="text-2xl sm:text-3xl font-extrabold font-mono text-[#09090B] tracking-tight">
+                      3+ ans
+                    </span>
+                    <span className="text-[11px] font-mono font-bold uppercase text-[#FFAD00]">
+                      d'expérience
+                    </span>
+                  </div>
+                  <span className="text-xs text-[#52525B] block leading-tight">
+                    Design, communication et production de contenus
                   </span>
                 </div>
 
-                <div>
-                  <span className="text-lg sm:text-xl font-extrabold text-[#09090B] block tracking-tight">
-                    116 %
+                <div className="p-4 rounded-2xl bg-zinc-50/80 border border-zinc-200/80 space-y-1">
+                  <div className="flex items-baseline gap-1.5">
+                    <span className="text-2xl sm:text-3xl font-extrabold font-mono text-[#09090B] tracking-tight">
+                      4 000+
+                    </span>
+                    <span className="text-[11px] font-mono font-bold uppercase text-[#FFAD00]">
+                      contacts B2B
+                    </span>
+                  </div>
+                  <span className="text-xs text-[#52525B] block leading-tight">
+                    Recueillis au FIC • Résultat collectif sur le stand
                   </span>
-                  <span className="text-[11px] sm:text-xs text-[#71717A] block mt-0.5 leading-tight">
-                    Campagne Ulule financée
+                </div>
+
+                <div className="p-4 rounded-2xl bg-zinc-50/80 border border-zinc-200/80 space-y-1">
+                  <div className="flex items-baseline gap-1.5">
+                    <span className="text-2xl sm:text-3xl font-extrabold font-mono text-[#09090B] tracking-tight">
+                      2
+                    </span>
+                    <span className="text-[11px] font-mono font-bold uppercase text-[#FFAD00]">
+                      campagnes
+                    </span>
+                  </div>
+                  <span className="text-xs text-[#52525B] block leading-tight">
+                    Because et Fresh Data (116 % Ulule) — objectifs dépassés
                   </span>
                 </div>
               </div>
@@ -202,11 +217,11 @@ export default function Home({ navigate }) {
               </p>
               
               <div className="pt-2 flex flex-wrap items-center gap-4 sm:gap-6 text-xs text-[#71717A]">
-                <span>Pavillon FIC &gt; 150 m²</span>
+                <span>Stand FIC &gt; 150 m²</span>
                 <span>•</span>
                 <span>Arche vidéo After Effects</span>
                 <span>•</span>
-                <span>Plus de 4 000 leads (résultat global FIC)</span>
+                <span>4 000+ contacts B2B recueillis (collectif FIC)</span>
               </div>
 
               <div className="pt-2">

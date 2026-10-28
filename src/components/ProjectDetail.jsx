@@ -179,7 +179,7 @@ export default function ProjectDetail({ slug, navigate }) {
                 </div>
 
                 <h3 className="text-3xl sm:text-5xl font-extrabold font-sans tracking-tight leading-tight">
-                  Pavillon Immersif 150 m² &amp; Tunnel Vidéo Haute Résolution
+                  Stand Immersif 150 m² &amp; Tunnel Vidéo Haute Résolution
                 </h3>
 
                 <p className="text-sm sm:text-base text-neutral-300 font-sans leading-relaxed max-w-xl mx-auto">

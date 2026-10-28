@@ -18,7 +18,21 @@ import { X, ArrowRight, Sparkles, Compass } from 'lucide-react';
  *    - Retrait discret automatique lorsqu'une modale est ouverte.
  */
 
-// Phrases de présentation éditoriales
+// Phrases générales du vivier éditorial (Section 8 du prompt maître)
+const GENERAL_PHRASES = [
+  "Je t'accompagne dans la découverte des projets de Rémi. N'hésite pas à explorer !",
+  "Chaque projet présenté ici correspond à un travail réel, documenté et vérifiable.",
+  "De la conception 3D à l'habillage de stand, le design s'exprime sur tous les formats.",
+  "Le motion design permet de donner du rythme et de la clarté aux messages complexes.",
+  "Une identité visuelle réussie doit vivre aussi bien sur un écran que sur un chantier.",
+  "Curieux d'en savoir plus sur une réalisation ? Les études de cas détaillent la démarche.",
+  "La rigueur technique et la sensibilité graphique forment un équilibre précieux.",
+  "N'hésite pas à consulter le CV pour découvrir le parcours académique et professionnel.",
+  "Derrière chaque chiffre affiché, il y a une réalité mesurée et documentée.",
+  "Bonne visite ! Je reste disponible si tu as besoin d'un éclairage."
+];
+
+// Phrases de présentation éditoriales contextuelles
 const CONTEXT_MESSAGES = {
   home: {
     key: 'home',
@@ -217,11 +231,12 @@ export default function Kuro() {
     setTimeout(() => setIsHappy(false), 900);
 
     const path = window.location.pathname;
-    let fallback = CONTEXT_MESSAGES.home;
+    const randomPhrase = GENERAL_PHRASES[Math.floor(Math.random() * GENERAL_PHRASES.length)];
+    let fallback = { key: 'general', title: 'Kuro // Notes de studio', text: randomPhrase };
     if (path.includes('projets') || path.includes('hornet')) fallback = CONTEXT_MESSAGES.hornetsecurity;
     if (path.includes('parcours')) fallback = CONTEXT_MESSAGES.parcours;
 
-    setActiveMessage(activeMessage || fallback);
+    setActiveMessage(fallback);
     setIsBubbleOpen(true);
 
     if (autoCloseTimerRef.current) clearTimeout(autoCloseTimerRef.current);

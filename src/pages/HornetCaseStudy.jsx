@@ -116,7 +116,7 @@ export default function HornetCaseStudy({ navigate }) {
             InCyber Forum (FIC) 2025 à Lille : Plus de 150 m² d'immersion
           </h2>
           <p className="text-base text-[#52525B] max-w-3xl leading-relaxed">
-            Pour le plus grand rassemblement européen de cybersécurité à Lille Grand Palais, le dispositif combinait un pavillon d'exposition principal et une animation e-karting au Zénith de Lille.
+            Pour le plus grand rassemblement européen de cybersécurité à Lille Grand Palais, le dispositif combinait un stand d'exposition principal et une animation e-karting au Zénith de Lille.
           </p>
         </div>
 
