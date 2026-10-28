@@ -1,29 +1,28 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
+import { createPortal } from 'react-dom';
 import { motion, AnimatePresence, useAnimation } from 'framer-motion';
-import { X } from 'lucide-react';
+import { X, ArrowRight, Sparkles, Compass } from 'lucide-react';
 
 /**
- * Mochi — Compagnon interactif et créatif du studio ROOM241.
+ * Kuro (ex-Mochi) — Compagnon interactif et créatif du studio ROOM241.
  * 
- * Spécifications complètes :
- * - Créature vivante en capsule 3D organique (inspiration Dynamic Island / micro-mascotte).
- * - Yeux expressifs avec suivi oculaire fluide du curseur sur desktop.
- * - Clignement naturel périodique (cycle aléatoire entre 3,2 et 5,8 s).
- * - Réaction sensorielle au clic / tap : rebond élastique et yeux arqués joyeux (^ ^).
- * - Déplacement discret et naturel : petites explorations espacées dans sa zone sûre,
- *   sans jamais gêner la lecture, le scroll, les boutons ou les carrousels.
- * - Présentation contextuelle des projets (phrases courtes éditoriales préécrites).
- * - Bulle refermable automatiquement (6,5s) ou manuellement, réouvrable au clic sur Mochi.
- * - Aucune répétition intempestive (mémorisation des sections déjà visitées).
- * - Discrétion absolue lors de l'ouverture d'un modal ou du menu mobile (retrait immédiat).
- * - 100 % autonome, 0 appel réseau, 0 chatbot, respect de prefers-reduced-motion.
+ * Fonctionnalités majeures :
+ * 1. Arrivée au centre de l'écran avec fond flouté au premier chargement :
+ *    - Kuro se présente, explique brièvement le portfolio et la démarche.
+ *    - Un clic sur « Découvrir le portfolio » l'envoie fluidement se nicher dans son coin (bottom-6 left-6).
+ * 2. Compagnon discret en coin :
+ *    - Corps 3D organique en capsule noire avec reflets satinés et lueur ambrée.
+ *    - Yeux expressifs avec suivi oculaire du curseur, clignement naturel et expressions de joie.
+ *    - Bulles de parole contextuelles courtes et éditoriales selon la section scrollée.
+ *    - Bouton pour réinvoquer la présentation au centre à tout moment.
+ *    - Retrait discret automatique lorsqu'une modale est ouverte.
  */
 
-// Phrases de présentation éditoriales fournies dans le cahier des charges
+// Phrases de présentation éditoriales
 const CONTEXT_MESSAGES = {
   home: {
     key: 'home',
-    text: "Salut, moi c'est Mochi. Je te fais découvrir quelques projets ?",
+    text: "Je t'accompagne dans la découverte des projets de Rémi. N'hésite pas à explorer !",
     title: "Bienvenue sur le portfolio"
   },
   hornetsecurity: {
@@ -33,35 +32,34 @@ const CONTEXT_MESSAGES = {
   },
   captain: {
     key: 'captain',
-    text: "Le design ne s'arrête pas à l'écran : il peut aussi prendre vie sur un salon.",
+    text: "Le design ne s'arrête pas à l'écran : il prend aussi vie sur les salons et stands.",
     title: "Captain Security • Présence terrain"
   },
   helix: {
     key: 'helix',
-    text: "36 heures pour imaginer un personnage 3D, écrire son histoire et préparer une vidéo.",
+    text: "36 heures pour imaginer un personnage 3D, écrire son histoire et réaliser un teaser.",
     title: "Helix Nova • Sprint de Hanovre"
   },
   freshdata: {
     key: 'freshdata',
-    text: "Un univers graphique pensé pour accompagner un projet jusqu'à sa campagne de financement.",
+    text: "Un univers graphique pensé pour accompagner un projet jusqu'à son financement Ulule.",
     title: "Fresh Data • Financement Ulule"
   },
   resin: {
     key: 'resin',
-    text: "Ici, l'identité visuelle se prolonge sur les réseaux, dans les supports commerciaux et jusque sur les chantiers.",
+    text: "L'identité visuelle se déploie sur les réseaux, les supports commerciaux et sur les chantiers.",
     title: "Résin'Architecte • Sur le terrain"
   },
   parcours: {
     key: 'parcours',
-    text: "Un pied dans la technique, l'autre dans la communication : c'est ce qui façonne ma manière de travailler.",
+    text: "Un pied dans la technique, l'autre dans la communication : c'est ce qui façonne ma vision.",
     title: "Parcours • Double profil"
   }
 };
 
-export default function Mochi() {
-  const mochiRef = useRef(null);
+export default function Kuro() {
+  const kuroRef = useRef(null);
   const controls = useAnimation();
-  const driftControls = useAnimation();
 
   // États visuels et interactifs
   const [eyeOffset, setEyeOffset] = useState({ x: 0, y: 0 });
@@ -71,7 +69,14 @@ export default function Mochi() {
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  // Système de bulles contextuelles
+  // État de présentation centrale au premier chargement
+  const [isCenterStage, setIsCenterStage] = useState(() => {
+    if (typeof window === 'undefined') return false;
+    const welcomed = sessionStorage.getItem('room241_kuro_welcomed');
+    return welcomed !== 'true';
+  });
+
+  // Système de bulles contextuelles en coin
   const [activeMessage, setActiveMessage] = useState(null);
   const [isBubbleOpen, setIsBubbleOpen] = useState(false);
   const seenSectionsRef = useRef(new Set());
@@ -79,405 +84,465 @@ export default function Mochi() {
 
   // Détection prefers-reduced-motion
   useEffect(() => {
-    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
-    setPrefersReducedMotion(mediaQuery.matches);
-
-    const listener = (e) => setPrefersReducedMotion(e.matches);
-    mediaQuery.addEventListener('change', listener);
-    return () => mediaQuery.removeEventListener('change', listener);
+    if (typeof window === 'undefined') return;
+    const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
+    setPrefersReducedMotion(mq.matches);
+    const handler = (e) => setPrefersReducedMotion(e.matches);
+    mq.addEventListener('change', handler);
+    return () => mq.removeEventListener('change', handler);
   }, []);
 
-  // Détection d'ouverture de modal ou de menu mobile pour mise en retrait discrète
+  // Détection d'ouverture d'une modale pour mettre Kuro en retrait
   useEffect(() => {
-    const checkModalState = () => {
-      // Si le body est overflow hidden, un modal ou drawer est ouvert
+    const checkModal = () => {
       const isLocked = document.body.style.overflow === 'hidden';
-      setIsModalOpen(isLocked);
-      if (isLocked) {
-        setIsBubbleOpen(false);
+      // Ne pas considérer Kuro lui-même comme une modale bloquante
+      if (!isCenterStage) {
+        setIsModalOpen(isLocked);
       }
     };
+    const observer = new MutationObserver(checkModal);
+    observer.observe(document.body, { attributes: true, attributeFilter: ['style'] });
+    return () => observer.disconnect();
+  }, [isCenterStage]);
 
-    const interval = setInterval(checkModalState, 300);
-    return () => clearInterval(interval);
-  }, []);
-
-  // Déclenchement d'un message contextuel avec auto-fermeture
-  const triggerContextMessage = useCallback((msgObj) => {
-    if (!msgObj) return;
-    setActiveMessage(msgObj);
-    setIsBubbleOpen(true);
-
-    if (autoCloseTimerRef.current) {
-      clearTimeout(autoCloseTimerRef.current);
-    }
-
-    // Auto-fermeture douce après 6,5 secondes
-    autoCloseTimerRef.current = setTimeout(() => {
-      setIsBubbleOpen(false);
-    }, 6500);
-  }, []);
-
-  // Fermeture manuelle de la bulle
-  const handleCloseBubble = (e) => {
-    if (e) e.stopPropagation();
-    setIsBubbleOpen(false);
-    if (autoCloseTimerRef.current) {
-      clearTimeout(autoCloseTimerRef.current);
-    }
-  };
-
-  // Suivi subtil du curseur pour les yeux (Desktop)
+  // Suivi du regard oculaire vers le curseur de la souris
   useEffect(() => {
-    if (prefersReducedMotion) return;
+    if (prefersReducedMotion || typeof window === 'undefined') return;
 
     const handleMouseMove = (e) => {
-      if (!mochiRef.current) return;
-      const rect = mochiRef.current.getBoundingClientRect();
-      const centerX = rect.left + rect.width / 2;
-      const centerY = rect.top + rect.height / 2;
+      if (!kuroRef.current && !isCenterStage) return;
+
+      let rect;
+      if (isCenterStage) {
+        rect = { left: window.innerWidth / 2, top: window.innerHeight / 2 };
+      } else if (kuroRef.current) {
+        rect = kuroRef.current.getBoundingClientRect();
+      } else {
+        return;
+      }
+
+      const centerX = rect.left + 20;
+      const centerY = rect.top + 20;
 
       const deltaX = e.clientX - centerX;
       const deltaY = e.clientY - centerY;
-      const distance = Math.hypot(deltaX, deltaY);
+      const dist = Math.hypot(deltaX, deltaY);
 
-      const maxDistance = 3.5;
-      const clampedDistance = Math.min(distance * 0.015, maxDistance);
+      if (dist === 0) {
+        setEyeOffset({ x: 0, y: 0 });
+        return;
+      }
+
+      const maxRadius = isCenterStage ? 4.5 : 2.5;
       const angle = Math.atan2(deltaY, deltaX);
+      const intensity = Math.min(dist / 300, 1) * maxRadius;
 
       setEyeOffset({
-        x: Math.cos(angle) * clampedDistance,
-        y: Math.sin(angle) * clampedDistance,
+        x: Math.cos(angle) * intensity,
+        y: Math.sin(angle) * intensity,
       });
     };
 
     window.addEventListener('mousemove', handleMouseMove, { passive: true });
     return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, [prefersReducedMotion]);
+  }, [prefersReducedMotion, isCenterStage]);
 
-  // Clignement naturel périodique
+  // Clignement périodique naturel des yeux
   useEffect(() => {
     if (prefersReducedMotion) return;
 
     let timeoutId;
-    const scheduleBlink = () => {
-      const delay = 3200 + Math.random() * 2600;
-      timeoutId = setTimeout(() => {
-        setIsBlinking(true);
-        setTimeout(() => {
-          setIsBlinking(false);
-          scheduleBlink();
-        }, 150);
-      }, delay);
+    const triggerBlink = () => {
+      setIsBlinking(true);
+      setTimeout(() => {
+        setIsBlinking(false);
+        const nextBlink = 3000 + Math.random() * 3500;
+        timeoutId = setTimeout(triggerBlink, nextBlink);
+      }, 160);
     };
 
-    scheduleBlink();
+    timeoutId = setTimeout(triggerBlink, 2500);
     return () => clearTimeout(timeoutId);
   }, [prefersReducedMotion]);
 
-  // Déplacement discret et naturel (petite exploration flottante dans sa zone sûre)
-  useEffect(() => {
-    if (prefersReducedMotion || typeof window === 'undefined') return;
-
-    // Pas de déplacement sur petit écran (reste à poste fixe sur mobile pour ne jamais masquer)
-    if (window.innerWidth < 768) return;
-
-    let intervalId;
-    const runDrift = () => {
-      // Déplacement doux et organique espacé toutes les 16 secondes
-      driftControls.start({
-        x: [0, 14, -6, 10, 0],
-        y: [0, -8, 2, -5, 0],
-        rotate: [0, 2, -1.5, 1, 0],
-        transition: {
-          duration: 9,
-          ease: 'easeInOut',
-          times: [0, 0.3, 0.6, 0.8, 1],
-        },
-      });
-    };
-
-    intervalId = setInterval(() => {
-      if (!isHovered && !isModalOpen && !isBubbleOpen) {
-        runDrift();
-      }
-    }, 18000);
-
-    return () => clearInterval(intervalId);
-  }, [driftControls, isHovered, isModalOpen, isBubbleOpen, prefersReducedMotion]);
-
-  // Observation des sections et déclenchement éditorial des messages
-  useEffect(() => {
-    const handleNavigationContext = () => {
-      const path = window.location.pathname;
-
-      // 1. Sur la page Parcours
-      if (path.startsWith('/parcours') || path.startsWith('/a-propos') || path.startsWith('/hors-cadre')) {
-        if (!seenSectionsRef.current.has('parcours')) {
-          seenSectionsRef.current.add('parcours');
-          setTimeout(() => triggerContextMessage(CONTEXT_MESSAGES.parcours), 900);
-        }
-        return;
-      }
-
-      // 2. Sur la page Accueil ou Projets : observation du scroll
-      const scrollY = window.scrollY;
-      const viewportHeight = window.innerHeight;
-
-      // Message d'accueil initial
-      if (scrollY < 200 && (path === '/' || path === '')) {
-        if (!seenSectionsRef.current.has('home')) {
-          seenSectionsRef.current.add('home');
-          setTimeout(() => triggerContextMessage(CONTEXT_MESSAGES.home), 1200);
-        }
-        return;
-      }
-
-      // Observation par ID d'élément pour les projets
-      const checkSection = (id, msgKey) => {
-        const el = document.getElementById(id);
-        if (el) {
-          const rect = el.getBoundingClientRect();
-          // La section est au premier tiers de l'écran
-          if (rect.top <= viewportHeight * 0.65 && rect.bottom >= viewportHeight * 0.25) {
-            if (!seenSectionsRef.current.has(msgKey)) {
-              seenSectionsRef.current.add(msgKey);
-              triggerContextMessage(CONTEXT_MESSAGES[msgKey]);
-            }
-          }
-        }
-      };
-
-      checkSection('hornetsecurity', 'hornetsecurity');
-      checkSection('fresh-data', 'freshdata');
-      checkSection('resin-architecte', 'resin');
-    };
-
-    // Vérification initiale
-    handleNavigationContext();
-
-    // Écoute de défilement passive et temporisée
-    let ticking = false;
-    const onScroll = () => {
-      if (!ticking) {
-        window.requestAnimationFrame(() => {
-          handleNavigationContext();
-          ticking = false;
-        });
-        ticking = true;
-      }
-    };
-
-    window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('popstate', handleNavigationContext);
-
-    return () => {
-      window.removeEventListener('scroll', onScroll);
-      window.removeEventListener('popstate', handleNavigationContext);
-    };
-  }, [triggerContextMessage]);
-
-  // Clic ou tap : Mochi réagit avec joie et réouvre la dernière phrase contextuelle
-  const handleInteraction = () => {
-    if (isHappy) return;
+  // Fermeture de la présentation centrale et atterrissage dans le coin
+  const handleDismissCenter = () => {
+    sessionStorage.setItem('room241_kuro_welcomed', 'true');
+    setIsCenterStage(false);
     setIsHappy(true);
 
-    if (!prefersReducedMotion) {
+    // Petit saut de joie à l'arrivée dans le coin
+    setTimeout(() => {
       controls.start({
-        y: [0, -10, 2, -4, 0],
-        scale: [1, 1.12, 0.95, 1.04, 1],
-        transition: { duration: 0.65, ease: 'easeOut' },
+        y: [0, -14, 0],
+        rotate: [0, -6, 6, 0],
+        scale: [1, 1.15, 1],
+        transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] },
       });
-    }
+    }, 300);
 
-    // Bascule ou réouverture de la bulle
-    if (isBubbleOpen) {
-      setIsBubbleOpen(false);
-    } else {
-      // Déterminer le meilleur message selon la page actuelle
-      const path = window.location.pathname;
-      let targetMsg = activeMessage || CONTEXT_MESSAGES.home;
-      if (path.startsWith('/parcours')) targetMsg = CONTEXT_MESSAGES.parcours;
-      else if (path.startsWith('/projets')) targetMsg = CONTEXT_MESSAGES.hornetsecurity;
-      triggerContextMessage(targetMsg);
-    }
-
+    // Bulle de bienvenue discrète en coin
     setTimeout(() => {
       setIsHappy(false);
-    }, 900);
+      setActiveMessage({
+        key: 'welcome_docked',
+        title: 'Kuro est à vos côtés',
+        text: "C'est parti ! Retrouvez-moi ici à tout moment pour des détails sur les projets.",
+      });
+      setIsBubbleOpen(true);
+
+      if (autoCloseTimerRef.current) clearTimeout(autoCloseTimerRef.current);
+      autoCloseTimerRef.current = setTimeout(() => {
+        setIsBubbleOpen(false);
+      }, 5500);
+    }, 1000);
   };
 
-  // Si une modale est ouverte, Mochi se met discrètement en retrait
-  if (isModalOpen) {
-    return null;
-  }
+  // Réouverture de la présentation centrale
+  const handleSummonCenter = () => {
+    setIsBubbleOpen(false);
+    setIsCenterStage(true);
+  };
 
-  return (
-    <motion.div
-      ref={mochiRef}
-      animate={driftControls}
-      className="fixed bottom-5 left-5 sm:bottom-7 sm:left-7 z-30 select-none pointer-events-auto"
-    >
-      <div className="relative group">
-        
-        {/* ========================================================
-            BULLE DE PAROLE CONTEXTUELLE DE MOCHI (COURTE & ÉPURÉE)
-           ======================================================== */}
-        <AnimatePresence>
-          {isBubbleOpen && activeMessage && (
-            <motion.div
-              initial={{ opacity: 0, y: 12, scale: 0.92 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: 8, scale: 0.94 }}
-              transition={{ duration: 0.25, ease: 'easeOut' }}
-              className="absolute bottom-full left-0 mb-3.5 w-64 sm:w-72 p-4 rounded-2xl bg-[#09090B]/95 backdrop-blur-xl border border-white/15 text-white shadow-[0_15px_35px_-5px_rgba(0,0,0,0.5)] z-40"
-              role="region"
-              aria-live="polite"
-              aria-label="Message de Mochi"
-            >
-              {/* Entête de la bulle avec titre de projet et bouton fermeture */}
-              <div className="flex items-center justify-between gap-2 pb-1.5 border-b border-white/10 text-[10px] font-mono text-zinc-400">
-                <div className="flex items-center gap-1.5 truncate">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#FFAD00] shrink-0" />
-                  <span className="font-semibold text-zinc-200 truncate">{activeMessage.title}</span>
-                </div>
-                <button
-                  type="button"
-                  onClick={handleCloseBubble}
-                  className="p-1 rounded-md text-zinc-400 hover:text-white hover:bg-white/10 transition-colors cursor-pointer"
-                  aria-label="Fermer le message de Mochi"
-                >
-                  <X className="w-3.5 h-3.5" />
-                </button>
-              </div>
+  // Clic sur Kuro dans son coin
+  const handleCornerClick = () => {
+    setIsHappy(true);
+    controls.start({
+      scale: [1, 1.25, 0.95, 1.05, 1],
+      rotate: [0, -8, 8, -4, 0],
+      transition: { duration: 0.5, ease: 'easeOut' },
+    });
 
-              {/* Texte éditorial concis */}
-              <p className="text-xs text-zinc-200 leading-relaxed pt-2">
-                « {activeMessage.text} »
-              </p>
+    setTimeout(() => setIsHappy(false), 900);
 
-              {/* Pointe décorative de la bulle orientée vers Mochi */}
-              <div 
-                className="absolute -bottom-1.5 left-5 w-3 h-3 bg-[#09090B]/95 border-b border-r border-white/15 rotate-45"
-                aria-hidden="true" 
-              />
-            </motion.div>
-          )}
-        </AnimatePresence>
+    const path = window.location.pathname;
+    let fallback = CONTEXT_MESSAGES.home;
+    if (path.includes('projets') || path.includes('hornet')) fallback = CONTEXT_MESSAGES.hornetsecurity;
+    if (path.includes('parcours')) fallback = CONTEXT_MESSAGES.parcours;
 
-        {/* Info-bulle discrète au survol (uniquement si la bulle éditoriale est fermée) */}
-        {!isBubbleOpen && (
-          <div
-            className={`absolute bottom-full left-1/2 -translate-x-1/2 mb-2.5 px-2.5 py-1 rounded-full bg-[#09090B]/90 backdrop-blur-md text-[11px] font-medium text-white border border-white/10 shadow-lg pointer-events-none whitespace-nowrap transition-all duration-200 flex items-center gap-1.5 ${
-              isHovered ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-1'
-            }`}
-            aria-hidden="true"
-          >
-            <span className="w-1.5 h-1.5 rounded-full bg-[#FFAD00] animate-pulse" />
-            <span>Mochi · Cliquez pour échanger</span>
-          </div>
-        )}
+    setActiveMessage(activeMessage || fallback);
+    setIsBubbleOpen(true);
 
-        {/* Halo d'aura ambré subtil en arrière-plan */}
+    if (autoCloseTimerRef.current) clearTimeout(autoCloseTimerRef.current);
+    autoCloseTimerRef.current = setTimeout(() => {
+      setIsBubbleOpen(false);
+    }, 6500);
+  };
+
+  // Détection du scroll contextuel pour les bulles en coin
+  useEffect(() => {
+    if (isCenterStage) return;
+
+    const sections = [
+      { id: 'hornetsecurity', data: CONTEXT_MESSAGES.hornetsecurity },
+      { id: 'captain-security', data: CONTEXT_MESSAGES.captain },
+      { id: 'helix-nova', data: CONTEXT_MESSAGES.helix },
+      { id: 'fresh-data', data: CONTEXT_MESSAGES.freshdata },
+      { id: 'resin-architecte', data: CONTEXT_MESSAGES.resin },
+    ];
+
+    const handleScroll = () => {
+      if (isBubbleOpen) return;
+
+      const scrollPos = window.scrollY + window.innerHeight * 0.45;
+
+      for (const sec of sections) {
+        const el = document.getElementById(sec.id);
+        if (el) {
+          const top = el.offsetTop;
+          const bottom = top + el.offsetHeight;
+          if (scrollPos >= top && scrollPos <= bottom) {
+            if (!seenSectionsRef.current.has(sec.data.key)) {
+              seenSectionsRef.current.add(sec.data.key);
+              setActiveMessage(sec.data);
+              setIsBubbleOpen(true);
+              if (autoCloseTimerRef.current) clearTimeout(autoCloseTimerRef.current);
+              autoCloseTimerRef.current = setTimeout(() => {
+                setIsBubbleOpen(false);
+              }, 6500);
+            }
+            break;
+          }
+        }
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [isCenterStage, isBubbleOpen]);
+
+  // Rendu de la capsule 3D organique de Kuro
+  const renderKuroCapsule = (isLarge = false) => {
+    const sizeClasses = isLarge
+      ? 'w-20 h-20 sm:w-24 sm:h-24'
+      : 'w-8 h-8 sm:w-9 sm:h-9';
+    const eyeWidth = isLarge ? 'w-4 h-5' : 'w-2.5 h-3';
+    const pupilSize = isLarge ? 'w-2.5 h-2.5' : 'w-1.5 h-1.5';
+    const shineSize = isLarge ? 'top-2 left-3 w-7 h-3' : 'top-1 left-2 w-3.5 h-1.5';
+
+    return (
+      <div
+        className={`relative ${sizeClasses} rounded-full flex items-center justify-center overflow-hidden transition-transform duration-300 shadow-2xl`}
+        style={{
+          background: 'radial-gradient(circle at 35% 30%, #27272a 0%, #18181b 55%, #09090b 100%)',
+          boxShadow: isLarge
+            ? 'inset 0 2px 4px rgba(255, 255, 255, 0.4), inset 0 -4px 8px rgba(255, 173, 0, 0.35), 0 20px 40px rgba(0,0,0,0.6)'
+            : 'inset 0 1px 2px rgba(255, 255, 255, 0.35), inset 0 -2px 4px rgba(255, 173, 0, 0.25), 0 2px 8px rgba(0,0,0,0.5)',
+        }}
+      >
+        {/* Reflet brillant 3D sur le dessus */}
         <div
-          className={`absolute -inset-1.5 rounded-full bg-gradient-to-tr from-[#FFAD00]/30 via-[#FFAD00]/10 to-transparent blur-md transition-opacity duration-300 pointer-events-none ${
-            isHappy ? 'opacity-100 scale-125' : isHovered ? 'opacity-70 scale-105' : 'opacity-35'
-          }`}
+          className={`absolute ${shineSize} rounded-full bg-white/35 blur-[0.6px] pointer-events-none -rotate-12`}
           aria-hidden="true"
         />
 
-        {/* Bouton tactile capsule Mochi */}
-        <motion.button
-          type="button"
-          animate={controls}
-          onClick={handleInteraction}
-          onMouseEnter={() => setIsHovered(true)}
-          onMouseLeave={() => setIsHovered(false)}
-          onKeyDown={(e) => {
-            if (e.key === 'Enter' || e.key === ' ') {
-              e.preventDefault();
-              handleInteraction();
-            }
-          }}
-          className="relative flex items-center gap-2 px-3 py-2 sm:px-3.5 sm:py-2 rounded-full bg-[#09090B]/95 hover:bg-[#09090B] backdrop-blur-xl border border-white/15 hover:border-[#FFAD00]/50 shadow-[0_10px_25px_-5px_rgba(0,0,0,0.4)] transition-all cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FFAD00]"
-          aria-label="Mochi, compagnon vivant du studio ROOM241. Cliquez pour découvrir les projets."
-          title="Cliquez pour interagir avec Mochi"
+        {/* Yeux expressifs */}
+        <div className={`flex items-center ${isLarge ? 'gap-3 pt-1' : 'gap-2 pt-0.5'} pointer-events-none`}>
+          {isHappy ? (
+            // Yeux joyeux arqués (^ ^)
+            <>
+              <div
+                className={`${isLarge ? 'w-4 h-3.5 border-t-3 border-r-3' : 'w-2.5 h-2 border-t-2 border-r-2'} border-white rounded-tr-md -rotate-45`}
+              />
+              <div
+                className={`${isLarge ? 'w-4 h-3.5 border-t-3 border-l-3' : 'w-2.5 h-2 border-t-2 border-l-2'} border-white rounded-tl-md rotate-45`}
+              />
+            </>
+          ) : isBlinking ? (
+            // Yeux fermés lors du clignement
+            <>
+              <div className={`${isLarge ? 'w-4 h-1' : 'w-2.5 h-0.5'} bg-white/90 rounded-full`} />
+              <div className={`${isLarge ? 'w-4 h-1' : 'w-2.5 h-0.5'} bg-white/90 rounded-full`} />
+            </>
+          ) : (
+            // Yeux ouverts expressifs avec pupilles qui suivent le curseur
+            <>
+              {/* Œil gauche */}
+              <div
+                className={`relative ${eyeWidth} rounded-full bg-white flex items-center justify-center shadow-inner overflow-hidden`}
+              >
+                <div
+                  className={`${pupilSize} rounded-full bg-[#09090B] relative transition-transform duration-75`}
+                  style={{
+                    transform: `translate(${eyeOffset.x}px, ${eyeOffset.y}px)`,
+                  }}
+                >
+                  <span className="absolute top-0.5 left-0.5 w-1 h-1 rounded-full bg-white" />
+                </div>
+              </div>
+
+              {/* Œil droit */}
+              <div
+                className={`relative ${eyeWidth} rounded-full bg-white flex items-center justify-center shadow-inner overflow-hidden`}
+              >
+                <div
+                  className={`${pupilSize} rounded-full bg-[#09090B] relative transition-transform duration-75`}
+                  style={{
+                    transform: `translate(${eyeOffset.x}px, ${eyeOffset.y}px)`,
+                  }}
+                >
+                  <span className="absolute top-0.5 left-0.5 w-1 h-1 rounded-full bg-white" />
+                </div>
+              </div>
+            </>
+          )}
+        </div>
+      </div>
+    );
+  };
+
+  return (
+    <>
+      {/* ========================================================
+          1. PRÉSENTATION CENTRALE AU PREMIER CHARGEMENT (AVEC FOND FLOU)
+         ======================================================== */}
+      {typeof document !== 'undefined' &&
+        createPortal(
+          <AnimatePresence>
+            {isCenterStage && (
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+                className="fixed inset-0 z-[9990] w-screen h-screen bg-black/60 backdrop-blur-md flex items-center justify-center p-4 sm:p-6 select-none"
+              >
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.9, y: 20 }}
+                  animate={{ opacity: 1, scale: 1, y: 0 }}
+                  exit={{ opacity: 0, scale: 0.85, y: 30 }}
+                  transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                  className="relative w-full max-w-md sm:max-w-lg bg-[#FFFFFF] rounded-3xl p-6 sm:p-8 shadow-[0_25px_70px_rgba(0,0,0,0.4)] border border-zinc-200/90 text-center space-y-6"
+                >
+                  {/* Bouton fermer discret en haut à droite */}
+                  <button
+                    type="button"
+                    onClick={handleDismissCenter}
+                    className="absolute top-4 right-4 p-2 rounded-full text-zinc-400 hover:text-black hover:bg-zinc-100 transition-colors cursor-pointer"
+                    aria-label="Fermer et aller dans le coin"
+                  >
+                    <X className="w-5 h-5" />
+                  </button>
+
+                  {/* Kuro en vedette au centre avec halo ambré */}
+                  <div className="flex flex-col items-center justify-center pt-2">
+                    <div className="relative">
+                      <div className="absolute -inset-3 rounded-full bg-gradient-to-tr from-[#FFAD00]/40 to-transparent blur-xl animate-pulse pointer-events-none" />
+                      {renderKuroCapsule(true)}
+                    </div>
+                  </div>
+
+                  {/* Présentation éditoriale sobre et humaine */}
+                  <div className="space-y-2.5">
+                    <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-zinc-100 border border-zinc-200/80 text-xs font-semibold text-[#52525B]">
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#FFAD00]" />
+                      <span>Kuro · Compagnon interactif</span>
+                    </div>
+
+                    <h2 className="text-xl sm:text-2xl font-extrabold tracking-tight text-[#09090B]">
+                      Bienvenue dans l'univers ROOM241
+                    </h2>
+
+                    <p className="text-xs sm:text-sm text-[#52525B] leading-relaxed max-w-md mx-auto pt-1 font-normal">
+                      Bonjour ! Je suis <strong>Kuro</strong>. Je vous accompagne dans la découverte du portfolio de Rémi : direction artistique, campagnes cybersécurité, motion design et identités visuelles.
+                    </p>
+                  </div>
+
+                  {/* Points de repère du portfolio */}
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 text-left text-xs text-[#52525B] pt-1 border-t border-zinc-100">
+                    <div className="p-2.5 rounded-xl bg-zinc-50 border border-zinc-200/70 space-y-1">
+                      <span className="font-bold text-[#09090B] block">01. Projets</span>
+                      <p className="text-[11px] leading-tight text-zinc-500">Hornetsecurity, Fresh Data, Résin'Architecte.</p>
+                    </div>
+                    <div className="p-2.5 rounded-xl bg-zinc-50 border border-zinc-200/70 space-y-1">
+                      <span className="font-bold text-[#09090B] block">02. Parcours</span>
+                      <p className="text-[11px] leading-tight text-zinc-500">Expériences CDI/alternance, CV et photographies.</p>
+                    </div>
+                    <div className="p-2.5 rounded-xl bg-zinc-50 border border-zinc-200/70 space-y-1">
+                      <span className="font-bold text-[#09090B] block">03. Présence</span>
+                      <p className="text-[11px] leading-tight text-zinc-500">Je reste discrètement dans le coin de l'écran.</p>
+                    </div>
+                  </div>
+
+                  {/* Bouton d'action principal */}
+                  <div className="pt-2">
+                    <button
+                      type="button"
+                      onClick={handleDismissCenter}
+                      className="w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full bg-[#09090B] hover:bg-zinc-800 text-white text-xs sm:text-sm font-semibold shadow-lg shadow-black/20 hover:scale-[1.02] active:scale-[0.98] transition-all cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FFAD00]"
+                    >
+                      <span>Découvrir le portfolio</span>
+                      <ArrowRight className="w-4 h-4 text-[#FFAD00]" />
+                    </button>
+                    <span className="block text-[11px] text-zinc-400 font-mono mt-2">
+                      Prenez le temps d'explorer à votre rythme
+                    </span>
+                  </div>
+                </motion.div>
+              </motion.div>
+            )}
+          </AnimatePresence>,
+          document.body
+        )}
+
+      {/* ========================================================
+          2. KURO NICHE DANS SON COIN (BOTTOM-6 LEFT-6)
+         ======================================================== */}
+      {!isCenterStage && !isModalOpen && (
+        <motion.div
+          ref={kuroRef}
+          initial={{ opacity: 0, scale: 0.7, y: 20 }}
+          animate={{ opacity: 1, scale: 1, y: 0 }}
+          exit={{ opacity: 0, scale: 0.8 }}
+          transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+          className="fixed bottom-6 left-6 z-40 select-none flex flex-col items-start gap-3"
         >
-          {/* Corps 3D organique de Mochi */}
-          <div
-            className="relative w-8 h-8 sm:w-9 sm:h-9 rounded-full flex items-center justify-center overflow-hidden transition-transform duration-300"
-            style={{
-              background: 'radial-gradient(circle at 35% 30%, #27272a 0%, #18181b 55%, #09090b 100%)',
-              boxShadow: 'inset 0 1px 2px rgba(255, 255, 255, 0.35), inset 0 -2px 4px rgba(255, 173, 0, 0.25), 0 2px 8px rgba(0,0,0,0.5)',
-            }}
-          >
-            {/* Reflet brillant 3D sur le dessus */}
+          {/* Bulle de dialogue contextuelle au-dessus de Kuro */}
+          <AnimatePresence>
+            {isBubbleOpen && activeMessage && (
+              <motion.div
+                initial={{ opacity: 0, scale: 0.9, y: 10 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.9, y: 10 }}
+                transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
+                className="relative max-w-xs sm:max-w-sm rounded-2xl bg-[#09090B] text-white p-4 shadow-2xl border border-white/15 backdrop-blur-xl space-y-2"
+              >
+                <div className="flex items-center justify-between gap-2 border-b border-white/10 pb-1.5">
+                  <div className="flex items-center gap-1.5">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#FFAD00]" />
+                    <span className="text-[11px] font-mono font-semibold text-zinc-300">
+                      {activeMessage.title}
+                    </span>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => setIsBubbleOpen(false)}
+                    className="p-1 rounded-md text-zinc-400 hover:text-white hover:bg-white/10 transition-colors cursor-pointer"
+                    aria-label="Fermer la bulle"
+                  >
+                    <X className="w-3.5 h-3.5" />
+                  </button>
+                </div>
+
+                <p className="text-xs text-zinc-200 leading-relaxed font-normal">
+                  {activeMessage.text}
+                </p>
+
+                {/* Lien discret pour réinvoquer la présentation centrale */}
+                <div className="pt-1 flex items-center justify-between text-[10px] text-zinc-400 font-mono">
+                  <span>Kuro · Compagnon</span>
+                  <button
+                    type="button"
+                    onClick={handleSummonCenter}
+                    className="text-[#FFAD00] hover:underline cursor-pointer"
+                  >
+                    Revoir la présentation ↗
+                  </button>
+                </div>
+
+                {/* Pointe de la bulle orientée vers Kuro */}
+                <div className="absolute -bottom-1.5 left-6 w-3 h-3 bg-[#09090B] border-r border-b border-white/15 rotate-45" />
+              </motion.div>
+            )}
+          </AnimatePresence>
+
+          {/* Bouton tactile capsule Kuro dans son coin */}
+          <div className="relative group">
+            {/* Halo d'aura ambré subtil */}
             <div
-              className="absolute top-1 left-2 w-3.5 h-1.5 rounded-full bg-white/30 blur-[0.6px] pointer-events-none -rotate-12"
+              className={`absolute -inset-1.5 rounded-full bg-gradient-to-tr from-[#FFAD00]/30 to-transparent blur-md transition-opacity duration-300 pointer-events-none ${
+                isHappy ? 'opacity-100 scale-125' : isHovered ? 'opacity-80 scale-105' : 'opacity-40'
+              }`}
               aria-hidden="true"
             />
 
-            {/* Yeux expressifs */}
-            <div className="flex items-center gap-2 pt-0.5 pointer-events-none">
-              
-              {isHappy ? (
-                // Yeux joyeux arqués (^ ^) lors de l'interaction
-                <>
-                  <div className="w-2.5 h-2 border-t-2 border-r-2 border-white rounded-tr-md -rotate-45" />
-                  <div className="w-2.5 h-2 border-t-2 border-l-2 border-white rounded-tl-md rotate-45" />
-                </>
-              ) : isBlinking ? (
-                // Yeux fermés lors du clignement
-                <>
-                  <div className="w-2.5 h-0.5 bg-white/90 rounded-full" />
-                  <div className="w-2.5 h-0.5 bg-white/90 rounded-full" />
-                </>
-              ) : (
-                // Yeux ouverts expressifs avec pupilles qui suivent le curseur
-                <>
-                  {/* Œil gauche */}
-                  <div className="relative w-2.5 h-3 rounded-full bg-white flex items-center justify-center shadow-inner overflow-hidden">
-                    <div
-                      className="w-1.5 h-1.5 rounded-full bg-[#09090B] relative transition-transform duration-75"
-                      style={{
-                        transform: `translate(${eyeOffset.x}px, ${eyeOffset.y}px)`,
-                      }}
-                    >
-                      <span className="absolute top-0.5 left-0.5 w-0.5 h-0.5 rounded-full bg-white" />
-                    </div>
-                  </div>
+            <motion.button
+              type="button"
+              animate={controls}
+              onClick={handleCornerClick}
+              onMouseEnter={() => setIsHovered(true)}
+              onMouseLeave={() => setIsHovered(false)}
+              className="relative flex items-center gap-2 px-2.5 py-1.5 sm:px-3 sm:py-2 rounded-full bg-[#09090B]/95 hover:bg-[#09090B] backdrop-blur-xl border border-white/15 hover:border-[#FFAD00]/50 shadow-[0_8px_25px_rgba(0,0,0,0.4)] transition-all cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FFAD00]"
+              aria-label="Kuro, compagnon interactif du studio ROOM241. Cliquez pour échanger."
+              title="Kuro · Cliquez pour échanger"
+            >
+              {renderKuroCapsule(false)}
 
-                  {/* Œil droit */}
-                  <div className="relative w-2.5 h-3 rounded-full bg-white flex items-center justify-center shadow-inner overflow-hidden">
-                    <div
-                      className="w-1.5 h-1.5 rounded-full bg-[#09090B] relative transition-transform duration-75"
-                      style={{
-                        transform: `translate(${eyeOffset.x}px, ${eyeOffset.y}px)`,
-                      }}
-                    >
-                      <span className="absolute top-0.5 left-0.5 w-0.5 h-0.5 rounded-full bg-white" />
-                    </div>
-                  </div>
-                </>
-              )}
+              <span className="text-xs font-semibold text-zinc-200 group-hover:text-white transition-colors pr-1">
+                Kuro
+              </span>
 
-            </div>
+              <span
+                className={`w-1.5 h-1.5 rounded-full bg-[#FFAD00] transition-transform duration-300 ${
+                  isHappy ? 'scale-150 animate-ping' : ''
+                }`}
+                aria-hidden="true"
+              />
+            </motion.button>
           </div>
-
-          {/* Micro libellé de statut subtil */}
-          <span className="hidden sm:inline-block text-[11px] font-mono text-zinc-300 pr-1">
-            Mochi
-          </span>
-
-          {/* Point d'état ambré */}
-          <span
-            className={`w-1.5 h-1.5 rounded-full bg-[#FFAD00] transition-transform duration-300 ${
-              isHappy ? 'scale-150 animate-ping' : ''
-            }`}
-            aria-hidden="true"
-          />
-        </motion.button>
-      </div>
-    </motion.div>
+        </motion.div>
+      )}
+    </>
   );
 }

@@ -9,7 +9,7 @@ import AdminDashboard from './components/AdminDashboard';
 import ProjectDetail from './components/ProjectDetail';
 import BackToTop from './components/BackToTop';
 import StudioPointer from './components/StudioPointer';
-import Mochi from './components/Mochi';
+import Kuro from './components/Mochi';
 import { projectsData } from './data/projects';
 import { incrementPageView } from './lib/telemetry';
 import { initTheme } from './lib/theme';
@@ -85,7 +85,7 @@ export default function App() {
         </main>
         <FooterContact navigate={navigate} />
         <CvModal isOpen={isCvModalOpen} onClose={() => setIsCvModalOpen(false)} />
-        <Mochi />
+        <Kuro />
         <BackToTop />
       </div>
     );
@@ -133,8 +133,8 @@ export default function App() {
       {/* Bouton retour en haut de page */}
       <BackToTop />
 
-      {/* Compagnon interactif Mochi */}
-      <Mochi />
+      {/* Compagnon interactif Kuro */}
+      <Kuro />
 
       {/* Modale CV synthétique téléchargeable */}
       <CvModal

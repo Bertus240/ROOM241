@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import {
   Shield,
   Sprout,
@@ -1302,254 +1303,290 @@ export default function Projects({ navigate }) {
       </div>
 
       {/* ========================================================
-          MODAL 1 : ZOOM HAUTE RÉSOLUTION DES BADGES HORNETSECURITY
+          MODALES PORTALISÉES SUR DOCUMENT.BODY (ZÉRO FUITE EN HAUT)
          ======================================================== */}
-      <AnimatePresence>
-        {badgeModalIndex !== null && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.2 }}
-            className="fixed inset-0 z-50 bg-black/90 sm:bg-black/85 backdrop-blur-md flex flex-col justify-between p-4 sm:p-8"
-            onClick={() => setBadgeModalIndex(null)}
-          >
-            {/* Barre haute */}
-            <div
-              className="flex items-center justify-between text-white text-xs w-full max-w-4xl mx-auto z-10"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <div className="flex items-center gap-2">
-                <span className="font-mono text-zinc-300 text-xs px-2.5 py-1 rounded-full bg-white/10 border border-white/10">
-                  {String(badgeModalIndex + 1).padStart(2, '0')} / {String(partnerBadges.length).padStart(2, '0')}
-                </span>
-                <span className="text-zinc-300 font-medium">Insigne officiel B2B</span>
-              </div>
+      {typeof document !== 'undefined' &&
+        createPortal(
+          <>
+            {/* MODAL 1 : ZOOM HAUTE RÉSOLUTION DES BADGES HORNETSECURITY */}
+            <AnimatePresence>
+              {badgeModalIndex !== null && (
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
+                  className="fixed inset-0 z-[9999] w-screen h-screen bg-black/98 backdrop-blur-xl flex flex-col justify-between p-3 sm:p-6 select-none"
+                  onClick={() => setBadgeModalIndex(null)}
+                >
+                  {/* Barre haute */}
+                  <div
+                    className="flex items-center justify-between text-white text-xs w-full max-w-6xl mx-auto z-40 py-2"
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    <div className="flex items-center gap-2">
+                      <span className="font-mono text-zinc-300 text-xs px-3 py-1 rounded-full bg-white/10 border border-white/10">
+                        {String(badgeModalIndex + 1).padStart(2, '0')} / {String(partnerBadges.length).padStart(2, '0')}
+                      </span>
+                      <span className="text-zinc-300 font-medium">Insigne officiel B2B</span>
+                    </div>
 
-              <button
-                type="button"
-                onClick={() => setBadgeModalIndex(null)}
-                className="p-2 sm:px-3 sm:py-1.5 rounded-full bg-white/10 hover:bg-white/20 text-white border border-white/15 transition-colors flex items-center gap-1.5 text-xs font-medium cursor-pointer"
-                aria-label="Fermer la prévisualisation"
-              >
-                <X className="w-4 h-4" />
-                <span>Fermer</span>
-              </button>
-            </div>
+                    <div className="flex items-center gap-3">
+                      <span className="hidden md:inline-block text-[11px] text-zinc-400 font-mono">
+                        Échap pour fermer • Flèches pour naviguer
+                      </span>
+                      <button
+                        type="button"
+                        onClick={() => setBadgeModalIndex(null)}
+                        className="p-2 sm:px-3 sm:py-1.5 rounded-full bg-white/10 hover:bg-white/20 text-white border border-white/15 transition-colors flex items-center gap-1.5 text-xs font-medium cursor-pointer"
+                        aria-label="Fermer la prévisualisation"
+                      >
+                        <X className="w-4 h-4" />
+                        <span>Fermer</span>
+                      </button>
+                    </div>
+                  </div>
 
-            {/* Zone centrale avec badge et flèches */}
-            <div
-              className="relative flex-1 flex items-center justify-center my-4 max-w-4xl mx-auto w-full select-none"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <button
-                type="button"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setBadgeModalIndex((prev) => (prev - 1 + partnerBadges.length) % partnerBadges.length);
-                }}
-                className="absolute left-2 sm:left-4 p-3 rounded-full bg-black/60 hover:bg-black/90 text-white border border-white/20 transition-all hover:scale-105 shadow-xl cursor-pointer"
-                aria-label="Badge précédent"
-              >
-                <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6" />
-              </button>
+                  {/* Boutons de navigation déportés */}
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setBadgeModalIndex((prev) => (prev - 1 + partnerBadges.length) % partnerBadges.length);
+                    }}
+                    className="fixed left-3 sm:left-6 md:left-8 top-1/2 -translate-y-1/2 z-40 w-11 h-11 sm:w-13 sm:h-13 rounded-full bg-black/60 hover:bg-black/90 text-white border border-white/20 transition-all hover:scale-105 active:scale-95 shadow-2xl backdrop-blur-md flex items-center justify-center cursor-pointer"
+                    aria-label="Badge précédent"
+                  >
+                    <ChevronLeft className="w-6 h-6" />
+                  </button>
 
-              <div className="flex flex-col items-center justify-center p-8 sm:p-12 rounded-3xl bg-white/5 border border-white/10 max-w-md w-full backdrop-blur-sm">
-                <div className="w-44 h-44 sm:w-56 sm:h-56 flex items-center justify-center mb-6">
-                  <motion.img
-                    key={badgeModalIndex}
-                    src={`/assets/hornetsecurity/Badges/${partnerBadges[badgeModalIndex].file}`}
-                    alt={`Badge ${partnerBadges[badgeModalIndex].label}`}
-                    initial={{ opacity: 0, scale: 0.95 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0, scale: 0.95 }}
-                    transition={{ duration: 0.2 }}
-                    className="max-h-full max-w-full object-contain drop-shadow-[0_10px_25px_rgba(0,0,0,0.5)]"
-                  />
-                </div>
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setBadgeModalIndex((prev) => (prev + 1) % partnerBadges.length);
+                    }}
+                    className="fixed right-3 sm:right-6 md:right-8 top-1/2 -translate-y-1/2 z-40 w-11 h-11 sm:w-13 sm:h-13 rounded-full bg-black/60 hover:bg-black/90 text-white border border-white/20 transition-all hover:scale-105 active:scale-95 shadow-2xl backdrop-blur-md flex items-center justify-center cursor-pointer"
+                    aria-label="Badge suivant"
+                  >
+                    <ChevronRight className="w-6 h-6" />
+                  </button>
 
-                <div className="text-center space-y-2 text-white">
-                  <h3 className="text-lg sm:text-xl font-bold tracking-tight">
-                    {partnerBadges[badgeModalIndex].label}
-                  </h3>
-                  <span className="inline-block text-xs font-mono text-[#FFAD00] px-3 py-1 rounded-full bg-[#FFAD00]/10 border border-[#FFAD00]/30">
-                    {partnerBadges[badgeModalIndex].level}
-                  </span>
-                  <p className="text-xs text-zinc-300 leading-relaxed max-w-sm pt-2">
-                    {partnerBadges[badgeModalIndex].description}
-                  </p>
-                </div>
-              </div>
+                  {/* Zone centrale avec badge */}
+                  <div
+                    className="relative flex-1 flex items-center justify-center my-auto w-full px-12 sm:px-20 select-none"
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    <div className="flex flex-col items-center justify-center p-8 sm:p-12 rounded-3xl bg-white/5 border border-white/10 max-w-md w-full backdrop-blur-sm shadow-2xl">
+                      <div className="w-44 h-44 sm:w-56 sm:h-56 flex items-center justify-center mb-6">
+                        <motion.img
+                          key={badgeModalIndex}
+                          src={`/assets/hornetsecurity/Badges/${partnerBadges[badgeModalIndex].file}`}
+                          alt={`Badge ${partnerBadges[badgeModalIndex].label}`}
+                          initial={{ opacity: 0, scale: 0.95 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          exit={{ opacity: 0, scale: 0.95 }}
+                          transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
+                          className="max-h-full max-w-full object-contain drop-shadow-[0_10px_25px_rgba(0,0,0,0.5)]"
+                        />
+                      </div>
 
-              <button
-                type="button"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setBadgeModalIndex((prev) => (prev + 1) % partnerBadges.length);
-                }}
-                className="absolute right-2 sm:right-4 p-3 rounded-full bg-black/60 hover:bg-black/90 text-white border border-white/20 transition-all hover:scale-105 shadow-xl cursor-pointer"
-                aria-label="Badge suivant"
-              >
-                <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6" />
-              </button>
-            </div>
+                      <div className="text-center space-y-2 text-white">
+                        <h3 className="text-lg sm:text-xl font-bold tracking-tight">
+                          {partnerBadges[badgeModalIndex].label}
+                        </h3>
+                        <span className="inline-block text-xs font-mono text-[#FFAD00] px-3 py-1 rounded-full bg-[#FFAD00]/10 border border-[#FFAD00]/30">
+                          {partnerBadges[badgeModalIndex].level}
+                        </span>
+                        <p className="text-xs text-zinc-300 leading-relaxed max-w-sm pt-2">
+                          {partnerBadges[badgeModalIndex].description}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
 
-            {/* Barre basse */}
-            <div className="text-center text-zinc-400 text-xs py-1" onClick={(e) => e.stopPropagation()}>
-              <span className="font-mono">Hornetsecurity Partner Program · Graphisme vectoriel Adobe Illustrator</span>
-            </div>
-          </motion.div>
+                  {/* Barre basse */}
+                  <div className="text-center text-zinc-400 text-xs py-2" onClick={(e) => e.stopPropagation()}>
+                    <span className="font-mono">Hornetsecurity Partner Program · Graphisme vectoriel Adobe Illustrator</span>
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+
+            {/* MODAL 2 : ZOOM HAUTE RÉSOLUTION DE L'AFFICHE HELIX NOVA */}
+            <AnimatePresence>
+              {isPosterModalOpen && (
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
+                  className="fixed inset-0 z-[9999] w-screen h-screen bg-black/98 backdrop-blur-xl flex flex-col justify-between p-3 sm:p-6 select-none"
+                  onClick={() => setIsPosterModalOpen(false)}
+                >
+                  {/* Barre haute */}
+                  <div
+                    className="flex items-center justify-between text-white text-xs w-full max-w-6xl mx-auto z-40 py-2"
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    <div className="flex items-center gap-2">
+                      <span className="font-mono text-zinc-300 text-xs px-3 py-1 rounded-full bg-white/10 border border-white/10">
+                        Affiche officielle
+                      </span>
+                      <span className="text-zinc-300 font-medium">Helix Nova · Sprint de Hanovre (36 h)</span>
+                    </div>
+
+                    <button
+                      type="button"
+                      onClick={() => setIsPosterModalOpen(false)}
+                      className="p-2 sm:px-3 sm:py-1.5 rounded-full bg-white/10 hover:bg-white/20 text-white border border-white/15 transition-colors flex items-center gap-1.5 text-xs font-medium cursor-pointer"
+                      aria-label="Fermer la prévisualisation"
+                    >
+                      <X className="w-4 h-4" />
+                      <span>Fermer</span>
+                    </button>
+                  </div>
+
+                  {/* Zone centrale : Image pleine hauteur non coupée */}
+                  <div
+                    className="relative flex-1 flex items-center justify-center my-auto w-full px-4 sm:px-12 select-none"
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    <img
+                      src="/assets/hornetsecurity/affiche_helix_sprint.jpg"
+                      alt="Affiche de présentation officielle du héros cyber Helix Nova"
+                      className="max-h-[80vh] sm:max-h-[84vh] max-w-[92vw] sm:max-w-[84vw] w-auto h-auto object-contain rounded-xl sm:rounded-2xl shadow-2xl border border-white/10"
+                    />
+                  </div>
+
+                  {/* Barre basse */}
+                  <div className="text-center text-zinc-300 text-xs py-2" onClick={(e) => e.stopPropagation()}>
+                    <p className="font-semibold text-white">HELIX NOVA — Hornetsecurity by Proofpoint</p>
+                    <p className="text-zinc-400 text-[11px] font-mono mt-0.5">Photographie in situ · Format d'origine respecté</p>
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+
+            {/* MODAL 3 : ZOOM HAUTE RÉSOLUTION DES PREUVES RÉSIN'ARCHITECTE */}
+            <AnimatePresence>
+              {raModalIndex !== null && (
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
+                  className="fixed inset-0 z-[9999] w-screen h-screen bg-black/98 backdrop-blur-xl flex flex-col justify-between p-3 sm:p-6 select-none"
+                  onClick={() => setRaModalIndex(null)}
+                >
+                  {/* Barre haute */}
+                  <div
+                    className="flex items-center justify-between text-white text-xs w-full max-w-6xl mx-auto z-40 py-2"
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    <div className="flex items-center gap-2">
+                      <span className="font-mono text-zinc-300 text-xs px-3 py-1 rounded-full bg-white/10 border border-white/10">
+                        {String(raModalIndex + 1).padStart(2, '0')} / {String(raAssets.length).padStart(2, '0')}
+                      </span>
+                      <span className="text-zinc-300 font-medium">Résin'Architecte · Réalisation &amp; Analyse</span>
+                    </div>
+
+                    <div className="flex items-center gap-3">
+                      <span className="hidden md:inline-block text-[11px] text-zinc-400 font-mono">
+                        Échap pour fermer • Flèches pour naviguer
+                      </span>
+                      <button
+                        type="button"
+                        onClick={() => setRaModalIndex(null)}
+                        className="p-2 sm:px-3 sm:py-1.5 rounded-full bg-white/10 hover:bg-white/20 text-white border border-white/15 transition-colors flex items-center gap-1.5 text-xs font-medium cursor-pointer"
+                        aria-label="Fermer la prévisualisation"
+                      >
+                        <X className="w-4 h-4" />
+                        <span>Fermer</span>
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* Boutons de navigation déportés dans les marges latérales */}
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setRaModalIndex((prev) => (prev - 1 + raAssets.length) % raAssets.length);
+                    }}
+                    className="fixed left-3 sm:left-6 md:left-8 top-1/2 -translate-y-1/2 z-40 w-11 h-11 sm:w-13 sm:h-13 rounded-full bg-black/60 hover:bg-black/90 text-white border border-white/20 transition-all hover:scale-105 active:scale-95 shadow-2xl backdrop-blur-md flex items-center justify-center cursor-pointer"
+                    aria-label="Capture précédente"
+                  >
+                    <ChevronLeft className="w-6 h-6" />
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setRaModalIndex((prev) => (prev + 1) % raAssets.length);
+                    }}
+                    className="fixed right-3 sm:right-6 md:right-8 top-1/2 -translate-y-1/2 z-40 w-11 h-11 sm:w-13 sm:h-13 rounded-full bg-black/60 hover:bg-black/90 text-white border border-white/20 transition-all hover:scale-105 active:scale-95 shadow-2xl backdrop-blur-md flex items-center justify-center cursor-pointer"
+                    aria-label="Capture suivante"
+                  >
+                    <ChevronRight className="w-6 h-6" />
+                  </button>
+
+                  {/* Zone centrale : Image plein format sans rognage */}
+                  <div
+                    className="relative flex-1 flex items-center justify-center my-auto w-full px-12 sm:px-20 md:px-24"
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    <AnimatePresence mode="wait">
+                      <motion.img
+                        key={raModalIndex}
+                        src={raAssets[raModalIndex].src}
+                        alt={raAssets[raModalIndex].title}
+                        initial={{ opacity: 0, scale: 0.98 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        exit={{ opacity: 0, scale: 0.98 }}
+                        transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
+                        className="max-h-[76vh] sm:max-h-[80vh] max-w-[90vw] md:max-w-[84vw] w-auto h-auto object-contain rounded-xl sm:rounded-2xl shadow-2xl border border-white/10"
+                      />
+                    </AnimatePresence>
+                  </div>
+
+                  {/* Barre basse avec légende et aperçu des vignettes */}
+                  <div className="text-center text-white max-w-2xl mx-auto w-full space-y-2 z-40 py-2" onClick={(e) => e.stopPropagation()}>
+                    <div className="space-y-0.5">
+                      <p className="font-semibold text-xs sm:text-sm text-zinc-100">
+                        {raAssets[raModalIndex].title}
+                      </p>
+                      <p className="text-zinc-400 text-xs">
+                        {raAssets[raModalIndex].caption}
+                      </p>
+                    </div>
+
+                    {/* Vignettes de sélection directe */}
+                    <div className="flex items-center justify-center gap-2 pt-1 overflow-x-auto max-w-full pb-1">
+                      {raAssets.map((asset, idx) => (
+                        <button
+                          key={idx}
+                          type="button"
+                          onClick={() => setRaModalIndex(idx)}
+                          className={`h-7 w-12 sm:h-9 sm:w-14 rounded-md overflow-hidden border transition-all shrink-0 cursor-pointer ${
+                            idx === raModalIndex
+                              ? 'border-[#FFAD00] scale-105 opacity-100 ring-2 ring-[#FFAD00]/40'
+                              : 'border-white/20 opacity-50 hover:opacity-80'
+                          }`}
+                          aria-label={`Afficher ${asset.title}`}
+                        >
+                          <img src={asset.src} alt="" className="w-full h-full object-cover" />
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </>,
+          document.body
         )}
-      </AnimatePresence>
-
-      {/* ========================================================
-          MODAL 2 : ZOOM HAUTE RÉSOLUTION DE L'AFFICHE HELIX NOVA
-         ======================================================== */}
-      <AnimatePresence>
-        {isPosterModalOpen && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.2 }}
-            className="fixed inset-0 z-50 bg-black/90 sm:bg-black/85 backdrop-blur-md flex flex-col justify-between p-4 sm:p-8"
-            onClick={() => setIsPosterModalOpen(false)}
-          >
-            {/* Barre haute */}
-            <div
-              className="flex items-center justify-between text-white text-xs w-full max-w-4xl mx-auto z-10"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <div className="flex items-center gap-2">
-                <span className="font-mono text-zinc-300 text-xs px-2.5 py-1 rounded-full bg-white/10 border border-white/10">
-                  Affiche officielle
-                </span>
-                <span className="text-zinc-300 font-medium">Helix Nova · Sprint de Hanovre (36 h)</span>
-              </div>
-
-              <button
-                type="button"
-                onClick={() => setIsPosterModalOpen(false)}
-                className="p-2 sm:px-3 sm:py-1.5 rounded-full bg-white/10 hover:bg-white/20 text-white border border-white/15 transition-colors flex items-center gap-1.5 text-xs font-medium cursor-pointer"
-                aria-label="Fermer la prévisualisation"
-              >
-                <X className="w-4 h-4" />
-                <span>Fermer</span>
-              </button>
-            </div>
-
-            {/* Zone centrale : Image pleine hauteur non coupée */}
-            <div
-              className="relative flex-1 flex items-center justify-center my-2 max-w-4xl mx-auto w-full select-none"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <img
-                src="/assets/hornetsecurity/affiche_helix_sprint.jpg"
-                alt="Affiche de présentation officielle du héros cyber Helix Nova"
-                className="max-h-[82vh] max-w-[90vw] sm:max-w-[80vw] object-contain rounded-xl shadow-2xl border border-white/10"
-              />
-            </div>
-
-            {/* Barre basse */}
-            <div className="text-center text-zinc-300 text-xs py-1" onClick={(e) => e.stopPropagation()}>
-              <p className="font-semibold text-white">HELIX NOVA — Hornetsecurity by Proofpoint</p>
-              <p className="text-zinc-400 text-[11px] font-mono mt-0.5">Photographie in situ · Format d'origine respecté</p>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      {/* ========================================================
-          MODAL 3 : ZOOM HAUTE RÉSOLUTION DES PREUVES RÉSIN'ARCHITECTE
-         ======================================================== */}
-      <AnimatePresence>
-        {raModalIndex !== null && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.2 }}
-            className="fixed inset-0 z-50 bg-black/90 sm:bg-black/85 backdrop-blur-md flex flex-col justify-between p-4 sm:p-8"
-            onClick={() => setRaModalIndex(null)}
-          >
-            {/* Barre haute */}
-            <div
-              className="flex items-center justify-between text-white text-xs w-full max-w-4xl mx-auto z-10"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <div className="flex items-center gap-2">
-                <span className="font-mono text-zinc-300 text-xs px-2.5 py-1 rounded-full bg-white/10 border border-white/10">
-                  {String(raModalIndex + 1).padStart(2, '0')} / {String(raAssets.length).padStart(2, '0')}
-                </span>
-                <span className="text-zinc-300 font-medium">Résin'Architecte · Réalisation &amp; Analyse</span>
-              </div>
-
-              <button
-                type="button"
-                onClick={() => setRaModalIndex(null)}
-                className="p-2 sm:px-3 sm:py-1.5 rounded-full bg-white/10 hover:bg-white/20 text-white border border-white/15 transition-colors flex items-center gap-1.5 text-xs font-medium cursor-pointer"
-                aria-label="Fermer la prévisualisation"
-              >
-                <X className="w-4 h-4" />
-                <span>Fermer</span>
-              </button>
-            </div>
-
-            {/* Zone centrale avec image et navigation */}
-            <div
-              className="relative flex-1 flex items-center justify-center my-2 max-w-4xl mx-auto w-full select-none"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <button
-                type="button"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setRaModalIndex((prev) => (prev - 1 + raAssets.length) % raAssets.length);
-                }}
-                className="absolute left-2 sm:left-4 p-3 rounded-full bg-black/60 hover:bg-black/90 text-white border border-white/20 transition-all hover:scale-105 shadow-xl cursor-pointer"
-                aria-label="Capture précédente"
-              >
-                <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6" />
-              </button>
-
-              <div className="relative max-h-[78vh] max-w-full flex items-center justify-center">
-                <motion.img
-                  key={raModalIndex}
-                  src={raAssets[raModalIndex].src}
-                  alt={raAssets[raModalIndex].title}
-                  initial={{ opacity: 0, scale: 0.98 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.98 }}
-                  transition={{ duration: 0.2 }}
-                  className="max-h-[78vh] max-w-[90vw] sm:max-w-[80vw] object-contain rounded-xl shadow-2xl border border-white/10"
-                />
-              </div>
-
-              <button
-                type="button"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setRaModalIndex((prev) => (prev + 1) % raAssets.length);
-                }}
-                className="absolute right-2 sm:right-4 p-3 rounded-full bg-black/60 hover:bg-black/90 text-white border border-white/20 transition-all hover:scale-105 shadow-xl cursor-pointer"
-                aria-label="Capture suivante"
-              >
-                <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6" />
-              </button>
-            </div>
-
-            {/* Barre basse */}
-            <div className="text-center text-white max-w-xl mx-auto w-full space-y-1 py-1" onClick={(e) => e.stopPropagation()}>
-              <p className="font-semibold text-xs sm:text-sm text-zinc-100">
-                {raAssets[raModalIndex].title}
-              </p>
-              <p className="text-zinc-400 text-xs">
-                {raAssets[raModalIndex].caption}
-              </p>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
 
     </div>
   );

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import {
   Camera,
   Compass,
@@ -728,136 +729,137 @@ export default function Parcours({ navigate, onOpenCvModal }) {
 
       {/* ========================================================
           VISIONNEUSE PLEIN ÉCRAN (LIGHTBOX INTERACTIVE ÉDITORIALE)
-          Adaptée au ratio natif, commandes déportées, zéro troncature
+          Portalisée directement sur document.body (zéro fuite d'arrière-plan au sommet)
          ======================================================== */}
-      <AnimatePresence>
-        {lightboxIndex !== null && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
-            className="fixed inset-0 z-50 bg-black/95 backdrop-blur-xl flex flex-col justify-between p-3 sm:p-6 select-none"
-            onClick={() => setLightboxIndex(null)}
-          >
-            {/* Barre supérieure flottante */}
-            <div
-              className="flex items-center justify-between text-white text-xs w-full max-w-6xl mx-auto z-40 py-2"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <div className="flex items-center gap-2.5">
-                <span className="font-mono text-xs font-semibold px-3 py-1 rounded-full bg-white/10 text-zinc-200 border border-white/10 tracking-widest">
-                  {String(lightboxIndex + 1).padStart(2, '0')} / {String(allModalImages.length).padStart(2, '0')}
-                </span>
-                {allModalImages[lightboxIndex]?.category && (
-                  <span className="hidden sm:inline-flex px-3 py-1 rounded-full bg-white/10 text-zinc-300 border border-white/10 text-[11px] font-medium">
-                    {allModalImages[lightboxIndex].category}
-                  </span>
-                )}
-              </div>
+      {typeof document !== 'undefined' &&
+        createPortal(
+          <AnimatePresence>
+            {lightboxIndex !== null && (
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
+                className="fixed inset-0 z-[9999] w-screen h-screen bg-black/98 backdrop-blur-xl flex flex-col justify-between p-3 sm:p-6 select-none"
+                onClick={() => setLightboxIndex(null)}
+              >
+                {/* Barre supérieure flottante */}
+                <div
+                  className="flex items-center justify-between text-white text-xs w-full max-w-6xl mx-auto z-40 py-2"
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  <div className="flex items-center gap-2.5">
+                    <span className="font-mono text-xs font-semibold px-3 py-1 rounded-full bg-white/10 text-zinc-200 border border-white/10 tracking-widest">
+                      {String(lightboxIndex + 1).padStart(2, '0')} / {String(allModalImages.length).padStart(2, '0')}
+                    </span>
+                    {allModalImages[lightboxIndex]?.category && (
+                      <span className="hidden sm:inline-flex px-3 py-1 rounded-full bg-white/10 text-zinc-300 border border-white/10 text-[11px] font-medium">
+                        {allModalImages[lightboxIndex].category}
+                      </span>
+                    )}
+                  </div>
 
-              <div className="flex items-center gap-3">
-                <span className="hidden md:inline-block text-[11px] text-zinc-400 font-mono">
-                  Échap pour fermer • Flèches pour naviguer
-                </span>
+                  <div className="flex items-center gap-3">
+                    <span className="hidden md:inline-block text-[11px] text-zinc-400 font-mono">
+                      Échap pour fermer • Flèches pour naviguer
+                    </span>
+                    <button
+                      type="button"
+                      onClick={() => setLightboxIndex(null)}
+                      className="p-2 sm:px-3 sm:py-1.5 rounded-full bg-white/10 hover:bg-white/20 text-white border border-white/15 transition-all flex items-center gap-1.5 text-xs font-medium cursor-pointer"
+                      aria-label="Fermer la visionneuse"
+                    >
+                      <X className="w-4 h-4" />
+                      <span className="hidden sm:inline">Fermer</span>
+                    </button>
+                  </div>
+                </div>
+
+                {/* Boutons de navigation déportés dans les marges latérales (aucun chevauchement sur la photo) */}
                 <button
                   type="button"
                   onClick={(e) => {
                     e.stopPropagation();
-                    setLightboxIndex(null);
+                    setLightboxIndex((prev) => (prev - 1 + allModalImages.length) % allModalImages.length);
                   }}
-                  className="p-2 sm:px-3 sm:py-1.5 rounded-full bg-white/10 hover:bg-white/20 text-white border border-white/15 transition-all flex items-center gap-1.5 text-xs font-medium cursor-pointer"
-                  aria-label="Fermer la visionneuse"
+                  className="fixed left-3 sm:left-6 md:left-8 top-1/2 -translate-y-1/2 z-40 w-11 h-11 sm:w-13 sm:h-13 rounded-full bg-black/60 hover:bg-black/90 text-white border border-white/20 transition-all hover:scale-105 active:scale-95 shadow-2xl backdrop-blur-md flex items-center justify-center cursor-pointer"
+                  aria-label="Photographie précédente"
                 >
-                  <X className="w-4 h-4" />
-                  <span className="hidden sm:inline">Fermer</span>
+                  <ChevronLeft className="w-6 h-6" />
                 </button>
-              </div>
-            </div>
 
-            {/* Boutons de navigation déportés dans les marges latérales (aucun chevauchement sur la photo) */}
-            <button
-              type="button"
-              onClick={(e) => {
-                e.stopPropagation();
-                setLightboxIndex((prev) => (prev - 1 + allModalImages.length) % allModalImages.length);
-              }}
-              className="fixed left-3 sm:left-6 md:left-8 top-1/2 -translate-y-1/2 z-40 w-11 h-11 sm:w-13 sm:h-13 rounded-full bg-black/60 hover:bg-black/90 text-white border border-white/20 transition-all hover:scale-105 active:scale-95 shadow-2xl backdrop-blur-md flex items-center justify-center cursor-pointer"
-              aria-label="Photographie précédente"
-            >
-              <ChevronLeft className="w-6 h-6" />
-            </button>
+                <button
+                  type="button"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setLightboxIndex((prev) => (prev + 1) % allModalImages.length);
+                  }}
+                  className="fixed right-3 sm:right-6 md:right-8 top-1/2 -translate-y-1/2 z-40 w-11 h-11 sm:w-13 sm:h-13 rounded-full bg-black/60 hover:bg-black/90 text-white border border-white/20 transition-all hover:scale-105 active:scale-95 shadow-2xl backdrop-blur-md flex items-center justify-center cursor-pointer"
+                  aria-label="Photographie suivante"
+                >
+                  <ChevronRight className="w-6 h-6" />
+                </button>
 
-            <button
-              type="button"
-              onClick={(e) => {
-                e.stopPropagation();
-                setLightboxIndex((prev) => (prev + 1) % allModalImages.length);
-              }}
-              className="fixed right-3 sm:right-6 md:right-8 top-1/2 -translate-y-1/2 z-40 w-11 h-11 sm:w-13 sm:h-13 rounded-full bg-black/60 hover:bg-black/90 text-white border border-white/20 transition-all hover:scale-105 active:scale-95 shadow-2xl backdrop-blur-md flex items-center justify-center cursor-pointer"
-              aria-label="Photographie suivante"
-            >
-              <ChevronRight className="w-6 h-6" />
-            </button>
+                {/* Zone centrale : Image plein format sans rognage */}
+                <div
+                  className="relative flex-1 flex items-center justify-center my-auto w-full px-12 sm:px-20 md:px-24"
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  <AnimatePresence mode="wait">
+                    <motion.img
+                      key={lightboxIndex}
+                      src={allModalImages[lightboxIndex].src}
+                      alt={allModalImages[lightboxIndex].alt}
+                      initial={{ opacity: 0, scale: 0.98 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0.98 }}
+                      transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
+                      className="max-h-[76vh] sm:max-h-[80vh] max-w-[90vw] md:max-w-[84vw] w-auto h-auto object-contain rounded-xl sm:rounded-2xl shadow-2xl border border-white/10"
+                    />
+                  </AnimatePresence>
+                </div>
 
-            {/* Zone centrale : Image plein format sans rognage */}
-            <div
-              className="relative flex-1 flex items-center justify-center my-auto w-full px-12 sm:px-20 md:px-24"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <AnimatePresence mode="wait">
-                <motion.img
-                  key={lightboxIndex}
-                  src={allModalImages[lightboxIndex].src}
-                  alt={allModalImages[lightboxIndex].alt}
-                  initial={{ opacity: 0, scale: 0.98 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.98 }}
-                  transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
-                  className="max-h-[76vh] sm:max-h-[80vh] max-w-[90vw] md:max-w-[84vw] w-auto h-auto object-contain rounded-xl sm:rounded-2xl shadow-2xl border border-white/10"
-                />
-              </AnimatePresence>
-            </div>
-
-            {/* Légende intégrée et localisation discrète + Sélecteur de miniatures */}
-            <div
-              className="text-center text-white max-w-2xl mx-auto w-full space-y-2 z-40 py-2"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <div className="space-y-0.5">
-                <p className="font-semibold text-xs sm:text-sm text-zinc-100 tracking-wide">
-                  {allModalImages[lightboxIndex].caption || allModalImages[lightboxIndex].alt}
-                </p>
-                {allModalImages[lightboxIndex].place && (
-                  <div className="flex items-center justify-center gap-1.5 text-zinc-400 text-[11px] font-mono">
-                    <MapPin className="w-3 h-3 text-[#FFAD00]" />
-                    <span>{allModalImages[lightboxIndex].place}</span>
+                {/* Légende intégrée et localisation discrète + Sélecteur de miniatures */}
+                <div
+                  className="text-center text-white max-w-2xl mx-auto w-full space-y-2 z-40 py-2"
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  <div className="space-y-0.5">
+                    <p className="font-semibold text-xs sm:text-sm text-zinc-100 tracking-wide">
+                      {allModalImages[lightboxIndex].caption || allModalImages[lightboxIndex].alt}
+                    </p>
+                    {allModalImages[lightboxIndex].place && (
+                      <div className="flex items-center justify-center gap-1.5 text-zinc-400 text-[11px] font-mono">
+                        <MapPin className="w-3 h-3 text-[#FFAD00]" />
+                        <span>{allModalImages[lightboxIndex].place}</span>
+                      </div>
+                    )}
                   </div>
-                )}
-              </div>
 
-              {/* Barre de vignettes / pagination miniature */}
-              <div className="flex items-center justify-center gap-1.5 pt-1 overflow-x-auto max-w-full pb-1">
-                {allModalImages.map((img, idx) => (
-                  <button
-                    key={idx}
-                    type="button"
-                    onClick={() => setLightboxIndex(idx)}
-                    className={`h-7 w-9 sm:h-9 sm:w-12 rounded-md overflow-hidden border transition-all shrink-0 cursor-pointer ${
-                      idx === lightboxIndex
-                        ? 'border-[#FFAD00] scale-105 opacity-100 ring-2 ring-[#FFAD00]/40'
-                        : 'border-white/20 opacity-50 hover:opacity-80'
-                    }`}
-                    aria-label={`Afficher la photo ${idx + 1}`}
-                  >
-                    <img src={img.src} alt="" className="w-full h-full object-cover" />
-                  </button>
-                ))}
-              </div>
-            </div>
-          </motion.div>
+                  {/* Barre de vignettes / pagination miniature */}
+                  <div className="flex items-center justify-center gap-1.5 pt-1 overflow-x-auto max-w-full pb-1">
+                    {allModalImages.map((img, idx) => (
+                      <button
+                        key={idx}
+                        type="button"
+                        onClick={() => setLightboxIndex(idx)}
+                        className={`h-7 w-9 sm:h-9 sm:w-12 rounded-md overflow-hidden border transition-all shrink-0 cursor-pointer ${
+                          idx === lightboxIndex
+                            ? 'border-[#FFAD00] scale-105 opacity-100 ring-2 ring-[#FFAD00]/40'
+                            : 'border-white/20 opacity-50 hover:opacity-80'
+                        }`}
+                        aria-label={`Afficher la photo ${idx + 1}`}
+                      >
+                        <img src={img.src} alt="" className="w-full h-full object-cover" />
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>,
+          document.body
         )}
-      </AnimatePresence>
 
     </div>
   );
