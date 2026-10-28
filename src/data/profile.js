@@ -119,7 +119,7 @@ export const profileData = {
       highlights: [
         {
           title: "Fresh Data (Retail Data & Veille) — Campagne Ulule & Salon MEDFEL",
-          desc: "Contribution à la visibilité de la campagne Ulule (financée à 116 % de son objectif), actions radio et captation vidéo d'interviews au salon international MEDFEL ayant ouvert des conversations qualifiées avec Auchan, Grand Frais et E.Leclerc."
+          desc: "Contribution à la visibilité de la campagne Ulule (financée avec succès), actions radio et captation vidéo d'interviews au salon international MEDFEL ayant ouvert des conversations qualifiées avec Auchan, Grand Frais et E.Leclerc."
         },
         {
           title: "Résin'Architecte (BTP Haut de Gamme) — Communication & Terrain",

@@ -268,13 +268,13 @@ export const projectsData = {
     year: "2026",
     statusLabel: "VEILLE PROMO & FINANCEMENT",
     tags: ["Retail Data", "Veille Concurrentielle", "Crowdfunding", "Vidéo Terrain"],
-    metric: "12 700 €",
-    metricLabel: "Collectés sur Ulule (1er palier à 116 % sur obj. 20k)",
+    metric: "Financé",
+    metricLabel: "Objectif de campagne Ulule atteint avec succès",
     metrics: [
       {
-        value: "+116%",
+        value: "Succès",
         label: "Objectif Ulule",
-        detail: ">12 700 € collectés sur un objectif global de 20 000 €"
+        detail: "Campagne de crowdfunding bouclée avec succès"
       },
       {
         value: "50+",
@@ -299,7 +299,7 @@ export const projectsData = {
     youtubeEmbedUrl: "https://www.youtube-nocookie.com/embed/mf6eguKkok8?rel=0&modestbranding=1&playsinline=1",
     videoTitle: "Fresh Data — Captation vidéo au salon MEDFEL",
     alt: "Direction artistique Retail Data — Fresh Data",
-    description: "Création graphique et vulgarisation visuelle d'une solution de veille concurrentielle et de pige publicitaire multicanale grande distribution. Campagne Ulule financée à 116 % (>12 700 € / obj. 20k), dossiers commerciaux B2B et captation salon MEDFEL.",
+    description: "Création graphique et vulgarisation visuelle d'une solution de veille concurrentielle et de pige publicitaire multicanale grande distribution. Campagne Ulule financée avec succès, dossiers commerciaux B2B et captation salon MEDFEL.",
     cta: "Consulter l'étude de cas ↗",
     act1: {
       title: "01. Le Défi initial",
@@ -311,7 +311,7 @@ export const projectsData = {
     },
     act3: {
       title: "03. L'Impact Mesurable",
-      text: "Premier palier Ulule franchi à 116 % avec plus de 12 700 € collectés sur un objectif global de 20 000 €. Structuration de dossiers commerciaux B2B ouvrant des échanges qualifiés avec les centrales d'achats d'Auchan, Grand Frais et E.Leclerc."
+      text: "Campagne Ulule financée avec succès au-delà des objectifs initiaux. Structuration de dossiers commerciaux B2B ouvrant des échanges qualifiés avec les centrales d'achats d'Auchan, Grand Frais et E.Leclerc."
     },
     nextSlug: "hornetsecurity",
     nextTitle: "Hornetsecurity (Cybersécurité B2B)"

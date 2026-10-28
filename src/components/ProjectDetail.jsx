@@ -310,7 +310,7 @@ export default function ProjectDetail({ slug, navigate }) {
                   <span className="text-room-border hidden sm:inline">•</span>
                   <span>Interviews sur stand · Salon MEDFEL</span>
                   <span className="text-room-border hidden sm:inline">•</span>
-                  <span>Campagne Ulule (+116%)</span>
+                  <span>Campagne Ulule (validé avec succès)</span>
                 </div>
                 
                 <div className="flex items-center gap-2">
@@ -349,7 +349,7 @@ export default function ProjectDetail({ slug, navigate }) {
                   </p>
                 </div>
                 <div className="shrink-0 px-5 py-3 rounded-xl bg-room-bg border border-room-border text-center">
-                  <div className="text-2xl font-mono font-extrabold text-room-amber">+116%</div>
+                  <div className="text-2xl font-mono font-extrabold text-room-amber">Succès</div>
                   <div className="text-[10px] font-mono text-room-muted uppercase">Financement Ulule</div>
                 </div>
               </div>

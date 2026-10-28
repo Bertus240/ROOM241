@@ -89,7 +89,7 @@ export default function SectionFreshData() {
               Résultat
             </h3>
             <p className="text-sm text-[#3F3F46] leading-relaxed">
-              Premier palier Ulule financé à 116 % (>12 700 € réunis sur objectif global de 20k) et ouverture d'échanges qualifiés avec les centrales d'achats (Auchan, Grand Frais, E.Leclerc).
+              Campagne Ulule financée avec succès et ouverture d'échanges qualifiés avec les centrales d'achats (Auchan, Grand Frais, E.Leclerc).
             </p>
           </div>
         </div>

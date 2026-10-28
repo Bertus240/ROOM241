@@ -246,7 +246,7 @@ export default function CaseStudies({ isPreview, isFullPage, navigate }) {
 
                   {/* Stat Stamp */}
                   <div className="absolute top-4 left-4 z-10 px-3.5 py-1.5 rounded-full bg-black/80 backdrop-blur-md border border-white/15 flex items-center gap-2 pointer-events-none">
-                    <span className="text-room-amber font-sans font-extrabold text-sm">+116%</span>
+                    <span className="text-room-amber font-sans font-extrabold text-sm">Succès</span>
                     <span className="text-[11px] font-sans text-neutral-300">CAMPAGNE ULULE</span>
                   </div>
 
@@ -283,12 +283,12 @@ export default function CaseStudies({ isPreview, isFullPage, navigate }) {
                 </h3>
 
                 <p className="text-neutral-600 dark:text-neutral-300 text-base sm:text-lg leading-relaxed font-sans mb-4">
-                  Création graphique et vulgarisation visuelle d'une solution de veille concurrentielle grande distribution, direction de la campagne Ulule (116 % / 12 700 € réunis sur obj. 20k) et captation au salon MEDFEL.
+                  Création graphique et vulgarisation visuelle d'une solution de veille concurrentielle grande distribution, direction de la campagne Ulule (financée avec succès) et captation au salon MEDFEL.
                 </p>
 
                 {/* Clean Impact Strip */}
                 <div className="flex items-center gap-3 py-3.5 my-5 border-y border-neutral-200 dark:border-white/10">
-                  <span className="text-2xl sm:text-3xl font-extrabold font-sans text-room-amber">+116%</span>
+                  <span className="text-2xl sm:text-3xl font-extrabold font-sans text-room-amber">Succès</span>
                   <span className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-300 font-sans">
                     sur l'objectif Ulule et signature des 50 premiers clients pionniers B2B
                   </span>

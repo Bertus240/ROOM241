@@ -602,7 +602,7 @@ export default function Parcours({ navigate, onOpenCvModal }) {
             Expérience internationale &amp; créativité opérationnelle
           </h2>
           <p className="text-sm sm:text-base text-zinc-500 max-w-2xl leading-relaxed">
-            De la stratégie de marque employeur jusqu'à la scénographie de stands monumentaux (&gt; 150 m²) et la création vidéo de terrain pour des événements européens.
+            De la stratégie de marque employeur jusqu'à la scénographie de stands d'exposition (&gt; 150 m²) et la création vidéo de terrain pour des événements européens.
           </p>
         </div>
 
@@ -615,9 +615,9 @@ export default function Parcours({ navigate, onOpenCvModal }) {
           <div className="flex flex-col lg:flex-row lg:items-start justify-between gap-4 border-b border-zinc-200/50 pb-6">
             <div className="space-y-1.5">
               <div className="flex flex-wrap items-center gap-2.5">
-                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-zinc-950 text-white text-xs font-semibold shadow-xs">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#FFAD00]" />
-                  <span>Poste CDI</span>
+                <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-zinc-950 text-white text-xs font-semibold shadow-xs border border-white/10">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#FFAD00] shadow-[0_0_8px_rgba(255,173,0,0.9)]" />
+                  <span>Highlight • Expérience CDI</span>
                 </span>
                 <span className="text-xs font-mono font-medium text-zinc-500">
                   Septembre 2025 – Octobre 2026
@@ -648,7 +648,7 @@ export default function Parcours({ navigate, onOpenCvModal }) {
           </p>
 
           {/* Repères chiffrés et chronologiques (Style studio suisse épuré) */}
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 pt-2 border-t border-zinc-100">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 p-5 rounded-2xl bg-zinc-50/80 backdrop-blur-sm border border-zinc-200/70 shadow-2xs">
             <div className="space-y-0.5">
               <span className="text-2xl sm:text-3xl font-extrabold font-mono text-zinc-950 block">&gt; 150 m²</span>
               <span className="text-xs text-zinc-500 font-medium block">Stand FIC Lille Grand Palais</span>
@@ -874,7 +874,7 @@ export default function Parcours({ navigate, onOpenCvModal }) {
               Studio ROOM241 — Communication &amp; Design
             </h4>
             <p className="text-xs text-zinc-500 leading-relaxed">
-              Accompagnement de projets reliant réflexion stratégique, création graphique et production de terrain : campagne Fresh Data Ulule financée à 116 % et formalisation de l'identité de Résin'Architecte avec 8 chantiers documentés.
+              Accompagnement de projets reliant réflexion stratégique, création graphique et production de terrain : campagne Fresh Data Ulule financée avec succès et formalisation de l'identité de Résin'Architecte avec 8 chantiers documentés.
             </p>
           </div>
 

@@ -60,7 +60,7 @@ const CONTEXT_MESSAGES = {
   },
   freshdata: {
     key: 'freshdata',
-    text: "Vulgarisation technique et campagne participative : un univers graphique complet conçu pour porter un projet jusqu'au financement Ulule (+116 %).",
+    text: "Vulgarisation technique et campagne participative : un univers graphique complet conçu pour porter un projet jusqu'au financement Ulule (financé avec succès).",
     title: "Fresh Data • Financement Ulule"
   },
   resin: {

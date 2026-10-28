@@ -47,14 +47,14 @@ export default function CvModal({ isOpen, onClose }) {
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.97, y: 12 }}
           transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
-          className="relative w-full max-w-4xl bg-[#FAF9F6] text-[#09090B] rounded-3xl shadow-[0_30px_100px_rgba(0,0,0,0.45)] border border-zinc-300/80 z-10 overflow-hidden my-6 max-h-[92vh] flex flex-col font-sans"
+          className="relative w-full max-w-4xl bg-white/90 backdrop-blur-2xl text-[#09090B] rounded-3xl shadow-[0_30px_100px_rgba(0,0,0,0.35)] border border-white/60 ring-1 ring-zinc-950/5 z-10 overflow-hidden my-6 max-h-[92vh] flex flex-col font-sans"
         >
           {/* Masthead supérieur épuré */}
-          <div className="px-6 sm:px-10 py-4 bg-white/80 backdrop-blur-md border-b border-zinc-200/80 flex items-center justify-between gap-4 shrink-0 select-none">
+          <div className="px-6 sm:px-10 py-4 bg-white/60 backdrop-blur-xl border-b border-zinc-200/50 flex items-center justify-between gap-4 shrink-0 select-none">
             <div className="flex items-center gap-3">
               <span className="w-2 h-2 rounded-full bg-[#FFAD00] shadow-[0_0_8px_rgba(255,173,0,0.8)]" />
               <span className="font-mono text-xs font-bold tracking-widest text-zinc-900 uppercase">
-                ROOM241 / CURRICULUM VITÆ
+                ROOM241 | CV
               </span>
               <span className="hidden sm:inline-block text-[11px] font-mono text-zinc-500">
                 • Disponible immédiatement
@@ -65,7 +65,7 @@ export default function CvModal({ isOpen, onClose }) {
               <button
                 type="button"
                 onClick={handlePrint}
-                className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full border border-zinc-200 bg-white hover:bg-zinc-50 text-xs font-semibold text-zinc-800 transition-all cursor-pointer shadow-2xs hover:border-zinc-400"
+                className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full border border-zinc-200/80 bg-white/80 backdrop-blur-sm hover:bg-white text-xs font-semibold text-zinc-800 transition-all cursor-pointer shadow-2xs hover:border-zinc-300"
                 title="Imprimer ou exporter en PDF"
               >
                 <Printer className="w-3.5 h-3.5 text-zinc-600" />
@@ -250,7 +250,7 @@ export default function CvModal({ isOpen, onClose }) {
                       Directeur artistique &amp; Graphiste
                     </h3>
                     <p className="text-xs sm:text-sm text-zinc-600 leading-relaxed">
-                      Direction artistique et vulgarisation visuelle pour Fresh Data (Retail Data & veille promo : identité, campagne Ulule à 116 % avec 12 700 € réunis / obj. 20k, captation vidéo salon MEDFEL et dossiers commerciaux B2B) et Résin'Architecte (BTP haut de gamme : cadrage de projet, charte, modèles d'avant/après et stratégie de contenu).
+                      Direction artistique et vulgarisation visuelle pour Fresh Data (Retail Data & veille promo : identité, campagne Ulule financée avec succès, captation vidéo salon MEDFEL et dossiers commerciaux B2B) et Résin'Architecte (BTP haut de gamme : cadrage de projet, charte, modèles d'avant/après et stratégie de contenu).
                     </p>
                   </div>
                 </article>
@@ -388,7 +388,7 @@ export default function CvModal({ isOpen, onClose }) {
           </div>
 
           {/* Pied de Modale discret et élégant */}
-          <footer className="px-6 sm:px-10 py-4 bg-white/80 backdrop-blur-md border-t border-zinc-200/80 flex flex-col sm:flex-row items-center justify-between gap-3 shrink-0 select-none">
+          <footer className="px-6 sm:px-10 py-4 bg-white/70 backdrop-blur-xl border-t border-zinc-200/50 flex flex-col sm:flex-row items-center justify-between gap-3 shrink-0 select-none">
             <span className="text-xs text-zinc-500 font-medium text-center sm:text-left">
               Disponible immédiatement pour opportunités en CDI (Lille, Métropole ou Hybride)
             </span>

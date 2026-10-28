@@ -77,30 +77,21 @@ export default function Projects({ navigate }) {
       caption: "Boucle graphique After Effects diffusée sur la face arrière de l'arche orientée vers le cœur du stand"
     },
     {
-      id: 'vid-karting',
-      tabLabel: "Piste e-karting",
-      title: "Dispositif e-karting au Zénith — Engagement visiteurs & animation",
-      type: 'video',
-      src: '/assets/hornetsecurity/fic/Videos/vid2_fic.mp4',
-      badge: "Dispositif terrain • E-Karting",
-      caption: "Espace privatisé au Zénith de Lille orientant les flux de visiteurs professionnels"
-    },
-    {
-      id: 'vid-salon',
-      tabLabel: "Vie du salon",
-      title: "Dynamique du salon & allées — Échanges avec les visiteurs",
+      id: 'vid-stand-life',
+      tabLabel: "Vie du stand",
+      title: "Vie du stand — Échanges et affluence avec les visiteurs professionnels",
       type: 'video',
       src: '/assets/hornetsecurity/fic/Videos/vid3_fic.mp4',
-      badge: "Captation in situ • Allées",
-      caption: "Affluence continue et dynamique d'échanges avec les professionnels de la cybersécurité"
+      badge: "Captation in situ • Stand actif",
+      caption: "Affluence continue et dynamique d'échanges avec les professionnels de la cybersécurité sur le stand"
     },
     {
-      id: 'vid-apercu',
-      tabLabel: "Aperçu du salon",
-      title: "Aperçu du salon — Ambiance et passage sur le stand",
+      id: 'vid-stand-apercu',
+      tabLabel: "Aperçu du stand",
+      title: "Aperçu du stand — Ambiance et passage sur l'espace d'exposition",
       type: 'video',
       src: '/assets/hornetsecurity/fic/Videos/vid4_fic.mp4',
-      badge: "Captation salon • Aperçu",
+      badge: "Captation in situ • Aperçu",
       caption: "Aperçu vidéo de l'ambiance et des passages sur le stand durant l'événement"
     }
   ];
@@ -395,7 +386,7 @@ export default function Projects({ navigate }) {
             <div className="relative w-full">
               <div
                 ref={tabContainerRef}
-                className="flex items-center gap-1.5 p-1.5 rounded-2xl bg-zinc-100/90 dark:bg-zinc-800/80 border border-zinc-200/80 dark:border-white/10 text-xs overflow-x-auto no-scrollbar sm:grid sm:grid-cols-7"
+                className="flex items-center gap-1.5 p-1.5 rounded-2xl bg-zinc-100/90 dark:bg-zinc-800/80 border border-zinc-200/80 dark:border-white/10 text-xs overflow-x-auto no-scrollbar sm:grid sm:grid-cols-6"
                 style={{
                   WebkitOverflowScrolling: 'touch',
                   scrollbarWidth: 'none',
@@ -805,14 +796,14 @@ export default function Projects({ navigate }) {
           {/* 1. Chapeau factuel & Badges sobres */}
           <div className="max-w-3xl mb-8">
             <p className="text-zinc-600 text-sm md:text-base leading-relaxed">
-              Création de l'univers visuel et vulgarisation des données de Fresh Data aux côtés du fondateur Marc-Henri Blarel. Solution SaaS de pige publicitaire et de veille concurrentielle multicanale (tracts promos, prospectus, spots radio) pour la grande distribution, Fresh Data analyse la pression promotionnelle au jour le jour pour permettre aux enseignes d'anticiper la demande, d'ajuster leurs prix et de caler leurs stocks en magasin. L'enjeu de mon intervention : rendre compréhensibles des flux massifs de données tarifaires, concevoir l'architecture graphique de la campagne de financement participatif Ulule (objectif global 20 000 €, premier palier franchi à 116 % avec plus de 12 700 € réunis) et outiller la prospection commerciale auprès des centrales d'achats.
+              Création de l'univers visuel et vulgarisation des données de Fresh Data aux côtés du fondateur Marc-Henri Blarel. Solution SaaS de pige publicitaire et de veille concurrentielle multicanale (tracts promos, prospectus, spots radio) pour la grande distribution, Fresh Data analyse la pression promotionnelle au jour le jour pour permettre aux enseignes d'anticiper la demande, d'ajuster leurs prix et de caler leurs stocks en magasin. L'enjeu de mon intervention : rendre compréhensibles des flux massifs de données tarifaires, concevoir l'architecture graphique de la campagne de financement participatif Ulule validée avec succès et outiller la prospection commerciale auprès des centrales d'achats.
             </p>
             <div className="flex flex-wrap items-center gap-2 mt-4">
               <span className="px-3 py-1 text-xs font-medium rounded-full bg-zinc-100 text-zinc-800 border border-zinc-200/60">
-                Campagne Ulule • 116 % du 1er palier atteint
+                Campagne Ulule validée avec succès
               </span>
               <span className="px-3 py-1 text-xs font-medium rounded-full bg-zinc-100 text-zinc-700 border border-zinc-200/60">
-                12 700 € collectés • Objectif global 20k
+                Financement participatif atteint
               </span>
               <span className="px-3 py-1 text-xs font-medium rounded-full bg-zinc-100 text-zinc-700 border border-zinc-200/60">
                 Veille promotionnelle multicanale
@@ -837,9 +828,9 @@ export default function Projects({ navigate }) {
             {/* Volet 02 */}
             <div className="bg-white border border-zinc-200/70 rounded-2xl p-5 shadow-sm hover:border-zinc-300 transition-all">
               <div className="text-[11px] font-mono text-zinc-400 mb-2">02 • FINANCEMENT</div>
-              <div className="text-zinc-900 font-semibold text-sm mb-2">Campagne Ulule (116 %)</div>
+              <div className="text-zinc-900 font-semibold text-sm mb-2">Campagne Ulule</div>
               <p className="text-zinc-600 text-xs leading-relaxed">
-                Conception de l'architecture graphique complète du crowdfunding : bannières narratives, infographies pédagogiques, visuels des contreparties et habillage des paliers jusqu'aux 12 700 € réunis sur un objectif global de 20 000 €.
+                Conception de l'architecture graphique complète du crowdfunding : bannières narratives, infographies pédagogiques, visuels des contreparties et habillage des paliers de la campagne de financement participatif validée avec succès.
               </p>
             </div>
 
@@ -934,11 +925,11 @@ export default function Projects({ navigate }) {
               <div className="flex items-center justify-between mb-3">
                 <span className="text-zinc-900 font-semibold text-sm">1. Campagne participative Ulule</span>
                 <span className="bg-zinc-100 text-zinc-700 text-[11px] font-medium px-2.5 py-1 rounded-full border border-zinc-200/60">
-                  12 700 € réunis • Obj. 20k
+                  Financement validé
                 </span>
               </div>
               <p className="text-zinc-600 text-xs md:text-sm leading-relaxed">
-                Conception de l'architecture graphique complète de la campagne de financement participatif : bannières narratives, infographies pédagogiques vulgarisant les analyses de pression promotionnelle et visuels des contreparties, permettant de valider le premier palier à 116 % avec plus de 12 700 € collectés.
+                Conception de l'architecture graphique complète de la campagne de financement participatif : bannières narratives, infographies pédagogiques vulgarisant les analyses de pression promotionnelle et visuels des contreparties ayant permis d'atteindre les objectifs de financement.
               </p>
             </div>
 
