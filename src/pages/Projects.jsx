@@ -732,19 +732,28 @@ export default function Projects({ navigate }) {
         </section>
       )}
 
-      {/* Séparateur architectural entre Projets 01 & 02 */}
+      {/* Séparateur architectural entre Projets 01 & 02 avec design glassmorphism */}
       {activeTab === 'all' && (
-        <div className="max-w-[1280px] mx-auto px-5 sm:px-8 lg:px-10 py-6 sm:py-10">
+        <div className="max-w-[1280px] mx-auto px-5 sm:px-8 lg:px-10 py-8 sm:py-12">
           <div className="relative flex items-center justify-center">
             <div className="absolute inset-0 flex items-center">
-              <div className="w-full border-t border-zinc-200/80" />
+              <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-zinc-300 to-transparent dark:via-white/15" />
             </div>
-            <div className="relative bg-[#FFFFFF] px-4 sm:px-6 py-1.5 rounded-full border border-zinc-200/90 shadow-sm flex items-center gap-2 text-xs font-mono text-[#71717A]">
-              <span className="w-2 h-2 rounded-full bg-[#FFAD00]" />
-              <span className="font-bold text-[#09090B]">Projet suivant</span>
-              <span>·</span>
-              <span>02 — 03</span>
-            </div>
+            <a
+              href="#fresh-data"
+              onClick={(e) => {
+                e.preventDefault();
+                const el = document.getElementById('fresh-data');
+                if (el) el.scrollIntoView({ behavior: 'smooth' });
+              }}
+              className="group relative backdrop-blur-xl bg-white/70 dark:bg-zinc-900/70 hover:bg-white dark:hover:bg-zinc-800/90 px-5 sm:px-7 py-2.5 rounded-full border border-zinc-200/90 dark:border-white/15 shadow-[0_8px_30px_rgba(0,0,0,0.05)] hover:shadow-[0_12px_36px_rgba(0,0,0,0.1)] hover:border-[#FFAD00]/50 transition-all duration-300 flex items-center gap-3 text-xs font-mono cursor-pointer"
+            >
+              <span className="w-2 h-2 rounded-full bg-[#FFAD00] shadow-[0_0_8px_rgba(255,173,0,0.6)] group-hover:scale-125 transition-transform" />
+              <span className="font-bold text-[#09090B] dark:text-white tracking-wide">Projet suivant</span>
+              <span className="text-zinc-400">·</span>
+              <span className="text-[#71717A] dark:text-zinc-400">02 — 03</span>
+              <span className="text-zinc-400 group-hover:translate-y-0.5 transition-transform">↓</span>
+            </a>
           </div>
         </div>
       )}
@@ -931,19 +940,28 @@ export default function Projects({ navigate }) {
         </section>
       )}
 
-      {/* Séparateur architectural entre Projets 02 & 03 */}
+      {/* Séparateur architectural entre Projets 02 & 03 avec design glassmorphism */}
       {activeTab === 'all' && (
-        <div className="max-w-[1280px] mx-auto px-5 sm:px-8 lg:px-10 py-6 sm:py-10">
+        <div className="max-w-[1280px] mx-auto px-5 sm:px-8 lg:px-10 py-8 sm:py-12">
           <div className="relative flex items-center justify-center">
             <div className="absolute inset-0 flex items-center">
-              <div className="w-full border-t border-zinc-200/80" />
+              <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-zinc-300 to-transparent dark:via-white/15" />
             </div>
-            <div className="relative bg-[#FFFFFF] px-4 sm:px-6 py-1.5 rounded-full border border-zinc-200/90 shadow-sm flex items-center gap-2 text-xs font-mono text-[#71717A]">
-              <span className="w-2 h-2 rounded-full bg-[#FFAD00]" />
-              <span className="font-bold text-[#09090B]">Projet suivant</span>
-              <span>·</span>
-              <span>03 — 03</span>
-            </div>
+            <a
+              href="#resin-architecte"
+              onClick={(e) => {
+                e.preventDefault();
+                const el = document.getElementById('resin-architecte');
+                if (el) el.scrollIntoView({ behavior: 'smooth' });
+              }}
+              className="group relative backdrop-blur-xl bg-white/70 dark:bg-zinc-900/70 hover:bg-white dark:hover:bg-zinc-800/90 px-5 sm:px-7 py-2.5 rounded-full border border-zinc-200/90 dark:border-white/15 shadow-[0_8px_30px_rgba(0,0,0,0.05)] hover:shadow-[0_12px_36px_rgba(0,0,0,0.1)] hover:border-[#FFAD00]/50 transition-all duration-300 flex items-center gap-3 text-xs font-mono cursor-pointer"
+            >
+              <span className="w-2 h-2 rounded-full bg-[#FFAD00] shadow-[0_0_8px_rgba(255,173,0,0.6)] group-hover:scale-125 transition-transform" />
+              <span className="font-bold text-[#09090B] dark:text-white tracking-wide">Projet suivant</span>
+              <span className="text-zinc-400">·</span>
+              <span className="text-[#71717A] dark:text-zinc-400">03 — 03</span>
+              <span className="text-zinc-400 group-hover:translate-y-0.5 transition-transform">↓</span>
+            </a>
           </div>
         </div>
       )}
@@ -1204,76 +1222,122 @@ export default function Projects({ navigate }) {
             </div>
           </div>
 
-          {/* Bloc 4 : Perspectives de développement (3 horizons synthétiques sans dévoiler 12 mois) */}
-          <div className="p-6 sm:p-10 rounded-3xl bg-zinc-50 border border-zinc-200/80 space-y-6">
-            <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2 border-b border-zinc-200/60 pb-4">
+          {/* Bloc 4 : Perspectives de développement — Design Glassmorphism Éditorial */}
+          <div className="p-6 sm:p-10 rounded-3xl bg-white/80 dark:bg-zinc-900/70 backdrop-blur-2xl border border-zinc-200/80 dark:border-white/10 shadow-[0_15px_45px_rgba(0,0,0,0.03)] space-y-8">
+            <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-3 border-b border-zinc-200/60 dark:border-white/10 pb-5">
               <div>
-                <span className="text-xs font-bold uppercase tracking-wider text-[#FFAD00] flex items-center gap-1.5">
-                  <Compass className="w-4 h-4" />
-                  Méthodologie &amp; Vision
+                <span className="text-[11px] font-mono font-semibold uppercase tracking-widest text-[#FFAD00] flex items-center gap-2">
+                  <Compass className="w-3.5 h-3.5" />
+                  <span>Feuille de route &amp; Horizons de développement</span>
                 </span>
-                <h3 className="text-xl sm:text-2xl font-extrabold text-[#09090B] mt-1">
+                <h3 className="text-xl sm:text-2xl font-extrabold text-[#09090B] dark:text-white mt-1 tracking-tight">
                   Perspectives de développement
                 </h3>
               </div>
-              <span className="text-xs font-semibold text-zinc-700 bg-white px-3 py-1 rounded-full border border-zinc-200 w-fit shrink-0">
-                Synthèse en 3 horizons
-              </span>
+              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-zinc-100/90 dark:bg-white/10 border border-zinc-200/80 dark:border-white/10 text-xs font-mono text-zinc-700 dark:text-zinc-300">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#FFAD00]" />
+                <span>Synthèse en 3 phases</span>
+              </div>
             </div>
 
-            <p className="text-xs sm:text-sm text-[#52525B] leading-relaxed max-w-4xl">
+            <p className="text-xs sm:text-sm text-[#52525B] dark:text-zinc-300 leading-relaxed max-w-4xl">
               Pour pérenniser la traction des premiers chantiers sans dépendre d'achats publicitaires continus, la réflexion stratégique pose trois priorités claires, conçues en synergie avec l'architecture technique d'AntheDesign.
             </p>
 
-            {/* 3 Horizons synthétiques : Réalisé / Priorités suivantes / Vision à moyen terme */}
+            {/* 3 Cartes Glassmorphism Éditoriales */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-1">
               
               {/* Horizon 1 : Réalisé */}
-              <div className="p-5 rounded-2xl bg-white border border-zinc-200/90 space-y-2.5 shadow-sm">
+              <div className="group p-6 rounded-2xl bg-white/90 dark:bg-zinc-800/60 border border-zinc-200/80 dark:border-white/10 hover:border-zinc-300 dark:hover:border-white/20 transition-all duration-300 shadow-[0_4px_20px_rgba(0,0,0,0.02)] hover:shadow-lg space-y-4">
                 <div className="flex items-center justify-between">
-                  <span className="text-xs font-bold text-[#09090B]">Horizon 1</span>
-                  <span className="text-[10px] font-mono text-emerald-800 bg-emerald-100/80 px-2 py-0.5 rounded font-bold">
-                    Réalisé
+                  <span className="font-mono text-xs font-bold text-zinc-900 dark:text-white tracking-wider">
+                    HORIZON 01
+                  </span>
+                  <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full border border-emerald-500/30 bg-emerald-50 dark:bg-emerald-950/40 text-emerald-800 dark:text-emerald-300 text-[10px] font-mono font-bold tracking-wider">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 shadow-[0_0_6px_rgba(16,185,129,0.8)]" />
+                    ACCOMPLI
                   </span>
                 </div>
-                <h4 className="text-sm font-bold text-[#09090B]">Socle &amp; Contenus de terrain</h4>
-                <ul className="text-xs text-[#52525B] space-y-1.5 leading-relaxed">
-                  <li>• Stabilisation de la charte graphique et des modèles visuels avant/après.</li>
-                  <li>• Conception des fiches didactiques d'aide à la vente (règle des 8 mm).</li>
-                  <li>• Cadrage du circuit de captation sur chantiers et sessions Qualiopi.</li>
-                  <li>• Traction initiale mesurée en 30 jours (+219 % de portée, 648 visites de profil).</li>
+                <h4 className="text-sm font-bold text-zinc-900 dark:text-white tracking-tight">
+                  Socle &amp; Contenus de terrain
+                </h4>
+                <ul className="text-xs text-zinc-600 dark:text-zinc-300 space-y-2 leading-relaxed">
+                  <li className="flex items-start gap-2">
+                    <span className="text-[#FFAD00] shrink-0 font-bold">▪</span>
+                    <span>Stabilisation de la charte graphique et des modèles visuels avant/après.</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-[#FFAD00] shrink-0 font-bold">▪</span>
+                    <span>Conception des fiches didactiques d'aide à la vente (règle des 8 mm).</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-[#FFAD00] shrink-0 font-bold">▪</span>
+                    <span>Cadrage du circuit de captation sur chantiers et sessions Qualiopi.</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-[#FFAD00] shrink-0 font-bold">▪</span>
+                    <span>Traction initiale mesurée en 30 jours (+219 % de portée, 648 visites de profil).</span>
+                  </li>
                 </ul>
               </div>
 
               {/* Horizon 2 : Priorités suivantes */}
-              <div className="p-5 rounded-2xl bg-white border border-zinc-200/90 space-y-2.5 shadow-sm">
+              <div className="group p-6 rounded-2xl bg-white/90 dark:bg-zinc-800/60 border border-zinc-200/80 dark:border-white/10 hover:border-[#FFAD00]/40 transition-all duration-300 shadow-[0_4px_20px_rgba(0,0,0,0.02)] hover:shadow-lg space-y-4">
                 <div className="flex items-center justify-between">
-                  <span className="text-xs font-bold text-[#09090B]">Horizon 2</span>
-                  <span className="text-[10px] font-mono text-[#09090B] bg-[#FFAD00]/25 px-2 py-0.5 rounded font-bold">
-                    Priorités suivantes
+                  <span className="font-mono text-xs font-bold text-zinc-900 dark:text-white tracking-wider">
+                    HORIZON 02
+                  </span>
+                  <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full border border-[#FFAD00]/40 bg-amber-50 dark:bg-amber-950/40 text-amber-900 dark:text-amber-300 text-[10px] font-mono font-bold tracking-wider">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#FFAD00] shadow-[0_0_6px_rgba(255,173,0,0.8)]" />
+                    EN COURS
                   </span>
                 </div>
-                <h4 className="text-sm font-bold text-[#09090B]">Consolidation &amp; Double flux</h4>
-                <ul className="text-xs text-[#52525B] space-y-1.5 leading-relaxed">
-                  <li>• <strong className="text-[#09090B]">Scission B2C / B2B :</strong> Séparer les flux pour les particuliers (devis terrasse/piscine) et les professionnels (formation Qualiopi).</li>
-                  <li>• <strong className="text-[#09090B]">Avis Google Reviews :</strong> Concentration des avis clients sur Google pour distancer les concurrents locaux.</li>
-                  <li>• <strong className="text-[#09090B]">Alimentation SEO :</strong> Transmission mensuelle de cas concrets à AntheDesign pour nourrir le cocon sémantique.</li>
+                <h4 className="text-sm font-bold text-zinc-900 dark:text-white tracking-tight">
+                  Consolidation &amp; Double flux
+                </h4>
+                <ul className="text-xs text-zinc-600 dark:text-zinc-300 space-y-2 leading-relaxed">
+                  <li className="flex items-start gap-2">
+                    <span className="text-[#FFAD00] shrink-0 font-bold">▪</span>
+                    <span><strong className="text-zinc-900 dark:text-white">Scission B2C / B2B :</strong> Séparer les flux pour les particuliers (devis terrasse/piscine) et les professionnels (formation Qualiopi).</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-[#FFAD00] shrink-0 font-bold">▪</span>
+                    <span><strong className="text-zinc-900 dark:text-white">Avis Google Reviews :</strong> Concentration des avis clients sur Google pour distancer les concurrents locaux.</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-[#FFAD00] shrink-0 font-bold">▪</span>
+                    <span><strong className="text-zinc-900 dark:text-white">Alimentation SEO :</strong> Transmission mensuelle de cas concrets à AntheDesign pour nourrir le cocon sémantique.</span>
+                  </li>
                 </ul>
               </div>
 
               {/* Horizon 3 : Vision à moyen terme */}
-              <div className="p-5 rounded-2xl bg-white border border-zinc-200/90 space-y-2.5 shadow-sm">
+              <div className="group p-6 rounded-2xl bg-white/90 dark:bg-zinc-800/60 border border-zinc-200/80 dark:border-white/10 hover:border-zinc-300 dark:hover:border-white/20 transition-all duration-300 shadow-[0_4px_20px_rgba(0,0,0,0.02)] hover:shadow-lg space-y-4">
                 <div className="flex items-center justify-between">
-                  <span className="text-xs font-bold text-[#09090B]">Horizon 3</span>
-                  <span className="text-[10px] font-mono text-zinc-600 bg-zinc-100 px-2 py-0.5 rounded font-bold">
-                    Vision à moyen terme
+                  <span className="font-mono text-xs font-bold text-zinc-900 dark:text-white tracking-wider">
+                    HORIZON 03
+                  </span>
+                  <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full border border-zinc-300 dark:border-white/15 bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 text-[10px] font-mono font-bold tracking-wider">
+                    <span className="w-1.5 h-1.5 rounded-full bg-zinc-400" />
+                    CAP 2026
                   </span>
                 </div>
-                <h4 className="text-sm font-bold text-[#09090B]">Autorité &amp; Visibilité IA</h4>
-                <ul className="text-xs text-[#52525B] space-y-1.5 leading-relaxed">
-                  <li>• <strong className="text-[#09090B]">Essais documentés (RA LAB) :</strong> Bancs d'essais (résistance UV, perméabilité) créant des sources citables durables.</li>
-                  <li>• <strong className="text-[#09090B]">GEO (Moteurs IA) :</strong> Structuration des données pour être naturellement cité par les assistants conversationnels.</li>
-                  <li>• <strong className="text-[#09090B]">Réseau ambassadeur :</strong> Mobilisation des applicateurs formés pour démultiplier les réalisations locales.</li>
+                <h4 className="text-sm font-bold text-zinc-900 dark:text-white tracking-tight">
+                  Autorité &amp; Visibilité IA
+                </h4>
+                <ul className="text-xs text-zinc-600 dark:text-zinc-300 space-y-2 leading-relaxed">
+                  <li className="flex items-start gap-2">
+                    <span className="text-[#FFAD00] shrink-0 font-bold">▪</span>
+                    <span><strong className="text-zinc-900 dark:text-white">Essais documentés (RA LAB) :</strong> Bancs d'essais (résistance UV, perméabilité) créant des sources citables durables.</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-[#FFAD00] shrink-0 font-bold">▪</span>
+                    <span><strong className="text-zinc-900 dark:text-white">GEO (Moteurs IA) :</strong> Structuration des données pour être naturellement cité par les assistants conversationnels.</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-[#FFAD00] shrink-0 font-bold">▪</span>
+                    <span><strong className="text-zinc-900 dark:text-white">Réseau ambassadeur :</strong> Mobilisation des applicateurs formés pour démultiplier les réalisations locales.</span>
+                  </li>
                 </ul>
               </div>
 
@@ -1319,29 +1383,31 @@ export default function Projects({ navigate }) {
                   className="fixed inset-0 z-[9999] w-screen h-screen bg-black/98 backdrop-blur-xl flex flex-col justify-between p-3 sm:p-6 select-none"
                   onClick={() => setBadgeModalIndex(null)}
                 >
-                  {/* Barre haute */}
+                  {/* Barre haute — Contraste maximal et design glassmorphic */}
                   <div
-                    className="flex items-center justify-between text-white text-xs w-full max-w-6xl mx-auto z-40 py-2"
+                    className="flex items-center justify-between text-white text-xs w-full max-w-5xl mx-auto z-40 px-4 py-2.5 rounded-full bg-black/85 backdrop-blur-xl border border-white/20 shadow-2xl"
                     onClick={(e) => e.stopPropagation()}
                   >
-                    <div className="flex items-center gap-2">
-                      <span className="font-mono text-zinc-300 text-xs px-3 py-1 rounded-full bg-white/10 border border-white/10">
-                        {String(badgeModalIndex + 1).padStart(2, '0')} / {String(partnerBadges.length).padStart(2, '0')}
+                    <div className="flex items-center gap-3">
+                      <span className="font-mono text-white font-bold text-xs px-3 py-1 rounded-full bg-white/15 border border-white/20 tracking-wider">
+                        {String(badgeModalIndex + 1).padStart(2, '0')} <span className="text-[#FFAD00]">/</span> {String(partnerBadges.length).padStart(2, '0')}
                       </span>
-                      <span className="text-zinc-300 font-medium">Insigne officiel B2B</span>
+                      <span className="text-white font-semibold text-xs sm:text-sm tracking-tight hidden xs:inline">
+                        Insignes officiels B2B Hornetsecurity
+                      </span>
                     </div>
 
                     <div className="flex items-center gap-3">
-                      <span className="hidden md:inline-block text-[11px] text-zinc-400 font-mono">
+                      <span className="hidden md:inline-block text-[11px] text-zinc-300 font-mono">
                         Échap pour fermer • Flèches pour naviguer
                       </span>
                       <button
                         type="button"
                         onClick={() => setBadgeModalIndex(null)}
-                        className="p-2 sm:px-3 sm:py-1.5 rounded-full bg-white/10 hover:bg-white/20 text-white border border-white/15 transition-colors flex items-center gap-1.5 text-xs font-medium cursor-pointer"
+                        className="px-3 py-1.5 rounded-full bg-white/15 hover:bg-white/30 text-white border border-white/25 transition-all flex items-center gap-1.5 text-xs font-semibold cursor-pointer shadow-sm hover:scale-105 active:scale-95"
                         aria-label="Fermer la prévisualisation"
                       >
-                        <X className="w-4 h-4" />
+                        <X className="w-4 h-4 text-[#FFAD00]" />
                         <span>Fermer</span>
                       </button>
                     </div>
@@ -1479,29 +1545,31 @@ export default function Projects({ navigate }) {
                   className="fixed inset-0 z-[9999] w-screen h-screen bg-black/98 backdrop-blur-xl flex flex-col justify-between p-3 sm:p-6 select-none"
                   onClick={() => setRaModalIndex(null)}
                 >
-                  {/* Barre haute */}
+                  {/* Barre haute — Contraste maximal et design glassmorphism */}
                   <div
-                    className="flex items-center justify-between text-white text-xs w-full max-w-6xl mx-auto z-40 py-2"
+                    className="flex items-center justify-between text-white text-xs w-full max-w-5xl mx-auto z-40 px-4 py-2.5 rounded-full bg-black/85 backdrop-blur-xl border border-white/20 shadow-2xl"
                     onClick={(e) => e.stopPropagation()}
                   >
-                    <div className="flex items-center gap-2">
-                      <span className="font-mono text-zinc-300 text-xs px-3 py-1 rounded-full bg-white/10 border border-white/10">
-                        {String(raModalIndex + 1).padStart(2, '0')} / {String(raAssets.length).padStart(2, '0')}
+                    <div className="flex items-center gap-3">
+                      <span className="font-mono text-white font-bold text-xs px-3 py-1 rounded-full bg-white/15 border border-white/20 tracking-wider">
+                        {String(raModalIndex + 1).padStart(2, '0')} <span className="text-[#FFAD00]">/</span> {String(raAssets.length).padStart(2, '0')}
                       </span>
-                      <span className="text-zinc-300 font-medium">Résin'Architecte · Réalisation &amp; Analyse</span>
+                      <span className="text-white font-semibold text-xs sm:text-sm tracking-tight hidden xs:inline">
+                        Résin'Architecte · Réalisation &amp; Analyse
+                      </span>
                     </div>
 
                     <div className="flex items-center gap-3">
-                      <span className="hidden md:inline-block text-[11px] text-zinc-400 font-mono">
+                      <span className="hidden md:inline-block text-[11px] text-zinc-300 font-mono">
                         Échap pour fermer • Flèches pour naviguer
                       </span>
                       <button
                         type="button"
                         onClick={() => setRaModalIndex(null)}
-                        className="p-2 sm:px-3 sm:py-1.5 rounded-full bg-white/10 hover:bg-white/20 text-white border border-white/15 transition-colors flex items-center gap-1.5 text-xs font-medium cursor-pointer"
+                        className="px-3 py-1.5 rounded-full bg-white/15 hover:bg-white/30 text-white border border-white/25 transition-all flex items-center gap-1.5 text-xs font-semibold cursor-pointer shadow-sm hover:scale-105 active:scale-95"
                         aria-label="Fermer la prévisualisation"
                       >
-                        <X className="w-4 h-4" />
+                        <X className="w-4 h-4 text-[#FFAD00]" />
                         <span>Fermer</span>
                       </button>
                     </div>
@@ -1551,13 +1619,13 @@ export default function Projects({ navigate }) {
                     </AnimatePresence>
                   </div>
 
-                  {/* Barre basse avec légende et aperçu des vignettes */}
-                  <div className="text-center text-white max-w-2xl mx-auto w-full space-y-2 z-40 py-2" onClick={(e) => e.stopPropagation()}>
-                    <div className="space-y-0.5">
-                      <p className="font-semibold text-xs sm:text-sm text-zinc-100">
+                  {/* Barre basse avec légende haute lisibilité et aperçu des vignettes */}
+                  <div className="text-center text-white max-w-2xl mx-auto w-full space-y-3 z-40 py-2" onClick={(e) => e.stopPropagation()}>
+                    <div className="bg-black/85 backdrop-blur-xl border border-white/20 rounded-2xl px-6 py-3.5 shadow-2xl max-w-xl mx-auto space-y-1">
+                      <p className="font-bold text-sm sm:text-base text-white tracking-tight">
                         {raAssets[raModalIndex].title}
                       </p>
-                      <p className="text-zinc-400 text-xs">
+                      <p className="text-zinc-200 text-xs sm:text-sm leading-relaxed">
                         {raAssets[raModalIndex].caption}
                       </p>
                     </div>

@@ -743,34 +743,34 @@ export default function Parcours({ navigate, onOpenCvModal }) {
                 className="fixed inset-0 z-[9999] w-screen h-screen bg-black/98 backdrop-blur-xl flex flex-col justify-between p-3 sm:p-6 select-none"
                 onClick={() => setLightboxIndex(null)}
               >
-                {/* Barre supérieure flottante */}
+                {/* Barre supérieure flottante — Contraste maximal et style glassmorphic */}
                 <div
-                  className="flex items-center justify-between text-white text-xs w-full max-w-6xl mx-auto z-40 py-2"
+                  className="flex items-center justify-between text-white text-xs w-full max-w-5xl mx-auto z-40 px-4 py-2.5 rounded-full bg-black/85 backdrop-blur-xl border border-white/20 shadow-2xl"
                   onClick={(e) => e.stopPropagation()}
                 >
-                  <div className="flex items-center gap-2.5">
-                    <span className="font-mono text-xs font-semibold px-3 py-1 rounded-full bg-white/10 text-zinc-200 border border-white/10 tracking-widest">
-                      {String(lightboxIndex + 1).padStart(2, '0')} / {String(allModalImages.length).padStart(2, '0')}
+                  <div className="flex items-center gap-3">
+                    <span className="font-mono text-white font-bold text-xs px-3 py-1 rounded-full bg-white/15 border border-white/20 tracking-wider">
+                      {String(lightboxIndex + 1).padStart(2, '0')} <span className="text-[#FFAD00]">/</span> {String(allModalImages.length).padStart(2, '0')}
                     </span>
                     {allModalImages[lightboxIndex]?.category && (
-                      <span className="hidden sm:inline-flex px-3 py-1 rounded-full bg-white/10 text-zinc-300 border border-white/10 text-[11px] font-medium">
+                      <span className="inline-flex px-3 py-1 rounded-full bg-white/15 text-white border border-white/20 text-xs font-semibold tracking-wide">
                         {allModalImages[lightboxIndex].category}
                       </span>
                     )}
                   </div>
 
                   <div className="flex items-center gap-3">
-                    <span className="hidden md:inline-block text-[11px] text-zinc-400 font-mono">
+                    <span className="hidden md:inline-block text-[11px] text-zinc-300 font-mono">
                       Échap pour fermer • Flèches pour naviguer
                     </span>
                     <button
                       type="button"
                       onClick={() => setLightboxIndex(null)}
-                      className="p-2 sm:px-3 sm:py-1.5 rounded-full bg-white/10 hover:bg-white/20 text-white border border-white/15 transition-all flex items-center gap-1.5 text-xs font-medium cursor-pointer"
+                      className="px-3 py-1.5 rounded-full bg-white/15 hover:bg-white/30 text-white border border-white/25 transition-all flex items-center gap-1.5 text-xs font-semibold cursor-pointer shadow-sm hover:scale-105 active:scale-95"
                       aria-label="Fermer la visionneuse"
                     >
-                      <X className="w-4 h-4" />
-                      <span className="hidden sm:inline">Fermer</span>
+                      <X className="w-4 h-4 text-[#FFAD00]" />
+                      <span>Fermer</span>
                     </button>
                   </div>
                 </div>
@@ -819,18 +819,18 @@ export default function Parcours({ navigate, onOpenCvModal }) {
                   </AnimatePresence>
                 </div>
 
-                {/* Légende intégrée et localisation discrète + Sélecteur de miniatures */}
+                {/* Légende intégrée haute lisibilité et sélecteur de miniatures */}
                 <div
-                  className="text-center text-white max-w-2xl mx-auto w-full space-y-2 z-40 py-2"
+                  className="text-center text-white max-w-2xl mx-auto w-full space-y-3 z-40 py-2"
                   onClick={(e) => e.stopPropagation()}
                 >
-                  <div className="space-y-0.5">
-                    <p className="font-semibold text-xs sm:text-sm text-zinc-100 tracking-wide">
+                  <div className="bg-black/85 backdrop-blur-xl border border-white/20 rounded-2xl px-6 py-3.5 shadow-2xl max-w-xl mx-auto space-y-1">
+                    <p className="font-bold text-sm sm:text-base text-white tracking-tight">
                       {allModalImages[lightboxIndex].caption || allModalImages[lightboxIndex].alt}
                     </p>
                     {allModalImages[lightboxIndex].place && (
-                      <div className="flex items-center justify-center gap-1.5 text-zinc-400 text-[11px] font-mono">
-                        <MapPin className="w-3 h-3 text-[#FFAD00]" />
+                      <div className="flex items-center justify-center gap-1.5 text-[#FFAD00] text-xs font-mono font-medium">
+                        <MapPin className="w-3.5 h-3.5" />
                         <span>{allModalImages[lightboxIndex].place}</span>
                       </div>
                     )}

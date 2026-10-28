@@ -468,7 +468,7 @@ export default function ProjectDetail({ slug, navigate }) {
           </Reveal>
         )}
 
-        {/* Carte d'appel d'air : étude de cas suivante (boucle circulaire, scroll remis à zéro) */}
+        {/* Carte d'appel d'air : étude de cas suivante avec style glassmorphism premium */}
         <div className="border-t border-room-border pt-12 space-y-10">
           <div
             role="link"
@@ -476,19 +476,23 @@ export default function ProjectDetail({ slug, navigate }) {
             aria-label={`Découvrir l'étude de cas suivante : ${nextProject.title}`}
             onClick={handleNext}
             onKeyDown={handleNextKeyDown}
-            className="group cursor-pointer flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 border border-room-border rounded-2xl bg-room-surface px-6 py-6 sm:px-8 sm:py-7 transition-colors duration-200 hover:border-room-borderHover"
+            className="group cursor-pointer flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 border border-zinc-200/80 dark:border-white/10 rounded-3xl bg-white/70 dark:bg-zinc-900/60 backdrop-blur-xl px-7 py-7 sm:px-9 sm:py-8 transition-all duration-300 hover:shadow-[0_20px_50px_rgba(0,0,0,0.08)] hover:border-[#FFAD00]/50"
           >
             <div className="space-y-2">
-              <span className="text-[10px] uppercase tracking-[0.2em] text-neutral-400 font-mono block">
-                Étude de cas suivante
-              </span>
-              <h3 className="text-2xl font-bold text-neutral-900 dark:text-white group-hover:text-[#FFAD00] transition-colors">
+              <div className="flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-[#FFAD00] shadow-[0_0_8px_rgba(255,173,0,0.6)]" />
+                <span className="text-[11px] uppercase tracking-[0.2em] text-neutral-400 font-mono block">
+                  Étude de cas suivante
+                </span>
+              </div>
+              <h3 className="text-2xl sm:text-3xl font-extrabold text-neutral-900 dark:text-white group-hover:text-[#FFAD00] transition-colors tracking-tight">
                 {nextProject.title}
               </h3>
             </div>
 
-            <span className="btn-secondary inline-flex shrink-0 items-center gap-2 px-5 py-3 text-room-muted text-xs font-sans font-semibold rounded-lg group-hover:text-room-text">
-              Découvrir le projet ↗
+            <span className="inline-flex shrink-0 items-center gap-2 px-6 py-3 bg-[#09090B] text-white dark:bg-white dark:text-[#09090B] text-xs font-sans font-semibold rounded-full group-hover:scale-105 transition-all shadow-md">
+              <span>Découvrir le projet</span>
+              <span className="text-[#FFAD00]">↗</span>
             </span>
           </div>
 

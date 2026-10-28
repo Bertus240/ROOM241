@@ -373,70 +373,70 @@ export default function Kuro() {
                   animate={{ opacity: 1, scale: 1, y: 0 }}
                   exit={{ opacity: 0, scale: 0.85, y: 30 }}
                   transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-                  className="relative w-full max-w-md sm:max-w-lg bg-[#FFFFFF] rounded-3xl p-6 sm:p-8 shadow-[0_25px_70px_rgba(0,0,0,0.4)] border border-zinc-200/90 text-center space-y-6"
+                  className="relative w-full max-w-md sm:max-w-lg bg-[#09090B]/95 backdrop-blur-2xl rounded-3xl p-7 sm:p-9 shadow-[0_30px_90px_rgba(0,0,0,0.8)] border border-white/15 text-center space-y-6 text-white"
                 >
                   {/* Bouton fermer discret en haut à droite */}
                   <button
                     type="button"
                     onClick={handleDismissCenter}
-                    className="absolute top-4 right-4 p-2 rounded-full text-zinc-400 hover:text-black hover:bg-zinc-100 transition-colors cursor-pointer"
+                    className="absolute top-4 right-4 p-2 rounded-full text-zinc-400 hover:text-white hover:bg-white/10 transition-colors cursor-pointer"
                     aria-label="Fermer et aller dans le coin"
                   >
                     <X className="w-5 h-5" />
                   </button>
 
-                  {/* Kuro en vedette au centre avec halo ambré */}
-                  <div className="flex flex-col items-center justify-center pt-2">
+                  {/* Kuro en vedette au centre avec halo ambré haute intensité */}
+                  <div className="flex flex-col items-center justify-center pt-1">
                     <div className="relative">
-                      <div className="absolute -inset-3 rounded-full bg-gradient-to-tr from-[#FFAD00]/40 to-transparent blur-xl animate-pulse pointer-events-none" />
+                      <div className="absolute -inset-4 rounded-full bg-gradient-to-tr from-[#FFAD00]/40 to-transparent blur-2xl animate-pulse pointer-events-none" />
                       {renderKuroCapsule(true)}
                     </div>
                   </div>
 
-                  {/* Présentation éditoriale sobre et humaine */}
-                  <div className="space-y-2.5">
-                    <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-zinc-100 border border-zinc-200/80 text-xs font-semibold text-[#52525B]">
-                      <span className="w-1.5 h-1.5 rounded-full bg-[#FFAD00]" />
-                      <span>Kuro · Compagnon interactif</span>
+                  {/* Présentation éditoriale moderne et soignée */}
+                  <div className="space-y-3">
+                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/15 text-xs font-mono font-semibold text-zinc-200">
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#FFAD00] shadow-[0_0_6px_rgba(255,173,0,0.9)]" />
+                      <span>KURO // COMPAGNON CRÉATIF</span>
                     </div>
 
-                    <h2 className="text-xl sm:text-2xl font-extrabold tracking-tight text-[#09090B]">
-                      Bienvenue dans l'univers ROOM241
+                    <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-white">
+                      Bienvenue chez ROOM241
                     </h2>
 
-                    <p className="text-xs sm:text-sm text-[#52525B] leading-relaxed max-w-md mx-auto pt-1 font-normal">
-                      Bonjour ! Je suis <strong>Kuro</strong>. Je vous accompagne dans la découverte du portfolio de Rémi : direction artistique, campagnes cybersécurité, motion design et identités visuelles.
+                    <p className="text-xs sm:text-sm text-zinc-300 leading-relaxed max-w-md mx-auto font-normal">
+                      Je suis <strong className="text-white font-semibold">Kuro</strong>. Je vous accompagne dans l'exploration du travail de Rémi Brocart : scénographie européenne, identités de marque, motion design et rigueur de production.
                     </p>
                   </div>
 
-                  {/* Points de repère du portfolio */}
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 text-left text-xs text-[#52525B] pt-1 border-t border-zinc-100">
-                    <div className="p-2.5 rounded-xl bg-zinc-50 border border-zinc-200/70 space-y-1">
-                      <span className="font-bold text-[#09090B] block">01. Projets</span>
-                      <p className="text-[11px] leading-tight text-zinc-500">Hornetsecurity, Fresh Data, Résin'Architecte.</p>
+                  {/* Points de repère du portfolio — Style Glass Design */}
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 text-left text-xs pt-1 border-t border-white/10">
+                    <div className="p-3 rounded-xl bg-white/5 border border-white/10 space-y-1">
+                      <span className="font-mono font-bold text-white text-[11px] block">01 · Projets</span>
+                      <p className="text-[11px] leading-tight text-zinc-400">Hornetsecurity, Fresh Data, Résin'Architecte.</p>
                     </div>
-                    <div className="p-2.5 rounded-xl bg-zinc-50 border border-zinc-200/70 space-y-1">
-                      <span className="font-bold text-[#09090B] block">02. Parcours</span>
-                      <p className="text-[11px] leading-tight text-zinc-500">Expériences CDI/alternance, CV et photographies.</p>
+                    <div className="p-3 rounded-xl bg-white/5 border border-white/10 space-y-1">
+                      <span className="font-mono font-bold text-white text-[11px] block">02 · Parcours</span>
+                      <p className="text-[11px] leading-tight text-zinc-400">Expériences CDI &amp; alternance, CV et photographies.</p>
                     </div>
-                    <div className="p-2.5 rounded-xl bg-zinc-50 border border-zinc-200/70 space-y-1">
-                      <span className="font-bold text-[#09090B] block">03. Présence</span>
-                      <p className="text-[11px] leading-tight text-zinc-500">Je reste discrètement dans le coin de l'écran.</p>
+                    <div className="p-3 rounded-xl bg-white/5 border border-white/10 space-y-1">
+                      <span className="font-mono font-bold text-white text-[11px] block">03 · Présence</span>
+                      <p className="text-[11px] leading-tight text-zinc-400">Je reste discrètement disponible en bas à gauche.</p>
                     </div>
                   </div>
 
                   {/* Bouton d'action principal */}
-                  <div className="pt-2">
+                  <div className="pt-2 space-y-2">
                     <button
                       type="button"
                       onClick={handleDismissCenter}
-                      className="w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full bg-[#09090B] hover:bg-zinc-800 text-white text-xs sm:text-sm font-semibold shadow-lg shadow-black/20 hover:scale-[1.02] active:scale-[0.98] transition-all cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FFAD00]"
+                      className="w-full inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-full bg-white text-zinc-950 hover:bg-zinc-100 text-xs sm:text-sm font-bold shadow-xl hover:scale-[1.02] active:scale-[0.98] transition-all cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FFAD00]"
                     >
-                      <span>Découvrir le portfolio</span>
+                      <span>Explorer le portfolio</span>
                       <ArrowRight className="w-4 h-4 text-[#FFAD00]" />
                     </button>
-                    <span className="block text-[11px] text-zinc-400 font-mono mt-2">
-                      Prenez le temps d'explorer à votre rythme
+                    <span className="block text-[11px] text-zinc-400 font-mono">
+                      Cliquez pour m'envoyer dans mon coin à tout moment
                     </span>
                   </div>
                 </motion.div>

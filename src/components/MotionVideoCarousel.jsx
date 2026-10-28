@@ -180,19 +180,19 @@ export default function MotionVideoCarousel() {
         )}
       </div>
 
-      {/* Cartouche d'informations éditoriales & Commandes de navigation */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-5 sm:p-6 rounded-2xl bg-zinc-50 border border-zinc-200/80">
-        <div className="space-y-1.5">
+      {/* Cartouche d'informations éditoriales & Commandes de navigation — Style Glass Design */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-6 sm:p-7 rounded-3xl bg-white/80 dark:bg-zinc-900/70 backdrop-blur-xl border border-zinc-200/80 dark:border-white/10 shadow-[0_10px_35px_rgba(0,0,0,0.03)]">
+        <div className="space-y-2">
           <div className="flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-[#FFAD00]" />
-            <span className="text-xs font-bold text-[#09090B] uppercase tracking-wider">
+            <span className="w-2 h-2 rounded-full bg-[#FFAD00] shadow-[0_0_8px_rgba(255,173,0,0.6)]" />
+            <span className="text-xs font-mono font-bold text-[#09090B] dark:text-white uppercase tracking-wider">
               {currentVideo.subtitle}
             </span>
           </div>
-          <h4 className="text-base sm:text-lg font-bold text-[#09090B]">
+          <h4 className="text-lg sm:text-xl font-extrabold text-[#09090B] dark:text-white tracking-tight">
             {currentVideo.title}
           </h4>
-          <p className="text-xs sm:text-sm text-[#52525B] max-w-2xl leading-relaxed">
+          <p className="text-xs sm:text-sm text-[#52525B] dark:text-zinc-300 max-w-2xl leading-relaxed">
             {currentVideo.desc}
           </p>
         </div>
@@ -265,16 +265,16 @@ export default function MotionVideoCarousel() {
                 </div>
               </div>
 
-              {/* Titre et statut */}
+              {/* Titre complet sans coupure */}
               <div className="space-y-0.5 px-0.5">
                 <span
-                  className={`text-xs font-bold leading-tight line-clamp-1 block ${
-                    active ? 'text-[#09090B]' : 'text-zinc-700 group-hover:text-black'
+                  className={`text-xs font-bold leading-snug line-clamp-2 block min-h-[2.1rem] ${
+                    active ? 'text-[#09090B]' : 'text-zinc-800 group-hover:text-black'
                   }`}
                 >
-                  {vid.shortTitle}
+                  {vid.title}
                 </span>
-                <span className="text-[11px] text-[#71717A] line-clamp-1 block">
+                <span className="text-[10px] font-mono text-[#71717A] block truncate">
                   {vid.subtitle.split('•')[0]}
                 </span>
               </div>

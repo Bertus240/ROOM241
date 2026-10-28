@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Menu, X, ArrowUpRight } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { motion, LayoutGroup } from 'framer-motion';
 
 export default function Header({ currentPath = '/', navigate }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -102,37 +102,39 @@ export default function Header({ currentPath = '/', navigate }) {
           />
         </a>
 
-        {/* Centre : Navigation principale avec pilule coulissante animée (sans point ambré sous l'onglet) */}
-        <nav
-          className="hidden md:flex items-center gap-1 p-1 rounded-full bg-zinc-100/90 border border-zinc-200/70"
-          aria-label="Navigation principale"
-        >
-          {navLinks.map((link) => {
-            const active = isActive(link.path);
-            return (
-              <a
-                key={link.path}
-                href={link.path}
-                onClick={handleNav(link.path)}
-                className={`relative px-4 py-1.5 rounded-full text-xs font-semibold transition-colors duration-200 ${
-                  active
-                    ? 'text-[#09090B]'
-                    : 'text-[#52525B] hover:text-[#09090B]'
-                }`}
-                aria-current={active ? 'page' : undefined}
-              >
-                {active && (
-                  <motion.span
-                    layoutId="activeHeaderPill"
-                    className="absolute inset-0 rounded-full bg-white shadow-sm border border-zinc-200/60"
-                    transition={{ type: 'spring', stiffness: 500, damping: 35 }}
-                  />
-                )}
-                <span className="relative z-10">{link.label}</span>
-              </a>
-            );
-          })}
-        </nav>
+        {/* Centre : Navigation principale avec pilule coulissante fluide (sans glitch) */}
+        <LayoutGroup id="header-nav">
+          <nav
+            className="hidden md:flex items-center gap-1 p-1 rounded-full bg-zinc-100/90 border border-zinc-200/70 relative backdrop-blur-sm"
+            aria-label="Navigation principale"
+          >
+            {navLinks.map((link) => {
+              const active = isActive(link.path);
+              return (
+                <a
+                  key={link.path}
+                  href={link.path}
+                  onClick={handleNav(link.path)}
+                  className={`relative px-4 py-1.5 rounded-full text-xs font-semibold transition-colors duration-200 z-10 ${
+                    active
+                      ? 'text-[#09090B]'
+                      : 'text-[#52525B] hover:text-[#09090B]'
+                  }`}
+                  aria-current={active ? 'page' : undefined}
+                >
+                  {active && (
+                    <motion.span
+                      layoutId="activeHeaderPill"
+                      className="absolute inset-0 rounded-full bg-white shadow-sm border border-zinc-200/60 z-[-1]"
+                      transition={{ type: 'spring', stiffness: 400, damping: 32 }}
+                    />
+                  )}
+                  <span>{link.label}</span>
+                </a>
+              );
+            })}
+          </nav>
+        </LayoutGroup>
 
         {/* Droite : Bouton distinct d'action « Prendre contact » */}
         <div className="hidden md:flex items-center gap-3">
