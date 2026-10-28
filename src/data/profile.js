@@ -32,7 +32,7 @@ export const profileData = {
     title: "L'image, le terrain & la rigueur de l'effort.",
     hook: "Une pratique du design ancrée dans le réel, où la rigueur logique rencontre la créativité opérationnelle.",
     paragraphs: [
-      "Après un Bac S Sciences de l'Ingénieur, j'ai poursuivi mon parcours jusqu'au Master Marketing, communication et digital à l'ISEG Lille. Aujourd'hui, je mets cette culture technique et créative au service de projets concrets : conception de stands pour des événements professionnels européens, motion design sur After Effects, identités visuelles et vidéos réalisées sur le terrain.",
+      "Formé aux Sciences de l’Ingénieur puis au marketing, à la communication et au digital à l’ISEG Lille, je travaille sur des projets qui mêlent identité visuelle, création vidéo et expérience de marque. Du stand événementiel aux contenus réalisés sur le terrain, j’aime donner forme à des idées et les rendre concrètes.",
       "Je privilégie le concret. De l'habillage de stands de plus de 150 m² lors de salons internationaux en cybersécurité à la création d'animations motion design sur After Effects, en passant par l'incarnation de marque et la captation vidéo, je m'assure que chaque projet tienne ses promesses une fois déployé dans le réel."
     ],
     pillars: [
@@ -46,7 +46,7 @@ export const profileData = {
       },
       {
         label: "Discipline athlétique",
-        desc: "Marathonien en 02h48'25 : culture de la constance, de la préparation et de l'exigence."
+        desc: "Marathonien en 2 h 48 min 25 s : constance, gestion de l'effort et préparation méthodique."
       }
     ]
   },
@@ -215,10 +215,10 @@ export const profileData = {
     event: "Wizz Air Venice Marathon",
     date: "26 octobre 2025",
     distance: "42,195 km",
-    officialChrono: "02h48'25",
+    officialChrono: "2 h 48 min 25 s",
     pace: "3'59 / km de moyenne",
     percentile: "Top 1% amateur",
     image: "/assets/autres/marathon6.jpg",
-    narrative: "Courir un marathon en 2h48 relève de la même exigence qu'un projet créatif d'envergure : rigueur millimétrée de la préparation, gestion constante de l'effort, sang-froid face aux imprévus et refus total de relâcher l'attention avant la ligne d'arrivée."
+    narrative: "Courir un marathon en 2 h 48 min 25 s, c’est surtout des mois d’entraînement, des sorties par tous les temps et beaucoup de régularité. Il faut apprendre à gérer son effort, à tenir son allure et à continuer même quand les jambes commencent à peser.\n\nJ’y retrouve quelque chose qui me parle aussi dans la création : avancer avec méthode, accepter que tout ne se passe pas comme prévu et rester concentré jusqu’au bout. Le résultat compte, bien sûr, mais il représente surtout tout le travail réalisé en amont."
   }
 };

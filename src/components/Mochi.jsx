@@ -1,24 +1,28 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { motion, AnimatePresence, useAnimation } from 'framer-motion';
-import { X, ArrowRight, Sparkles, Compass } from 'lucide-react';
+import { X, ArrowRight } from 'lucide-react';
 
 /**
- * Kuro (ex-Mochi) — Compagnon interactif et créatif du studio ROOM241.
+ * Kuro — Compagnon interactif et créatif du studio ROOM241.
  * 
- * Fonctionnalités majeures :
- * 1. Arrivée au centre de l'écran avec fond flouté au premier chargement :
- *    - Kuro se présente, explique brièvement le portfolio et la démarche.
- *    - Un clic sur « Découvrir le portfolio » l'envoie fluidement se nicher dans son coin (bottom-6 left-6).
- * 2. Compagnon discret en coin :
- *    - Corps 3D organique en capsule noire avec reflets satinés et lueur ambrée.
- *    - Yeux expressifs avec suivi oculaire du curseur, clignement naturel et expressions de joie.
- *    - Bulles de parole contextuelles courtes et éditoriales selon la section scrollée.
- *    - Bouton pour réinvoquer la présentation au centre à tout moment.
- *    - Retrait discret automatique lorsqu'une modale est ouverte.
+ * Spécifications :
+ * 1. Présentation centrale au chargement (desktop uniquement, >= 768px) :
+ *    - Signature supérieure : ROOM241 | KURO, COMPAGNON CRÉATIF
+ *    - Titre : Bienvenue chez ROOM241.
+ *    - Texte : Moi, c’est Kuro. Je vous accompagne à travers les projets de Rémi : du design, de la vidéo et des idées qui prennent vie sur le terrain.
+ *    - Bouton principal : Explorer le portfolio ↗ (conduit vers /projets)
+ *    - Fermeture explicite par bouton de fermeture et touche Échap (ne se ferme pas au clic aléatoire).
+ * 2. Mobile (< 768px) :
+ *    - Pas d'ouverture automatique de la modale centrale.
+ *    - Taille de Kuro bornée à 32px (w-8 h-8) avec marges adaptées (bottom-4 left-4).
+ * 3. Interactions et défilement :
+ *    - Pendant le défilement, atténuation discrète de Kuro (opacity-30), restauration à l'arrêt du scroll.
+ *    - Respect de prefers-reduced-motion.
+ *    - Suivi oculaire du curseur, clignement périodique, bulles éditoriales et saut de joie.
  */
 
-// Phrases générales du vivier éditorial (Section 8 du prompt maître)
+// Vivier de répliques éditoriales sans répétition immédiate
 const GENERAL_PHRASES = [
   "Je t'accompagne dans la découverte des projets de Rémi. N'hésite pas à explorer !",
   "Chaque projet présenté ici correspond à un travail réel, documenté et vérifiable.",
@@ -32,12 +36,12 @@ const GENERAL_PHRASES = [
   "Bonne visite ! Je reste disponible si tu as besoin d'un éclairage."
 ];
 
-// Phrases de présentation éditoriales contextuelles
+// Phrases contextuelles selon la section
 const CONTEXT_MESSAGES = {
   home: {
     key: 'home',
     text: "Je t'accompagne dans la découverte des projets de Rémi. N'hésite pas à explorer !",
-    title: "Bienvenue sur le portfolio"
+    title: "Bienvenue chez ROOM241"
   },
   hornetsecurity: {
     key: 'hornetsecurity',
@@ -71,7 +75,7 @@ const CONTEXT_MESSAGES = {
   }
 };
 
-export default function Kuro() {
+export default function Kuro({ navigate }) {
   const kuroRef = useRef(null);
   const controls = useAnimation();
 
@@ -82,10 +86,13 @@ export default function Kuro() {
   const [isHovered, setIsHovered] = useState(false);
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isScrolling, setIsScrolling] = useState(false);
 
-  // État de présentation centrale au premier chargement
+  // État de présentation centrale au premier chargement (uniquement >= 768px)
   const [isCenterStage, setIsCenterStage] = useState(() => {
     if (typeof window === 'undefined') return false;
+    // Règle impérative : pas d'ouverture automatique en dessous de 768px (mobile)
+    if (window.innerWidth < 768) return false;
     const welcomed = sessionStorage.getItem('room241_kuro_welcomed');
     return welcomed !== 'true';
   });
@@ -95,6 +102,8 @@ export default function Kuro() {
   const [isBubbleOpen, setIsBubbleOpen] = useState(false);
   const seenSectionsRef = useRef(new Set());
   const autoCloseTimerRef = useRef(null);
+  const scrollTimeoutRef = useRef(null);
+  const lastPhraseIndexRef = useRef(-1);
 
   // Détection prefers-reduced-motion
   useEffect(() => {
@@ -106,11 +115,40 @@ export default function Kuro() {
     return () => mq.removeEventListener('change', handler);
   }, []);
 
-  // Détection d'ouverture d'une modale pour mettre Kuro en retrait
+  // Détection du scroll : atténue discrètement Kuro pendant le défilement et restaure à l'arrêt
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+
+    const handleScrollActivity = () => {
+      setIsScrolling(true);
+      if (scrollTimeoutRef.current) clearTimeout(scrollTimeoutRef.current);
+      scrollTimeoutRef.current = setTimeout(() => {
+        setIsScrolling(false);
+      }, 250);
+    };
+
+    window.addEventListener('scroll', handleScrollActivity, { passive: true });
+    return () => {
+      window.removeEventListener('scroll', handleScrollActivity);
+      if (scrollTimeoutRef.current) clearTimeout(scrollTimeoutRef.current);
+    };
+  }, []);
+
+  // Fermeture par la touche Échap
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape' && isCenterStage) {
+        handleDismissCenter();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isCenterStage]);
+
+  // Détection d'ouverture d'une modale (CvModal, Lightbox) pour masquer Kuro en arrière-plan
   useEffect(() => {
     const checkModal = () => {
       const isLocked = document.body.style.overflow === 'hidden';
-      // Ne pas considérer Kuro lui-même comme une modale bloquante
       if (!isCenterStage) {
         setIsModalOpen(isLocked);
       }
@@ -120,7 +158,7 @@ export default function Kuro() {
     return () => observer.disconnect();
   }, [isCenterStage]);
 
-  // Suivi du regard oculaire vers le curseur de la souris
+  // Suivi du regard oculaire vers le curseur
   useEffect(() => {
     if (prefersReducedMotion || typeof window === 'undefined') return;
 
@@ -180,40 +218,39 @@ export default function Kuro() {
     return () => clearTimeout(timeoutId);
   }, [prefersReducedMotion]);
 
-  // Fermeture de la présentation centrale et atterrissage dans le coin
+  // Fermeture de la modale d'accueil et ancrage dans le coin
   const handleDismissCenter = () => {
     sessionStorage.setItem('room241_kuro_welcomed', 'true');
     setIsCenterStage(false);
     setIsHappy(true);
 
-    // Petit saut de joie à l'arrivée dans le coin
+    // Animation de saut léger à l'arrivée
     setTimeout(() => {
       controls.start({
-        y: [0, -14, 0],
-        rotate: [0, -6, 6, 0],
-        scale: [1, 1.15, 1],
-        transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] },
+        y: [0, -12, 0],
+        rotate: [0, -5, 5, 0],
+        scale: [1, 1.12, 1],
+        transition: { duration: 0.55, ease: [0.16, 1, 0.3, 1] },
       });
-    }, 300);
+    }, 250);
 
-    // Bulle de bienvenue discrète en coin
     setTimeout(() => {
       setIsHappy(false);
-      setActiveMessage({
-        key: 'welcome_docked',
-        title: 'Kuro est à vos côtés',
-        text: "C'est parti ! Retrouvez-moi ici à tout moment pour des détails sur les projets.",
-      });
-      setIsBubbleOpen(true);
-
-      if (autoCloseTimerRef.current) clearTimeout(autoCloseTimerRef.current);
-      autoCloseTimerRef.current = setTimeout(() => {
-        setIsBubbleOpen(false);
-      }, 5500);
-    }, 1000);
+    }, 1200);
   };
 
-  // Réouverture de la présentation centrale
+  // Clic sur « Explorer le portfolio ↗ » : ferme la modale et navigue vers /projets
+  const handleExplorePortfolio = () => {
+    handleDismissCenter();
+    if (navigate) {
+      navigate('/projets');
+    } else {
+      window.history.pushState({}, '', '/projets');
+      window.dispatchEvent(new PopStateEvent('popstate'));
+    }
+  };
+
+  // Réouverture de la présentation
   const handleSummonCenter = () => {
     setIsBubbleOpen(false);
     setIsCenterStage(true);
@@ -228,15 +265,21 @@ export default function Kuro() {
       transition: { duration: 0.5, ease: 'easeOut' },
     });
 
-    setTimeout(() => setIsHappy(false), 900);
+    setTimeout(() => setIsHappy(false), 850);
+
+    // Tirage aléatoire sans répétition immédiate
+    let nextIdx = Math.floor(Math.random() * GENERAL_PHRASES.length);
+    if (nextIdx === lastPhraseIndexRef.current) {
+      nextIdx = (nextIdx + 1) % GENERAL_PHRASES.length;
+    }
+    lastPhraseIndexRef.current = nextIdx;
 
     const path = window.location.pathname;
-    const randomPhrase = GENERAL_PHRASES[Math.floor(Math.random() * GENERAL_PHRASES.length)];
-    let fallback = { key: 'general', title: 'Kuro // Notes de studio', text: randomPhrase };
-    if (path.includes('projets') || path.includes('hornet')) fallback = CONTEXT_MESSAGES.hornetsecurity;
-    if (path.includes('parcours')) fallback = CONTEXT_MESSAGES.parcours;
+    let messageData = { key: 'general', title: 'Kuro // Notes de studio', text: GENERAL_PHRASES[nextIdx] };
+    if (path.includes('projets') || path.includes('hornet')) messageData = CONTEXT_MESSAGES.hornetsecurity;
+    if (path.includes('parcours')) messageData = CONTEXT_MESSAGES.parcours;
 
-    setActiveMessage(fallback);
+    setActiveMessage(messageData);
     setIsBubbleOpen(true);
 
     if (autoCloseTimerRef.current) clearTimeout(autoCloseTimerRef.current);
@@ -245,7 +288,7 @@ export default function Kuro() {
     }, 6500);
   };
 
-  // Détection du scroll contextuel pour les bulles en coin
+  // Détection du scroll contextuel
   useEffect(() => {
     if (isCenterStage) return;
 
@@ -287,20 +330,21 @@ export default function Kuro() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, [isCenterStage, isBubbleOpen]);
 
-  // Rendu de la capsule 3D organique de Kuro
+  // Rendu de la capsule 3D organique de Kuro (taille limitée à 32px sur mobile)
   const renderKuroCapsule = (isLarge = false) => {
     const sizeClasses = isLarge
       ? 'w-20 h-20 sm:w-24 sm:h-24'
-      : 'w-8 h-8 sm:w-9 sm:h-9';
-    const eyeWidth = isLarge ? 'w-4 h-5' : 'w-2.5 h-3';
+      : 'w-8 h-8 sm:w-9 sm:h-9'; // Exactement 32px sur mobile (w-8 h-8)
+    const eyeWidth = isLarge ? 'w-4 h-5' : 'w-2 h-2.5 sm:w-2.5 sm:h-3';
     const pupilSize = isLarge ? 'w-2.5 h-2.5' : 'w-1.5 h-1.5';
-    const shineSize = isLarge ? 'top-2 left-3 w-7 h-3' : 'top-1 left-2 w-3.5 h-1.5';
+    const shineSize = isLarge ? 'top-2 left-3 w-7 h-3' : 'top-0.5 left-1.5 w-3 h-1 sm:top-1 sm:left-2 sm:w-3.5 sm:h-1.5';
 
     return (
       <div
-        className={`relative ${sizeClasses} rounded-full flex items-center justify-center overflow-hidden transition-transform duration-300 shadow-2xl`}
+        className={`relative ${sizeClasses} rounded-full bg-[#09090B] flex items-center justify-center transition-transform duration-300 select-none ${
+          isHovered && !isLarge ? 'scale-105' : ''
+        }`}
         style={{
-          background: 'radial-gradient(circle at 35% 30%, #27272a 0%, #18181b 55%, #09090b 100%)',
           boxShadow: isLarge
             ? 'inset 0 2px 4px rgba(255, 255, 255, 0.4), inset 0 -4px 8px rgba(255, 173, 0, 0.35), 0 20px 40px rgba(0,0,0,0.6)'
             : 'inset 0 1px 2px rgba(255, 255, 255, 0.35), inset 0 -2px 4px rgba(255, 173, 0, 0.25), 0 2px 8px rgba(0,0,0,0.5)',
@@ -313,22 +357,22 @@ export default function Kuro() {
         />
 
         {/* Yeux expressifs */}
-        <div className={`flex items-center ${isLarge ? 'gap-3 pt-1' : 'gap-2 pt-0.5'} pointer-events-none`}>
+        <div className={`flex items-center ${isLarge ? 'gap-3 pt-1' : 'gap-1.5 sm:gap-2 pt-0.5'} pointer-events-none`}>
           {isHappy ? (
             // Yeux joyeux arqués (^ ^)
             <>
               <div
-                className={`${isLarge ? 'w-4 h-3.5 border-t-3 border-r-3' : 'w-2.5 h-2 border-t-2 border-r-2'} border-white rounded-tr-md -rotate-45`}
+                className={`${isLarge ? 'w-4 h-3.5 border-t-3 border-r-3' : 'w-2 h-1.5 sm:w-2.5 sm:h-2 border-t-2 border-r-2'} border-white rounded-tr-md -rotate-45`}
               />
               <div
-                className={`${isLarge ? 'w-4 h-3.5 border-t-3 border-l-3' : 'w-2.5 h-2 border-t-2 border-l-2'} border-white rounded-tl-md rotate-45`}
+                className={`${isLarge ? 'w-4 h-3.5 border-t-3 border-l-3' : 'w-2 h-1.5 sm:w-2.5 sm:h-2 border-t-2 border-l-2'} border-white rounded-tl-md rotate-45`}
               />
             </>
           ) : isBlinking ? (
             // Yeux fermés lors du clignement
             <>
-              <div className={`${isLarge ? 'w-4 h-1' : 'w-2.5 h-0.5'} bg-white/90 rounded-full`} />
-              <div className={`${isLarge ? 'w-4 h-1' : 'w-2.5 h-0.5'} bg-white/90 rounded-full`} />
+              <div className={`${isLarge ? 'w-4 h-1' : 'w-2 h-0.5 sm:w-2.5 sm:h-0.5'} bg-white/90 rounded-full`} />
+              <div className={`${isLarge ? 'w-4 h-1' : 'w-2 h-0.5 sm:w-2.5 sm:h-0.5'} bg-white/90 rounded-full`} />
             </>
           ) : (
             // Yeux ouverts expressifs avec pupilles qui suivent le curseur
@@ -343,7 +387,7 @@ export default function Kuro() {
                     transform: `translate(${eyeOffset.x}px, ${eyeOffset.y}px)`,
                   }}
                 >
-                  <span className="absolute top-0.5 left-0.5 w-1 h-1 rounded-full bg-white" />
+                  <span className="absolute top-0.5 left-0.5 w-0.5 h-0.5 sm:w-1 sm:h-1 rounded-full bg-white" />
                 </div>
               </div>
 
@@ -357,7 +401,7 @@ export default function Kuro() {
                     transform: `translate(${eyeOffset.x}px, ${eyeOffset.y}px)`,
                   }}
                 >
-                  <span className="absolute top-0.5 left-0.5 w-1 h-1 rounded-full bg-white" />
+                  <span className="absolute top-0.5 left-0.5 w-0.5 h-0.5 sm:w-1 sm:h-1 rounded-full bg-white" />
                 </div>
               </div>
             </>
@@ -370,7 +414,8 @@ export default function Kuro() {
   return (
     <>
       {/* ========================================================
-          1. PRÉSENTATION CENTRALE AU PREMIER CHARGEMENT (AVEC FOND FLOU)
+          1. MODALE D'ACCUEIL ÉDITORIALE KURO (AVEC FOND FLOU)
+          Fermeture stricte via le bouton de fermeture ou Échap
          ======================================================== */}
       {typeof document !== 'undefined' &&
         createPortal(
@@ -381,78 +426,63 @@ export default function Kuro() {
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-                className="fixed inset-0 z-[9990] w-screen h-screen bg-black/60 backdrop-blur-md flex items-center justify-center p-4 sm:p-6 select-none"
+                className="fixed inset-0 z-[9990] w-screen h-screen bg-black/70 backdrop-blur-md flex items-center justify-center p-4 sm:p-6 select-none"
               >
+                {/* Carte de la modale : clic intérieur isolé */}
                 <motion.div
-                  initial={{ opacity: 0, scale: 0.9, y: 20 }}
+                  initial={{ opacity: 0, scale: 0.94, y: 16 }}
                   animate={{ opacity: 1, scale: 1, y: 0 }}
-                  exit={{ opacity: 0, scale: 0.85, y: 30 }}
-                  transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-                  className="relative w-full max-w-md sm:max-w-lg bg-[#09090B]/95 backdrop-blur-2xl rounded-3xl p-7 sm:p-9 shadow-[0_30px_90px_rgba(0,0,0,0.8)] border border-white/15 text-center space-y-6 text-white"
+                  exit={{ opacity: 0, scale: 0.92, y: 20 }}
+                  transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+                  onClick={(e) => e.stopPropagation()}
+                  className="relative w-full max-w-md sm:max-w-lg bg-[#09090B]/95 backdrop-blur-2xl rounded-3xl p-7 sm:p-9 shadow-[0_30px_90px_rgba(0,0,0,0.85)] border border-white/15 text-center space-y-6 text-white"
                 >
-                  {/* Bouton fermer discret en haut à droite */}
+                  {/* Bouton de fermeture explicite en haut à droite */}
                   <button
                     type="button"
                     onClick={handleDismissCenter}
-                    className="absolute top-4 right-4 p-2 rounded-full text-zinc-400 hover:text-white hover:bg-white/10 transition-colors cursor-pointer"
-                    aria-label="Fermer et aller dans le coin"
+                    className="absolute top-4 right-4 p-2 rounded-full text-zinc-400 hover:text-white hover:bg-white/10 transition-colors cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FFAD00]"
+                    aria-label="Fermer la présentation"
                   >
                     <X className="w-5 h-5" />
                   </button>
 
-                  {/* Kuro en vedette au centre avec halo ambré haute intensité */}
-                  <div className="flex flex-col items-center justify-center pt-1">
+                  {/* Kuro en vedette au centre avec halo ambré subtil */}
+                  <div className="flex flex-col items-center justify-center pt-2">
                     <div className="relative">
-                      <div className="absolute -inset-4 rounded-full bg-gradient-to-tr from-[#FFAD00]/40 to-transparent blur-2xl animate-pulse pointer-events-none" />
+                      <div className="absolute -inset-4 rounded-full bg-gradient-to-tr from-[#FFAD00]/30 to-transparent blur-2xl animate-pulse pointer-events-none" />
                       {renderKuroCapsule(true)}
                     </div>
                   </div>
 
-                  {/* Présentation éditoriale moderne et soignée */}
-                  <div className="space-y-3">
-                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/15 text-xs font-mono font-semibold text-zinc-200">
+                  {/* Contenu textuel officiel et exact */}
+                  <div className="space-y-3.5">
+                    {/* Signature supérieure discrète et élégante */}
+                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/15 text-[11px] font-mono font-medium tracking-wider text-zinc-300">
                       <span className="w-1.5 h-1.5 rounded-full bg-[#FFAD00] shadow-[0_0_6px_rgba(255,173,0,0.9)]" />
-                      <span>KURO // COMPAGNON CRÉATIF</span>
+                      <span>ROOM241 | KURO, COMPAGNON CRÉATIF</span>
                     </div>
 
-                    <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-white">
-                      Bienvenue chez ROOM241
+                    {/* Titre officiel avec point */}
+                    <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-white leading-tight">
+                      Bienvenue chez ROOM241.
                     </h2>
 
-                    <p className="text-xs sm:text-sm text-zinc-300 leading-relaxed max-w-md mx-auto font-normal">
-                      Je suis <strong className="text-white font-semibold">Kuro</strong>. Je vous accompagne dans l'exploration du travail de Rémi Brocart : scénographie européenne, identités de marque, motion design et rigueur de production.
+                    {/* Texte descriptif exact */}
+                    <p className="text-sm sm:text-base text-zinc-300 leading-relaxed max-w-md mx-auto font-normal">
+                      Moi, c’est Kuro. Je vous accompagne à travers les projets de Rémi : du design, de la vidéo et des idées qui prennent vie sur le terrain.
                     </p>
                   </div>
 
-                  {/* Points de repère du portfolio — Style Glass Design */}
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 text-left text-xs pt-1 border-t border-white/10">
-                    <div className="p-3 rounded-xl bg-white/5 border border-white/10 space-y-1">
-                      <span className="font-mono font-bold text-white text-[11px] block">01 · Projets</span>
-                      <p className="text-[11px] leading-tight text-zinc-400">Hornetsecurity, Fresh Data, Résin'Architecte.</p>
-                    </div>
-                    <div className="p-3 rounded-xl bg-white/5 border border-white/10 space-y-1">
-                      <span className="font-mono font-bold text-white text-[11px] block">02 · Parcours</span>
-                      <p className="text-[11px] leading-tight text-zinc-400">Expériences CDI &amp; alternance, CV et photographies.</p>
-                    </div>
-                    <div className="p-3 rounded-xl bg-white/5 border border-white/10 space-y-1">
-                      <span className="font-mono font-bold text-white text-[11px] block">03 · Présence</span>
-                      <p className="text-[11px] leading-tight text-zinc-400">Je reste discrètement disponible en bas à gauche.</p>
-                    </div>
-                  </div>
-
-                  {/* Bouton d'action principal */}
-                  <div className="pt-2 space-y-2">
+                  {/* Bouton d'action principal avec accent ambré mesuré */}
+                  <div className="pt-2">
                     <button
                       type="button"
-                      onClick={handleDismissCenter}
-                      className="w-full inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-full bg-white text-zinc-950 hover:bg-zinc-100 text-xs sm:text-sm font-bold shadow-xl hover:scale-[1.02] active:scale-[0.98] transition-all cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FFAD00]"
+                      onClick={handleExplorePortfolio}
+                      className="w-full inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-full bg-white text-zinc-950 hover:bg-zinc-100 text-xs sm:text-sm font-bold shadow-xl hover:scale-[1.02] active:scale-[0.98] transition-all cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FFAD00] group"
                     >
-                      <span>Explorer le portfolio</span>
-                      <ArrowRight className="w-4 h-4 text-[#FFAD00]" />
+                      <span>Explorer le portfolio ↗</span>
                     </button>
-                    <span className="block text-[11px] text-zinc-400 font-mono">
-                      Cliquez pour m'envoyer dans mon coin à tout moment
-                    </span>
                   </div>
                 </motion.div>
               </motion.div>
@@ -462,7 +492,8 @@ export default function Kuro() {
         )}
 
       {/* ========================================================
-          2. KURO NICHE DANS SON COIN (BOTTOM-6 LEFT-6)
+          2. KURO NICHE DANS SON COIN (BOTTOM-4 LEFT-4 MOBILE, BOTTOM-6 LEFT-6 DESKTOP)
+          Atténuation discrète pendant le défilement (isScrolling)
          ======================================================== */}
       {!isCenterStage && !isModalOpen && (
         <motion.div
@@ -470,8 +501,10 @@ export default function Kuro() {
           initial={{ opacity: 0, scale: 0.7, y: 20 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.8 }}
-          transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-          className="fixed bottom-6 left-6 z-40 select-none flex flex-col items-start gap-3"
+          transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+          className={`fixed bottom-4 left-4 sm:bottom-6 sm:left-6 z-40 select-none flex flex-col items-start gap-3 transition-opacity duration-300 ${
+            isScrolling ? 'opacity-30 pointer-events-none' : 'opacity-100'
+          }`}
         >
           {/* Bulle de dialogue contextuelle au-dessus de Kuro */}
           <AnimatePresence>
@@ -504,7 +537,7 @@ export default function Kuro() {
                   {activeMessage.text}
                 </p>
 
-                {/* Lien discret pour réinvoquer la présentation centrale */}
+                {/* Lien pour réinvoquer la présentation centrale */}
                 <div className="pt-1 flex items-center justify-between text-[10px] text-zinc-400 font-mono">
                   <span>Kuro · Compagnon</span>
                   <button
@@ -517,7 +550,7 @@ export default function Kuro() {
                 </div>
 
                 {/* Pointe de la bulle orientée vers Kuro */}
-                <div className="absolute -bottom-1.5 left-6 w-3 h-3 bg-[#09090B] border-r border-b border-white/15 rotate-45" />
+                <div className="absolute -bottom-1.5 left-4 sm:left-6 w-3 h-3 bg-[#09090B] border-r border-b border-white/15 rotate-45" />
               </motion.div>
             )}
           </AnimatePresence>
@@ -526,7 +559,7 @@ export default function Kuro() {
           <div className="relative group">
             {/* Halo d'aura ambré subtil */}
             <div
-              className={`absolute -inset-1.5 rounded-full bg-gradient-to-tr from-[#FFAD00]/30 to-transparent blur-md transition-opacity duration-300 pointer-events-none ${
+              className={`absolute -inset-1.5 rounded-full bg-gradient-to-tr from-[#FFAD00]/25 to-transparent blur-md transition-opacity duration-300 pointer-events-none ${
                 isHappy ? 'opacity-100 scale-125' : isHovered ? 'opacity-80 scale-105' : 'opacity-40'
               }`}
               aria-hidden="true"
@@ -538,7 +571,7 @@ export default function Kuro() {
               onClick={handleCornerClick}
               onMouseEnter={() => setIsHovered(true)}
               onMouseLeave={() => setIsHovered(false)}
-              className="relative flex items-center gap-2 px-2.5 py-1.5 sm:px-3 sm:py-2 rounded-full bg-[#09090B]/95 hover:bg-[#09090B] backdrop-blur-xl border border-white/15 hover:border-[#FFAD00]/50 shadow-[0_8px_25px_rgba(0,0,0,0.4)] transition-all cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FFAD00]"
+              className="relative flex items-center gap-2 px-2 py-1.5 sm:px-3 sm:py-2 rounded-full bg-[#09090B]/95 hover:bg-[#09090B] backdrop-blur-xl border border-white/15 hover:border-[#FFAD00]/50 shadow-[0_8px_25px_rgba(0,0,0,0.4)] transition-all cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FFAD00]"
               aria-label="Kuro, compagnon interactif du studio ROOM241. Cliquez pour échanger."
               title="Kuro · Cliquez pour échanger"
             >

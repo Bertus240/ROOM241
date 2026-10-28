@@ -204,10 +204,7 @@ export default function Parcours({ navigate, onOpenCvModal }) {
           {/* Relation personnelle à la photographie : regard franc, humble et passionné */}
           <div className="max-w-3xl space-y-2.5 text-sm text-[#52525B] leading-relaxed">
             <p>
-              En dehors de mes missions de design graphique et de direction artistique, la photographie est une pratique personnelle que je cultive au quotidien. C'est avant tout pour moi le plaisir d'observer en dehors des contraintes de commande : guetter une lumière rasante en fin d'après-midi, repérer une ligne géométrique dans une façade urbaine ou cadrer un détail minéral sur une falaise.
-            </p>
-            <p className="text-xs text-[#71717A] leading-relaxed">
-              Chaque prise de vue repose sur le respect de la lumière naturelle et la précision du cadrage. Les retouches numériques et l'étalonnage colorimétrique me permettent simplement d'assurer une cohérence visuelle d'ensemble, sans artifice et sans jamais dénaturer le sujet réel.
+              En dehors du travail, je garde toujours un œil sur ce qui m’entoure. La photographie me permet de capturer des lieux, des lumières et des détails que j’aurais autrement laissés passer. Une façade, un paysage, une scène de vie : j’aime prendre le temps de les observer et de trouver le bon cadrage, simplement pour le plaisir de créer.
             </p>
           </div>
         </div>
@@ -243,7 +240,7 @@ export default function Parcours({ navigate, onOpenCvModal }) {
             </div>
           </div>
           <p className="text-xs text-[#71717A] px-1">
-            Perspective fluviale • Dégradé crépusculaire sur la Seine
+            Perspective fluviale • Lever de soleil sur la Seine
           </p>
         </div>
 
@@ -555,11 +552,11 @@ export default function Parcours({ navigate, onOpenCvModal }) {
               </h3>
 
               <p className="text-sm text-[#52525B] leading-relaxed">
-                Courir 42,195 km sous la barre des 2h50 (<span className="font-semibold text-[#09090B] font-mono">{athleticProof.officialChrono}</span>, allure {athleticProof.pace}) n'a rien d'un hasard. C'est l'aboutissement de mois d'entraînement quotidien, d'une gestion précise de l'allure et de la capacité à rester lucide quand la fatigue s'installe.
+                Courir un marathon en 2 h 48 min 25 s, c’est surtout des mois d’entraînement, des sorties par tous les temps et beaucoup de régularité. Il faut apprendre à gérer son effort, à tenir son allure et à continuer même quand les jambes commencent à peser.
               </p>
 
               <p className="text-sm text-[#52525B] leading-relaxed">
-                {athleticProof.narrative}
+                J’y retrouve quelque chose qui me parle aussi dans la création : avancer avec méthode, accepter que tout ne se passe pas comme prévu et rester concentré jusqu’au bout. Le résultat compte, bien sûr, mais il représente surtout tout le travail réalisé en amont.
               </p>
 
               <div className="pt-2 grid grid-cols-3 gap-3 border-t border-zinc-200 text-xs">
@@ -727,7 +724,53 @@ export default function Parcours({ navigate, onOpenCvModal }) {
         </div>
       </section>
 
-      {/* ========================================================
+            {/* ========================================================
+          7. SECTION ÉDITORIALE CV SYNTHÉTIQUE (GLASS DESIGN)
+         ======================================================== */}
+      <section className="max-w-[1280px] mx-auto px-5 sm:px-8 lg:px-10 pb-8">
+        <div className="p-8 sm:p-10 rounded-3xl backdrop-blur-xl bg-white/75 dark:bg-zinc-900/70 border border-zinc-200/90 dark:border-white/10 shadow-[0_8px_30px_rgba(0,0,0,0.04)] flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+          <div className="space-y-2 max-w-2xl">
+            <div className="flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-[#FFAD00] shadow-[0_0_8px_rgba(255,173,0,0.6)]" />
+              <span className="text-xs font-mono font-bold uppercase tracking-wider text-zinc-500">
+                Document de synthèse
+              </span>
+            </div>
+            <h3 className="text-2xl sm:text-3xl font-extrabold text-[#09090B] dark:text-white tracking-tight">
+              Consulter mon CV synthétique
+            </h3>
+            <p className="text-xs sm:text-sm text-[#52525B] dark:text-zinc-300 leading-relaxed">
+              Consultez et téléchargez la version condensée de mon parcours professionnel, mes compétences logicielles et mes diplômes académiques dans une mise en page claire et imprimable.
+            </p>
+          </div>
+
+          <div className="flex flex-wrap items-center gap-3 shrink-0">
+            <button
+              type="button"
+              onClick={onOpenCvModal}
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#09090B] dark:bg-white text-white dark:text-zinc-900 text-xs font-bold hover:bg-zinc-800 transition-all shadow-md hover:scale-[1.02] active:scale-[0.98] cursor-pointer"
+            >
+              <FileText className="w-4 h-4 text-[#FFAD00]" />
+              <span>Ouvrir le CV interactif</span>
+            </button>
+
+            <a
+              href="#contact"
+              onClick={(e) => {
+                e.preventDefault();
+                const el = document.getElementById('contact');
+                if (el) el.scrollIntoView({ behavior: 'smooth' });
+              }}
+              className="inline-flex items-center gap-1.5 px-5 py-3 rounded-full border border-zinc-200/90 dark:border-white/10 bg-white dark:bg-zinc-800 text-[#09090B] dark:text-white text-xs font-semibold hover:border-[#FFAD00] transition-colors"
+            >
+              <span>Prendre contact</span>
+              <ArrowRight className="w-3.5 h-3.5 text-[#FFAD00]" />
+            </a>
+          </div>
+        </div>
+      </section>
+
+{/* ========================================================
           VISIONNEUSE PLEIN ÉCRAN (LIGHTBOX INTERACTIVE ÉDITORIALE)
           Portalisée directement sur document.body (zéro fuite d'arrière-plan au sommet)
          ======================================================== */}
@@ -802,7 +845,7 @@ export default function Parcours({ navigate, onOpenCvModal }) {
 
                 {/* Zone centrale : Image plein format sans rognage */}
                 <div
-                  className="relative flex-1 flex items-center justify-center my-auto w-full px-12 sm:px-20 md:px-24"
+                  className="relative flex-1 min-h-0 w-full flex items-center justify-center px-4 sm:px-12 md:px-20 py-2 overflow-hidden"
                   onClick={(e) => e.stopPropagation()}
                 >
                   <AnimatePresence mode="wait">
@@ -814,7 +857,7 @@ export default function Parcours({ navigate, onOpenCvModal }) {
                       animate={{ opacity: 1, scale: 1 }}
                       exit={{ opacity: 0, scale: 0.98 }}
                       transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
-                      className="max-h-[76vh] sm:max-h-[80vh] max-w-[90vw] md:max-w-[84vw] w-auto h-auto object-contain rounded-xl sm:rounded-2xl shadow-2xl border border-white/10"
+                      className="max-h-full max-w-full w-auto h-auto object-contain rounded-xl sm:rounded-2xl shadow-2xl border border-white/10"
                     />
                   </AnimatePresence>
                 </div>

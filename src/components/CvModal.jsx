@@ -1,10 +1,41 @@
-import React, { useState } from 'react';
-import { X, Printer, Mail, MapPin, Linkedin, Briefcase, GraduationCap, Sparkles, Check, ArrowUpRight, Wrench } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { X, Printer, Mail, MapPin, Linkedin, Briefcase, GraduationCap, Sparkles, Check, ArrowUpRight, Wrench, Shield, Layers } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { profileData } from '../data/profile';
 
+/**
+ * CvModal — Curriculum Vitæ synthétique haute fidélité avec Glass Design premium.
+ * 
+ * Conception & Direction Artistique :
+ * - Glassmorphism contemporain (surfaces translucides, reflets doux, typographie éditoriale).
+ * - Exactitude factuelle absolue : FIC 2026 pour le stand > 150 m² et l'arche LED After Effects.
+ * - Conçu pour l'affichage écran et optimisé pour l'impression / export PDF (window.print).
+ */
 export default function CvModal({ isOpen, onClose }) {
   const [copiedEmail, setCopiedEmail] = useState(false);
+
+  // Fermeture par la touche Échap
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape' && isOpen) {
+        onClose();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isOpen, onClose]);
+
+  // Verrouillage du scroll en arrière-plan
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isOpen]);
 
   if (!isOpen) return null;
 
@@ -23,7 +54,7 @@ export default function CvModal({ isOpen, onClose }) {
   return (
     <AnimatePresence>
       <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 overflow-y-auto">
-        {/* Backdrop sombre avec flou d'ambiance */}
+        {/* Backdrop sombre et flou */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -32,7 +63,7 @@ export default function CvModal({ isOpen, onClose }) {
           className="fixed inset-0 bg-black/80 backdrop-blur-md transition-opacity"
         />
 
-        {/* Fenêtre Modale Éditoriale Haute Fidélité */}
+        {/* Conteneur principal de la Modale — Glass Design Premium */}
         <motion.div
           initial={{ opacity: 0, scale: 0.96, y: 16 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -40,7 +71,7 @@ export default function CvModal({ isOpen, onClose }) {
           transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
           className="relative w-full max-w-4xl bg-white/95 dark:bg-zinc-950/95 backdrop-blur-2xl rounded-3xl shadow-[0_30px_100px_rgba(0,0,0,0.5)] border border-zinc-200/90 dark:border-white/15 z-10 overflow-hidden my-6 max-h-[90vh] flex flex-col"
         >
-          {/* Barre haute : Glass bar discrète */}
+          {/* Barre haute : Glass bar avec statut et boutons d'action */}
           <div className="px-6 py-4 bg-zinc-50/90 dark:bg-zinc-900/90 backdrop-blur-xl border-b border-zinc-200/80 dark:border-white/10 flex items-center justify-between gap-4 shrink-0 select-none">
             <div className="flex items-center gap-3">
               <span className="w-2 h-2 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.8)] animate-pulse" />
@@ -96,7 +127,7 @@ export default function CvModal({ isOpen, onClose }) {
                     Graphic Designer &amp; Direction artistique <span className="text-zinc-400">·</span> <span className="text-[#09090B] dark:text-white font-mono font-semibold">{identity.brand}</span>
                   </p>
                   <p className="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed max-w-lg">
-                    Double culture alliant la rigueur analytique des sciences de l'ingénieur (Bac S SI), la vision stratégique de marque (Master ISEG Lille) et l'exécution créative sur le terrain.
+                    Double culture alliant la rigueur des sciences de l'ingénieur (Bac S SI), la vision stratégique de marque (Master ISEG Lille) et l'exécution créative sur le terrain.
                   </p>
                 </div>
               </div>
@@ -130,7 +161,7 @@ export default function CvModal({ isOpen, onClose }) {
               </div>
             </div>
 
-            {/* 2. Expériences professionnelles (Design Chronologique Haut de Gamme) */}
+            {/* 2. Expériences professionnelles (Glass Cards Chronologiques) */}
             <div className="space-y-6">
               <div className="flex items-center gap-2.5 border-b border-zinc-200/80 dark:border-white/10 pb-3">
                 <Briefcase className="w-4 h-4 text-zinc-900 dark:text-white" />
@@ -146,7 +177,7 @@ export default function CvModal({ isOpen, onClose }) {
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-zinc-200/60 dark:border-white/10 pb-3">
                     <div>
                       <h4 className="text-base sm:text-lg font-extrabold text-zinc-900 dark:text-white tracking-tight">
-                        Graphic Designer — Hornetsecurity by Proofpoint
+                        Graphic Designer Junior — Hornetsecurity by Proofpoint
                       </h4>
                       <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-0.5">
                         Leader européen de la cybersécurité Cloud • Environnement international bilingue
@@ -161,110 +192,92 @@ export default function CvModal({ isOpen, onClose }) {
                     <div className="p-3.5 rounded-2xl bg-white/90 dark:bg-zinc-800/60 border border-zinc-200/70 dark:border-white/10 space-y-1">
                       <strong className="text-zinc-900 dark:text-white font-semibold flex items-center gap-1.5">
                         <span className="w-1.5 h-1.5 rounded-full bg-[#FFAD00]" />
-                        Stands &amp; Scénographie européenne
+                        Stands &amp; Scénographie européenne (FIC 2026)
                       </strong>
                       <p className="text-[11px] text-zinc-600 dark:text-zinc-400 leading-relaxed">
-                        Conception graphique et habillage de stands événementiels (&gt; 150 m² au FIC Lille Grand Palais, it-sa Nuremberg, InfoSec London ; plus de 4 000 contacts qualifiés enregistrés collectivement).
+                        Conception graphique et habillage de stands événementiels (&gt; 150 m² au FIC Lille Grand Palais 2026, it-sa Nuremberg, InfoSec London ; plus de 4 000 contacts qualifiés enregistrés collectivement).
                       </p>
                     </div>
 
                     <div className="p-3.5 rounded-2xl bg-white/90 dark:bg-zinc-800/60 border border-zinc-200/70 dark:border-white/10 space-y-1">
                       <strong className="text-zinc-900 dark:text-white font-semibold flex items-center gap-1.5">
                         <span className="w-1.5 h-1.5 rounded-full bg-[#FFAD00]" />
-                        Motion Design (After Effects)
+                        Motion Design After Effects (Arche LED FIC 2026)
                       </strong>
                       <p className="text-[11px] text-zinc-600 dark:text-zinc-400 leading-relaxed">
-                        Animation vidéo complète diffusée sur l'arche d'accueil LED du stand au FIC 2025 (boucle motion design co-branding &amp; signalétique dynamique).
+                        Conception de la boucle motion design diffusée sur l'arche d'accueil LED du FIC 2026 pour la transition de marque « HORNETSECURITY FORMERLY Vade ».
                       </p>
                     </div>
 
                     <div className="p-3.5 rounded-2xl bg-white/90 dark:bg-zinc-800/60 border border-zinc-200/70 dark:border-white/10 space-y-1">
                       <strong className="text-zinc-900 dark:text-white font-semibold flex items-center gap-1.5">
                         <span className="w-1.5 h-1.5 rounded-full bg-[#FFAD00]" />
-                        Sprint de Hanovre (36 h) &amp; Helix Nova
+                        Sprint individuel de Hanovre (36 h) · Helix Nova
                       </strong>
                       <p className="text-[11px] text-zinc-600 dark:text-zinc-400 leading-relaxed">
-                        Collaboration graphique internationale en sprint chronométré pour créer l'univers et le teaser du cyber-héros 3D Helix Nova.
+                        Création autonome en 36h du concept visuel, de l'univers 3D et des affiches de présentation du cyber-héros Helix Nova lors d'une compétition interne.
                       </p>
                     </div>
 
                     <div className="p-3.5 rounded-2xl bg-white/90 dark:bg-zinc-800/60 border border-zinc-200/70 dark:border-white/10 space-y-1">
                       <strong className="text-zinc-900 dark:text-white font-semibold flex items-center gap-1.5">
                         <span className="w-1.5 h-1.5 rounded-full bg-[#FFAD00]" />
-                        Incarnation &amp; Système B2B
+                        Incarnation &amp; Campagnes Paid Ads
                       </strong>
                       <p className="text-[11px] text-zinc-600 dark:text-zinc-400 leading-relaxed">
-                        Incarnation de Captain Security sur scène plénière et refonte complète des 7 insignes officiels de partenariats européens (Platinum, Gold, VAR...).
+                        Incarnation en costume de Captain Security sur les salons, création d'assets Paid Ads multi-canaux et refonte des 7 insignes officiels de partenariat.
                       </p>
                     </div>
                   </div>
                 </div>
 
-                {/* Poste 2 : Vade / Hornetsecurity */}
-                <div className="p-6 rounded-3xl bg-zinc-50/60 dark:bg-zinc-900/40 backdrop-blur-md border border-zinc-200/80 dark:border-white/10 space-y-3 hover:border-zinc-300 dark:hover:border-white/20 transition-all shadow-[0_2px_12px_rgba(0,0,0,0.02)]">
+                {/* Poste 2 : Vade puis Hornetsecurity */}
+                <div className="p-6 sm:p-7 rounded-3xl bg-zinc-50/60 dark:bg-zinc-900/40 backdrop-blur-md border border-zinc-200/80 dark:border-white/10 space-y-3 hover:border-zinc-300 dark:hover:border-white/20 transition-all shadow-[0_2px_12px_rgba(0,0,0,0.02)]">
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-zinc-200/60 dark:border-white/10 pb-3">
                     <div>
-                      <h4 className="text-base font-extrabold text-zinc-900 dark:text-white tracking-tight">
+                      <h4 className="text-base sm:text-lg font-extrabold text-zinc-900 dark:text-white tracking-tight">
                         Chargé de marque employeur — Vade, puis Hornetsecurity
                       </h4>
                       <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-0.5">
-                        Attractivité RH, marque employeur et cohésion post-acquisition
+                        Communication interne, attractivité des talents tech &amp; culture d'entreprise post-acquisition
                       </p>
                     </div>
                     <span className="font-mono text-[11px] font-bold px-3 py-1 rounded-full bg-white dark:bg-zinc-800 border border-zinc-200 dark:border-white/10 text-zinc-900 dark:text-zinc-200 shrink-0 w-fit">
                       SEPT. 2023 — AOÛT 2025 · ALTERNANCE
                     </span>
                   </div>
-                  <p className="text-xs text-zinc-600 dark:text-zinc-300 leading-relaxed">
-                    Recrutement de profils techniques rares (ingénieurs détection de menaces, développeurs). Déploiement du programme d'employee advocacy sur LinkedIn, logistique des séminaires internes et communication interne post-fusion.
+
+                  <p className="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed">
+                    Attractivité RH et recrutement de profils techniques rares (ingénieurs détection de menaces, développeurs). Déploiement du programme d'employee advocacy sur LinkedIn, logistique des séminaires internes et cohésion post-acquisition.
                   </p>
                 </div>
 
-                {/* Poste 3 : Studio ROOM241 Freelance */}
-                <div className="p-6 rounded-3xl bg-zinc-50/60 dark:bg-zinc-900/40 backdrop-blur-md border border-zinc-200/80 dark:border-white/10 space-y-3 hover:border-zinc-300 dark:hover:border-white/20 transition-all shadow-[0_2px_12px_rgba(0,0,0,0.02)]">
+                {/* Poste 3 : Studio ROOM241 */}
+                <div className="p-6 sm:p-7 rounded-3xl bg-zinc-50/60 dark:bg-zinc-900/40 backdrop-blur-md border border-zinc-200/80 dark:border-white/10 space-y-3 hover:border-zinc-300 dark:hover:border-white/20 transition-all shadow-[0_2px_12px_rgba(0,0,0,0.02)]">
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-zinc-200/60 dark:border-white/10 pb-3">
                     <div>
-                      <h4 className="text-base font-extrabold text-zinc-900 dark:text-white tracking-tight">
-                        Directeur Artistique &amp; Graphiste indépendant — Studio ROOM241
+                      <h4 className="text-base sm:text-lg font-extrabold text-zinc-900 dark:text-white tracking-tight">
+                        Directeur artistique &amp; Graphiste — Studio ROOM241
                       </h4>
                       <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-0.5">
-                        Projets clients en autonomie 360° • AgTech &amp; BTP haut de gamme
+                        Activité indépendante • Projets B2B, AgTech &amp; BTP haut de gamme
                       </p>
                     </div>
                     <span className="font-mono text-[11px] font-bold px-3 py-1 rounded-full bg-white dark:bg-zinc-800 border border-zinc-200 dark:border-white/10 text-zinc-900 dark:text-zinc-200 shrink-0 w-fit">
-                      DEPUIS OCT. 2024 · INDÉPENDANT
+                      DEPUIS 2024 · INDÉPENDANT
                     </span>
                   </div>
-                  <ul className="text-xs text-zinc-600 dark:text-zinc-300 space-y-2 leading-relaxed">
-                    <li className="flex items-start gap-2">
-                      <span className="text-[#FFAD00] shrink-0 font-bold">—</span>
-                      <span><strong className="text-zinc-900 dark:text-white">Fresh Data (AgTech) :</strong> Création de l'univers visuel, direction graphique de la campagne Ulule (financée à 116 %), captation vidéo d'interviews au salon international MEDFEL ouvrant des discussions avec la grande distribution (Auchan, Grand Frais, E.Leclerc).</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <span className="text-[#FFAD00] shrink-0 font-bold">—</span>
-                      <span><strong className="text-zinc-900 dark:text-white">Résin'Architecte (BTP) :</strong> Cadrage de marque, gabarits éditoriaux, fiches d'aide à la vente (règle des 8 mm) et traction de terrain (+219 % de portée, 648 visites de profil en 30 jours sans pub).</span>
-                    </li>
-                  </ul>
-                </div>
 
-                {/* Poste 4 : Stage Sencrop */}
-                <div className="p-5 rounded-2xl bg-zinc-50/40 dark:bg-zinc-900/30 border border-zinc-200/70 dark:border-white/10 space-y-2 text-xs">
-                  <div className="flex items-center justify-between">
-                    <h4 className="font-bold text-zinc-900 dark:text-white">
-                      Assistant Chef de Projet Communication — Sencrop
-                    </h4>
-                    <span className="font-mono text-[10px] text-zinc-500 font-bold">2023 · STAGE</span>
-                  </div>
-                  <p className="text-zinc-600 dark:text-zinc-400 leading-relaxed">
-                    Soutien aux campagnes de communication opérationnelles pour l'AgTech européenne connectée.
+                  <p className="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed">
+                    Direction artistique complète pour Fresh Data (AgTech : identité, captation vidéo au salon MEDFEL, campagne Ulule financée à 116%) et Résin'Architecte (BTP haut de gamme : cadrage de projet, charte, modèles d'avant/après et stratégie de contenu).
                   </p>
                 </div>
 
               </div>
             </div>
 
-            {/* 3. Compétences & Outils (3 blocs stricts, sans technologies superflues) */}
-            <div className="space-y-6">
+            {/* 3. Compétences & Outils Maîtrisés (Glass Grid) */}
+            <div className="space-y-4">
               <div className="flex items-center gap-2.5 border-b border-zinc-200/80 dark:border-white/10 pb-3">
                 <Wrench className="w-4 h-4 text-zinc-900 dark:text-white" />
                 <h3 className="font-mono text-xs font-bold uppercase tracking-wider text-zinc-900 dark:text-white">
@@ -272,34 +285,46 @@ export default function CvModal({ isOpen, onClose }) {
                 </h3>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 
                 {/* 1. Compétences Métier */}
                 <div className="p-5 rounded-2xl bg-zinc-50/70 dark:bg-zinc-900/50 backdrop-blur-xl border border-zinc-200/80 dark:border-white/10 space-y-3">
                   <div className="flex items-center gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#09090B] dark:bg-white" />
+                    <Layers className="w-3.5 h-3.5 text-zinc-600 dark:text-zinc-400" />
                     <h4 className="font-mono text-xs font-bold uppercase tracking-wide text-zinc-900 dark:text-white">
-                      Compétences Métier
+                      Domaines d'expertise
                     </h4>
                   </div>
-                  <div className="flex flex-wrap gap-1.5 pt-1">
-                    {skills.business.map((s, idx) => (
-                      <span
-                        key={idx}
-                        className="px-2.5 py-1 rounded-lg bg-white dark:bg-zinc-800 border border-zinc-200/80 dark:border-white/10 text-[11px] font-medium text-zinc-800 dark:text-zinc-200 shadow-2xs"
-                      >
-                        {s}
-                      </span>
-                    ))}
-                  </div>
+                  <ul className="space-y-1.5 text-xs text-zinc-600 dark:text-zinc-400">
+                    <li className="flex items-center gap-1.5">
+                      <span className="w-1 h-1 rounded-full bg-[#FFAD00]" />
+                      Direction artistique 360°
+                    </li>
+                    <li className="flex items-center gap-1.5">
+                      <span className="w-1 h-1 rounded-full bg-[#FFAD00]" />
+                      Scénographie événementielle
+                    </li>
+                    <li className="flex items-center gap-1.5">
+                      <span className="w-1 h-1 rounded-full bg-[#FFAD00]" />
+                      Motion Design (After Effects)
+                    </li>
+                    <li className="flex items-center gap-1.5">
+                      <span className="w-1 h-1 rounded-full bg-[#FFAD00]" />
+                      Captation vidéo &amp; Interview
+                    </li>
+                    <li className="flex items-center gap-1.5">
+                      <span className="w-1 h-1 rounded-full bg-[#FFAD00]" />
+                      Identité de marque &amp; Édition
+                    </li>
+                  </ul>
                 </div>
 
-                {/* 2. Logiciels & Outils Créatifs */}
+                {/* 2. Logiciels Créatifs */}
                 <div className="p-5 rounded-2xl bg-zinc-50/70 dark:bg-zinc-900/50 backdrop-blur-xl border border-zinc-200/80 dark:border-white/10 space-y-3">
                   <div className="flex items-center gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#FFAD00]" />
+                    <Sparkles className="w-3.5 h-3.5 text-zinc-600 dark:text-zinc-400" />
                     <h4 className="font-mono text-xs font-bold uppercase tracking-wide text-zinc-900 dark:text-white">
-                      Logiciels Créatifs
+                      Suite Adobe &amp; Création
                     </h4>
                   </div>
                   <div className="flex flex-wrap gap-1.5 pt-1">
@@ -314,12 +339,12 @@ export default function CvModal({ isOpen, onClose }) {
                   </div>
                 </div>
 
-                {/* 3. Outils d'IA & Recherche */}
+                {/* 3. Outils Numériques & IA */}
                 <div className="p-5 rounded-2xl bg-zinc-50/70 dark:bg-zinc-900/50 backdrop-blur-xl border border-zinc-200/80 dark:border-white/10 space-y-3">
                   <div className="flex items-center gap-2">
-                    <Sparkles className="w-3.5 h-3.5 text-zinc-600 dark:text-zinc-400" />
+                    <Shield className="w-3.5 h-3.5 text-zinc-600 dark:text-zinc-400" />
                     <h4 className="font-mono text-xs font-bold uppercase tracking-wide text-zinc-900 dark:text-white">
-                      Intelligence Artificielle
+                      Outils IA &amp; Prototypage
                     </h4>
                   </div>
                   <div className="flex flex-wrap gap-1.5 pt-1">
@@ -349,7 +374,7 @@ export default function CvModal({ isOpen, onClose }) {
                 </h3>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 {education.map((item, idx) => (
                   <div
                     key={idx}

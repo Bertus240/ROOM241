@@ -51,7 +51,7 @@ export const projectsData = {
         id: "print",
         title: "Print & Édition",
         subtitle: "Plaquettes commerciales B2B, kakémonos, brochures et supports physiques pour les forces de vente.",
-        description: "Système graphique suisse rigoureux adapté aux décideurs grands comptes : fiches produits techniques, kakémonos salon, brochures commerciales et papeterie de prestige.",
+        description: "Système graphique éditorial rigoureux adapté aux décideurs grands comptes : fiches produits techniques, kakémonos salon, brochures commerciales et papeterie de prestige.",
         image: "/assets/hornetsecurity/affiche_helix_sprint.jpg",
         tag: "Édition & Salons",
         highlight: "Supports commerciaux",
@@ -95,13 +95,13 @@ export const projectsData = {
       },
       {
         src: "/assets/hornetsecurity/fic/Stand/IMG20250401075104.jpg",
-        title: "Dispositif événementiel (> 150 m²) — Forum InCyber (FIC) & Zénith",
-        caption: "Stand immersif de plus de 150 m² avec e-karting au FIC, ayant généré collectivement plus de 4 000 leads qualifiés."
+        title: "Affichage urbain extérieur — Zénith de Lille (Édition FIC 2025)",
+        caption: "Panneau d'affichage grand format déployé sur la façade du Zénith de Lille lors de l'édition FIC 2025."
       },
       {
         src: "/assets/hornetsecurity/affiche_helix_sprint.jpg",
         title: "Design Sprint Vidéo 36H — Avatar Virtuel 3D",
-        caption: "Personnage virtuel 3D créé et animé en 36h chrono à Hanovre pour la plénière produit."
+        caption: "Concept 3D et identité visuelle imaginés et développés seul lors d'un sprint créatif de 36 heures à Hanovre."
       }
     ],
     act1: {
@@ -297,7 +297,7 @@ export const projectsData = {
     videoId: "mf6eguKkok8",
     image: "/assets/fresh-data-video-cover.jpg",
     youtubeEmbedUrl: "https://www.youtube-nocookie.com/embed/mf6eguKkok8?rel=0&modestbranding=1&playsinline=1",
-    videoTitle: "Fresh Data - Interview MEDFEL",
+    videoTitle: "Fresh Data — Captation vidéo au salon MEDFEL",
     alt: "Direction artistique AgTech — Fresh Data",
     description: "Création d'identité, pilotage du financement participatif et production vidéo terrain (MEDFEL) pour capter une audience B2B dès la première année. Lancement de marque • Crowdfunding (+116%).",
     cta: "Consulter l'étude de cas ↗",
@@ -307,7 +307,7 @@ export const projectsData = {
     },
     act2: {
       title: "02. L'Arbitrage Créatif & Déploiement",
-      text: "Room241 a structuré un récit visuel puissant mêlant interviews d'experts captées au salon MEDFEL, infographies explicatives claires et vidéo manifeste pour la campagne Ulule. Une identité épurée inspirée du design éditorial suisse a été déployée sur l'ensemble des points de contact."
+      text: "Room241 a structuré un récit visuel puissant mêlant interviews d'experts captées au salon MEDFEL, infographies explicatives claires et vidéo manifeste pour la campagne Ulule. Une identité épurée inspirée du design éditorial épuré a été déployée sur l'ensemble des points de contact."
     },
     act3: {
       title: "03. L'Impact Mesurable",

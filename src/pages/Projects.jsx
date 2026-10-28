@@ -228,7 +228,7 @@ export default function Projects({ navigate }) {
             <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-4">
               <div>
                 <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight text-[#09090B]">
-                  Hornetsecurity — Stands événementiels (&gt; 150 m² au FIC), branding &amp; incarnation de marque
+                  FIC 2026 — Scénographie &amp; expérience événementielle
                 </h2>
                 <p className="text-sm sm:text-base text-[#52525B] mt-2 max-w-3xl leading-relaxed">
                   Trois années d'expérience en environnement international anglophone, réparties sur deux postes distincts : de la marque employeur et du recrutement technique au design graphique d'espaces événementiels et à l'incarnation de la marque sur le terrain.
@@ -503,8 +503,8 @@ export default function Projects({ navigate }) {
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-1">
                 <p className="text-xs sm:text-sm text-[#52525B] dark:text-zinc-300 max-w-2xl leading-relaxed">
                   {hornetMediaIndex === 0
-                    ? "Habillage graphique et signalétique du stand de plus de 150 m². La structure métallique a été montée par les prestataires scéniques, l'habillage visuel et la direction des flux assurés avec les équipes de design."
-                    : "Boucle d'animation After Effects diffusée sur l'arche vidéo d'accueil LED. Transition visuelle du co-branding 'HORNETSECURITY FORMERLY Vade' et orientation des visiteurs vers les totems partenaires."}
+                    ? "Scénographie, habillage graphique et signalétique du stand immersif de plus de 150 m² au FIC 2026, avec intégration des totems vidéo et direction visuelle des flux visiteurs."
+                    : "Conception et réalisation sur Adobe After Effects de l’animation vidéo diffusée sur l’arche LED à l’entrée du salon. Cette boucle de motion design accompagnait la transition de marque « HORNETSECURITY FORMERLY Vade » et guidait visuellement les visiteurs vers les espaces partenaires."}
                 </p>
 
                 {hornetMediaIndex === 1 && (
@@ -556,10 +556,10 @@ export default function Projects({ navigate }) {
                   />
                 </div>
                 <h4 className="text-xs font-semibold text-[#09090B]">
-                  Affichage urbain grand format — Façade du Zénith de Lille
+                  Affichage urbain extérieur — Zénith de Lille (Édition FIC 2025)
                 </h4>
                 <p className="text-xs text-[#52525B] leading-relaxed">
-                  Conception de la bâche extérieure grand format invitant les visiteurs du forum à rejoindre la piste d'e-karting privatisée au Zénith.
+                  Conception de la bâche extérieure grand format sur la façade du Zénith de Lille invitant les visiteurs du forum à rejoindre l'espace privatisé lors de l'édition FIC 2025.
                 </p>
               </div>
 
@@ -686,11 +686,11 @@ export default function Projects({ navigate }) {
                 </h4>
 
                 <p className="text-xs sm:text-sm text-[#52525B] leading-relaxed">
-                  Au cours d'un <strong className="text-[#09090B]">sprint d'urgence de 36 heures au siège de Hanovre</strong>, j'ai collaboré en anglais avec l'équipe de design allemande pour concevoir l'identité visuelle et les supports de présentation du cyber-héros <strong className="text-[#09090B]">Helix Nova</strong>.
+                  Lors d’un <strong className="text-[#09090B]">sprint créatif de 36 heures au siège d’Hornetsecurity, à Hanovre</strong>, j’ai imaginé et développé seul le concept d’<strong className="text-[#09090B]">Helix Nova</strong>, un cyber-héros conçu en 3D. L’exercice réunissait plusieurs participants en compétition autour de propositions créatives.
                 </p>
 
                 <p className="text-xs sm:text-sm text-[#52525B] leading-relaxed">
-                  Contrairement à <strong className="text-[#09090B]">Captain Security</strong> (qui est une mascotte vivante incarnée en costume sur les salons du FIC et d'it-sa), <strong className="text-[#09090B]">Helix Nova</strong> relève d'un univers cybernétique 3D : armure high-tech sombre, alvéoles d'énergie jaune et ailes de frelon translucides symbolisant la protection Cloud proactive.
+                  J’ai conçu son identité visuelle et ses supports de présentation, en imaginant un univers graphique articulé autour d’une armure sombre, d’accents jaunes et d’ailes translucides inspirées du frelon. Là où Captain Security prend vie à travers un costume porté lors des salons professionnels, Helix Nova explore une autre facette de l’univers de marque, pensée pour un environnement numérique.
                 </p>
 
                 {/* Lecteur vidéo officiel Helix Nova (16:9 à la demande) */}
@@ -823,7 +823,7 @@ export default function Projects({ navigate }) {
                   Fresh Data — Système visuel, campagne Ulule (116 %) &amp; salon international MEDFEL
                 </h2>
                 <p className="text-sm sm:text-base text-[#52525B] mt-2 max-w-3xl leading-relaxed">
-                  Intervention globale en tant que graphiste freelance pour bâtir l'univers de marque, vulgariser une technologie spectrale complexe et orchestrer le lancement public d'une solution de qualification des fruits et légumes, sous la validation de Marc-Henri Blarel.
+                  Intervention globale en tant que graphiste freelance pour bâtir l'univers de marque, vulgariser une technologie spectrale complexe et orchestrer le lancement public d'une solution de qualification des fruits et légumes, pour documenter et propulser la solution auprès des décideurs de la filière.
                 </p>
               </div>
 
@@ -844,7 +844,7 @@ export default function Projects({ navigate }) {
             <div className="p-5 rounded-2xl bg-zinc-50 border border-zinc-200/80 space-y-2">
               <span className="text-xs font-bold uppercase tracking-wider text-[#71717A] flex items-center gap-1.5">
                 <Target className="w-3.5 h-3.5 text-[#FFAD00]" />
-                1. Contexte &amp; Besoin client
+                1. Contexte &amp; objectif
               </span>
               <p className="text-xs text-[#52525B] leading-relaxed">
                 <strong className="text-[#09090B]">Qualification non destructive :</strong> Évaluer instantanément le taux de sucre et la maturité des fruits sans altérer la récolte, pour réduire le gaspillage alimentaire en rayon et optimiser les flux logistiques.
@@ -854,7 +854,7 @@ export default function Projects({ navigate }) {
             <div className="p-5 rounded-2xl bg-zinc-50 border border-zinc-200/80 space-y-2">
               <span className="text-xs font-bold uppercase tracking-wider text-[#71717A] flex items-center gap-1.5">
                 <Users className="w-3.5 h-3.5 text-[#FFAD00]" />
-                2. Cibles &amp; Écosystème
+                2. Publics concernés
               </span>
               <p className="text-xs text-[#52525B] leading-relaxed">
                 <strong className="text-[#09090B]">B2B &amp; Partenaires :</strong> Arboriculteurs, coopératives agricoles, centrales d'achat de la grande distribution et investisseurs de la filière AgriTech française et européenne.
@@ -864,7 +864,7 @@ export default function Projects({ navigate }) {
             <div className="p-5 rounded-2xl bg-zinc-50 border border-zinc-200/80 space-y-2">
               <span className="text-xs font-bold uppercase tracking-wider text-[#71717A] flex items-center gap-1.5">
                 <Layers className="w-3.5 h-3.5 text-[#FFAD00]" />
-                3. Choix de conception suisse
+                3. Direction artistique
               </span>
               <p className="text-xs text-[#52525B] leading-relaxed">
                 <strong className="text-[#09090B]">Rigueur fonctionnelle :</strong> Typographie épurée sans empattement, grilles strictes, clarté didactique des schémas techniques et équilibre entre fraîcheur végétale et précision scientifique.
@@ -874,7 +874,7 @@ export default function Projects({ navigate }) {
             <div className="p-5 rounded-2xl bg-zinc-50 border border-zinc-200/80 space-y-2">
               <span className="text-xs font-bold uppercase tracking-wider text-[#71717A] flex items-center gap-1.5">
                 <Award className="w-3.5 h-3.5 text-[#FFAD00]" />
-                4. Rôle de Rémi Brocart
+                4. Contribution de Rémi
               </span>
               <p className="text-xs text-[#52525B] leading-relaxed">
                 <strong className="text-[#09090B]">Graphisme &amp; Contenus 360° :</strong> Bannières Ulule, fiches explicatives, habillages radio, captation terrain et montage des interviews au salon MEDFEL.
@@ -1471,7 +1471,7 @@ export default function Projects({ navigate }) {
                     <img
                       src="/assets/hornetsecurity/affiche_helix_sprint.jpg"
                       alt="Affiche de présentation officielle du héros cyber Helix Nova"
-                      className="max-h-[80vh] sm:max-h-[84vh] max-w-[92vw] sm:max-w-[84vw] w-auto h-auto object-contain rounded-xl sm:rounded-2xl shadow-2xl border border-white/10"
+                      className="max-h-full max-w-full w-auto h-auto object-contain rounded-xl sm:rounded-2xl shadow-2xl border border-white/10"
                     />
                   </div>
 
@@ -1552,7 +1552,7 @@ export default function Projects({ navigate }) {
 
                   {/* Zone centrale : Image plein format sans rognage */}
                   <div
-                    className="relative flex-1 flex items-center justify-center my-auto w-full px-12 sm:px-20 md:px-24"
+                    className="relative flex-1 min-h-0 w-full flex items-center justify-center px-4 sm:px-12 md:px-20 py-2 overflow-hidden"
                     onClick={(e) => e.stopPropagation()}
                   >
                     <AnimatePresence mode="wait">
@@ -1564,7 +1564,7 @@ export default function Projects({ navigate }) {
                         animate={{ opacity: 1, scale: 1 }}
                         exit={{ opacity: 0, scale: 0.98 }}
                         transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
-                        className="max-h-[76vh] sm:max-h-[80vh] max-w-[90vw] md:max-w-[84vw] w-auto h-auto object-contain rounded-xl sm:rounded-2xl shadow-2xl border border-white/10"
+                        className="max-h-full max-w-full w-auto h-auto object-contain rounded-xl sm:rounded-2xl shadow-2xl border border-white/10"
                       />
                     </AnimatePresence>
                   </div>

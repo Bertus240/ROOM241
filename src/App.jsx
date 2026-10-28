@@ -85,7 +85,7 @@ export default function App() {
         </main>
         <FooterContact navigate={navigate} />
         <CvModal isOpen={isCvModalOpen} onClose={() => setIsCvModalOpen(false)} />
-        <Kuro />
+        <Kuro navigate={navigate} />
         <BackToTop />
       </div>
     );
@@ -134,7 +134,7 @@ export default function App() {
       <BackToTop />
 
       {/* Compagnon interactif Kuro */}
-      <Kuro />
+      <Kuro navigate={navigate} />
 
       {/* Modale CV synthétique téléchargeable */}
       <CvModal
