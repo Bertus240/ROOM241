@@ -738,10 +738,10 @@ export default function Parcours({ navigate, onOpenCvModal }) {
                     </span>
                   </div>
                   <h5 className="text-base font-bold text-zinc-950 leading-snug">
-                    Animation de l'arche vidéo LED monumentale
+                    Animation de l'arche vidéo LED d'accueil
                   </h5>
                   <p className="text-xs sm:text-sm text-zinc-600 leading-relaxed">
-                    Conception et réalisation sur Adobe After Effects de l’animation vidéo diffusée sur l’arche lumineuse monumentale à l’entrée du stand. Cette boucle dynamique accompagnait la transition de co-branding « HORNETSECURITY FORMERLY Vade », captivait le regard des flux visiteurs et scénarisait l'entrée sur le stand.
+                    Conception et réalisation sur Adobe After Effects de l’animation vidéo diffusée sur l'arche vidéo d'accueil à l’entrée du stand. Cette boucle dynamique accompagnait la transition de co-branding « HORNETSECURITY FORMERLY Vade », captivait le regard des flux visiteurs et scénarisait l'entrée sur le stand.
                   </p>
                 </div>
 

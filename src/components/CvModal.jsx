@@ -241,7 +241,7 @@ export default function CvModal({ isOpen, onClose }) {
                       Studio ROOM241
                     </p>
                     <span className="text-[11px] text-zinc-500 leading-tight block">
-                      B2B, AgTech &amp; BTP haut de gamme
+                      B2B, Retail Data &amp; BTP haut de gamme
                     </span>
                   </div>
 
@@ -250,7 +250,7 @@ export default function CvModal({ isOpen, onClose }) {
                       Directeur artistique &amp; Graphiste
                     </h3>
                     <p className="text-xs sm:text-sm text-zinc-600 leading-relaxed">
-                      Direction artistique complète pour Fresh Data (AgTech : identité, captation vidéo au salon MEDFEL, campagne Ulule financée à 116%) et Résin'Architecte (BTP haut de gamme : cadrage de projet, charte, modèles d'avant/après et stratégie de contenu).
+                      Direction artistique et vulgarisation visuelle pour Fresh Data (Retail Data & veille promo : identité, campagne Ulule à 116 % avec 12 700 € réunis / obj. 20k, captation vidéo salon MEDFEL et dossiers commerciaux B2B) et Résin'Architecte (BTP haut de gamme : cadrage de projet, charte, modèles d'avant/après et stratégie de contenu).
                     </p>
                   </div>
                 </article>

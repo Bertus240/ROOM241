@@ -19,8 +19,8 @@ export default function Results({ navigate }) {
     },
     {
       outcome: "Campagne de lancement financée au-delà de l'objectif",
-      client: "Fresh Data (AgTech)",
-      story: "Pour leur premier salon MEDFEL, nous avons tourné une vidéo de terrain au contact direct de leurs premiers utilisateurs. Le produit était tangible, le besoin évident, et le financement a dépassé l'objectif initial de 116%.",
+      client: "Fresh Data (Retail Data & Veille)",
+      story: "Pour leur participation au salon MEDFEL, nous avons tourné une vidéo de terrain au contact direct de leurs premiers utilisateurs. L'identité graphique de la campagne Ulule a permis de dépasser le premier palier avec plus de 12 700 € réunis sur un objectif de 20k.",
       route: "/realisations/fresh-data",
       tag: "Vidéo terrain & Lancement"
     }

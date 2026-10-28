@@ -74,7 +74,7 @@ export default function Studio({ navigate }) {
               Studio — Réalisations documentées.
             </h1>
             <p className="text-lg text-[#52525B] leading-relaxed">
-              Sélection de projets menés en indépendant : de l'accompagnement d'une levée de fonds participative AgTech à la valorisation de chantiers artisanaux dans le BTP haut de gamme.
+              Sélection de projets menés en indépendant : de l'accompagnement d'une campagne de financement participatif et de vulgarisation de données grande distribution à la valorisation de chantiers artisanaux dans le BTP haut de gamme.
             </p>
           </div>
 
@@ -89,7 +89,7 @@ export default function Studio({ navigate }) {
         <div className="border-t border-zinc-200/80 pt-12 space-y-4">
           <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-[#FFAD00]">
             <Sprout className="w-4 h-4" />
-            <span>AgTech &amp; Stratégie de contenu</span>
+            <span>Retail Data &amp; Veille Promotionnelle</span>
           </div>
           <div className="flex flex-col md:flex-row md:items-baseline justify-between gap-4">
             <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-[#09090B]">

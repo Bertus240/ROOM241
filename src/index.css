@@ -525,3 +525,12 @@ a:active:not([disabled]) {
     transform: none;
   }
 }
+
+/* Suppression propre des barres de défilement pour les carrousels et onglets studio */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}

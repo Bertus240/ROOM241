@@ -24,7 +24,7 @@ export default function MotionVideoCarousel() {
       format: 'MP4 60fps',
       title: "Arche LED — Face avant (After Effects)",
       subtitle: "FIC 2026 • Lille Grand Palais",
-      desc: "Conception et réalisation sur Adobe After Effects de l’animation vidéo diffusée sur l’arche LED monumentale à l’entrée du salon. Cette boucle de motion design accompagnait la transition de marque « HORNETSECURITY FORMERLY Vade » et guidait le regard des visiteurs vers les pôles d'expertise et les espaces partenaires.",
+      desc: "Conception et réalisation sur Adobe After Effects de l’animation vidéo diffusée sur l'arche LED d'accueil à l’entrée du salon. Cette boucle de motion design accompagnait la transition de marque « HORNETSECURITY FORMERLY Vade » et guidait le regard des visiteurs vers les pôles d'expertise et les espaces partenaires.",
       type: 'mp4',
       src: '/assets/hornetsecurity/FIC_assets_2026/Video_arch/FRONT_Global_Arch_1920x1080.mp4',
       poster: '/assets/hornetsecurity/fic/Stand/IMG20250401075104.jpg',

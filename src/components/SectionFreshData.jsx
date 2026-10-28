@@ -71,7 +71,7 @@ export default function SectionFreshData() {
               Contexte
             </h3>
             <p className="text-sm text-[#3F3F46] leading-relaxed">
-              Lancement d'une solution AgTech de mesure algorithmique de fruits et légumes. Nécessité de vulgariser la technologie et d'engager les investisseurs et producteurs.
+              Solution SaaS de pige publicitaire et de veille concurrentielle multicanale (tracts promos, prospectus, spots radio) pour la grande distribution. Nécessité de vulgariser les flux de données promo et de financer le lancement.
             </p>
           </div>
 
@@ -80,7 +80,7 @@ export default function SectionFreshData() {
               Action
             </h3>
             <p className="text-sm text-[#3F3F46] leading-relaxed">
-              Création de l'identité de marque suisse épurée, habillage visuel pour les passages radio, carrousels de récaps hebdomadaires et captation vidéo terrain d'interviews au salon international MEDFEL.
+              Création de l'architecture graphique de la campagne Ulule, habillages visuels pour les chroniques radio du fondateur, dossiers commerciaux B2B et captation vidéo terrain au salon MEDFEL à Perpignan.
             </p>
           </div>
 
@@ -89,7 +89,7 @@ export default function SectionFreshData() {
               Résultat
             </h3>
             <p className="text-sm text-[#3F3F46] leading-relaxed">
-              Objectif de financement participatif Ulule atteint à +116 %, signature des 50 premiers clients pionniers et autorité technique installée auprès des coopératives.
+              Premier palier Ulule financé à 116 % (>12 700 € réunis sur objectif global de 20k) et ouverture d'échanges qualifiés avec les centrales d'achats (Auchan, Grand Frais, E.Leclerc).
             </p>
           </div>
         </div>

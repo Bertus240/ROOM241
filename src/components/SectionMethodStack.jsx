@@ -11,7 +11,7 @@ export default function SectionMethodStack() {
     {
       title: "Vidéo & Motion Design",
       tools: "Premiere Pro, After Effects, Sound Design",
-      text: "Prises de vues terrain en salons, montage d'aftermovies dynamiques, étalonnage couleur, sous-titrage et animation graphique."
+      text: "Prises de vues terrain en salons, montage de captations événementielles et capsules vidéo dynamiques, étalonnage couleur, sous-titrage et animation graphique."
     },
     {
       title: "UI/UX & Design Systems",

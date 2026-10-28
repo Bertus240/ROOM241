@@ -263,14 +263,14 @@ export default function Home({ navigate }) {
 
             <div className="space-y-2">
               <div className="flex items-center justify-between text-xs">
-                <span className="font-semibold text-[#FFAD00]">AgTech &amp; Crowdfunding</span>
+                <span className="font-semibold text-[#FFAD00]">Retail Data &amp; Crowdfunding</span>
                 <span className="text-zinc-400">Ulule 116 %</span>
               </div>
               <h3 className="text-xl sm:text-2xl font-extrabold text-[#09090B] group-hover:text-zinc-700 transition-colors">
                 Fresh Data
               </h3>
               <p className="text-sm text-[#52525B] leading-relaxed">
-                Création de l'univers visuel sous validation de Marc-Henri Blarel, campagne Ulule financée à 116 %, visuels radio et captation vidéo au salon MEDFEL ayant ouvert des discussions avec Auchan, Grand Frais et E.Leclerc.
+                Création de l'univers visuel d'une solution de veille concurrentielle et de pige publicitaire grande distribution, campagne Ulule financée à 116 % (12 700 € réunis / obj. 20k) et supports d'aide à la vente pour les centrales d'achats (Auchan, Grand Frais, E.Leclerc).
               </p>
             </div>
 

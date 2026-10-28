@@ -6,7 +6,7 @@ export const projectsData = {
     subtitle: "Leader européen de la cybersécurité Cloud & protection Microsoft 365",
     sector: "Cybersécurité B2B internationale",
     category: "Cybersécurité B2B internationale",
-    deliverables: "Stands événementiels (> 150 m² au FIC), Print & Édition, Digital & Motion, Vidéo & Aftermovies",
+    deliverables: "Stands événementiels (> 150 m² au FIC), Print & Édition, Digital & Motion, Vidéo & Formats courts",
     year: "3 ans d'accompagnement",
     statusLabel: "CASE STUDY PHARE",
     tags: ["Cybersécurité B2B", "Événementiel International", "Design 360°", "3 ans de polyvalence"],
@@ -69,12 +69,12 @@ export const projectsData = {
       },
       {
         id: "video",
-        title: "Vidéo & Aftermovies",
+        title: "Vidéo & Formats courts",
         subtitle: "Captation, montage dynamique et valorisation des temps forts de l'entreprise.",
         description: "Prises de vues terrain en salons internationaux, interviews de spécialistes cyber, montage rythmé sous Premiere Pro et After Effects pour nourrir les réseaux et asseoir l'autorité de la marque.",
         image: "/assets/hornetsecurity/fic/Stand/tmp_8551ceee-de3b-46ec-ba5a-a37cac8e00df.jpeg",
         tag: "Captation & Montage",
-        highlight: "Aftermovies 4K",
+        highlight: "Formats courts 1080p",
         production: ["Captation multi-caméras", "Colorimétrie & Sound design", "Montage dynamique"]
       }
     ],
@@ -256,25 +256,25 @@ export const projectsData = {
       text: "Une gamme de supports cohérents permettant à l'entreprise de valoriser ses chantiers sur les réseaux et d'appuyer son discours commercial auprès de ses clients."
     },
     nextSlug: "fresh-data",
-    nextTitle: "Fresh Data (AgTech & Crowdfunding)"
+    nextTitle: "Fresh Data (Retail Data & Financement)"
   },
   "fresh-data": {
     slug: "fresh-data",
     id: "PROJET 03",
     title: "Fresh Data",
-    subtitle: "Lancement de marque, stratégie vidéo terrain MEDFEL & campagne participative Ulule",
-    category: "AgTech & Data",
-    deliverables: "Branding, Production Vidéo, Financement Participatif",
+    subtitle: "Pige publicitaire & veille concurrentielle grande distribution • Campagne Ulule & Salon MEDFEL",
+    category: "Retail Data & Financement",
+    deliverables: "Identité Visuelle, Vulgarisation Data, Financement Participatif, Dossiers B2B",
     year: "2026",
-    statusLabel: "AGTECH & CROWDFUNDING",
-    tags: ["AgTech", "Crowdfunding", "Vidéo Terrain"],
-    metric: "+116 %",
-    metricLabel: "Objectif de campagne Ulule atteint avec succès",
+    statusLabel: "VEILLE PROMO & FINANCEMENT",
+    tags: ["Retail Data", "Veille Concurrentielle", "Crowdfunding", "Vidéo Terrain"],
+    metric: "12 700 €",
+    metricLabel: "Collectés sur Ulule (1er palier à 116 % sur obj. 20k)",
     metrics: [
       {
         value: "+116%",
         label: "Objectif Ulule",
-        detail: "Campagne de crowdfunding bouclée avec succès"
+        detail: ">12 700 € collectés sur un objectif global de 20 000 €"
       },
       {
         value: "50+",
@@ -298,20 +298,20 @@ export const projectsData = {
     image: "/assets/fresh-data-video-cover.jpg",
     youtubeEmbedUrl: "https://www.youtube-nocookie.com/embed/mf6eguKkok8?rel=0&modestbranding=1&playsinline=1",
     videoTitle: "Fresh Data — Captation vidéo au salon MEDFEL",
-    alt: "Direction artistique AgTech — Fresh Data",
-    description: "Création d'identité, pilotage du financement participatif et production vidéo terrain (MEDFEL) pour capter une audience B2B dès la première année. Lancement de marque • Crowdfunding (+116%).",
+    alt: "Direction artistique Retail Data — Fresh Data",
+    description: "Création graphique et vulgarisation visuelle d'une solution de veille concurrentielle et de pige publicitaire multicanale grande distribution. Campagne Ulule financée à 116 % (>12 700 € / obj. 20k), dossiers commerciaux B2B et captation salon MEDFEL.",
     cta: "Consulter l'étude de cas ↗",
     act1: {
       title: "01. Le Défi initial",
-      text: "Fresh Data souhaitait introduire sa solution innovante de mesure de données agricoles auprès des producteurs et distributeurs de la filière fruits & légumes. Le challenge consistait à vulgariser un produit hautement algorithmique et à lever les fonds nécessaires lors du lancement public."
+      text: "Fresh Data souhaitait introduire sa solution de veille concurrentielle et de pige publicitaire multicanale (tracts, prospectus, radio) auprès des directeurs de magasins et acheteurs de la grande distribution. Le challenge consistait à vulgariser des flux massifs de données promotionnelles et à réussir la campagne de financement participatif sur Ulule."
     },
     act2: {
       title: "02. L'Arbitrage Créatif & Déploiement",
-      text: "Room241 a structuré un récit visuel puissant mêlant interviews d'experts captées au salon MEDFEL, infographies explicatives claires et vidéo manifeste pour la campagne Ulule. Une identité épurée inspirée du design éditorial épuré a été déployée sur l'ensemble des points de contact."
+      text: "Conception d'une identité visuelle claire et d'infographies décisionnelles rendant lisibles les indices de pression promotionnelle. Réalisation de l'architecture graphique complète du crowdfunding Ulule, habillage des contreparties, et tournage d'interviews au salon MEDFEL à Perpignan."
     },
     act3: {
       title: "03. L'Impact Mesurable",
-      text: "Campagne Ulule financée avec succès à +116% de son objectif initial. Acquisition directe des 50 premiers clients pionniers B2B et établissement immédiat d'une crédibilité forte auprès des coopératives agricoles."
+      text: "Premier palier Ulule franchi à 116 % avec plus de 12 700 € collectés sur un objectif global de 20 000 €. Structuration de dossiers commerciaux B2B ouvrant des échanges qualifiés avec les centrales d'achats d'Auchan, Grand Frais et E.Leclerc."
     },
     nextSlug: "hornetsecurity",
     nextTitle: "Hornetsecurity (Cybersécurité B2B)"

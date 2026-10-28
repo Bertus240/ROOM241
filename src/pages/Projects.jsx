@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import {
   Shield,
@@ -26,67 +26,105 @@ import {
   Compass
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import MotionVideoCarousel from '../components/MotionVideoCarousel';
 
 export default function Projects({ navigate }) {
+  const tabContainerRef = useRef(null);
+  const tabRefs = useRef([]);
   const [activeTab, setActiveTab] = useState('all'); // 'all' | 'hornetsecurity' | 'fresh-data' | 'resin-architecte'
   const [selectedArchFace, setSelectedArchFace] = useState('front'); // 'front' | 'back'
   const [isVideoFicPlaying, setIsVideoFicPlaying] = useState(false);
   const [isPlayingFreshVideo, setIsPlayingFreshVideo] = useState(false);
   const [isPlayingHelixVideo, setIsPlayingHelixVideo] = useState(false);
   const [hornetMediaIndex, setHornetMediaIndex] = useState(0);
-  // Liste ordonnée des 6 médias du dispositif scénographique FIC 2026
+  // Liste ordonnée des médias authentiques du dispositif scénographique FIC 2026
   const ficMediaList = [
     {
-      id: 'stand-view',
-      tabLabel: 'Vue du stand',
-      title: "Stand d'exposition de plus de 150 m² — Vue in situ à Lille Grand Palais",
+      id: 'stand-arch-photo',
+      tabLabel: "Arche (photo)",
+      title: "Arche d'accueil active — Vue in situ au Forum InCyber (Lille Grand Palais)",
       type: 'image',
       src: '/assets/hornetsecurity/fic/Stand/IMG20250401075104.jpg',
-      badge: "Photographie in situ • Stand actif"
+      badge: "Photographie in situ • Stand actif",
+      caption: "Lille Grand Palais • Stand de plus de 150 m² accueillant plus de 4 000 contacts B2B",
+      straighten: true
     },
     {
-      id: 'arch-ae',
-      tabLabel: 'Arche After Effects',
-      title: "Arche vidéo LED — Boucle motion design d'accueil (After Effects)",
-      type: 'arch-video',
-      badge: "Animation After Effects • 1080p"
+      id: 'stand-overview',
+      tabLabel: "Vue plongeante",
+      title: "Perspective panoramique en plongée du hall et des flux — Stand 150 m²",
+      type: 'image',
+      src: '/assets/hornetsecurity/fic/Stand/IMG20250401075301.jpg',
+      badge: "Photographie in situ • Vue en plongée",
+      caption: "Prise de vue panoramique montrant la structure du stand et la circulation des visiteurs",
+      straighten: false
     },
     {
-      id: 'vid-stand',
-      tabLabel: 'Stand & signalétique',
-      title: "Stand & Totems — Intégration de la signalétique et des écrans interactifs",
+      id: 'arch-front-video',
+      tabLabel: "Arche (Recto)",
+      title: "Arche d'accueil vidéo — Recto / Face avant (After Effects 1080p)",
       type: 'video',
-      src: '/assets/hornetsecurity/fic/Videos/vid1_fic.mp4',
-      badge: "Captation in situ • Signalétique"
+      src: '/assets/hornetsecurity/FIC_assets_2026/Video_arch/FRONT_Global_Arch_1920x1080.mp4',
+      badge: "Animation After Effects • 1080p",
+      caption: "Boucle visuelle dynamique After Effects diffusée sur la face avant de l'arche à l'entrée du stand"
+    },
+    {
+      id: 'arch-back-video',
+      tabLabel: "Arche (Verso)",
+      title: "Arche d'accueil vidéo — Verso / Face arrière (After Effects 1080p)",
+      type: 'video',
+      src: '/assets/hornetsecurity/FIC_assets_2026/Video_arch/BACK_Global_Arch_1920x1080.mp4',
+      badge: "Animation After Effects • 1080p",
+      caption: "Boucle graphique After Effects diffusée sur la face arrière de l'arche orientée vers le cœur du stand"
     },
     {
       id: 'vid-karting',
-      tabLabel: 'Piste e-karting',
-      title: "Dispositif e-karting — Animation événementielle et engagement visiteurs",
+      tabLabel: "Piste e-karting",
+      title: "Dispositif e-karting au Zénith — Engagement visiteurs & animation",
       type: 'video',
       src: '/assets/hornetsecurity/fic/Videos/vid2_fic.mp4',
-      badge: "Expérience événementielle • E-Karting"
+      badge: "Dispositif terrain • E-Karting",
+      caption: "Espace privatisé au Zénith de Lille orientant les flux de visiteurs professionnels"
     },
     {
       id: 'vid-salon',
-      tabLabel: 'Vie du salon',
-      title: "Vie du salon & Affluence — Interactions et échanges professionnels",
+      tabLabel: "Vie du salon",
+      title: "Dynamique du salon & allées — Échanges avec les visiteurs",
       type: 'video',
       src: '/assets/hornetsecurity/fic/Videos/vid3_fic.mp4',
-      badge: "Ambiance salon • FIC 2026"
+      badge: "Captation in situ • Allées",
+      caption: "Affluence continue et dynamique d'échanges avec les professionnels de la cybersécurité"
     },
     {
-      id: 'vid-recap',
-      tabLabel: 'Récapitulatif',
-      title: "Récapitulatif de l'événement — Synthèse visuelle de l'édition 2026",
+      id: 'vid-apercu',
+      tabLabel: "Aperçu du salon",
+      title: "Aperçu du salon — Ambiance et passage sur le stand",
       type: 'video',
       src: '/assets/hornetsecurity/fic/Videos/vid4_fic.mp4',
-      badge: "Aftermovie • Synthèse 3 jours"
+      badge: "Captation salon • Aperçu",
+      caption: "Aperçu vidéo de l'ambiance et des passages sur le stand durant l'événement"
     }
   ];
 
- // 0 = photo stand, 1 = video arche
+  const handleHornetPrev = () => {
+    setIsHornetVideoPlaying(false);
+    setHornetMediaIndex((prev) => (prev - 1 + ficMediaList.length) % ficMediaList.length);
+  };
+
+  useEffect(() => {
+    if (tabRefs.current[hornetMediaIndex]) {
+      tabRefs.current[hornetMediaIndex].scrollIntoView({
+        behavior: 'smooth',
+        block: 'nearest',
+        inline: 'center'
+      });
+    }
+  }, [hornetMediaIndex]);
+
+  const handleHornetNext = () => {
+    setIsHornetVideoPlaying(false);
+    setHornetMediaIndex((prev) => (prev + 1) % ficMediaList.length);
+  };
+
   const [isHornetVideoPlaying, setIsHornetVideoPlaying] = useState(false);
   const [selectedRaAsset, setSelectedRaAsset] = useState(0);
 
@@ -94,6 +132,7 @@ export default function Projects({ navigate }) {
   const [badgeModalIndex, setBadgeModalIndex] = useState(null);
   const [isPosterModalOpen, setIsPosterModalOpen] = useState(false);
   const [raModalIndex, setRaModalIndex] = useState(null);
+  const [standModalImage, setStandModalImage] = useState(null);
 
   const handleNav = (path) => (e) => {
     if (e) e.preventDefault();
@@ -102,7 +141,7 @@ export default function Projects({ navigate }) {
 
   // Verrouillage du scroll en arrière-plan lorsqu'un modal est ouvert
   useEffect(() => {
-    const isAnyModalOpen = isPosterModalOpen || raModalIndex !== null;
+    const isAnyModalOpen = isPosterModalOpen || raModalIndex !== null || standModalImage !== null;
     if (isAnyModalOpen) {
       document.body.style.overflow = 'hidden';
     } else {
@@ -111,7 +150,7 @@ export default function Projects({ navigate }) {
     return () => {
       document.body.style.overflow = '';
     };
-  }, [badgeModalIndex, isPosterModalOpen, raModalIndex]);
+  }, [badgeModalIndex, isPosterModalOpen, raModalIndex, standModalImage]);
 
   // Gestion des raccourcis clavier (Échap et flèches)
   useEffect(() => {
@@ -119,6 +158,7 @@ export default function Projects({ navigate }) {
       if (e.key === 'Escape') {
         setIsPosterModalOpen(false);
         setRaModalIndex(null);
+        setStandModalImage(null);
       }
 
       if (raModalIndex !== null) {
@@ -234,7 +274,7 @@ export default function Projects({ navigate }) {
                   : 'bg-zinc-100 text-[#52525B] hover:text-black hover:bg-zinc-200'
               }`}
             >
-              Fresh Data (AgTech)
+              Fresh Data (Veille & Data)
             </button>
 
             <button
@@ -278,7 +318,7 @@ export default function Projects({ navigate }) {
                   FIC 2026 — Scénographie &amp; expérience événementielle
                 </h2>
                 <p className="text-sm sm:text-base text-[#52525B] mt-2 max-w-3xl leading-relaxed">
-                  Trois années d'expérience en environnement international anglophone, réparties sur deux postes distincts : de la marque employeur et du recrutement technique au design graphique d'espaces événementiels et à l'incarnation de la marque sur le terrain.
+                  Conception graphique et habillage de l'espace événementiel de plus de 150 m² au Forum InCyber (Lille Grand Palais), réalisation de la boucle motion design After Effects sur l'arche vidéo d'accueil et présence active sur le terrain.
                 </p>
               </div>
 
@@ -287,7 +327,7 @@ export default function Projects({ navigate }) {
               </span>
             </div>
 
-            {/* Repères chiffrés typographiques (style studio suisse, sans boîtes de dashboard) */}
+            {/* Repères chiffrés typographiques suisses */}
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 pt-6 border-t border-zinc-200/70">
               <div className="space-y-0.5">
                 <span className="text-2xl sm:text-3xl font-extrabold font-mono text-[#09090B] block">&gt; 150 m²</span>
@@ -308,349 +348,246 @@ export default function Projects({ navigate }) {
             </div>
           </div>
 
-          {/* Distinction explicite des deux postes */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {/* ========================================================
+              CARROUSEL SCÉNOGRAPHIQUE & MÉDIAS FIC 2026 (INTÉGRATION DE RÉFÉRENCE)
+             ======================================================== */}
+          <div className="p-5 sm:p-8 rounded-3xl bg-white dark:bg-zinc-900/70 border border-zinc-200/90 dark:border-white/10 shadow-[0_10px_35px_rgba(0,0,0,0.03)] space-y-6">
             
-            <div className="p-6 sm:p-7 rounded-2xl bg-zinc-50 border border-zinc-200/80 space-y-3">
-              <div className="flex items-center justify-between">
-                <span className="text-xs font-bold uppercase tracking-wider text-[#71717A]">
-                  Période 1 • Alternance
-                </span>
-                <span className="text-xs font-semibold text-zinc-700 bg-white px-2.5 py-0.5 rounded border border-zinc-200">
-                  Sept 2023 – Août 2025
-                </span>
-              </div>
-              <h3 className="text-base sm:text-lg font-bold text-[#09090B]">
-                Chargé de marque employeur (Vade → Hornetsecurity)
-              </h3>
-              <ul className="text-xs sm:text-sm text-[#52525B] space-y-1.5 leading-relaxed">
-                <li>• Campagnes d'attractivité RH pour le recrutement de développeurs et ingénieurs cybersécurité.</li>
-                <li>• Structuration du programme d'employee advocacy et accompagnement individuel des collaborateurs sur LinkedIn.</li>
-                <li>• Logistique d'événements internes, séminaires et animation de la culture post-acquisition.</li>
-              </ul>
-            </div>
-
-            <div className="p-6 sm:p-7 rounded-2xl bg-zinc-50 border border-zinc-200/80 space-y-3">
-              <div className="flex items-center justify-between">
-                <span className="text-xs font-bold uppercase tracking-wider text-[#FFAD00]">
-                  Période 2 • CDI
-                </span>
-                <span className="text-xs font-semibold text-zinc-700 bg-white px-2.5 py-0.5 rounded border border-zinc-200">
-                  Sept 2025 – Octobre 2026
-                </span>
-              </div>
-              <h3 className="text-base sm:text-lg font-bold text-[#09090B]">
-                Graphic Designer (Hornetsecurity by Proofpoint)
-              </h3>
-              <ul className="text-xs sm:text-sm text-[#52525B] space-y-1.5 leading-relaxed">
-                <li>• Création graphique et habillage de stands pour les salons européens (dont le stand de plus de 150 m² au FIC à Lille, ainsi qu'à it-sa Nuremberg).</li>
-                <li>• Coordination graphique avec les prestataires techniques et scénographes internationaux.</li>
-                <li>• Supports marketing et publicitaires B2B (Paid Ads comparatives), fiches techniques et visuels pour webinaires.</li>
-                <li>• Travail quotidien en anglais au sein d'une équipe de design basée principalement en Allemagne.</li>
-              </ul>
-            </div>
-
-          </div>
-
-          {/* Dispositif FIC 2026 à Lille Grand Palais — Refonte Scénographie & Médias */}
-          <div className="space-y-6">
-            <div className="space-y-2">
-              <span className="text-[11px] font-mono font-bold uppercase tracking-widest text-[#FFAD00] flex items-center gap-2">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#FFAD00] shadow-[0_0_6px_rgba(255,173,0,0.8)]" />
-                <span>FORUM INCYBER (FIC) • LILLE GRAND PALAIS</span>
-              </span>
-              <h3 className="text-xl sm:text-2xl font-extrabold text-[#09090B] dark:text-white tracking-tight">
-                Scénographie immersive &amp; stand de plus de 150 m²
-              </h3>
-              <p className="text-xs sm:text-sm text-[#52525B] dark:text-zinc-300 max-w-3xl leading-relaxed">
-                Habillage graphique du stand, animation motion design sur l’arche d’entrée et dispositifs événementiels pensés pour accompagner le parcours des visiteurs.
-              </p>
-            </div>
-            
-            {/* Module Média 6 Onglets : Stand in situ, Arche After Effects & 4 Captations terrain */}
-            <div className="p-6 sm:p-8 rounded-3xl bg-white dark:bg-zinc-900/70 border border-zinc-200/90 dark:border-white/10 shadow-[0_10px_35px_rgba(0,0,0,0.03)] space-y-6">
-              
-              {/* En-tête éditorial et barre des 6 onglets */}
-              <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-zinc-200/60 dark:border-white/10 pb-4">
-                <div className="space-y-1">
-                  <div className="flex items-center gap-2">
-                    <span className="w-2 h-2 rounded-full bg-[#FFAD00] shadow-[0_0_8px_rgba(255,173,0,0.6)]" />
-                    <span className="text-xs font-mono font-bold uppercase tracking-wider text-[#09090B] dark:text-white">
-                      {ficMediaList[hornetMediaIndex]?.tabLabel || "Média"} • FIC 2026
-                    </span>
-                  </div>
-                  <h4 className="text-base sm:text-lg font-extrabold text-[#09090B] dark:text-white tracking-tight">
-                    {ficMediaList[hornetMediaIndex]?.title}
-                  </h4>
+            {/* En-tête éditorial du carrousel avec commandes unifiées */}
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-zinc-200/60 dark:border-white/10 pb-4">
+              <div className="space-y-1">
+                <div className="flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-[#FFAD00] shadow-[0_0_8px_rgba(255,173,0,0.6)]" />
+                  <span className="text-xs font-mono font-bold uppercase tracking-wider text-[#09090B] dark:text-white">
+                    {ficMediaList[hornetMediaIndex]?.badge || "Média FIC 2026"}
+                  </span>
                 </div>
+                <h4 className="text-base sm:text-lg font-extrabold text-[#09090B] dark:text-white tracking-tight">
+                  {ficMediaList[hornetMediaIndex]?.title}
+                </h4>
+              </div>
 
-                {/* 6 Onglets de sélection fluide */}
-                <div className="flex items-center gap-1.5 p-1 rounded-full bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-white/10 text-xs font-mono overflow-x-auto max-w-full">
-                  {ficMediaList.map((m, idx) => (
+              {/* Commandes unifiées : Flèches Prev/Next + Compteur */}
+              <div className="flex items-center gap-2 shrink-0 self-start sm:self-center">
+                <button
+                  type="button"
+                  onClick={handleHornetPrev}
+                  aria-label="Média précédent"
+                  className="w-9 h-9 rounded-full bg-zinc-100 dark:bg-zinc-800 hover:bg-zinc-200 dark:hover:bg-zinc-700 text-zinc-800 dark:text-white border border-zinc-200 dark:border-white/15 flex items-center justify-center transition-all cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FFAD00]"
+                >
+                  <ChevronLeft className="w-4 h-4" />
+                </button>
+                <span className="text-xs font-mono font-bold text-zinc-700 dark:text-zinc-300 px-2 min-w-[56px] text-center">
+                  {String(hornetMediaIndex + 1).padStart(2, '0')} <span className="text-[#FFAD00]">/</span> {String(ficMediaList.length).padStart(2, '0')}
+                </span>
+                <button
+                  type="button"
+                  onClick={handleHornetNext}
+                  aria-label="Média suivant"
+                  className="w-9 h-9 rounded-full bg-zinc-100 dark:bg-zinc-800 hover:bg-zinc-200 dark:hover:bg-zinc-700 text-zinc-800 dark:text-white border border-zinc-200 dark:border-white/15 flex items-center justify-center transition-all cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FFAD00]"
+                >
+                  <ChevronRight className="w-4 h-4" />
+                </button>
+              </div>
+            </div>
+
+            {/* Barre de sélection d'onglets studio ROOM241 (grille réactive et élégante) */}
+            <div className="relative w-full">
+              <div
+                ref={tabContainerRef}
+                className="flex items-center gap-1.5 p-1.5 rounded-2xl bg-zinc-100/90 dark:bg-zinc-800/80 border border-zinc-200/80 dark:border-white/10 text-xs overflow-x-auto no-scrollbar sm:grid sm:grid-cols-7"
+                style={{
+                  WebkitOverflowScrolling: 'touch',
+                  scrollbarWidth: 'none',
+                  msOverflowStyle: 'none'
+                }}
+              >
+                {ficMediaList.map((m, idx) => {
+                  const isActive = hornetMediaIndex === idx;
+                  return (
                     <button
                       key={m.id}
+                      ref={(el) => (tabRefs.current[idx] = el)}
                       type="button"
                       onClick={() => {
                         setHornetMediaIndex(idx);
                         setIsHornetVideoPlaying(false);
                       }}
-                      className={`px-3 py-1.5 rounded-full transition-all shrink-0 cursor-pointer font-medium ${
-                        hornetMediaIndex === idx
-                          ? "bg-white dark:bg-zinc-700 text-[#09090B] dark:text-white font-bold shadow-xs"
-                          : "text-zinc-500 hover:text-black dark:hover:text-white"
+                      className={`py-2 px-2.5 rounded-xl transition-all duration-200 shrink-0 cursor-pointer text-xs font-sans whitespace-nowrap sm:whitespace-normal flex items-center justify-center gap-1.5 ${
+                        isActive
+                          ? "bg-white dark:bg-zinc-900 text-zinc-950 dark:text-white font-semibold shadow-sm border border-zinc-200/90 dark:border-white/15"
+                          : "text-zinc-600 dark:text-zinc-400 hover:text-black dark:hover:text-white hover:bg-white/60 dark:hover:bg-zinc-700/60"
                       }`}
                     >
-                      {String(idx + 1).padStart(2, '0')} · {m.tabLabel}
+                      <span className={`font-mono text-[11px] ${isActive ? "text-[#FFAD00] font-bold" : "text-zinc-400"}`}>
+                        {String(idx + 1).padStart(2, '0')}
+                      </span>
+                      <span className="truncate">{m.tabLabel}</span>
                     </button>
-                  ))}
-                </div>
+                  );
+                })}
               </div>
+            </div>
 
-              {/* Conteneur principal 16:9 du média actif */}
-              <div className="relative aspect-video w-full rounded-2xl sm:rounded-3xl overflow-hidden border border-zinc-200 dark:border-white/10 bg-zinc-950 shadow-md">
-                <AnimatePresence mode="wait">
-                  {hornetMediaIndex === 0 ? (
-                    /* ONGLETS 1 : Vue du stand (Photo réelle in situ) */
-                    <motion.div
-                      key="stand-photo"
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
-                      transition={{ duration: 0.3 }}
-                      className="relative w-full h-full group"
+            {/* Conteneur média 16:9 haute fidélité */}
+            <div className="relative aspect-video w-full rounded-2xl sm:rounded-3xl overflow-hidden border border-zinc-200 dark:border-white/10 bg-zinc-950 shadow-md">
+              <AnimatePresence mode="wait">
+                {ficMediaList[hornetMediaIndex]?.type === 'image' ? (
+                  <motion.div
+                    key={ficMediaList[hornetMediaIndex].id}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.25 }}
+                    className="relative w-full h-full group overflow-hidden"
+                  >
+                    <div
+                      onClick={() => setStandModalImage(ficMediaList[hornetMediaIndex])}
+                      role="button"
+                      tabIndex={0}
+                      aria-label={`Agrandir la photographie : ${ficMediaList[hornetMediaIndex].title}`}
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter' || e.key === ' ') {
+                          e.preventDefault();
+                          setStandModalImage(ficMediaList[hornetMediaIndex]);
+                        }
+                      }}
+                      className="relative w-full h-full cursor-pointer"
                     >
                       <img
-                        src="/assets/hornetsecurity/fic/Stand/IMG20250401075104.jpg"
-                        alt="Stand événementiel de plus de 150 m² Hornetsecurity au Forum InCyber 2026"
-                        className="w-full h-full object-cover object-[center_40%]"
+                        src={ficMediaList[hornetMediaIndex].src}
+                        alt={ficMediaList[hornetMediaIndex].title}
+                        style={ficMediaList[hornetMediaIndex]?.straighten ? { transform: 'rotate(-0.85deg) scale(1.035)' } : undefined}
+                        className="w-full h-full object-cover object-[center_35%] transition-transform duration-500 group-hover:scale-102"
                         loading="eager"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-transparent pointer-events-none" />
-                      
-                      <div className="absolute bottom-4 left-4 right-4 flex items-end justify-between gap-4 text-white">
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none" />
+
+                      {/* Bouton d'agrandissement haute résolution */}
+                      <div className="absolute top-4 right-4 p-2 rounded-full bg-white/90 text-zinc-900 shadow-md opacity-90 group-hover:opacity-100 group-hover:scale-110 transition-all">
+                        <Maximize2 className="w-4 h-4" />
+                      </div>
+
+                      {/* Légende in situ */}
+                      <div className="absolute bottom-4 left-4 right-4 flex items-end justify-between gap-4 text-white pointer-events-none">
                         <div className="space-y-0.5 max-w-xl">
                           <span className="text-[10px] font-mono uppercase tracking-widest text-[#FFAD00] px-2.5 py-0.5 rounded-full bg-black/60 backdrop-blur-md border border-white/15">
-                            Photographie in situ • Stand actif
+                            {ficMediaList[hornetMediaIndex].badge}
                           </span>
-                          <p className="text-xs sm:text-sm font-semibold pt-1">
-                            Lille Grand Palais • Stand de plus de 150 m² accueillant plus de 4 000 contacts B2B
+                          <p className="text-xs sm:text-sm font-semibold pt-1 drop-shadow">
+                            {ficMediaList[hornetMediaIndex].caption}
                           </p>
                         </div>
                         <span className="hidden sm:inline-block text-[11px] font-mono text-zinc-300 bg-black/60 px-3 py-1 rounded-full border border-white/15 backdrop-blur-md">
-                          01 / 06
+                          Cliquer pour agrandir ↗
                         </span>
                       </div>
-                    </motion.div>
-                  ) : hornetMediaIndex === 1 ? (
-                    /* ONGLETS 2 : Arche After Effects (Face avant / Face arrière) */
-                    <motion.div
-                      key="arche-video"
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
-                      transition={{ duration: 0.3 }}
-                      className="relative w-full h-full flex items-center justify-center bg-black"
+                    </div>
+                  </motion.div>
+                ) : (
+                  <motion.div
+                    key={ficMediaList[hornetMediaIndex].id}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.25 }}
+                    className="relative w-full h-full flex items-center justify-center bg-black"
+                  >
+                    <video
+                      key={ficMediaList[hornetMediaIndex].src}
+                      src={ficMediaList[hornetMediaIndex].src}
+                      controls
+                      preload="metadata"
+                      playsInline
+                      className="w-full h-full object-contain"
                     >
-                      {isHornetVideoPlaying ? (
-                        <video
-                          src={
-                            selectedArchFace === "front"
-                              ? "/assets/hornetsecurity/FIC_assets_2026/Video_arch/FRONT_Global_Arch_1920x1080.mp4"
-                              : "/assets/hornetsecurity/FIC_assets_2026/Video_arch/BACK_Global_Arch_1920x1080.mp4"
-                          }
-                          controls
-                          autoPlay
-                          playsInline
-                          className="w-full h-full object-contain"
-                        />
-                      ) : (
-                        <div
-                          onClick={() => setIsHornetVideoPlaying(true)}
-                          role="button"
-                          tabIndex={0}
-                          aria-label="Lancer la vidéo de l'arche After Effects"
-                          onKeyDown={(e) => {
-                            if (e.key === "Enter" || e.key === " ") {
-                              e.preventDefault();
-                              setIsHornetVideoPlaying(true);
-                            }
-                          }}
-                          className="relative w-full h-full cursor-pointer group flex items-center justify-center select-none"
-                        >
-                          <img
-                            src="/assets/hornetsecurity/fic/Stand/IMG20250401075104.jpg"
-                            alt="Arche vidéo d'accueil animée"
-                            className="w-full h-full object-cover object-center opacity-85 group-hover:scale-102 transition-transform duration-500"
-                          />
-                          <div className="absolute inset-0 bg-black/45 group-hover:bg-black/35 transition-colors" />
-
-                          <div className="relative z-10 flex flex-col items-center gap-3">
-                            <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-[#FFAD00] text-black flex items-center justify-center shadow-[0_0_30px_rgba(255,173,0,0.5)] group-hover:scale-110 active:scale-95 transition-all">
-                              <Play className="w-7 h-7 sm:w-8 sm:h-8 fill-current ml-1 text-black" />
-                            </div>
-                            <span className="text-white text-xs sm:text-sm font-semibold px-4 py-1.5 rounded-full bg-black/70 backdrop-blur-md border border-white/20">
-                              Lancer l'animation After Effects (1080p)
-                            </span>
-                          </div>
-
-                          <div className="absolute bottom-4 left-4 right-4 flex items-end justify-between gap-4 text-white z-10">
-                            <div className="space-y-0.5 max-w-xl">
-                              <span className="text-[10px] font-mono uppercase tracking-widest text-[#FFAD00] px-2.5 py-0.5 rounded-full bg-black/60 backdrop-blur-md border border-white/15">
-                                Animation After Effects • {selectedArchFace === "front" ? "Face avant" : "Face arrière"}
-                              </span>
-                              <p className="text-xs sm:text-sm font-semibold pt-1">
-                                Boucle motion design diffusée sur l'arche d'accueil LED du stand
-                              </p>
-                            </div>
-                            <span className="hidden sm:inline-block text-[11px] font-mono text-zinc-300 bg-black/60 px-3 py-1 rounded-full border border-white/15 backdrop-blur-md">
-                              02 / 06
-                            </span>
-                          </div>
-                        </div>
-                      )}
-                    </motion.div>
-                  ) : (
-                    /* ONGLETS 3 à 6 : Captations réelles du salon (Stand, Karting, Vie du salon, Récapitulatif) */
-                    <motion.div
-                      key={ficMediaList[hornetMediaIndex].id}
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
-                      transition={{ duration: 0.3 }}
-                      className="relative w-full h-full flex items-center justify-center bg-black"
-                    >
-                      <video
-                        src={ficMediaList[hornetMediaIndex].src}
-                        controls
-                        preload="metadata"
-                        playsInline
-                        className="w-full h-full object-contain"
-                      >
-                        Votre navigateur ne supporte pas la lecture vidéo.
-                      </video>
-                      <div className="absolute top-4 left-4 pointer-events-none">
-                        <span className="text-[10px] font-mono uppercase tracking-widest text-white px-2.5 py-1 rounded-full bg-black/75 backdrop-blur-md border border-white/20">
-                          {ficMediaList[hornetMediaIndex].badge}
-                        </span>
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
-
-              {/* Angle régie pour l'arche After Effects */}
-              {hornetMediaIndex === 1 && (
-                <div className="flex items-center justify-between gap-4 pt-1 border-t border-zinc-100 dark:border-white/10">
-                  <span className="text-xs text-zinc-500 font-mono">Angle de diffusion :</span>
-                  <div className="flex items-center gap-2">
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setSelectedArchFace("front");
-                        setIsHornetVideoPlaying(false);
-                      }}
-                      className={`px-3 py-1 rounded-full text-xs font-semibold transition-all cursor-pointer ${
-                        selectedArchFace === "front"
-                          ? "bg-[#09090B] dark:bg-white text-white dark:text-black shadow-xs"
-                          : "bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-300 hover:bg-zinc-200"
-                      }`}
-                    >
-                      Face avant
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setSelectedArchFace("back");
-                        setIsHornetVideoPlaying(false);
-                      }}
-                      className={`px-3 py-1 rounded-full text-xs font-semibold transition-all cursor-pointer ${
-                        selectedArchFace === "back"
-                          ? "bg-[#09090B] dark:bg-white text-white dark:text-black shadow-xs"
-                          : "bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-300 hover:bg-zinc-200"
-                      }`}
-                    >
-                      Face arrière
-                    </button>
-                  </div>
-                </div>
-              )}
-
-              {/* Fiche explicative en 3 colonnes : Motion Design, Habillage graphique, Présence terrain */}
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-5 pt-3 border-t border-zinc-200/60 dark:border-white/10">
-                <div className="p-4 sm:p-5 rounded-2xl bg-zinc-50/70 dark:bg-zinc-900/50 border border-zinc-200/80 dark:border-white/10 space-y-2">
-                  <div className="flex items-center gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#FFAD00]" />
-                    <h5 className="font-mono text-xs font-bold uppercase tracking-wider text-zinc-900 dark:text-white">
-                      Motion design
-                    </h5>
-                  </div>
-                  <p className="text-xs text-[#52525B] dark:text-zinc-300 leading-relaxed">
-                    Animation réalisée sur Adobe After Effects et diffusée sur l’arche LED à l’entrée du salon. Une boucle de motion design accompagnait la transition de marque « HORNETSECURITY FORMERLY Vade ».
-                  </p>
-                </div>
-
-                <div className="p-4 sm:p-5 rounded-2xl bg-zinc-50/70 dark:bg-zinc-900/50 border border-zinc-200/80 dark:border-white/10 space-y-2">
-                  <div className="flex items-center gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#FFAD00]" />
-                    <h5 className="font-mono text-xs font-bold uppercase tracking-wider text-zinc-900 dark:text-white">
-                      Habillage graphique
-                    </h5>
-                  </div>
-                  <p className="text-xs text-[#52525B] dark:text-zinc-300 leading-relaxed">
-                    Habillage graphique et signalétique du stand de plus de 150 m² pour le FIC 2026. En lien avec les équipes de design, j’ai contribué à l’identité visuelle de l’espace et à l’organisation des parcours visiteurs.
-                  </p>
-                </div>
-
-                <div className="p-4 sm:p-5 rounded-2xl bg-zinc-50/70 dark:bg-zinc-900/50 border border-zinc-200/80 dark:border-white/10 space-y-2">
-                  <div className="flex items-center gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#FFAD00]" />
-                    <h5 className="font-mono text-xs font-bold uppercase tracking-wider text-zinc-900 dark:text-white">
-                      Présence sur le terrain
-                    </h5>
-                  </div>
-                  <p className="text-xs text-[#52525B] dark:text-zinc-300 leading-relaxed">
-                    Présence sur les trois jours du salon, au contact des visiteurs et autour des dispositifs événementiels, notamment Captain Security et la piste de e-karting (+4 000 contacts qualifiés enregistrés collectivement).
-                  </p>
-                </div>
-              </div>
-
+                      Votre navigateur ne supporte pas la lecture vidéo.
+                    </video>
+                    <div className="absolute top-4 left-4 pointer-events-none z-10">
+                      <span className="text-[10px] font-mono uppercase tracking-widest text-white px-2.5 py-1 rounded-full bg-black/75 backdrop-blur-md border border-white/20">
+                        {ficMediaList[hornetMediaIndex].badge}
+                      </span>
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
 
-            {/* Diptyque Bâche Zénith & Couloir karting */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-3">
-              <div className="space-y-2">
-                <div className="aspect-[3/4] sm:aspect-[4/5] rounded-2xl overflow-hidden border border-zinc-200 bg-zinc-950 shadow-sm">
-                  <img
-                    src="/assets/hornetsecurity/fic/Stand/tmp_8551ceee-de3b-46ec-ba5a-a37cac8e00df.jpeg"
-                    alt="Affichage urbain géant sur la façade du Zénith de Lille pour l'e-karting"
-                    className="w-full h-full object-cover object-[center_20%]"
-                    loading="lazy"
-                  />
+            {/* Fiche explicative en 3 volets sous le carrousel */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-5 pt-3 border-t border-zinc-200/60 dark:border-white/10">
+              <div className="p-4 sm:p-5 rounded-2xl bg-zinc-50/70 dark:bg-zinc-900/50 border border-zinc-200/80 dark:border-white/10 space-y-2">
+                <div className="flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#FFAD00]" />
+                  <h5 className="font-mono text-xs font-bold uppercase tracking-wider text-zinc-900 dark:text-white">
+                    Scénographie &amp; Signalétique
+                  </h5>
                 </div>
-                <h4 className="text-xs font-semibold text-[#09090B]">
-                  Affichage urbain extérieur — Zénith de Lille (Édition FIC 2025)
-                </h4>
-                <p className="text-xs text-[#52525B] leading-relaxed">
-                  Conception de la bâche extérieure grand format sur la façade du Zénith de Lille invitant les visiteurs du forum à rejoindre l'espace privatisé lors de l'édition FIC 2025.
+                <p className="text-xs text-[#52525B] dark:text-zinc-300 leading-relaxed">
+                  Habillage graphique du stand de plus de 150 m² pour le FIC 2026. Conception des totems d'information, des bornes interactives et organisation du parcours visiteur en coordination avec les scénographes.
                 </p>
               </div>
 
-              <div className="space-y-2">
-                <div className="aspect-[3/4] sm:aspect-[4/5] rounded-2xl overflow-hidden border border-zinc-200 bg-zinc-950 shadow-sm">
-                  <img
-                    src="/assets/hornetsecurity/fic/Stand/IMG20250401075149.jpg"
-                    alt="Signalétique directionnelle avec motif drapeau à damier vers la piste karting"
-                    className="w-full h-full object-cover object-center"
-                    loading="lazy"
-                  />
+              <div className="p-4 sm:p-5 rounded-2xl bg-zinc-50/70 dark:bg-zinc-900/50 border border-zinc-200/80 dark:border-white/10 space-y-2">
+                <div className="flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#FFAD00]" />
+                  <h5 className="font-mono text-xs font-bold uppercase tracking-wider text-zinc-900 dark:text-white">
+                    Motion Design After Effects
+                  </h5>
                 </div>
-                <h4 className="text-xs font-semibold text-[#09090B]">
-                  Signalétique directionnelle &amp; Couloir e-karting
-                </h4>
-                <p className="text-xs text-[#52525B] leading-relaxed">
-                  Scénographie du couloir de transit aux couleurs de la marque avec damier rouge et noir orientant les flux de visiteurs vers l'animation.
+                <p className="text-xs text-[#52525B] dark:text-zinc-300 leading-relaxed">
+                  Conception et animation de la boucle vidéo diffusée sur l'arche LED d'accueil à l'entrée du stand. Accompagnement de la transition de marque « HORNETSECURITY FORMERLY Vade ».
                 </p>
               </div>
+
+              <div className="p-4 sm:p-5 rounded-2xl bg-zinc-50/70 dark:bg-zinc-900/50 border border-zinc-200/80 dark:border-white/10 space-y-2">
+                <div className="flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#FFAD00]" />
+                  <h5 className="font-mono text-xs font-bold uppercase tracking-wider text-zinc-900 dark:text-white">
+                    Présence &amp; Terrain
+                  </h5>
+                </div>
+                <p className="text-xs text-[#52525B] dark:text-zinc-300 leading-relaxed">
+                  Présence active sur les 3 jours de l'événement, contact avec les visiteurs, animation autour de la piste e-karting et retombée collective de plus de 4 000 contacts B2B qualifiés.
+                </p>
+              </div>
+            </div>
+
+          </div>
+
+          {/* Diptyque Bâche Zénith & Couloir karting */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-3">
+            <div className="space-y-2">
+              <div className="aspect-[3/4] sm:aspect-[4/5] rounded-2xl overflow-hidden border border-zinc-200 bg-zinc-950 shadow-sm">
+                <img
+                  src="/assets/hornetsecurity/fic/Stand/tmp_8551ceee-de3b-46ec-ba5a-a37cac8e00df.jpeg"
+                  alt="Affichage urbain géant sur la façade du Zénith de Lille pour l'e-karting"
+                  className="w-full h-full object-cover object-[center_20%]"
+                  loading="lazy"
+                />
+              </div>
+              <h4 className="text-xs font-semibold text-[#09090B]">
+                Affichage urbain extérieur — Zénith de Lille (Édition FIC 2025)
+              </h4>
+              <p className="text-xs text-[#52525B] leading-relaxed">
+                Conception de la bâche extérieure grand format sur la façade du Zénith de Lille invitant les visiteurs du forum à rejoindre l'espace privatisé lors de l'édition FIC 2025.
+              </p>
+            </div>
+
+            <div className="space-y-2">
+              <div className="aspect-[3/4] sm:aspect-[4/5] rounded-2xl overflow-hidden border border-zinc-200 bg-zinc-950 shadow-sm">
+                <img
+                  src="/assets/hornetsecurity/fic/Stand/IMG20250401075149.jpg"
+                  alt="Signalétique directionnelle avec motif drapeau à damier vers la piste karting"
+                  className="w-full h-full object-cover object-center"
+                  loading="lazy"
+                />
+              </div>
+              <h4 className="text-xs font-semibold text-[#09090B]">
+                Signalétique directionnelle &amp; Couloir e-karting
+              </h4>
+              <p className="text-xs text-[#52525B] leading-relaxed">
+                Scénographie du couloir de transit aux couleurs de la marque avec damier rouge et noir orientant les flux de visiteurs vers l'animation.
+              </p>
             </div>
           </div>
 
@@ -670,7 +607,6 @@ export default function Projects({ navigate }) {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
-              
               <div>
                 <div className="aspect-[4/3] rounded-2xl overflow-hidden border border-zinc-200 bg-zinc-950 shadow-sm flex items-center justify-center">
                   <img
@@ -687,12 +623,11 @@ export default function Projects({ navigate }) {
                   <img
                     src="/assets/hornetsecurity/fic/Capain/captain.jpeg"
                     alt="Rémi Brocart en costume de Captain Security sur la passerelle d'accès"
-                    className="w-full h-full object-cover object-[center_25%]"
+                    className="w-full h-full object-cover object-[center_8%]"
                     loading="lazy"
                   />
                 </div>
               </div>
-
             </div>
           </div>
 
@@ -714,7 +649,6 @@ export default function Projects({ navigate }) {
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-              
               {/* Colonne gauche : Grande affiche avec format vertical respecté et zoom plein écran */}
               <div className="lg:col-span-6 space-y-2">
                 <div
@@ -816,29 +750,6 @@ export default function Projects({ navigate }) {
 
             </div>
           </div>
-
-          
-
-          {/* Section Motion Design & Vidéo : Carrousel interactif complet */}
-          <div className="space-y-4 pt-2">
-            <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2 border-b border-zinc-200/60 pb-3">
-              <div>
-                <span className="text-xs font-bold uppercase tracking-wider text-[#FFAD00] flex items-center gap-1.5">
-                  <Video className="w-3.5 h-3.5" />
-                  Motion Design &amp; Production Vidéo
-                </span>
-                <h3 className="text-xl sm:text-2xl font-extrabold text-[#09090B] mt-0.5">
-                  Arches lumineuses LED, scénographie &amp; captations de terrain
-                </h3>
-              </div>
-              <span className="text-xs font-semibold text-zinc-600 bg-zinc-100 px-3 py-1 rounded-full border border-zinc-200">
-                5 réalisations vidéo à la demande
-              </span>
-            </div>
-
-            <MotionVideoCarousel />
-          </div>
-
         </section>
       )}
 
@@ -881,77 +792,83 @@ export default function Projects({ navigate }) {
             <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-zinc-500">
               <span className="font-bold text-zinc-950">02</span>
               <span>/</span>
-              <span>Fresh Data • AgTech &amp; Financement Ulule</span>
+              <span>Fresh Data • Veille publicitaire &amp; Grande distribution</span>
             </div>
 
-            <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-4">
-              <div>
-                <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight text-[#09090B]">
-                  Fresh Data — Système visuel, campagne Ulule (116 %) &amp; salon international MEDFEL
-                </h2>
-                <p className="text-sm sm:text-base text-[#52525B] mt-2 max-w-3xl leading-relaxed">
-                  Intervention globale en tant que graphiste freelance pour bâtir l'univers de marque, vulgariser une technologie spectrale complexe et orchestrer le lancement public d'une solution de qualification des fruits et légumes, pour documenter et propulser la solution auprès des décideurs de la filière.
-                </p>
-              </div>
-
-              <div className="flex flex-wrap items-center gap-2 shrink-0">
-                <span className="text-xs font-semibold text-zinc-900 bg-zinc-100 px-3.5 py-1.5 rounded-full border border-zinc-200">
-                  Ulule atteint à 116 %
-                </span>
-                <span className="text-xs font-semibold text-emerald-800 bg-emerald-50 px-3 py-1.5 rounded-full border border-emerald-200">
-                  Pilotes Auchan, Grand Frais, E.Leclerc
-                </span>
-              </div>
+            <div>
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight text-[#09090B]">
+                Fresh Data — Veille concurrentielle grande distribution, campagne Ulule &amp; dossiers B2B
+              </h2>
             </div>
           </div>
 
-          {/* Grille des 4 dimensions fondamentales du projet */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          {/* 1. Chapeau factuel & Badges sobres */}
+          <div className="max-w-3xl mb-8">
+            <p className="text-zinc-600 text-sm md:text-base leading-relaxed">
+              Création de l'univers visuel et vulgarisation des données de Fresh Data aux côtés du fondateur Marc-Henri Blarel. Solution SaaS de pige publicitaire et de veille concurrentielle multicanale (tracts promos, prospectus, spots radio) pour la grande distribution, Fresh Data analyse la pression promotionnelle au jour le jour pour permettre aux enseignes d'anticiper la demande, d'ajuster leurs prix et de caler leurs stocks en magasin. L'enjeu de mon intervention : rendre compréhensibles des flux massifs de données tarifaires, concevoir l'architecture graphique de la campagne de financement participatif Ulule (objectif global 20 000 €, premier palier franchi à 116 % avec plus de 12 700 € réunis) et outiller la prospection commerciale auprès des centrales d'achats.
+            </p>
+            <div className="flex flex-wrap items-center gap-2 mt-4">
+              <span className="px-3 py-1 text-xs font-medium rounded-full bg-zinc-100 text-zinc-800 border border-zinc-200/60">
+                Campagne Ulule • 116 % du 1er palier atteint
+              </span>
+              <span className="px-3 py-1 text-xs font-medium rounded-full bg-zinc-100 text-zinc-700 border border-zinc-200/60">
+                12 700 € collectés • Objectif global 20k
+              </span>
+              <span className="px-3 py-1 text-xs font-medium rounded-full bg-zinc-100 text-zinc-700 border border-zinc-200/60">
+                Veille promotionnelle multicanale
+              </span>
+              <span className="px-3 py-1 text-xs font-medium rounded-full bg-zinc-100 text-zinc-700 border border-zinc-200/60">
+                Supports de présentation B2B
+              </span>
+            </div>
+          </div>
+
+          {/* 2. Première rangée : 4 Volets d'intervention */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-12">
+            {/* Volet 01 */}
+            <div className="bg-white border border-zinc-200/70 rounded-2xl p-5 shadow-sm hover:border-zinc-300 transition-all">
+              <div className="text-[11px] font-mono text-zinc-400 mb-2">01 • VULGARISATION DATA</div>
+              <div className="text-zinc-900 font-semibold text-sm mb-2">Tableaux de bord &amp; Pige promo</div>
+              <p className="text-zinc-600 text-xs leading-relaxed">
+                Traduction visuelle des flux de données de pige : conception de tableaux de bord clairs, d'infographies comparatives et de graphes de pression publicitaire (prospectus, tracts, radio) pour rendre les tendances de marché immédiatement lisibles par les directeurs de magasin et acheteurs.
+              </p>
+            </div>
+
+            {/* Volet 02 */}
+            <div className="bg-white border border-zinc-200/70 rounded-2xl p-5 shadow-sm hover:border-zinc-300 transition-all">
+              <div className="text-[11px] font-mono text-zinc-400 mb-2">02 • FINANCEMENT</div>
+              <div className="text-zinc-900 font-semibold text-sm mb-2">Campagne Ulule (116 %)</div>
+              <p className="text-zinc-600 text-xs leading-relaxed">
+                Conception de l'architecture graphique complète du crowdfunding : bannières narratives, infographies pédagogiques, visuels des contreparties et habillage des paliers jusqu'aux 12 700 € réunis sur un objectif global de 20 000 €.
+              </p>
+            </div>
+
+            {/* Volet 03 */}
+            <div className="bg-white border border-zinc-200/70 rounded-2xl p-5 shadow-sm hover:border-zinc-300 transition-all">
+              <div className="text-[11px] font-mono text-zinc-400 mb-2">03 • AIDE À LA VENTE</div>
+              <div className="text-zinc-900 font-semibold text-sm mb-2">Dossiers Commerciaux B2B</div>
+              <p className="text-zinc-600 text-xs leading-relaxed">
+                Mise en page des dossiers et plaquettes de présentation présentés par le fondateur lors des rendez-vous stratégiques avec les centrales d'achats de la grande distribution (Auchan, Grand Frais, E.Leclerc) pour soutenir la prospection.
+              </p>
+            </div>
+
+            {/* Volet 04 */}
+            <div className="bg-white border border-zinc-200/70 rounded-2xl p-5 shadow-sm hover:border-zinc-300 transition-all">
+              <div className="text-[11px] font-mono text-zinc-400 mb-2">04 • TERRAIN &amp; MÉDIAS</div>
+              <div className="text-zinc-900 font-semibold text-sm mb-2">Réseaux &amp; Salon MEDFEL</div>
+              <p className="text-zinc-600 text-xs leading-relaxed">
+                Création des déclinaisons graphiques hebdomadaires accompagnant les chroniques radio du fondateur, et tournage/montage d'interviews in situ sur le stand du salon professionnel MEDFEL à Perpignan.
+              </p>
+            </div>
+          </div>
+
+          {/* 3. Zone Média : Captation Salon MEDFEL */}
+          <div className="mb-12 space-y-3">
+            <div className="flex items-center justify-between text-xs text-zinc-500 px-1">
+              <span>Salon international MEDFEL (Perpignan) — Captation in situ et interview sur le stand</span>
+              <span>Format court • Prise de vue &amp; montage</span>
+            </div>
             
-            <div className="p-5 rounded-2xl bg-zinc-50 border border-zinc-200/80 space-y-2">
-              <span className="text-xs font-bold uppercase tracking-wider text-[#71717A] flex items-center gap-1.5">
-                <Target className="w-3.5 h-3.5 text-[#FFAD00]" />
-                1. Contexte &amp; objectif
-              </span>
-              <p className="text-xs text-[#52525B] leading-relaxed">
-                <strong className="text-[#09090B]">Qualification non destructive :</strong> Évaluer instantanément le taux de sucre et la maturité des fruits sans altérer la récolte, pour réduire le gaspillage alimentaire en rayon et optimiser les flux logistiques.
-              </p>
-            </div>
-
-            <div className="p-5 rounded-2xl bg-zinc-50 border border-zinc-200/80 space-y-2">
-              <span className="text-xs font-bold uppercase tracking-wider text-[#71717A] flex items-center gap-1.5">
-                <Users className="w-3.5 h-3.5 text-[#FFAD00]" />
-                2. Publics concernés
-              </span>
-              <p className="text-xs text-[#52525B] leading-relaxed">
-                <strong className="text-[#09090B]">B2B &amp; Partenaires :</strong> Arboriculteurs, coopératives agricoles, centrales d'achat de la grande distribution et investisseurs de la filière AgriTech française et européenne.
-              </p>
-            </div>
-
-            <div className="p-5 rounded-2xl bg-zinc-50 border border-zinc-200/80 space-y-2">
-              <span className="text-xs font-bold uppercase tracking-wider text-[#71717A] flex items-center gap-1.5">
-                <Layers className="w-3.5 h-3.5 text-[#FFAD00]" />
-                3. Direction artistique
-              </span>
-              <p className="text-xs text-[#52525B] leading-relaxed">
-                <strong className="text-[#09090B]">Rigueur fonctionnelle :</strong> Typographie épurée sans empattement, grilles strictes, clarté didactique des schémas techniques et équilibre entre fraîcheur végétale et précision scientifique.
-              </p>
-            </div>
-
-            <div className="p-5 rounded-2xl bg-zinc-50 border border-zinc-200/80 space-y-2">
-              <span className="text-xs font-bold uppercase tracking-wider text-[#71717A] flex items-center gap-1.5">
-                <Award className="w-3.5 h-3.5 text-[#FFAD00]" />
-                4. Contribution de Rémi
-              </span>
-              <p className="text-xs text-[#52525B] leading-relaxed">
-                <strong className="text-[#09090B]">Graphisme &amp; Contenus 360° :</strong> Bannières Ulule, fiches explicatives, habillages radio, captation terrain et montage des interviews au salon MEDFEL.
-              </p>
-            </div>
-
-          </div>
-
-          {/* Lecteur vidéo salon MEDFEL avec miniature réelle & contexte éditorial */}
-          <div className="space-y-3">
             <div className="relative aspect-video w-full rounded-2xl sm:rounded-3xl overflow-hidden border border-zinc-200 bg-neutral-950 shadow-sm">
               {isPlayingFreshVideo ? (
                 <iframe
@@ -966,81 +883,90 @@ export default function Projects({ navigate }) {
                   onClick={() => setIsPlayingFreshVideo(true)}
                   role="button"
                   tabIndex={0}
-                  aria-label="Lancer la vidéo interview au salon MEDFEL"
+                  aria-label="Lancer la vidéo de Fresh Data"
                   onKeyDown={(e) => {
                     if (e.key === 'Enter' || e.key === ' ') {
                       e.preventDefault();
                       setIsPlayingFreshVideo(true);
                     }
                   }}
-                  className="relative w-full h-full cursor-pointer group"
+                  className="relative w-full h-full cursor-pointer group flex items-center justify-center select-none"
                 >
                   <img
                     src="/assets/fresh-data-video-cover.jpg"
-                    alt="Production vidéo salon MEDFEL et campagne Ulule — Fresh Data"
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    alt="Fresh Data — Captation vidéo salon MEDFEL et campagne Ulule"
+                    className="w-full h-full object-cover opacity-85 group-hover:scale-102 transition-transform duration-500"
                     loading="lazy"
                   />
-                  <div className="absolute inset-0 bg-black/30 transition-opacity group-hover:bg-black/15" />
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="w-16 h-16 rounded-full bg-[#FFAD00] hover:bg-[#E59B00] text-black flex items-center justify-center shadow-[0_0_25px_rgba(255,173,0,0.45)] transition-transform duration-200 group-hover:scale-110">
-                      <Play className="w-7 h-7 fill-current ml-0.5 text-black" />
+                  <div className="absolute inset-0 bg-black/40 group-hover:bg-black/30 transition-colors" />
+
+                  <div className="relative z-10 flex flex-col items-center gap-3">
+                    <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-[#FFAD00] text-black flex items-center justify-center shadow-[0_0_30px_rgba(255,173,0,0.5)] group-hover:scale-110 active:scale-95 transition-all">
+                      <Play className="w-7 h-7 sm:w-8 sm:h-8 fill-current ml-1 text-black" />
                     </div>
+                    <span className="text-white text-xs sm:text-sm font-semibold px-4 py-1.5 rounded-full bg-black/60 backdrop-blur-md border border-white/20">
+                      Visionner l'interview vidéo (Salon MEDFEL)
+                    </span>
+                  </div>
+
+                  <div className="absolute bottom-4 left-4 right-4 flex items-end justify-between gap-4 text-white z-10 pointer-events-none">
+                    <div className="space-y-0.5 max-w-xl">
+                      <span className="text-[10px] font-mono uppercase tracking-widest text-[#FFAD00] px-2.5 py-0.5 rounded-full bg-black/60 backdrop-blur-md border border-white/15">
+                        Captation terrain • Perpignan
+                      </span>
+                      <p className="text-xs sm:text-sm font-semibold pt-1 drop-shadow">
+                        Interviews in situ des premiers utilisateurs et démonstration du produit sur le stand
+                      </p>
+                    </div>
+                    <span className="hidden sm:inline-block text-[11px] font-mono text-zinc-300 bg-black/60 px-3 py-1 rounded-full border border-white/15 backdrop-blur-md">
+                      01:30 · 1080p
+                    </span>
                   </div>
                 </div>
               )}
             </div>
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between text-xs text-[#71717A] px-1 gap-1">
-              <span>Captation vidéo et interview réalisée sur le stand du salon international MEDFEL à Perpignan (Click-to-play)</span>
-              <span className="font-mono text-[11px]">Durée · 100 % captation &amp; montage autonome</span>
-            </div>
           </div>
 
-          {/* Livrables détaillés & Retombées documentées */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-2">
-            
-            <div className="p-6 rounded-2xl bg-zinc-50 border border-zinc-200/80 space-y-3">
-              <div className="flex items-center justify-between">
-                <h3 className="text-xs font-bold uppercase tracking-wider text-[#09090B]">
-                  1. Campagne participative Ulule
-                </h3>
-                <span className="text-[11px] font-mono font-bold text-emerald-700 bg-emerald-100/70 px-2 py-0.5 rounded">
-                  116 % atteint
+          {/* 4. Deuxième rangée : Synthèse des 3 Livrables (Cards sobres haut de gamme) */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+            {/* Carte 1 */}
+            <div className="bg-white border border-zinc-200/70 rounded-2xl p-6 shadow-sm hover:border-zinc-300 transition-all">
+              <div className="flex items-center justify-between mb-3">
+                <span className="text-zinc-900 font-semibold text-sm">1. Campagne participative Ulule</span>
+                <span className="bg-zinc-100 text-zinc-700 text-[11px] font-medium px-2.5 py-1 rounded-full border border-zinc-200/60">
+                  12 700 € réunis • Obj. 20k
                 </span>
               </div>
-              <p className="text-xs sm:text-sm text-[#52525B] leading-relaxed">
-                Conception de l'architecture graphique complète de la campagne de financement participatif : bannières narratives, infographies pédagogiques vulgarisant la spectroscopie et visuels des contreparties, permettant de dépasser l'objectif initial avec plus de 12 700 € réunis.
+              <p className="text-zinc-600 text-xs md:text-sm leading-relaxed">
+                Conception de l'architecture graphique complète de la campagne de financement participatif : bannières narratives, infographies pédagogiques vulgarisant les analyses de pression promotionnelle et visuels des contreparties, permettant de valider le premier palier à 116 % avec plus de 12 700 € collectés.
               </p>
             </div>
 
-            <div className="p-6 rounded-2xl bg-zinc-50 border border-zinc-200/80 space-y-3">
-              <div className="flex items-center justify-between">
-                <h3 className="text-xs font-bold uppercase tracking-wider text-[#09090B]">
-                  2. Kit Médias, Presse &amp; Radio
-                </h3>
-                <span className="text-[11px] font-mono font-bold text-zinc-700 bg-zinc-200/80 px-2 py-0.5 rounded">
+            {/* Carte 2 */}
+            <div className="bg-white border border-zinc-200/70 rounded-2xl p-6 shadow-sm hover:border-zinc-300 transition-all">
+              <div className="flex items-center justify-between mb-3">
+                <span className="text-zinc-900 font-semibold text-sm">2. Kit médias, presse &amp; radio</span>
+                <span className="bg-zinc-100 text-zinc-700 text-[11px] font-medium px-2.5 py-1 rounded-full border border-zinc-200/60">
                   Multi-supports
                 </span>
               </div>
-              <p className="text-xs sm:text-sm text-[#52525B] leading-relaxed">
-                Création des déclinaisons visuelles institutionnelles pour accompagner les passages en studios de radio, les interviews presse et les plaquettes techniques remises en main propre aux partenaires et décideurs de la filière.
+              <p className="text-zinc-600 text-xs md:text-sm leading-relaxed">
+                Création des déclinaisons visuelles institutionnelles pour accompagner les passages en studios de radio, les interviews presse et les plaquettes d'analyse de la veille publicitaire remises en main propre aux partenaires et décideurs de la filière.
               </p>
             </div>
 
-            <div className="p-6 rounded-2xl bg-zinc-50 border border-zinc-200/80 space-y-3">
-              <div className="flex items-center justify-between">
-                <h3 className="text-xs font-bold uppercase tracking-wider text-[#09090B]">
-                  3. Débouchés Grande Distribution
-                </h3>
-                <span className="text-[11px] font-mono font-bold text-[#09090B] bg-[#FFAD00]/20 px-2 py-0.5 rounded">
+            {/* Carte 3 */}
+            <div className="bg-white border border-zinc-200/70 rounded-2xl p-6 shadow-sm hover:border-zinc-300 transition-all">
+              <div className="flex items-center justify-between mb-3">
+                <span className="text-zinc-900 font-semibold text-sm">3. Échanges grande distribution</span>
+                <span className="bg-zinc-100 text-zinc-700 text-[11px] font-medium px-2.5 py-1 rounded-full border border-zinc-200/60">
                   Contacts qualifiés
                 </span>
               </div>
-              <p className="text-xs sm:text-sm text-[#52525B] leading-relaxed">
-                La rigueur des livrables graphiques et la clarté de la démonstration ont directement soutenu l'ouverture d'échanges qualifiés avec les centrales d'achats d'<strong className="text-[#09090B]">Auchan, Grand Frais et E.Leclerc</strong> pour envisager des déploiements pilotes en rayon.
+              <p className="text-zinc-600 text-xs md:text-sm leading-relaxed">
+                La rigueur des livrables graphiques et la clarté de la démonstration des données promo ont directement soutenu l'ouverture d'échanges qualifiés avec les centrales d'achats d'Auchan, Grand Frais et E.Leclerc pour envisager des déploiements pilotes de la solution.
               </p>
             </div>
-
           </div>
         </section>
       )}
@@ -1480,6 +1406,63 @@ export default function Projects({ navigate }) {
       {typeof document !== 'undefined' &&
         createPortal(
           <>
+            {/* MODAL 1 : ZOOM HAUTE RÉSOLUTION DE LA PHOTOGRAPHIE DU STAND */}
+            <AnimatePresence>
+              {standModalImage && (
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
+                  role="dialog"
+                  aria-modal="true"
+                  aria-label="Visionneuse de photographie haute résolution du stand"
+                  className="fixed inset-0 z-[9999] w-screen h-screen bg-black/95 backdrop-blur-xl flex flex-col justify-between p-3 sm:p-6 select-none"
+                  onClick={() => setStandModalImage(null)}
+                >
+                  {/* Barre haute */}
+                  <div
+                    className="flex items-center justify-between text-white text-xs w-full max-w-6xl mx-auto z-40 py-2"
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    <div className="flex items-center gap-2">
+                      <span className="font-mono text-zinc-300 text-xs px-3 py-1 rounded-full bg-white/10 border border-white/10">
+                        Photographie in situ
+                      </span>
+                      <span className="text-zinc-300 font-medium truncate max-w-md">{standModalImage.title}</span>
+                    </div>
+
+                    <button
+                      type="button"
+                      onClick={() => setStandModalImage(null)}
+                      className="p-2 sm:px-3 sm:py-1.5 rounded-full bg-white/10 hover:bg-white/20 text-white border border-white/15 transition-colors flex items-center gap-1.5 text-xs font-medium cursor-pointer"
+                      aria-label="Fermer la prévisualisation"
+                    >
+                      <X className="w-4 h-4" />
+                      <span>Fermer</span>
+                    </button>
+                  </div>
+
+                  {/* Zone centrale : Image pleine hauteur sans recadrage */}
+                  <div
+                    className="relative flex-1 flex items-center justify-center my-auto w-full px-4 sm:px-12 select-none"
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    <img
+                      src={standModalImage.src}
+                      alt={standModalImage.title}
+                      className="max-h-full max-w-full w-auto h-auto object-contain rounded-xl sm:rounded-2xl shadow-2xl border border-white/10"
+                    />
+                  </div>
+
+                  {/* Barre basse */}
+                  <div className="text-center text-zinc-300 text-xs py-2" onClick={(e) => e.stopPropagation()}>
+                    <p className="font-semibold text-white">{standModalImage.title}</p>
+                    <p className="text-zinc-400 text-[11px] font-mono mt-0.5">{standModalImage.caption || "Format d'origine haute définition • Forum InCyber Lille Grand Palais"}</p>
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
             
 
             {/* MODAL 2 : ZOOM HAUTE RÉSOLUTION DE L'AFFICHE HELIX NOVA */}

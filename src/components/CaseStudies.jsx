@@ -275,7 +275,7 @@ export default function CaseStudies({ isPreview, isFullPage, navigate }) {
               {/* Text Info */}
               <div className="lg:col-span-5">
                 <div className="text-xs font-sans text-neutral-500 dark:text-neutral-400 mb-2">
-                  AgTech &amp; Production Vidéo · 2026
+                  Retail Data &amp; Production Vidéo · 2026
                 </div>
 
                 <h3 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight leading-[1.1] mb-4 text-neutral-900 dark:text-white group-hover:text-room-amber transition-colors duration-200">
@@ -283,7 +283,7 @@ export default function CaseStudies({ isPreview, isFullPage, navigate }) {
                 </h3>
 
                 <p className="text-neutral-600 dark:text-neutral-300 text-base sm:text-lg leading-relaxed font-sans mb-4">
-                  Création de l'identité de marque, pilotage du financement participatif Ulule et production vidéo terrain (MEDFEL) pour capter une audience B2B dès la première année.
+                  Création graphique et vulgarisation visuelle d'une solution de veille concurrentielle grande distribution, direction de la campagne Ulule (116 % / 12 700 € réunis sur obj. 20k) et captation au salon MEDFEL.
                 </p>
 
                 {/* Clean Impact Strip */}
