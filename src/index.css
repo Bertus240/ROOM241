@@ -1,0 +1,518 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg-main: #FFFFFF;
+  --bg-surface: #FFFFFF;
+  --bg-card: #FFFFFF;
+  --border-color: rgba(228, 228, 231, 0.7);
+  --border-hover: rgba(212, 212, 216, 1);
+  --text-main: #09090B;
+  --text-muted: #3F3F46;
+  --text-subtle: #71717A;
+  --room-amber: #FFAD00;       /* Signature Amber #FFAD00 used sparingly */
+  --room-amber-hover: #E59B00;
+  --room-amber-muted: rgba(255, 173, 0, 0.08);
+}
+
+@layer base {
+  body {
+    background-color: #FFFFFF;
+    color: #09090B;
+    font-family: 'Geist', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Hiérarchie typographique : titres nets, équilibrés et aérés */
+  h1, h2, h3 {
+    text-wrap: balance;
+    letter-spacing: -0.025em;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-main);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-main);
+}
+/* Ambient backlight glow for Room241 signature #FFAD00 accent */
+.glow-amber-subtle {
+  box-shadow: 0 0 40px rgba(255, 173, 0, 0.18);
+}
+
+.glow-amber-strong {
+  box-shadow: 0 0 60px rgba(255, 173, 0, 0.35);
+}
+
+:root {
+  --ease-premium: cubic-bezier(0.16, 1, 0.3, 1);
+  --dur-fast: 150ms;
+  --dur-med: 200ms;
+  --dur-reveal: 700ms;
+  --glass-border: rgba(17, 17, 17, 0.08);
+  --spot-color: rgba(255, 173, 0, 0.08);
+  --field-ring: rgba(255, 173, 0, 0.14);
+}
+
+html.dark {
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --spot-color: rgba(255, 173, 0, 0.08);
+}
+
+/* Grain photographique organique en overlay ultra-subtil (ne pollue pas le texte) */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 99;
+  pointer-events: none;
+  opacity: 0.018;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.75'/%3E%3C/svg%3E");
+  background-size: 180px 180px;
+}
+
+html.dark body::after {
+  opacity: 0.015;
+}
+
+.bg-luxe {
+  background:
+    radial-gradient(60% 42% at 50% 0%, rgba(255, 173, 0, 0.09), transparent 70%),
+    var(--bg-main);
+}
+
+/* Bouton primaire : micro-scale 0.98 + bordure ambrée douce au hover + ombre portée soignée */
+.btn-primary {
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.18), 0 2px 4px rgba(0, 0, 0, 0.15);
+  transition: transform var(--dur-fast) var(--ease-premium), background-color var(--dur-fast) ease, opacity var(--dur-fast) ease, box-shadow var(--dur-med) var(--ease-premium), border-color var(--dur-fast) ease;
+  will-change: transform;
+}
+.btn-primary:hover {
+  border-color: rgba(255, 173, 0, 0.5);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.22), 0 8px 25px -6px rgba(255, 173, 0, 0.35);
+  transform: translateY(-1px);
+}
+.btn-primary:active {
+  transform: scale(0.98) translateY(0);
+}
+
+/* Bouton secondaire : bordure qui s'illumine en ambre subtil, lift -1.5px */
+.btn-secondary {
+  border: 1px solid var(--border-color);
+  transition: transform var(--dur-med) var(--ease-premium), border-color var(--dur-med) ease, background-color var(--dur-fast) ease, box-shadow var(--dur-med) var(--ease-premium), color var(--dur-fast) ease;
+  will-change: transform;
+}
+.btn-secondary:hover {
+  border-color: rgba(255, 173, 0, 0.45);
+  transform: translateY(-1.5px);
+  box-shadow: 0 10px 25px -10px rgba(0, 0, 0, 0.3);
+}
+.btn-secondary:active {
+  transform: scale(0.98);
+}
+
+/* Carte : elevation -3px + bordure lumineuse et glow discret */
+.card-lift {
+  transition: transform var(--dur-med) var(--ease-premium), border-color var(--dur-med) ease, box-shadow var(--dur-med) var(--ease-premium);
+  will-change: transform;
+}
+.card-lift:hover {
+  transform: translateY(-3px);
+  border-color: rgba(255, 173, 0, 0.35);
+  box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.25), 0 0 20px -5px rgba(255, 173, 0, 0.1);
+}
+
+/* Halo radial discret qui suit la souris (opacity uniquement) */
+.spot-card {
+  position: relative;
+}
+.spot-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: radial-gradient(260px circle at var(--mx, 50%) var(--my, 50%), var(--spot-color), transparent 70%);
+  opacity: 0;
+  transition: opacity var(--dur-med) ease;
+}
+.spot-card:hover::before {
+  opacity: 1;
+}
+
+/* Glassmorphism discret : blur leger, bordure 1px ~12% */
+.glass {
+  background: var(--bg-surface);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+  border: 1px solid var(--glass-border);
+}
+.glass-badge {
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  border: 1px solid var(--glass-border);
+}
+
+/* Reveal au scroll : fade + translateY(12px) max, easing tendu */
+.reveal {
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 500ms var(--ease-premium), transform 500ms var(--ease-premium);
+  transition-delay: var(--reveal-delay, 0ms);
+  will-change: opacity, transform;
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.reveal.is-visible:hover {
+  transition-delay: 0ms !important;
+}
+
+/* Apparition au chargement Hero : Staggered Fade-in + Blur-to-Sharp progressif */
+@keyframes hero-rise {
+  0% {
+    opacity: 0;
+    filter: blur(10px);
+    transform: translateY(16px);
+  }
+  100% {
+    opacity: 1;
+    filter: blur(0px);
+    transform: translateY(0);
+  }
+}
+.hero-reveal {
+  opacity: 0;
+  animation: hero-rise 900ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation-delay: var(--hero-delay, 0ms);
+  will-change: opacity, transform, filter;
+}
+
+/* Cartes de projets avec effet de profondeur et zoom interactif */
+.case-card {
+  transition: transform 300ms cubic-bezier(0.16, 1, 0.3, 1), border-color 300ms ease;
+}
+.case-card:hover {
+  transform: translateY(-3px);
+}
+.case-card .project-media-container {
+  overflow: hidden;
+  position: relative;
+}
+.case-card .project-media-container img {
+  transition: transform 600ms cubic-bezier(0.16, 1, 0.3, 1), filter 600ms ease;
+}
+.case-card:hover .project-media-container img {
+  transform: scale(1.04);
+}
+
+/* Effet de rideau / volet d'ombre élégant pour les images (Image Shutter Reveal) */
+.image-reveal-wrapper {
+  position: relative;
+  overflow: hidden;
+}
+.image-reveal-wrapper::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--bg-surface);
+  transform: translateY(0%);
+  transition: transform 900ms cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+  z-index: 10;
+}
+.image-reveal-wrapper.is-revealed::after {
+  transform: translateY(101%);
+}
+.image-reveal-wrapper img {
+  transform: scale(1.08);
+  transition: transform 1000ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.image-reveal-wrapper.is-revealed img {
+  transform: scale(1);
+}
+.image-reveal-wrapper:hover img {
+  transform: scale(1.03) !important;
+}
+
+/* Entree douce generique (FAQ, formulaires) */
+@keyframes enter-soft {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.enter-soft {
+  animation: enter-soft var(--dur-med) var(--ease-premium) both;
+}
+
+/* Modale : overlay fade + panneau rise subtil */
+@keyframes overlay-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes modal-in {
+  from { opacity: 0; transform: translateY(10px) scale(0.99); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+.modal-overlay {
+  animation: overlay-in var(--dur-med) ease both;
+}
+.modal-panel {
+  animation: modal-in 350ms var(--ease-premium) both;
+  will-change: opacity, transform;
+}
+
+/* Tiroir mobile */
+@keyframes drawer-in {
+  from { opacity: 0; transform: translateY(-6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.drawer-enter {
+  animation: drawer-in var(--dur-med) var(--ease-premium) both;
+  will-change: opacity, transform;
+}
+
+/* Pastille statut : lueur pulsée vivante & rythmée (Glow pulse) */
+@keyframes pulse-amber-glow {
+  0%, 100% {
+    box-shadow: 0 0 6px 1px rgba(255, 173, 0, 0.4);
+    transform: scale(1);
+  }
+  50% {
+    box-shadow: 0 0 16px 4px rgba(255, 173, 0, 0.85);
+    transform: scale(1.1);
+  }
+}
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 9999px;
+  background: #FFAD00;
+  animation: pulse-amber-glow 2.4s ease-in-out infinite;
+  flex-shrink: 0;
+}
+
+/* Lien nav : soulignement qui se deploie (scaleX) */
+.nav-link {
+  position: relative;
+  transition: color var(--dur-fast) ease;
+}
+.nav-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -3px;
+  height: 1px;
+  width: 100%;
+  background: currentColor;
+  opacity: 0.55;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--dur-med) var(--ease-premium);
+}
+.nav-link:hover::after,
+.nav-link[data-active="true"]::after {
+  transform: scaleX(1);
+}
+
+/* Lien avec fleche : la fleche glisse au hover */
+.link-arrow svg {
+  transition: transform var(--dur-fast) var(--ease-premium);
+}
+.link-arrow:hover svg {
+  transform: translate(2px, -2px);
+}
+
+/* Champs formulaire : focus ring doux, 150ms */
+.field-premium {
+  transition: border-color var(--dur-fast) ease, box-shadow var(--dur-med) var(--ease-premium), background-color var(--dur-fast) ease;
+}
+.field-premium:focus {
+  outline: none;
+  border-color: var(--border-hover);
+  box-shadow: 0 0 0 3px var(--field-ring);
+}
+.field-premium::placeholder {
+  transition: opacity var(--dur-fast) ease;
+}
+.field-premium:focus::placeholder {
+  opacity: 0.55;
+}
+
+/* Accessibilite : reduit tout mouvement */
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .hero-reveal,
+  .modal-panel,
+  .modal-overlay,
+  .drawer-enter,
+  .enter-soft {
+    animation: none;
+    opacity: 1;
+  }
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}
+
+/* ---- Combos Reveal + micro-interactions (specificite renforcee) ---- */
+/* Restaure le lift -2px sur les cartes Reveal en 200ms (presse instantanee). */
+.reveal.card-lift.is-visible:hover {
+  transform: translateY(-2px);
+  transition-duration: 200ms;
+  transition-delay: 0ms;
+}
+/* Micro-scale 0.98 au clic sur les conteneurs pressables. */
+.reveal.pressable.is-visible:active {
+  transform: scale(0.98);
+  transition-duration: 150ms;
+  transition-delay: 0ms;
+}
+
+/* Carte d'etude de cas cliquable : focus clavier visible (a11y) & hover soigné */
+.case-card {
+  border-radius: 8px;
+  transition: border-color var(--dur-med) var(--ease-premium), background-color var(--dur-med) ease;
+}
+.case-card:hover {
+  border-top-color: rgba(255, 173, 0, 0.4);
+}
+.case-card:focus {
+  outline: none;
+}
+.case-card:focus-visible {
+  outline: 2px solid rgba(255, 173, 0, 0.65);
+  outline-offset: 8px;
+}
+
+/* Zoom fluide sur les aperçus visuels au survol de la carte */
+.case-card img {
+  transition: transform 500ms var(--ease-premium);
+  will-change: transform;
+}
+.case-card:hover img {
+  transform: scale(1.025);
+}
+
+/* Carte métrique Results : passerelle cliquable vers l'étude de cas.
+   Élévation -4px au survol, 200ms (spécificité requise face à .reveal.is-visible,
+   même pattern que .reveal.card-lift.is-visible:hover). */
+.reveal.metric-gateway.is-visible:hover {
+  transform: translateY(-4px);
+  transition: transform var(--dur-med) var(--ease-premium), background-color var(--dur-med) ease;
+  transition-delay: 0ms;
+}
+/* Focus clavier visible (a11y), aligné sur .case-card. */
+.reveal.metric-gateway:focus {
+  outline: none;
+}
+.reveal.metric-gateway:focus-visible {
+  outline: 2px solid rgba(255, 173, 0, 0.65);
+  outline-offset: 4px;
+}
+
+/* Plan tarifaire selectionne : bordure ambre illuminee. */
+.reveal.plan-selected {
+  border-color: rgba(255, 173, 0, 0.6);
+  box-shadow: 0 0 0 1px rgba(255, 173, 0, 0.25), 0 16px 40px -20px rgba(255, 173, 0, 0.35);
+}
+.reveal.plan-selected.is-visible:hover {
+  border-color: rgba(255, 173, 0, 0.6);
+  box-shadow: 0 0 0 1px rgba(255, 173, 0, 0.3), 0 16px 40px -20px rgba(255, 173, 0, 0.35);
+}
+
+/* ---- Bandeau d'information (fond #FFFFFF / #141414 selon theme) ---- */
+@keyframes notice-in {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.site-notice {
+  background: #FFFFFF;
+  color: #111111;
+  border: 1px solid rgba(17, 17, 17, 0.12);
+  animation: notice-in 350ms var(--ease-premium) both;
+  will-change: opacity, transform;
+}
+html.dark .site-notice {
+  background: #141414;
+  color: #F5F5F5;
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+/* ==========================================================================
+   VIEW TRANSITIONS API — Transitions de page cinématographiques et feutrées
+   ========================================================================== */
+@keyframes vt-fade-out {
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes vt-fade-in {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+::view-transition-old(root) {
+  animation: 160ms cubic-bezier(0.16, 1, 0.3, 1) both vt-fade-out;
+}
+
+::view-transition-new(root) {
+  animation: 240ms cubic-bezier(0.16, 1, 0.3, 1) both vt-fade-in;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
+}
+
+/* Réponse tactile sur les liens et boutons au clic */
+button:active:not(:disabled),
+a:active:not([disabled]) {
+  transform: scale(0.985);
+  transition: transform 100ms ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  button:active:not(:disabled),
+  a:active:not([disabled]) {
+    transform: none;
+  }
+}
