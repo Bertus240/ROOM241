@@ -393,7 +393,7 @@ export default function CvModal({ isOpen, onClose }) {
               Disponible immédiatement pour opportunités en CDI (Lille, Métropole ou Hybride)
             </span>
             <a
-              href={\`mailto:\${identity.links.email}?subject=Opportunité professionnelle — Portfolio ROOM241\`}
+              href={`mailto:${identity.links.email}?subject=Opportunité professionnelle — Portfolio ROOM241`}
               className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#09090B] hover:bg-zinc-800 text-white text-xs font-bold transition-all shadow-sm hover:scale-[1.02] active:scale-[0.98] cursor-pointer"
             >
               <span>Proposer un échange</span>

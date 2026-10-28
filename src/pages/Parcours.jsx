@@ -743,11 +743,9 @@ export default function Parcours({ navigate, onOpenCvModal }) {
               key={idx}
               className="p-7 rounded-3xl bg-zinc-50 border border-zinc-200/80 space-y-3"
             >
-              <div className="w-10 h-10 rounded-full bg-white border border-zinc-200 flex items-center justify-center text-[#FFAD00]">
-                {idx === 0 && <GraduationCap className="w-5 h-5" />}
-                {idx === 1 && <Award className="w-5 h-5" />}
-                {idx === 2 && <HeartHandshake className="w-5 h-5" />}
-              </div>
+              <span className="font-mono text-xs font-bold text-zinc-900 block">
+                {edu.period}
+              </span>
               <h3 className="text-base font-bold text-[#09090B]">
                 {edu.degree}
               </h3>
@@ -766,7 +764,7 @@ export default function Parcours({ navigate, onOpenCvModal }) {
       <section className="max-w-[1280px] mx-auto px-5 sm:px-8 lg:px-10 space-y-8">
         <div className="border-t border-zinc-200/80 pt-10 space-y-2">
           <span className="text-xs font-semibold uppercase tracking-wider text-[#FFAD00] flex items-center gap-1.5">
-            <Sparkles className="w-4 h-4" />
+            <span className="w-1.5 h-1.5 rounded-full bg-[#FFAD00]" />
             Compétences &amp; Maîtrise logicielle
           </span>
           <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-[#09090B]">
