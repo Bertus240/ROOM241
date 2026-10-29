@@ -620,27 +620,26 @@ export default function Projects({ navigate }) {
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
-              <div className="md:col-span-7">
-                <div className="aspect-[16/11] rounded-2xl overflow-hidden border border-zinc-200 bg-zinc-950 shadow-sm flex items-center justify-center">
-                  <img
-                    src="/assets/hornetsecurity/fic/Capain/captain2.jpg"
-                    alt="Rémi Brocart en Captain Security sur la scène plénière avec les mascottes partenaires au Forum InCyber"
-                    className="w-full h-full object-cover object-[center_35%]"
-                    loading="lazy"
-                  />
-                </div>
+            {/* Diptyque équilibré 50% / 50% — Mêmes proportions et même taille exacte (Aspect 4/3) */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-stretch">
+              {/* Photo 1 : Sur scène plénière avec mascottes partenaires */}
+              <div className="aspect-[4/3] rounded-2xl overflow-hidden border border-zinc-200 bg-zinc-950 shadow-sm flex items-center justify-center">
+                <img
+                  src="/assets/hornetsecurity/fic/Capain/captain2.jpg"
+                  alt="Rémi Brocart en Captain Security sur la scène plénière avec les mascottes partenaires au Forum InCyber"
+                  className="w-full h-full object-cover object-[center_35%]"
+                  loading="lazy"
+                />
               </div>
 
-              <div className="md:col-span-5">
-                <div className="aspect-[4/5] rounded-2xl overflow-hidden border border-zinc-200 bg-zinc-950 shadow-sm flex items-center justify-center relative">
-                  <img
-                    src="/assets/hornetsecurity/fic/Capain/captain.jpeg"
-                    alt="Rémi Brocart en costume de Captain Security sur la passerelle d'accès"
-                    className="w-full h-full object-cover object-[center_56%] scale-[2.15] origin-[center_56%]"
-                    loading="lazy"
-                  />
-                </div>
+              {/* Photo 2 : Passerelle terrain en costume de plein pied */}
+              <div className="aspect-[4/3] rounded-2xl overflow-hidden border border-zinc-200 bg-zinc-950 shadow-sm flex items-center justify-center">
+                <img
+                  src="/assets/hornetsecurity/fic/Capain/captain.jpeg"
+                  alt="Rémi Brocart en costume de Captain Security sur la passerelle d'accès"
+                  className="w-full h-full object-cover object-[center_38%]"
+                  loading="lazy"
+                />
               </div>
             </div>
           </div>

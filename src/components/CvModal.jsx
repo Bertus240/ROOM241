@@ -1,23 +1,24 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Printer, Mail, Check, ArrowUpRight, MapPin, Linkedin, ArrowRight, Sparkles, Briefcase, GraduationCap, Wrench, Copy, Phone } from 'lucide-react';
 import { profileData } from '../data/profile';
 
 /**
- * CvModal — Refonte Éditoriale Pure Glass Design (Aero & Crystal Studio)
+ * CvModal — Véritable Glassmorphism inspiré de la Barre de Navigation
  * 
- * Direction artistique :
- * - Véritable Glassmorphism lumineux contemporain (verre dépoli haute réfraction, translucidité soignée)
- * - Élimination totale de tout aspect "fond gris terne" au profit d'un verre cristallin pur
- * - Cartes d'expériences et compétences en surfaces de verre dépoli bordées de blanc éclatant
- * - Reflets satinés d'ambiance (#FFAD00 subtil)
- * - Typographie suisse éditoriale haute lisibilité (Geist / Inter)
- * - Actions tactiles fluides (copie en 1-clic avec feedback visuel, export/print PDF)
- * - 100% fidèle aux données factuelles de Rémi Brocart
+ * Direction artistique & Design System :
+ * - Directement inspiré de la barre de navigation supérieure (Navbar pill-capsule)
+ * - Navigation interne par onglets capsules avec curseur physique coulissant (01 Expériences, 02 Compétences, 03 Formation)
+ * - Verre dépoli pur (Aero Glass, backdrop-blur-3xl, réfraction lumineuse, zéro grisâtre)
+ * - Badges et métadonnées en pilules arrondies satinées (rounded-full)
+ * - Actions tactiles soignées (copie 1-clic avec feedback émeraude, impression/export PDF, contact direct)
+ * - 100% fidèle au parcours réel de Rémi Brocart
  */
 export default function CvModal({ isOpen, onClose }) {
   const [copiedEmail, setCopiedEmail] = useState(false);
   const [copiedPhone, setCopiedPhone] = useState(false);
+  const [activeTab, setActiveTab] = useState('experiences');
+  const scrollContainerRef = useRef(null);
 
   // 1. Fermeture par la touche Échap
   useEffect(() => {
@@ -61,19 +62,30 @@ export default function CvModal({ isOpen, onClose }) {
     window.print();
   };
 
+  const scrollToSection = (sectionId, tabKey) => {
+    setActiveTab(tabKey);
+    const container = scrollContainerRef.current;
+    const target = document.getElementById(sectionId);
+    if (container && target) {
+      const topPos = target.offsetTop - 30;
+      container.scrollTo({ top: topPos, behavior: 'smooth' });
+    }
+  };
+
   return (
     <AnimatePresence>
       <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 lg:p-8 overflow-y-auto">
-        {/* Arrière-plan atmosphérique feutré avec flou optique immersif */}
+        {/* Arrière-plan atmosphérique tamisé avec flou optique immersif — Clic pour fermer */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           onClick={onClose}
           className="fixed inset-0 bg-neutral-950/65 backdrop-blur-2xl transition-opacity cursor-pointer print:hidden"
+          aria-label="Fermer la fenêtre du CV"
         />
 
-        {/* Panneau principal du CV — Véritable Glassmorphism Haute Définition */}
+        {/* Panneau principal du CV — Glassmorphism Haute Réfraction inspiré de la Navbar */}
         <motion.div
           role="dialog"
           aria-modal="true"
@@ -83,27 +95,69 @@ export default function CvModal({ isOpen, onClose }) {
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.97, y: 14 }}
           transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-          className="relative w-full max-w-4xl text-[#09090B] rounded-3xl bg-white/92 backdrop-blur-3xl shadow-[0_35px_100px_-15px_rgba(0,0,0,0.35),0_0_0_1px_rgba(255,255,255,0.8),inset_0_1px_1px_rgba(255,255,255,0.9)] border border-white/60 z-10 overflow-hidden my-3 sm:my-6 max-h-[94vh] flex flex-col font-sans print:bg-white print:shadow-none print:border-none print:max-h-none print:m-0 print:p-0"
+          className="relative w-full max-w-4xl text-[#09090B] rounded-3xl bg-white/98 sm:bg-white/95 backdrop-blur-3xl shadow-[0_35px_100px_-15px_rgba(0,0,0,0.35),0_0_0_1px_rgba(255,255,255,0.9),inset_0_1px_1px_rgba(255,255,255,1)] border border-white/80 z-10 overflow-hidden my-3 sm:my-6 max-h-[94vh] flex flex-col font-sans print:bg-white print:shadow-none print:border-none print:max-h-none print:m-0 print:p-0"
         >
           {/* Lueurs optiques d'ambiance satinée intégrées au verre (non imprimées) */}
-          <div aria-hidden="true" className="absolute -top-36 -right-36 w-96 h-96 rounded-full bg-gradient-to-br from-[#FFAD00]/25 via-[#FFAD00]/10 to-transparent blur-3xl pointer-events-none print:hidden" />
-          <div aria-hidden="true" className="absolute -bottom-36 -left-36 w-96 h-96 rounded-full bg-gradient-to-tr from-sky-400/15 via-white/40 to-transparent blur-3xl pointer-events-none print:hidden" />
+          <div aria-hidden="true" className="absolute -top-36 -right-36 w-96 h-96 rounded-full bg-gradient-to-br from-[#FFAD00]/20 via-[#FFAD00]/5 to-transparent blur-3xl pointer-events-none print:hidden" />
+          <div aria-hidden="true" className="absolute -bottom-36 -left-36 w-96 h-96 rounded-full bg-gradient-to-tr from-sky-400/10 via-amber-100/15 to-transparent blur-3xl pointer-events-none print:hidden" />
 
-          {/* Masthead supérieur — Navigation Verre & Commandes rapides */}
-          <div className="relative px-6 sm:px-10 py-4 bg-white/75 backdrop-blur-2xl border-b border-zinc-200/50 flex items-center justify-between gap-4 shrink-0 select-none z-10 print:hidden">
-            <div className="flex items-center gap-3">
+          {/* ========================================================
+              MASTHEAD SUPÉRIEUR — Navigation Verre inspirée de la Navbar
+             ======================================================== */}
+          <div className="relative px-5 sm:px-8 py-3.5 bg-white/75 backdrop-blur-2xl border-b border-zinc-200/50 flex flex-wrap items-center justify-between gap-3 shrink-0 select-none z-10 print:hidden">
+            
+            {/* Gauche : Badge ROOM241 et statut disponibilité */}
+            <div className="flex items-center gap-2.5">
               <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-zinc-950 text-white shadow-xs">
                 <span className="w-2 h-2 rounded-full bg-[#FFAD00] shadow-[0_0_8px_rgba(255,173,0,0.9)] animate-pulse" />
                 <span className="font-mono text-xs font-bold tracking-widest uppercase">
                   ROOM241 | CV
                 </span>
               </div>
-              <span className="hidden sm:inline-flex items-center gap-1.5 text-xs font-sans text-zinc-700 px-3 py-1 rounded-full bg-white/80 backdrop-blur-md border border-white/90 shadow-2xs">
+              <span className="hidden md:inline-flex items-center gap-1.5 text-xs font-sans text-zinc-700 px-3 py-1 rounded-full bg-white/80 backdrop-blur-md border border-white/90 shadow-2xs">
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 shadow-[0_0_6px_rgba(16,185,129,0.7)]" />
                 Disponible immédiatement • CDI
               </span>
             </div>
 
+            {/* Centre : Onglets de navigation rapide façon capsule Navbar */}
+            <nav className="hidden sm:flex items-center p-1 rounded-full bg-zinc-100/90 border border-zinc-200/80 shadow-inner text-xs font-semibold" aria-label="Sections du CV">
+              <button
+                type="button"
+                onClick={() => scrollToSection('cv-section-experiences', 'experiences')}
+                className={`px-3.5 py-1.5 rounded-full transition-all cursor-pointer ${
+                  activeTab === 'experiences'
+                    ? 'bg-white text-zinc-950 font-bold shadow-xs'
+                    : 'text-zinc-600 hover:text-zinc-950'
+                }`}
+              >
+                01 Expériences
+              </button>
+              <button
+                type="button"
+                onClick={() => scrollToSection('cv-section-skills', 'skills')}
+                className={`px-3.5 py-1.5 rounded-full transition-all cursor-pointer ${
+                  activeTab === 'skills'
+                    ? 'bg-white text-zinc-950 font-bold shadow-xs'
+                    : 'text-zinc-600 hover:text-zinc-950'
+                }`}
+              >
+                02 Compétences
+              </button>
+              <button
+                type="button"
+                onClick={() => scrollToSection('cv-section-education', 'education')}
+                className={`px-3.5 py-1.5 rounded-full transition-all cursor-pointer ${
+                  activeTab === 'education'
+                    ? 'bg-white text-zinc-950 font-bold shadow-xs'
+                    : 'text-zinc-600 hover:text-zinc-950'
+                }`}
+              >
+                03 Formation
+              </button>
+            </nav>
+
+            {/* Droite : Bouton Impression PDF & Bouton Fermer */}
             <div className="flex items-center gap-2">
               <button
                 type="button"
@@ -112,7 +166,7 @@ export default function CvModal({ isOpen, onClose }) {
                 title="Imprimer ou enregistrer le CV au format PDF"
               >
                 <Printer className="w-3.5 h-3.5 text-zinc-600" />
-                <span>Imprimer / PDF</span>
+                <span className="hidden xs:inline">Imprimer / PDF</span>
               </button>
 
               <button
@@ -126,14 +180,19 @@ export default function CvModal({ isOpen, onClose }) {
             </div>
           </div>
 
-          {/* Contenu Déroulant — Typographie Éditoriale & Lisibilité Parfaite */}
-          <div className="p-6 sm:p-10 lg:p-12 space-y-10 overflow-y-auto flex-grow relative z-10 print:p-0 print:overflow-visible">
+          {/* ========================================================
+              CONTENU DÉROULANT DU CV
+             ======================================================== */}
+          <div 
+            ref={scrollContainerRef}
+            className="p-6 sm:p-10 lg:p-12 space-y-10 overflow-y-auto flex-grow relative z-10 print:p-0 print:overflow-visible"
+          >
             
-            {/* 1. En-tête Profil : Identité, Titre & Coordonnées en Verre Dépoli */}
+            {/* 1. En-tête Profil : Identité, Titre & Coordonnées en Capsules Glass Design */}
             <header className="space-y-6 pb-8 border-b border-zinc-200/60">
               <div className="flex flex-col sm:flex-row sm:items-center gap-6">
                 
-                {/* Portrait Rémi Brocart avec cerclage en verre pur */}
+                {/* Portrait Rémi Brocart avec cerclage blanc brillant façon capsule */}
                 <div className="relative w-24 h-24 sm:w-28 sm:h-28 rounded-2xl overflow-hidden border-2 border-white shadow-[0_10px_30px_rgba(0,0,0,0.1)] bg-zinc-900 shrink-0">
                   <img
                     src={identity.avatar}
@@ -150,26 +209,26 @@ export default function CvModal({ isOpen, onClose }) {
                     <h1 id="cv-modal-name" className="text-3xl sm:text-4xl font-extrabold tracking-tight text-zinc-950 leading-none">
                       Rémi Brocart
                     </h1>
-                    <span className="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-white/80 backdrop-blur-md border border-white/90 text-zinc-600 shadow-2xs">
+                    <span className="text-xs font-semibold px-3 py-1 rounded-full bg-white/80 backdrop-blur-md border border-white/90 text-zinc-700 shadow-2xs">
                       Studio ROOM241
                     </span>
                   </div>
 
-                  <p className="text-base sm:text-lg font-bold text-zinc-800 tracking-tight">
+                  <p className="text-base sm:text-lg font-bold text-zinc-950 tracking-tight">
                     Graphic Designer &amp; Direction artistique
                   </p>
 
-                  <p className="text-xs sm:text-sm text-zinc-600 max-w-2xl leading-relaxed">
+                  <p className="text-xs sm:text-sm text-zinc-700 max-w-2xl leading-relaxed">
                     Double culture alliant la rigueur des sciences de l'ingénieur, la vision stratégique de marque (Master ISEG Lille) et l'exécution créative sur le terrain.
                   </p>
                 </div>
               </div>
 
-              {/* Coordonnées & Liens en badges Glass Design */}
+              {/* Coordonnées & Liens en capsules Glass Design comme la Navbar */}
               <div className="pt-2 flex flex-wrap items-center gap-2.5 text-xs">
                 
                 {/* Email avec copie tactile */}
-                <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-white/75 backdrop-blur-xl border border-white/90 text-zinc-800 font-medium shadow-2xs hover:bg-white transition-all">
+                <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white/75 backdrop-blur-xl border border-white/90 text-zinc-800 font-medium shadow-2xs hover:bg-white transition-all">
                   <Mail className="w-3.5 h-3.5 text-[#FFAD00]" />
                   <a href={`mailto:${identity.links.email}`} className="hover:underline">
                     {identity.links.email}
@@ -185,7 +244,7 @@ export default function CvModal({ isOpen, onClose }) {
                 </div>
 
                 {/* Téléphone */}
-                <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-white/75 backdrop-blur-xl border border-white/90 text-zinc-800 font-medium shadow-2xs hover:bg-white transition-all">
+                <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white/75 backdrop-blur-xl border border-white/90 text-zinc-800 font-medium shadow-2xs hover:bg-white transition-all">
                   <Phone className="w-3.5 h-3.5 text-[#FFAD00]" />
                   <a href={`tel:${identity.links.phone}`} className="hover:underline">
                     {identity.links.phoneFormatted}
@@ -201,9 +260,9 @@ export default function CvModal({ isOpen, onClose }) {
                 </div>
 
                 {/* Localisation */}
-                <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-white/75 backdrop-blur-xl border border-white/90 text-zinc-700 shadow-2xs">
+                <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white/75 backdrop-blur-xl border border-white/90 text-zinc-700 shadow-2xs">
                   <MapPin className="w-3.5 h-3.5 text-zinc-400" />
-                  <span>Métropole Européenne de Lille / Erquinghem-Lys (Véhiculé)</span>
+                  <span>Métropole de Lille (Véhiculé)</span>
                 </div>
 
                 {/* LinkedIn */}
@@ -211,7 +270,7 @@ export default function CvModal({ isOpen, onClose }) {
                   href={identity.links.linkedin}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-white/75 hover:bg-white backdrop-blur-xl border border-white/90 text-zinc-800 font-medium transition-all shadow-2xs"
+                  className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white/75 hover:bg-white backdrop-blur-xl border border-white/90 text-zinc-800 font-medium transition-all shadow-2xs"
                 >
                   <Linkedin className="w-3.5 h-3.5 text-blue-600" />
                   <span>{identity.links.linkedinDisplay}</span>
@@ -222,7 +281,7 @@ export default function CvModal({ isOpen, onClose }) {
             </header>
 
             {/* 2. Expériences Professionnelles (Cartes en Verre Lumineux) */}
-            <section className="space-y-6">
+            <section id="cv-section-experiences" className="space-y-6 scroll-mt-6">
               <div className="flex items-center justify-between pb-2 border-b border-zinc-200/60">
                 <div className="flex items-center gap-2">
                   <span className="w-2 h-2 rounded-full bg-[#FFAD00] shadow-[0_0_8px_rgba(255,173,0,0.8)]" />
@@ -238,10 +297,10 @@ export default function CvModal({ isOpen, onClose }) {
               <div className="space-y-5">
                 
                 {/* Expérience 1 : Hornetsecurity */}
-                <div className="p-6 sm:p-7 rounded-2xl bg-white/65 hover:bg-white/85 backdrop-blur-xl border border-white/90 shadow-[0_4px_24px_rgba(0,0,0,0.03)] transition-all">
+                <div className="p-6 sm:p-7 rounded-3xl bg-white/70 hover:bg-white/90 backdrop-blur-xl border border-white/90 shadow-[0_4px_24px_rgba(0,0,0,0.03)] transition-all">
                   <div className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-8 items-start">
-                    <div className="md:col-span-4 space-y-1">
-                      <span className="text-xs font-mono font-bold text-zinc-950 block">
+                    <div className="md:col-span-4 space-y-1.5">
+                      <span className="inline-block px-3 py-1 rounded-full bg-zinc-100 border border-zinc-200/80 text-[11px] font-mono font-bold text-zinc-950">
                         SEPT. 2025 — OCT. 2026
                       </span>
                       <span className="text-xs font-mono text-zinc-500 block">
@@ -286,10 +345,10 @@ export default function CvModal({ isOpen, onClose }) {
                 </div>
 
                 {/* Expérience 2 : Studio ROOM241 (Activité indépendante) */}
-                <div className="p-6 sm:p-7 rounded-2xl bg-white/65 hover:bg-white/85 backdrop-blur-xl border border-white/90 shadow-[0_4px_24px_rgba(0,0,0,0.03)] transition-all">
+                <div className="p-6 sm:p-7 rounded-3xl bg-white/70 hover:bg-white/90 backdrop-blur-xl border border-white/90 shadow-[0_4px_24px_rgba(0,0,0,0.03)] transition-all">
                   <div className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-8 items-start">
-                    <div className="md:col-span-4 space-y-1">
-                      <span className="text-xs font-mono font-bold text-zinc-950 block">
+                    <div className="md:col-span-4 space-y-1.5">
+                      <span className="inline-block px-3 py-1 rounded-full bg-zinc-100 border border-zinc-200/80 text-[11px] font-mono font-bold text-zinc-950">
                         DEPUIS 2023
                       </span>
                       <span className="text-xs font-mono text-zinc-500 block">
@@ -322,10 +381,10 @@ export default function CvModal({ isOpen, onClose }) {
                 </div>
 
                 {/* Expérience 3 : Sencrop */}
-                <div className="p-6 sm:p-7 rounded-2xl bg-white/65 hover:bg-white/85 backdrop-blur-xl border border-white/90 shadow-[0_4px_24px_rgba(0,0,0,0.03)] transition-all">
+                <div className="p-6 sm:p-7 rounded-3xl bg-white/70 hover:bg-white/90 backdrop-blur-xl border border-white/90 shadow-[0_4px_24px_rgba(0,0,0,0.03)] transition-all">
                   <div className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-8 items-start">
-                    <div className="md:col-span-4 space-y-1">
-                      <span className="text-xs font-mono font-bold text-zinc-950 block">
+                    <div className="md:col-span-4 space-y-1.5">
+                      <span className="inline-block px-3 py-1 rounded-full bg-zinc-100 border border-zinc-200/80 text-[11px] font-mono font-bold text-zinc-950">
                         STAGE CONVENTIONNÉ
                       </span>
                       <span className="text-xs font-mono text-zinc-500 block">
@@ -354,7 +413,7 @@ export default function CvModal({ isOpen, onClose }) {
             </section>
 
             {/* 3. Compétences & Outils créatifs en Panneaux Dépolis */}
-            <section className="space-y-6">
+            <section id="cv-section-skills" className="space-y-6 scroll-mt-6">
               <div className="flex items-center justify-between pb-2 border-b border-zinc-200/60">
                 <div className="flex items-center gap-2">
                   <span className="w-2 h-2 rounded-full bg-[#FFAD00] shadow-[0_0_8px_rgba(255,173,0,0.8)]" />
@@ -370,7 +429,7 @@ export default function CvModal({ isOpen, onClose }) {
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 
                 {/* Colonne 1 : Domaines d'expertise */}
-                <div className="space-y-3 p-5 rounded-2xl bg-white/65 hover:bg-white/85 backdrop-blur-xl border border-white/90 shadow-[0_4px_24px_rgba(0,0,0,0.03)] transition-all">
+                <div className="space-y-3 p-5 sm:p-6 rounded-3xl bg-white/70 hover:bg-white/90 backdrop-blur-xl border border-white/90 shadow-[0_4px_24px_rgba(0,0,0,0.03)] transition-all">
                   <h3 className="font-mono text-xs font-bold uppercase tracking-wider text-zinc-950">
                     Domaines d'expertise
                   </h3>
@@ -385,7 +444,7 @@ export default function CvModal({ isOpen, onClose }) {
                 </div>
 
                 {/* Colonne 2 : Suite Adobe & Logiciels */}
-                <div className="space-y-3 p-5 rounded-2xl bg-white/65 hover:bg-white/85 backdrop-blur-xl border border-white/90 shadow-[0_4px_24px_rgba(0,0,0,0.03)] transition-all">
+                <div className="space-y-3 p-5 sm:p-6 rounded-3xl bg-white/70 hover:bg-white/90 backdrop-blur-xl border border-white/90 shadow-[0_4px_24px_rgba(0,0,0,0.03)] transition-all">
                   <h3 className="font-mono text-xs font-bold uppercase tracking-wider text-zinc-950">
                     Suite Adobe &amp; Création
                   </h3>
@@ -400,7 +459,7 @@ export default function CvModal({ isOpen, onClose }) {
                 </div>
 
                 {/* Colonne 3 : Outils IA & Prototypage */}
-                <div className="space-y-3 p-5 rounded-2xl bg-white/65 hover:bg-white/85 backdrop-blur-xl border border-white/90 shadow-[0_4px_24px_rgba(0,0,0,0.03)] transition-all">
+                <div className="space-y-3 p-5 sm:p-6 rounded-3xl bg-white/70 hover:bg-white/90 backdrop-blur-xl border border-white/90 shadow-[0_4px_24px_rgba(0,0,0,0.03)] transition-all">
                   <h3 className="font-mono text-xs font-bold uppercase tracking-wider text-zinc-950 flex items-center gap-1.5">
                     <Sparkles className="w-3.5 h-3.5 text-[#FFAD00]" />
                     <span>Outils IA &amp; Prototypage</span>
@@ -411,7 +470,7 @@ export default function CvModal({ isOpen, onClose }) {
                       return (
                         <span
                           key={idx}
-                          className="px-2.5 py-1 rounded-lg bg-white/85 backdrop-blur-md border border-white/90 text-xs font-semibold text-zinc-800 shadow-2xs"
+                          className="px-3 py-1 rounded-full bg-white/90 backdrop-blur-md border border-zinc-200/70 text-xs font-semibold text-zinc-800 shadow-2xs"
                         >
                           {name}
                         </span>
@@ -427,7 +486,7 @@ export default function CvModal({ isOpen, onClose }) {
             </section>
 
             {/* 4. Formation Académique */}
-            <section className="space-y-6">
+            <section id="cv-section-education" className="space-y-6 scroll-mt-6">
               <div className="flex items-center justify-between pb-2 border-b border-zinc-200/60">
                 <div className="flex items-center gap-2">
                   <span className="w-2 h-2 rounded-full bg-[#FFAD00] shadow-[0_0_8px_rgba(255,173,0,0.8)]" />
@@ -444,12 +503,12 @@ export default function CvModal({ isOpen, onClose }) {
                 {education.map((item, idx) => (
                   <div
                     key={idx}
-                    className="p-5 rounded-2xl bg-white/65 hover:bg-white/85 backdrop-blur-xl border border-white/90 space-y-2 hover:border-[#FFAD00]/50 transition-all shadow-[0_4px_20px_rgba(0,0,0,0.02)]"
+                    className="p-5 sm:p-6 rounded-3xl bg-white/70 hover:bg-white/90 backdrop-blur-xl border border-white/90 space-y-2 hover:border-[#FFAD00]/50 transition-all shadow-[0_4px_20px_rgba(0,0,0,0.02)]"
                   >
-                    <span className="font-mono text-xs font-bold text-zinc-950 block">
+                    <span className="inline-block px-2.5 py-0.5 rounded-full bg-zinc-100 border border-zinc-200/70 font-mono text-[11px] font-bold text-zinc-950">
                       {item.period}
                     </span>
-                    <h3 className="text-sm font-bold text-zinc-900 leading-snug">
+                    <h3 className="text-sm font-bold text-zinc-900 leading-snug pt-1">
                       {item.degree}
                     </h3>
                     <p className="text-xs text-zinc-500">
@@ -462,7 +521,9 @@ export default function CvModal({ isOpen, onClose }) {
 
           </div>
 
-          {/* Pied de Modale fixe — Verre satiné & Action directe */}
+          {/* ========================================================
+              PIED DE MODALE FIXE — Verre satiné & Action directe en pilule
+             ======================================================== */}
           <footer className="relative px-6 sm:px-10 py-4 bg-white/75 backdrop-blur-2xl border-t border-zinc-200/50 flex flex-col sm:flex-row items-center justify-between gap-3 shrink-0 select-none z-10 print:hidden">
             <span className="text-xs text-zinc-600 font-medium text-center sm:text-left">
               Disponible immédiatement pour opportunités en CDI (Lille, Métropole ou Hybride)

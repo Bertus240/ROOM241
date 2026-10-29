@@ -20,10 +20,74 @@ export default function App() {
   const [currentPath, setCurrentPath] = useState(window.location.pathname || '/');
   const [isCvModalOpen, setIsCvModalOpen] = useState(false);
 
-  // Initialisation du thème light-mode pur
+  // Initialisation du thème light-mode pur et gestion de la persistance de scroll au reload
   useEffect(() => {
     initTheme();
+
+    // Empêcher le navigateur de reset le scroll avant que React ait monté les composants
+    if ('scrollRestoration' in window.history) {
+      window.history.scrollRestoration = 'manual';
+    }
+
+    // Restauration du scroll mémorisé au rechargement de page (reload)
+    const savedPath = sessionStorage.getItem('room241_last_path');
+    const savedScroll = sessionStorage.getItem(`room241_scroll_pos_${window.location.pathname}`);
+
+    // Si on n'a pas de hash spécifique dans l'URL (#contact, etc.) et qu'on a un scroll mémorisé
+    if (!window.location.hash && savedScroll) {
+      const targetY = parseInt(savedScroll, 10);
+      if (!isNaN(targetY) && targetY > 0) {
+        // Double tentative pour garantir la restauration après chargement des images et polices
+        requestAnimationFrame(() => {
+          window.scrollTo({ top: targetY, behavior: 'instant' });
+        });
+        setTimeout(() => {
+          window.scrollTo({ top: targetY, behavior: 'instant' });
+        }, 120);
+        setTimeout(() => {
+          window.scrollTo({ top: targetY, behavior: 'instant' });
+        }, 300);
+      }
+    }
   }, []);
+
+  // Mémorisation continue de la position de scroll pour le chemin actif
+  useEffect(() => {
+    let scrollTimeout = null;
+
+    const handleScroll = () => {
+      if (scrollTimeout) return;
+      scrollTimeout = setTimeout(() => {
+        scrollTimeout = null;
+        if (!window.location.hash) {
+          try {
+            sessionStorage.setItem(`room241_scroll_pos_${currentPath}`, String(Math.round(window.scrollY)));
+            sessionStorage.setItem('room241_last_path', currentPath);
+          } catch (e) {
+            // Ignore quota errors
+          }
+        }
+      }, 150);
+    };
+
+    const handleBeforeUnload = () => {
+      try {
+        sessionStorage.setItem(`room241_scroll_pos_${currentPath}`, String(Math.round(window.scrollY)));
+        sessionStorage.setItem('room241_last_path', currentPath);
+      } catch (e) {
+        // Ignore quota errors
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener('beforeunload', handleBeforeUnload);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+      if (scrollTimeout) clearTimeout(scrollTimeout);
+    };
+  }, [currentPath]);
 
   // Écoute de l'historique du navigateur (boutons précédent / suivant)
   useEffect(() => {

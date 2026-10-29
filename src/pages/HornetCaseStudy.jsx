@@ -215,16 +215,16 @@ export default function HornetCaseStudy({ navigate }) {
           </p>
         </div>
 
-        {/* Diptyque Captain Security */}
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
+        {/* Diptyque équilibré 50% / 50% — Mêmes proportions et même taille exacte (Aspect 4/3) */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
           
-          {/* Photo 1 : Sur scène plénière (Format paysage majestueux) */}
-          <div className="md:col-span-7 space-y-3">
-            <div className="aspect-[16/11] w-full rounded-3xl overflow-hidden border border-zinc-200/80 bg-zinc-950 shadow-sm">
+          {/* Photo 1 : Sur scène plénière */}
+          <div className="space-y-3">
+            <div className="aspect-[4/3] w-full rounded-3xl overflow-hidden border border-zinc-200/80 bg-zinc-950 shadow-sm flex items-center justify-center">
               <img
                 src="/assets/hornetsecurity/FIC_photo+videos/Capain/captain2.jpg"
                 alt="Rémi Brocart en Captain Security sur la scène plénière avec les autres mascottes"
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover object-[center_35%]"
                 loading="lazy"
               />
             </div>
@@ -238,13 +238,13 @@ export default function HornetCaseStudy({ navigate }) {
             </div>
           </div>
 
-          {/* Photo 2 : Passerelle terrain (Portrait) */}
-          <div className="md:col-span-5 space-y-3">
-            <div className="aspect-[4/5] w-full rounded-3xl overflow-hidden border border-zinc-200/80 bg-zinc-950 shadow-sm">
+          {/* Photo 2 : Passerelle terrain en costume de plein pied */}
+          <div className="space-y-3">
+            <div className="aspect-[4/3] w-full rounded-3xl overflow-hidden border border-zinc-200/80 bg-zinc-950 shadow-sm flex items-center justify-center">
               <img
                 src="/assets/hornetsecurity/fic/Capain/captain.jpeg"
                 alt="Rémi Brocart en costume de Captain Security sur la passerelle d'accès du salon InCyber"
-                className="w-full h-full object-cover object-[center_56%] scale-[2.15] origin-[center_56%]"
+                className="w-full h-full object-cover object-[center_38%]"
                 loading="lazy"
               />
             </div>
