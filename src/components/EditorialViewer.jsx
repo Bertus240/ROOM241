@@ -177,8 +177,8 @@ export default function EditorialViewer({
             onClick={(e) => e.stopPropagation()}
             className={`relative flex min-h-0 w-full flex-1 items-center justify-center p-2 sm:p-4 my-2 transition-all ${
               isZoomed
-                ? 'overflow-auto max-h-[66vh] cursor-grab active:cursor-grabbing'
-                : 'overflow-hidden max-h-[58vh] sm:max-h-[62vh]'
+                ? 'overflow-auto max-h-[78vh] cursor-grab active:cursor-grabbing'
+                : 'overflow-hidden max-h-[68vh] sm:max-h-[74vh] md:max-h-[78vh]'
             }`}
           >
             {/* Contrôle de zoom haute résolution discret */}
@@ -231,7 +231,7 @@ export default function EditorialViewer({
               </button>
             )}
 
-            {/* Affichage du média avec respect rigoureux des proportions */}
+            {/* Affichage du média avec respect rigoureux des proportions et zéro rognage */}
             <AnimatePresence mode="wait">
               {currentItem.type === 'video' ? (
                 <motion.video
@@ -244,7 +244,7 @@ export default function EditorialViewer({
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.99 }}
                   transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
-                  className="max-h-[54vh] sm:max-h-[58vh] max-w-full w-auto h-auto rounded-xl sm:rounded-2xl shadow-[0_25px_60px_-15px_rgba(0,0,0,0.9)] object-contain"
+                  className="max-h-[64vh] sm:max-h-[70vh] md:max-h-[74vh] max-w-full w-auto h-auto rounded-xl sm:rounded-2xl shadow-[0_25px_60px_-15px_rgba(0,0,0,0.9)] object-contain"
                 />
               ) : (
                 <motion.img
@@ -259,7 +259,7 @@ export default function EditorialViewer({
                   className={
                     isZoomed
                       ? "block max-w-none max-h-none rounded-xl sm:rounded-2xl shadow-[0_25px_60px_-15px_rgba(0,0,0,0.9)]"
-                      : "block max-h-[54vh] sm:max-h-[58vh] max-w-full w-auto h-auto object-contain rounded-xl sm:rounded-2xl shadow-[0_25px_60px_-15px_rgba(0,0,0,0.9)]"
+                      : "block max-h-[64vh] sm:max-h-[70vh] md:max-h-[74vh] max-w-full w-auto h-auto object-contain rounded-xl sm:rounded-2xl shadow-[0_25px_60px_-15px_rgba(0,0,0,0.9)]"
                   }
                 />
               )}

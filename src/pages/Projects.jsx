@@ -128,6 +128,7 @@ export default function Projects({ navigate }) {
   // Modals pour agrandissement haute résolution
   const [badgeModalIndex, setBadgeModalIndex] = useState(null);
   const [isPosterModalOpen, setIsPosterModalOpen] = useState(false);
+  const [captainViewerIndex, setCaptainViewerIndex] = useState(null);
   const [raModalIndex, setRaModalIndex] = useState(null);
   const [isRaZoomed, setIsRaZoomed] = useState(false);
   const [standModalImage, setStandModalImage] = useState(null);
@@ -140,7 +141,7 @@ export default function Projects({ navigate }) {
 
   // Verrouillage du scroll en arrière-plan lorsqu'un modal est ouvert
   useEffect(() => {
-    const isAnyModalOpen = isPosterModalOpen || raModalIndex !== null || standModalImage !== null;
+    const isAnyModalOpen = isPosterModalOpen || captainViewerIndex !== null || raModalIndex !== null || standModalImage !== null;
     if (isAnyModalOpen) {
       document.body.style.overflow = 'hidden';
     } else {
@@ -149,13 +150,14 @@ export default function Projects({ navigate }) {
     return () => {
       document.body.style.overflow = '';
     };
-  }, [badgeModalIndex, isPosterModalOpen, raModalIndex, standModalImage]);
+  }, [badgeModalIndex, isPosterModalOpen, captainViewerIndex, raModalIndex, standModalImage]);
 
   // Gestion des raccourcis clavier (Échap et flèches)
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (e.key === 'Escape') {
         setIsPosterModalOpen(false);
+        setCaptainViewerIndex(null);
         setRaModalIndex(null);
         setStandModalImage(null);
       }
@@ -169,7 +171,26 @@ export default function Projects({ navigate }) {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [raModalIndex]);
 
-
+  const captainMediaList = [
+    {
+      id: 'captain-stage',
+      src: '/assets/hornetsecurity/fic/Capain/captain2.jpg',
+      alt: "Rémi Brocart en Captain Security sur la scène plénière avec les mascottes partenaires au Forum InCyber",
+      title: "Captain Security — Scène plénière FIC & it-sa",
+      description: "Animation plénière et rencontre des partenaires sur la grande scène. L'incarnation physique de la marque renforce l'impact mémoriel et catalyse la proximité avec les visiteurs professionnels.",
+      badge: "Scène plénière",
+      place: "Lille & Nuremberg"
+    },
+    {
+      id: 'captain-ramp',
+      src: '/assets/hornetsecurity/fic/Capain/captain.jpeg',
+      alt: "Rémi Brocart en costume de Captain Security sur la passerelle d'accès",
+      title: "Captain Security — Passerelle & Scénographie",
+      description: "Photographie plein pied sur la passerelle d'accès du salon. Costume sur-mesure aux couleurs de la marque cyber, créant une attraction visuelle immédiate.",
+      badge: "Costume de marque",
+      place: "Salons Européens"
+    }
+  ];
 
   const helixPosterMedia = [
     {
@@ -662,26 +683,68 @@ export default function Projects({ navigate }) {
               </p>
             </div>
 
-            {/* Diptyque équilibré 50% / 50% — Mêmes proportions et même taille exacte (Aspect 4/3) */}
+            {/* Diptyque équilibré 50% / 50% — Mêmes proportions et même taille exacte (Aspect 4/3) avec zoom haute résolution */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-stretch">
               {/* Photo 1 : Sur scène plénière avec mascottes partenaires */}
-              <div className="aspect-[4/3] rounded-2xl overflow-hidden border border-zinc-200 bg-zinc-950 shadow-sm flex items-center justify-center">
+              <div
+                onClick={() => setCaptainViewerIndex(0)}
+                role="button"
+                tabIndex={0}
+                aria-label="Agrandir la photographie sur scène plénière"
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    setCaptainViewerIndex(0);
+                  }
+                }}
+                className="relative aspect-[4/3] rounded-2xl overflow-hidden border border-zinc-200 bg-zinc-950 shadow-sm flex items-center justify-center group cursor-pointer"
+              >
                 <img
                   src="/assets/hornetsecurity/fic/Capain/captain2.jpg"
                   alt="Rémi Brocart en Captain Security sur la scène plénière avec les mascottes partenaires au Forum InCyber"
-                  className="w-full h-full object-cover object-[center_35%]"
+                  className="w-full h-full object-cover object-[center_35%] transition-transform duration-300 group-hover:scale-[1.02]"
                   loading="lazy"
                 />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-between p-4 pointer-events-none">
+                  <div className="self-end p-2 rounded-full bg-white/90 text-black shadow-md">
+                    <Maximize2 className="w-4 h-4" />
+                  </div>
+                  <div className="flex items-center justify-between text-white text-xs drop-shadow">
+                    <span className="font-semibold font-mono">SCÈNE PLÉNIÈRE</span>
+                    <span className="text-white/80 text-[11px]">Cliquer pour agrandir</span>
+                  </div>
+                </div>
               </div>
 
               {/* Photo 2 : Passerelle terrain en costume de plein pied */}
-              <div className="aspect-[4/3] rounded-2xl overflow-hidden border border-zinc-200 bg-zinc-950 shadow-sm flex items-center justify-center">
+              <div
+                onClick={() => setCaptainViewerIndex(1)}
+                role="button"
+                tabIndex={0}
+                aria-label="Agrandir la photographie sur la passerelle d'accès"
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    setCaptainViewerIndex(1);
+                  }
+                }}
+                className="relative aspect-[4/3] rounded-2xl overflow-hidden border border-zinc-200 bg-zinc-950 shadow-sm flex items-center justify-center group cursor-pointer"
+              >
                 <img
                   src="/assets/hornetsecurity/fic/Capain/captain.jpeg"
                   alt="Rémi Brocart en costume de Captain Security sur la passerelle d'accès"
-                  className="w-full h-full object-cover object-[center_38%]"
+                  className="w-full h-full object-cover object-[center_28%] transition-transform duration-300 group-hover:scale-[1.02]"
                   loading="lazy"
                 />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-between p-4 pointer-events-none">
+                  <div className="self-end p-2 rounded-full bg-white/90 text-black shadow-md">
+                    <Maximize2 className="w-4 h-4" />
+                  </div>
+                  <div className="flex items-center justify-between text-white text-xs drop-shadow">
+                    <span className="font-semibold font-mono">PASSERELLE & COSTUME</span>
+                    <span className="text-white/80 text-[11px]">Cliquer pour agrandir</span>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -1504,6 +1567,16 @@ export default function Projects({ navigate }) {
               currentIndex={hornetMediaIndex}
               onIndexChange={(idx) => setHornetMediaIndex(idx)}
               projectContext="Forum InCyber · Scénographie Stand > 150 m²"
+            />
+
+            {/* Visionneuse Incarnation Captain Security */}
+            <EditorialViewer
+              isOpen={captainViewerIndex !== null}
+              onClose={() => setCaptainViewerIndex(null)}
+              items={captainMediaList}
+              currentIndex={captainViewerIndex || 0}
+              onIndexChange={(idx) => setCaptainViewerIndex(idx)}
+              projectContext="Hornetsecurity · Incarnation Terrain Captain Security"
             />
 
             {/* Visionneuse Affiche Helix Nova */}
