@@ -104,7 +104,7 @@ export default function CvModal({ isOpen, onClose }) {
           {/* ========================================================
               MASTHEAD SUPÉRIEUR — Navigation Verre inspirée de la Navbar
              ======================================================== */}
-          <div className="relative px-5 sm:px-8 py-3.5 bg-white/75 backdrop-blur-2xl border-b border-zinc-200/50 flex flex-wrap items-center justify-between gap-3 shrink-0 select-none z-10 print:hidden">
+          <div className="relative px-5 sm:px-8 py-3.5 bg-white/75 backdrop-blur-2xl border-b border-zinc-200/50 flex items-center justify-between gap-3 shrink-0 select-none z-10 print:hidden">
             
             {/* Gauche : Badge ROOM241 et statut disponibilité */}
             <div className="flex items-center gap-2.5">
@@ -172,10 +172,10 @@ export default function CvModal({ isOpen, onClose }) {
               <button
                 type="button"
                 onClick={onClose}
-                className="w-8 h-8 rounded-full bg-white/80 hover:bg-white text-zinc-800 flex items-center justify-center transition-all cursor-pointer active:scale-95 border border-white/90 backdrop-blur-md shadow-2xs"
+                className="w-10 h-10 min-w-[40px] min-h-[40px] rounded-full bg-zinc-100 hover:bg-zinc-200 text-zinc-900 flex items-center justify-center transition-all cursor-pointer active:scale-95 border border-zinc-200/80 shadow-xs focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FFAD00]"
                 aria-label="Fermer le CV"
               >
-                <X className="w-4 h-4 text-zinc-900" strokeWidth={2.5} />
+                <X className="w-5 h-5 text-zinc-900" strokeWidth={2.5} />
               </button>
             </div>
           </div>

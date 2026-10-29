@@ -680,7 +680,7 @@ export default function Projects({ navigate }) {
                   <img
                     src="/assets/hornetsecurity/affiche_helix_sprint.jpg"
                     alt="Affiche officielle de présentation du héros cyber Helix Nova pour Hornetsecurity by Proofpoint"
-                    className="max-h-full max-w-full object-contain rounded-lg transition-transform duration-500 ease-out group-hover:scale-102"
+                      className="max-h-full max-w-full w-auto h-auto object-contain rounded-xl sm:rounded-2xl shadow-2xl border border-white/10" style={{ maxHeight: "calc(100vh - 160px)" }}
                     loading="lazy"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-between p-4 pointer-events-none">
@@ -1052,7 +1052,7 @@ export default function Projects({ navigate }) {
             <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-zinc-500">
               <span className="font-bold text-zinc-950">03</span>
               <span>/</span>
-              <span>Résin'Architecte • BTP Haut de Gamme</span>
+              <span>Résin'Architecte • Revêtements de sol en résine</span>
             </div>
 
             <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-4">
@@ -1061,7 +1061,7 @@ export default function Projects({ navigate }) {
                   Résin'Architecte — Captation de chantier, formalisation d'identité &amp; supports commerciaux
                 </h2>
                 <p className="text-sm sm:text-base text-[#52525B] mt-2 max-w-3xl leading-relaxed">
-                  Intervention concrète pour un artisan applicateur de moquette de pierre : captation vidéo directement sur les chantiers, formalisation de l'identité visuelle existante, création de modèles graphiques réutilisables pour les réseaux sociaux, visuels avant/après authentiques et fiches techniques d'aide à la vente.
+                  Résin’Architecte développe des solutions de revêtements de sol en résine pour les espaces intérieurs et extérieurs. De la moquette de pierre aux revêtements décoratifs, drainants ou appliqués sur béton, l'entreprise associe savoir-faire technique et recherche esthétique pour répondre à des usages variés. Intervention concrète : captation vidéo directe sur les chantiers, formalisation d'identité visuelle, modèles graphiques réutilisables et fiches d'aide à la vente.
                 </p>
               </div>
 
@@ -1487,13 +1487,13 @@ export default function Projects({ navigate }) {
 
                   {/* Zone centrale : Image pleine hauteur sans recadrage */}
                   <div
-                    className="relative flex-1 flex items-center justify-center my-auto w-full px-4 sm:px-12 select-none"
+                    className="relative flex-1 min-h-0 w-full flex items-center justify-center p-2 sm:p-4 select-none overflow-hidden my-auto"
                     onClick={(e) => e.stopPropagation()}
                   >
                     <img
                       src={standModalImage.src}
                       alt={standModalImage.title}
-                      className="max-h-full max-w-full w-auto h-auto object-contain rounded-xl sm:rounded-2xl shadow-2xl border border-white/10"
+                      className="max-h-[calc(100vh-140px)] max-w-full w-auto h-auto object-contain rounded-xl sm:rounded-2xl shadow-2xl border border-white/10"
                     />
                   </div>
 
@@ -1543,13 +1543,13 @@ export default function Projects({ navigate }) {
 
                   {/* Zone centrale : Image pleine hauteur non coupée */}
                   <div
-                    className="relative flex-1 flex items-center justify-center my-auto w-full px-4 sm:px-12 select-none"
+                    className="relative flex-1 min-h-0 w-full flex items-center justify-center p-2 sm:p-4 select-none overflow-hidden my-auto"
                     onClick={(e) => e.stopPropagation()}
                   >
                     <img
                       src="/assets/hornetsecurity/affiche_helix_sprint.jpg"
                       alt="Affiche de présentation officielle du héros cyber Helix Nova"
-                      className="max-h-full max-w-full w-auto h-auto object-contain rounded-xl sm:rounded-2xl shadow-2xl border border-white/10"
+                      className="max-h-full max-w-full w-auto h-auto object-contain rounded-xl sm:rounded-2xl shadow-2xl border border-white/10" style={{ maxHeight: "calc(100vh - 160px)" }}
                     />
                   </div>
 

@@ -586,113 +586,126 @@ export default function Parcours({ navigate, onOpenCvModal }) {
       </section>
 
       {/* ========================================================
-          3. EXPÉRIENCE CENTRALE : HORNETSECURITY (GLASS STUDIO)
+          3. EXPÉRIENCE CENTRALE : HORNETSECURITY (HIGHLIGHT MAJEUR)
           (Point central du parcours avec 3 piliers de réalisation documentés)
          ======================================================== */}
       <section id="experiences" className="max-w-[1280px] mx-auto px-5 sm:px-8 lg:px-10 scroll-mt-24 space-y-12">
         
         {/* En-tête de section sobre et éditorial */}
-        <div className="border-t border-zinc-200/80 pt-10 space-y-3">
-          <div className="flex items-center gap-2">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#FFAD00]" />
-            <span className="text-xs font-semibold uppercase tracking-wider text-zinc-500 font-mono">
+        <div className="border-t border-zinc-200/80 pt-12 space-y-4">
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white border border-zinc-200/80 text-xs font-semibold text-[#09090B] shadow-2xs">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#FFAD00] shadow-[0_0_6px_rgba(255,173,0,0.8)] animate-pulse" />
+            <span className="font-mono text-xs uppercase tracking-wider text-zinc-600">
               Parcours professionnel · Direction &amp; Réalisations
             </span>
           </div>
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight text-zinc-950">
+
+          <h2 className="text-3xl sm:text-4xl lg:text-[42px] font-extrabold tracking-tight text-[#09090B] leading-[1.15]">
             Expérience internationale &amp; créativité opérationnelle
           </h2>
-          <p className="text-sm sm:text-base text-zinc-500 max-w-2xl leading-relaxed">
+
+          <p className="text-base sm:text-lg text-[#52525B] max-w-3xl leading-relaxed">
             De la stratégie de marque employeur jusqu'à la scénographie de stands d'exposition (&gt; 150 m²) et la création vidéo de terrain pour des événements européens.
           </p>
         </div>
 
         {/* ========================================================
-            BLOC MAÎTRE : EXPÉRIENCE PRINCIPALE HORNETSECURITY (CDI) — HIGHLIGHT MAJEUR DU PARCOURS
+            CARTE ÉDITORIALE MAJEURE : HORNETSECURITY (CDI)
+            (Design System ROOM241 : fond satiné, bordures ultra-fines, typographie hiérarchisée, zéro aplat criard)
            ======================================================== */}
-        <div className="relative p-7 sm:p-9 md:p-10 rounded-3xl bg-gradient-to-b from-white via-white/95 to-amber-50/25 backdrop-blur-2xl border-2 border-[#FFAD00]/30 shadow-[0_25px_60px_rgba(255,173,0,0.06),0_4px_25px_rgba(0,0,0,0.03)] space-y-9 transition-all duration-300 hover:border-[#FFAD00]/50 hover:shadow-[0_30px_70px_rgba(255,173,0,0.1)] overflow-hidden">
-          
-          {/* Liseré supérieur signature ambré */}
-          <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#FFAD00] via-amber-300 to-transparent" />
+        <div className="p-6 sm:p-10 lg:p-12 rounded-3xl bg-zinc-50/90 backdrop-blur-xl border border-zinc-200/80 shadow-[0_4px_25px_rgba(0,0,0,0.03)] space-y-10 transition-all duration-300 hover:border-zinc-300 hover:shadow-[0_12px_36px_rgba(0,0,0,0.05)] group">
           
           {/* Ligne d'en-tête de l'expérience */}
-          <div className="flex flex-col lg:flex-row lg:items-start justify-between gap-4 border-b border-zinc-200/60 pb-6">
-            <div className="space-y-1.5">
+          <div className="flex flex-col lg:flex-row lg:items-start justify-between gap-6 border-b border-zinc-200/60 pb-8">
+            <div className="space-y-3">
               <div className="flex flex-wrap items-center gap-2.5">
-                <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-zinc-950 text-white text-xs font-semibold shadow-xs border border-white/10">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#FFAD00] shadow-[0_0_8px_rgba(255,173,0,0.9)] animate-pulse" />
+                <span className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-zinc-950 text-white text-xs font-semibold shadow-xs">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#FFAD00] shadow-[0_0_6px_rgba(255,173,0,0.9)] animate-pulse" />
                   <span>Highlight • Expérience majeure CDI</span>
                 </span>
-                <span className="text-xs font-mono font-medium text-zinc-500">
+                <span className="text-xs font-mono font-semibold text-zinc-700 bg-white px-3 py-1 rounded-full border border-zinc-200/70 shadow-2xs">
                   Septembre 2025 – Octobre 2026
                 </span>
               </div>
-              <h3 className="text-2xl sm:text-3xl font-extrabold text-zinc-950 tracking-tight">
-                Graphic Designer &amp; Brand Production
-              </h3>
-              <p className="text-sm sm:text-base font-semibold text-zinc-700">
-                Hornetsecurity by Proofpoint
-              </p>
+
+              <div>
+                <h3 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-[#09090B] tracking-tight">
+                  Graphic Designer &amp; Brand Production
+                </h3>
+                <div className="flex flex-wrap items-center gap-2 pt-1 text-sm sm:text-base font-semibold text-zinc-800">
+                  <span className="text-zinc-950 font-bold">Hornetsecurity by Proofpoint</span>
+                  <span className="text-zinc-300">•</span>
+                  <span className="text-xs font-mono uppercase tracking-wider text-zinc-500">
+                    Leader européen de la cybersécurité Cloud
+                  </span>
+                </div>
+              </div>
             </div>
 
-            <div className="flex flex-col lg:items-end gap-1 shrink-0">
-              <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-zinc-800 bg-white/90 px-3.5 py-1.5 rounded-full border border-zinc-200/80 shadow-2xs w-fit">
+            {/* Badges géographiques et linguistiques */}
+            <div className="flex flex-col sm:flex-row lg:flex-col lg:items-end gap-2 shrink-0">
+              <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-zinc-800 bg-white px-3.5 py-1.5 rounded-full border border-zinc-200/80 shadow-2xs w-fit">
                 <MapPin className="w-3.5 h-3.5 text-[#FFAD00]" />
                 <span>Lille • Salons européens (Nuremberg, Hanovre)</span>
               </span>
-              <span className="text-[11px] text-zinc-400 font-mono pt-1">
-                Équipe design internationale • Travail quotidien en anglais
+              <span className="inline-flex items-center gap-1.5 text-xs font-mono text-zinc-600 bg-white/80 px-3 py-1 rounded-full border border-zinc-200/60 w-fit">
+                <span>Équipe design internationale • Travail quotidien en anglais</span>
               </span>
             </div>
           </div>
 
-          {/* Contexte éditorial synthétique */}
-          <p className="text-sm text-zinc-600 leading-relaxed max-w-3xl">
-            Leader européen de la cybersécurité Cloud. Évolution au sein d'une équipe design internationale basée principalement en Allemagne : conception d'espaces événementiels à fort enjeu, direction graphique de supports publicitaires de performance et coordination quotidienne en anglais avec les partenaires scéniques.
-          </p>
+          {/* Contexte éditorial fluide */}
+          <div className="space-y-4">
+            <p className="text-sm sm:text-base text-[#52525B] leading-relaxed max-w-4xl">
+              Au sein du leader européen de la cybersécurité Cloud, évolution au sein d'une équipe design internationale basée principalement en Allemagne : conception d'espaces événementiels à fort enjeu, direction graphique de supports publicitaires de performance et coordination quotidienne en anglais avec les partenaires scéniques.
+            </p>
+          </div>
 
-          {/* Repères chiffrés et chronologiques (Style studio suisse épuré avec forte hiérarchie typographique) */}
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 p-5 rounded-2xl bg-white/80 backdrop-blur-md border border-zinc-200/80 shadow-2xs">
-            <div className="p-3 rounded-xl hover:bg-amber-50/50 transition-colors">
-              <AnimatedStat
-                value="> 150 m²"
-                label="Stand dédié au Zénith"
-                description="Forum InCyber (FIC) à Lille Grand Palais."
-                size="card"
-                delay={0}
-              />
+          {/* Repères chiffrés et chronologiques — Style Studio Minimaliste */}
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 p-5 sm:p-6 rounded-2xl bg-white border border-zinc-200/80 shadow-2xs">
+            <div className="space-y-1 p-2">
+              <span className="text-2xl sm:text-3xl font-extrabold text-[#09090B] tracking-tight block">
+                &gt; 150 m²
+              </span>
+              <span className="text-xs font-bold text-zinc-900 block">Stand au Zénith</span>
+              <span className="text-[11px] text-[#71717A] leading-tight block">
+                Forum InCyber (FIC) à Lille Grand Palais
+              </span>
             </div>
-            <div className="p-3 rounded-xl hover:bg-amber-50/50 transition-colors">
-              <AnimatedStat
-                value="4 000+"
-                label="Contacts enregistrés"
-                description="Résultat collectif sur le stand."
-                size="card"
-                delay={0.08}
-              />
+
+            <div className="space-y-1 p-2">
+              <span className="text-2xl sm:text-3xl font-extrabold text-[#09090B] tracking-tight block">
+                4 000+
+              </span>
+              <span className="text-xs font-bold text-zinc-900 block">Contacts enregistrés</span>
+              <span className="text-[11px] text-[#71717A] leading-tight block">
+                Résultat collectif sur stand
+              </span>
             </div>
-            <div className="p-3 rounded-xl hover:bg-amber-50/50 transition-colors">
-              <AnimatedStat
-                value="36 h"
-                label="Design Sprint autonome"
-                description="Hanovre, Allemagne."
-                size="card"
-                delay={0.16}
-              />
+
+            <div className="space-y-1 p-2">
+              <span className="text-2xl sm:text-3xl font-extrabold text-[#09090B] tracking-tight block">
+                36 h
+              </span>
+              <span className="text-xs font-bold text-zinc-900 block">Design Sprint autonome</span>
+              <span className="text-[11px] text-[#71717A] leading-tight block">
+                Siège à Hanovre, Allemagne
+              </span>
             </div>
-            <div className="p-3 rounded-xl hover:bg-amber-50/50 transition-colors">
-              <AnimatedStat
-                value="Europe"
-                label="Lille, Nuremberg, Hanovre"
-                description="Équipe design internationale."
-                size="card"
-                delay={0.24}
-              />
+
+            <div className="space-y-1 p-2">
+              <span className="text-2xl sm:text-3xl font-extrabold text-[#09090B] tracking-tight block">
+                Europe
+              </span>
+              <span className="text-xs font-bold text-zinc-900 block">Lille, Nuremberg, Hanovre</span>
+              <span className="text-[11px] text-[#71717A] leading-tight block">
+                Équipe internationale (Anglais)
+              </span>
             </div>
           </div>
 
-          {/* Les 3 Piliers de Réalisation différenciés */}
-          <div className="space-y-4 pt-2">
+          {/* Les 3 Piliers de Réalisation documentés */}
+          <div className="space-y-5 pt-2">
             <div className="flex items-center gap-2">
               <span className="w-1.5 h-1.5 rounded-full bg-[#FFAD00]" />
               <h4 className="text-xs font-mono font-bold uppercase tracking-wider text-zinc-700">
@@ -703,7 +716,7 @@ export default function Parcours({ navigate, onOpenCvModal }) {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               
               {/* Pilier 01 : Scénographie événementielle */}
-              <div className="p-6 rounded-2xl bg-zinc-50/70 border border-zinc-200/60 space-y-4 flex flex-col justify-between hover:bg-zinc-50 transition-colors">
+              <div className="p-6 sm:p-7 rounded-2xl bg-white border border-zinc-200/80 shadow-2xs space-y-4 flex flex-col justify-between hover:border-zinc-300 transition-colors">
                 <div className="space-y-3">
                   <div className="flex items-center justify-between">
                     <span className="text-[11px] font-mono font-bold uppercase text-[#FFAD00] tracking-wider">
@@ -713,7 +726,7 @@ export default function Parcours({ navigate, onOpenCvModal }) {
                       Stands &gt; 150 m²
                     </span>
                   </div>
-                  <h5 className="text-base font-bold text-zinc-950 leading-snug">
+                  <h5 className="text-base sm:text-lg font-bold text-zinc-950 leading-snug">
                     Scénographie événementielle &amp; orientation des flux
                   </h5>
                   <p className="text-xs sm:text-sm text-zinc-600 leading-relaxed">
@@ -751,7 +764,7 @@ export default function Parcours({ navigate, onOpenCvModal }) {
               </div>
 
               {/* Pilier 02 : Motion design et vidéo */}
-              <div className="p-6 rounded-2xl bg-zinc-50/70 border border-zinc-200/60 space-y-4 flex flex-col justify-between hover:bg-zinc-50 transition-colors">
+              <div className="p-6 sm:p-7 rounded-2xl bg-white border border-zinc-200/80 shadow-2xs space-y-4 flex flex-col justify-between hover:border-zinc-300 transition-colors">
                 <div className="space-y-3">
                   <div className="flex items-center justify-between">
                     <span className="text-[11px] font-mono font-bold uppercase text-[#FFAD00] tracking-wider">
@@ -761,7 +774,7 @@ export default function Parcours({ navigate, onOpenCvModal }) {
                       After Effects 1080p
                     </span>
                   </div>
-                  <h5 className="text-base font-bold text-zinc-950 leading-snug">
+                  <h5 className="text-base sm:text-lg font-bold text-zinc-950 leading-snug">
                     Animation de l'arche vidéo LED d'accueil
                   </h5>
                   <p className="text-xs sm:text-sm text-zinc-600 leading-relaxed">
@@ -799,7 +812,7 @@ export default function Parcours({ navigate, onOpenCvModal }) {
               </div>
 
               {/* Pilier 03 : Création et expérimentation */}
-              <div className="p-6 rounded-2xl bg-zinc-50/70 border border-zinc-200/60 space-y-3 md:col-span-2 hover:bg-zinc-50 transition-colors">
+              <div className="p-6 sm:p-7 rounded-2xl bg-white border border-zinc-200/80 shadow-2xs space-y-4 md:col-span-2 hover:border-zinc-300 transition-colors">
                 <div className="flex items-center justify-between">
                   <span className="text-[11px] font-mono font-bold uppercase text-[#FFAD00] tracking-wider">
                     03 / Création &amp; Expérimentation
@@ -808,10 +821,10 @@ export default function Parcours({ navigate, onOpenCvModal }) {
                     Hanovre · Scène plénière
                   </span>
                 </div>
-                <h5 className="text-base font-bold text-zinc-950 leading-snug">
+                <h5 className="text-base sm:text-lg font-bold text-zinc-950 leading-snug">
                   Design Sprint de 36 h à Hanovre &amp; Incarnation de marque sur scène
                 </h5>
-                <p className="text-xs sm:text-sm text-zinc-600 leading-relaxed">
+                <p className="text-xs sm:text-sm text-zinc-600 leading-relaxed max-w-4xl">
                   Participation active au Design Sprint de 36 heures en Allemagne au sein de l'équipe internationale : développement narratif, univers cyber et modélisation 3D du personnage dans un cadre temporel strict. En complément, incarnation en costume du personnage Captain Security sur la grande scène plénière du FIC et dans les allées, créant une passerelle directe et humaine entre la marque et le public professionnel.
                 </p>
                 <div className="pt-2 border-t border-zinc-200/50 flex items-center gap-2 text-xs text-zinc-500 font-medium">

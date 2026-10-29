@@ -49,12 +49,10 @@ export default function MentionsLegales({ navigate }) {
                 numéro fictif n'est présenté sur cette page.
               </p>
               <p>
-                <strong className="text-room-text font-semibold">Siège :</strong> Métropole
-                Européenne de Lille (Hauts-de-France), France.
+                <strong className="text-room-text font-semibold">Siège :</strong> Cysoing (59830), Métropole Européenne de Lille, Hauts-de-France, France.
               </p>
               <p>
-                <strong className="text-room-text font-semibold">TVA :</strong> TVA non
-                applicable, article 293 B du CGI.
+                <strong className="text-room-text font-semibold">TVA :</strong> Franchise en base de TVA — TVA non applicable, article 293 B du CGI.
               </p>
               <p>
                 <strong className="text-room-text font-semibold">Directeur de la
@@ -89,7 +87,7 @@ export default function MentionsLegales({ navigate }) {
             </h2>
             <p className="text-room-muted">
               Ce site est hébergé par <strong className="text-room-text font-semibold">Vercel
-              Inc.</strong>, 340 S Lemon Ave #4133, Walnut, CA 91789, USA.
+              Inc.</strong>, 440 N Barranca Ave #4133, Covina, CA 91723, USA (plateforme cloud mondiale sécurisée).
             </p>
           </Reveal>
 

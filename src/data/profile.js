@@ -122,8 +122,8 @@ export const profileData = {
           desc: "Création de l'univers visuel et des supports de communication aux côtés du fondateur Marc-Henri Blarel : campagne Ulule validée à 116 %, visuels radio, captation vidéo au salon MEDFEL et supports d'aide à la vente B2B."
         },
         {
-          title: "Résin'Architecte (BTP Haut de Gamme) — Communication & Terrain",
-          desc: "Adaptation et formalisation de l'identité visuelle existante, création de modèles réutilisables pour les réseaux sociaux, fiches d'aide à la vente (règle des 8 mm), captation vidéo directe et documentation de 8 projets de chantier."
+          title: "Résin'Architecte (Revêtements de sol en résine) — Communication & Terrain",
+          desc: "Solutions de revêtements de sol en résine pour espaces intérieurs et extérieurs (moquette de pierre, moquette de marbre, résines drainantes, EPDM, revêtements sur béton). Formalisation de l'identité visuelle, modèles éditoriaux pour les réseaux sociaux, fiches d'aide à la vente et captation vidéo directe sur chantiers."
         }
       ]
     },

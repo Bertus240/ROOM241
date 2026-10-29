@@ -88,8 +88,8 @@ const CONTEXT_MESSAGES = {
   },
   resin: {
     id: 'resin',
-    tag: "Résin'Architecte • BTP",
-    text: "Identité visuelle et présence digitale pour un cabinet d'architecture d'intérieur.",
+    tag: "Résin'Architecte • Revêtements de sol",
+    text: "Résin’Architecte : revêtements de sol en résine, moquette de pierre et chantiers de terrain.",
     actions: [
       { label: "Voir l'étude complète", path: "/realisations/resin-architecte", primary: true },
       { label: "Voir le parcours", path: "/parcours", primary: false },
@@ -125,7 +125,7 @@ const CONTEXT_MESSAGES = {
   caseStudyResin: {
     id: 'caseStudyResin',
     tag: "Étude de cas • Résin'Architecte",
-    text: "Identité visuelle et présence digitale pour un cabinet d'architecture d'intérieur.",
+    text: "Résin’Architecte : revêtements de sol en résine, moquette de pierre et chantiers de terrain.",
     actions: [
       { label: "Voir le parcours", path: "/parcours", primary: true },
       { label: "Retour aux projets", path: "/projets", primary: false },
@@ -152,7 +152,7 @@ export default function Kuro({ currentPath = '/', navigate, onOpenCvModal }) {
   const [isExitingIntro, setIsExitingIntro] = useState(false);
 
   // 2. Machine à états : 'neutral' est strictement la référence au repos
-  const [expression, setExpression] = useState(isIntroActive ? 'blink' : 'neutral');
+  const [expression, setExpression] = useState('neutral');
   const [isAwake, setIsAwake] = useState(!isIntroActive);
 
   // 3. Animation corporelle du mochi (prise de parole)
@@ -306,7 +306,7 @@ export default function Kuro({ currentPath = '/', navigate, onOpenCvModal }) {
 
   // Clignement naturel périodique au repos
   useEffect(() => {
-    if (prefersReducedMotion || !isAwake) return;
+    if (prefersReducedMotion || !isAwake || isIntroActive) return;
 
     let timeoutId;
     const executeBlink = () => {
@@ -324,21 +324,8 @@ export default function Kuro({ currentPath = '/', navigate, onOpenCvModal }) {
 
   // Séquence d'introduction : réveil progressif des yeux
   useEffect(() => {
-    if (!isIntroActive) {
-      setIsAwake(true);
-      setExpression('neutral');
-      return;
-    }
-
-    setIsAwake(false);
-    setExpression('blink');
-
-    const timerWake = setTimeout(() => {
-      setIsAwake(true);
-      setExpression('neutral');
-    }, 600);
-
-    return () => clearTimeout(timerWake);
+    setIsAwake(true);
+    setExpression('neutral');
   }, [isIntroActive]);
 
   // Suivi subtil du regard vers le curseur
@@ -590,7 +577,7 @@ export default function Kuro({ currentPath = '/', navigate, onOpenCvModal }) {
     const pxOffsetX = eyeOffset.x * (isLarge ? 1.4 : 1);
     const pxOffsetY = eyeOffset.y * (isLarge ? 1.4 : 1);
 
-    const isClosed = expression === 'blink';
+    const isClosed = !isIntroActive && expression === 'blink';
 
     return (
       <div className={`relative ${sizeClasses} flex items-center justify-center shrink-0 select-none`}>

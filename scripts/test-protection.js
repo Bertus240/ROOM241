@@ -134,9 +134,11 @@ assert(resDE.statusCode === 403, 'Requête avec x-vercel-ip-country: DE renvoie 
 assert(resDE.responseHeaders['X-Robots-Tag'] === 'noindex, nofollow', 'Réponse 403 inclut l’en-tête X-Robots-Tag: noindex, nofollow');
 assert(resDE.responseHeaders['Cache-Control']?.includes('no-store'), 'Réponse 403 inclut Cache-Control: private, no-store');
 assert(resDE.responseHeaders['Vary'] === 'X-Vercel-IP-Country', 'Réponse 403 inclut Vary: X-Vercel-IP-Country');
-assert(resDE.responseBody.includes('Accès restreint pour cette zone géographique'), 'La réponse 403 contient le message sobre en français');
+assert(resDE.responseBody.includes("Oops, this page isn't available right now.") && resDE.responseBody.includes("Oups, cette page est momentanément indisponible."), 'La réponse 403 contient le message neutre sans révéler la restriction');
 assert(resDE.responseBody.includes('Studio ROOM241'), 'La réponse 403 respecte l’identité visuelle Studio ROOM241');
-assert(resDE.responseBody.includes('remi.brocart@gmail.com'), 'La réponse 403 fournit le contact du studio');
+assert(resDE.responseBody.includes('brocart.remi02@gmail.com'), 'La réponse 403 fournit le contact email officiel');
+assert(resDE.responseBody.includes('https://www.linkedin.com/in/remibrocart'), 'La réponse 403 fournit le lien LinkedIn officiel');
+assert(resDE.responseBody.includes('/assets/logos/430x95_Framer_Black@4x.png'), 'La réponse 403 intègre le véritable logo officiel ROOM241');
 
 // Test B : Requête identifiée France (FR) accédant directement à /api/geoblock
 const resFR = runHandler({ 'x-vercel-ip-country': 'FR' });

@@ -39,8 +39,8 @@ export default function SectionResinArchitecte() {
           <h2 className="text-2xl sm:text-4xl font-extrabold tracking-tight text-[#09090B]">
             Résin'Architecte — Identité &amp; Contenu Terrain
           </h2>
-          <p className="text-sm sm:text-base text-[#3F3F46] mt-2">
-            Adaptation de l'identité visuelle existante : règles graphiques, visuels avant/après de chantiers et supports d'aide à la vente.
+          <p className="text-sm sm:text-base text-[#3F3F46] mt-2 leading-relaxed max-w-3xl">
+            Résin’Architecte développe des solutions de revêtements de sol en résine pour les espaces intérieurs et extérieurs (moquette de pierre, moquette de marbre, résines drainantes, EPDM, revêtements sur béton). Adaptation d'identité, fiches d'aide à la vente et captation directe sur le terrain.
           </p>
         </div>
 

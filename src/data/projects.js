@@ -238,7 +238,7 @@ export const projectsData = {
       }
     ],
     alt: "Direction artistique BTP — Résin'Architecte",
-    description: "Adaptation et formalisation d'une identité visuelle existante : création de gabarits pour les réseaux sociaux, mise en page de visuels avant/après et conception de supports d'aide à la vente.",
+    description: "Résin’Architecte développe des solutions de revêtements de sol en résine pour les espaces intérieurs et extérieurs. De la moquette de pierre aux revêtements décoratifs, drainants ou appliqués sur béton, l'entreprise associe savoir-faire technique et recherche esthétique pour répondre à des usages variés.",
     cta: "Consulter l'étude de cas ↗",
     challenge: "Résin'Architecte disposait d'un savoir-faire reconnu dans les revêtements de sol en résine minérale, mais sans règles graphiques formalisées ni supports structurés pour valoriser ses réalisations.",
     solution: "Formalisation de l'identité existante : conception de gabarits éditoriaux réguliers, mise en page de visuels avant/après de chantiers et création de fiches d'aide à la vente axées sur la pédagogie technique (règle des 8 mm, préparation des supports).",
