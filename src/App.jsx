@@ -12,6 +12,7 @@ import PolitiqueConfidentialite from './components/PolitiqueConfidentialite';
 import BackToTop from './components/BackToTop';
 import StudioPointer from './components/StudioPointer';
 import Kuro from './components/Kuro';
+import Blocked from './pages/Blocked';
 import { projectsData } from './data/projects';
 import { incrementPageView } from './lib/telemetry';
 import { initTheme } from './lib/theme';
@@ -135,6 +136,15 @@ export default function App() {
   // Accès administrateur
   if (currentPath === '/admin' || window.location.hash.includes('#admin')) {
     return <AdminDashboard />;
+  }
+
+  // Page 403 / restriction d'accès dédiée (support URL directe et simulation locale ?test_country=DE)
+  if (
+    currentPath === '/403' ||
+    currentPath === '/blocked' ||
+    (typeof window !== 'undefined' && window.location.search.includes('test_country=DE'))
+  ) {
+    return <Blocked navigate={navigate} />;
   }
 
   // Rétro-compatibilité pour les liens profonds /realisations/:slug

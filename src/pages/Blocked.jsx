@@ -4,8 +4,7 @@ import { ArrowLeft, Sparkles, Home, ExternalLink, Mail } from 'lucide-react';
 
 const translations = {
   en: {
-    badge: '403 • Unavailable',
-    statusPill: '403 Something went wrong',
+    badge: '403 // SERVICE UNAVAILABLE',
     title: "Oops, this page isn't available right now.",
     description: "Something went wrong while trying to load this page. You can return to the portfolio or explore my work and background using the links below.",
     note: "Have a question, a project or a creative collaboration in mind?",
@@ -22,8 +21,7 @@ const translations = {
     ]
   },
   fr: {
-    badge: '403 • Page indisponible',
-    statusPill: '403 Une erreur est survenue',
+    badge: '403 // ACCÈS MOMENTANÉMENT INDISPONIBLE',
     title: 'Oups, cette page est momentanément indisponible.',
     description: "Un problème est survenu lors du chargement de cette page. Vous pouvez retourner à l'accueil du portfolio ou découvrir mes projets via les accès ci-dessous.",
     note: "Vous souhaitez discuter d'un projet ou explorer une collaboration créative ?",
