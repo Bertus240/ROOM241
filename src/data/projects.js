@@ -82,159 +82,60 @@ export const projectsData = {
     image: "/assets/hornetsecurity/fic/Stand/IMG20250401075104.jpg",
     description: "Accompagnement continu auprès du leader européen de la cybersécurité Cloud (+71k abonnés). Déploiement graphique de stands européens (dont le stand de plus de 150 m² au FIC), campagnes publicitaires (Paid Ads) et réalisation d'un sprint créatif de 36h à Hanovre.",
     cta: "Consulter l'étude de cas ↗",
-    proofAssets: [
+        proofAssets: [
       {
-        src: "/assets/hornetsecurity/Proofpoint_Sharepoint/1@4x.png",
-        title: "Campagne Paid Ads — The biggest risk in your SharePoint",
-        caption: "Affiche publicitaire comparative Proofpoint vs Hornetsecurity pour l'acquisition B2B."
-      },
-      {
-        src: "/assets/hornetsecurity/Webinar mind the gap/FR_lp_banner_mind_the_gap_1600x4002.png",
-        title: "Webinaire Stratégique — Mind the Gap",
-        caption: "Affiche pour l'événement de cyber-résilience : « Et si votre messagerie s’arrêtait demain ? »"
-      },
-      {
-        src: "/assets/hornetsecurity/fic/Stand/IMG20250401075104.jpg",
-        title: "Affichage urbain extérieur — Zénith de Lille (Édition FIC 2025)",
-        caption: "Panneau d'affichage grand format déployé sur la façade du Zénith de Lille lors de l'édition FIC 2025."
-      },
-      {
-        src: "/assets/hornetsecurity/affiche_helix_sprint.jpg",
-        title: "Design Sprint Vidéo 36H — Avatar Virtuel 3D",
-        caption: "Concept 3D et identité visuelle imaginés et développés seul lors d'un sprint créatif de 36 heures à Hanovre."
-      }
-    ],
-    act1: {
-      title: "Volet 1 — Contexte & Enjeux",
-      text: "Assurer la cohérence de marque et l'acquisition sur des campagnes B2B globales (+71k abonnés). Déploiement de l'identité sur des événements physiques de grande ampleur (Forum InCyber à Lille, it-sa à Nuremberg)."
-    },
-    act2: {
-      title: "Volet 1 & 2 — Action & Réalisations",
-      text: "Création d'assets publicitaires multi-canaux (Paid Ads) et design graphique d'espaces pour le stand de plus de 150 m² au FIC (scénographie, intégration de e-karting, habillage grand format). Réalisation en parallèle d'un sprint créatif de 36 heures à Hanovre : immersion technique, écriture du script, DA 3D, montage et intégration de la vidéo d'ouverture pour la présentation finale."
-    },
-    act3: {
-      title: "Impact & Bilan Collectif",
-      text: "Présence collective remarquée : plus de 4 000 leads B2B enregistrés par les équipes sur les 3 jours du salon FIC, affirmation du leadership de la marque auprès des décideurs européens, et alignement des équipes autour de la nouvelle vision produit."
-    },
-    nextSlug: "resin-architecte",
-    nextTitle: "Résin'Architecte (BTP Haut de Gamme)"
-  },
-  "editeur-saas-cloud": {
-    slug: "editeur-saas-cloud",
-    aliasOf: "hornetsecurity",
-    id: "PROJET 01",
-    title: "Hornetsecurity (Ex-Éditeur Logiciel SaaS)",
-    subtitle: "Scénographie immersive grand format (> 150 m² au FIC) & activation événementielle européenne",
-    category: "Cybersécurité B2B internationale",
-    deliverables: "Direction Artistique, Stand de plus de 150 m² (FIC), Asset Video, Lead Capture",
-    year: "3 ans",
-    statusLabel: "CASE STUDY PHARE",
-    tags: ["CYBERSÉCURITÉ B2B", "ACTIVATION INTERNATIONALE", "STAND FIC 150M²"],
-    metric: "+4 000",
-    metricLabel: "Contacts qualifiés enregistrés collectivement au salon FIC",
-    isNda: false,
-    image: "/assets/hornetsecurity/fic/Stand/IMG20250401075104.jpg",
-    description: "Direction artistique et habillage de stands pour des salons d'envergure européenne, dont le stand de plus de 150 m² au FIC à Lille avec animation e-karting.",
-    cta: "Consulter l'étude de cas ↗",
-    act1: {
-      title: "01. Le Défi initial",
-      text: "Un acteur majeur de l'infrastructure logicielle SaaS et de la cybersécurité souhaitait réinventer sa présence visuelle lors des principaux congrès tech européens."
-    },
-    act2: {
-      title: "02. L'Arbitrage Créatif & Déploiement",
-      text: "Habillage graphique d'un stand d'exposition de plus de 150 m² au FIC, intégrant une signalétique claire et une piste e-karting."
-    },
-    act3: {
-      title: "03. L'Impact Mesurable",
-      text: "+4 000 contacts B2B qualifiés enregistrés collectivement par les équipes au cours du Forum InCyber."
-    },
-    nextSlug: "resin-architecte",
-    nextTitle: "Résin'Architecte (BTP Haut de Gamme)"
-  },
-  "resin-architecte": {
-    slug: "resin-architecte",
-    id: "PROJET 02",
-    title: "Résin'Architecte",
-    subtitle: "Adaptation de l'identité visuelle existante & supports de communication",
-    client: "Résin'Architecte",
-    sector: "BTP & Revêtements Haut de Gamme",
-    category: "BTP Haut de Gamme",
-    deliverables: "Adaptation d'Identité, Gabarits Graphiques, Supports de Vente & Avant/Après",
-    year: "2026",
-    statusLabel: "BTP HAUT DE GAMME",
-    tags: ["BTP Haut de Gamme", "Identité Visuelle", "Supports de Vente", "Avant/Après"],
-    metric: "+219 %",
-    metricLabel: "Portée organique en 30 jours",
-    heroMetric: "648",
-    heroMetricLabel: "Visites de profil générées (100 % organique)",
-    metrics: [
-      {
-        value: "+219 %",
-        label: "Portée organique",
-        detail: "Progression de la portée enregistrée sur 30 jours sans sponsoring"
-      },
-      {
-        value: "648",
-        label: "Visites de profil",
-        detail: "Visites enregistrées sur les profils Meta au cours de la période"
-      },
-      {
-        value: "+209 %",
-        label: "Interactions",
-        detail: "Hausse globale des interactions sur les publications de chantiers"
-      },
-      {
-        value: "0 €",
-        label: "Budget publicitaire",
-        detail: "Performance 100 % organique sans achat d'espace publicitaire"
-      }
-    ],
-    isNda: false,
-    image: "/assets/social-proof-ra/post_pool_craft.png",
-    proofImage: "/assets/social-proof-ra/post_terrace_before_after.png",
-    trowelImage: "/assets/social-proof-ra/post_trowel_craft.png",
-    panoramicStats: "/assets/social-proof-ra/FB_stats.png",
-    comparisonImage: "/assets/social-proof-ra/Comparaison_FB_entreprises_similaires.png",
-    proofAssets: [
-      {
-        src: "/assets/social-proof-ra/post_pool_craft.png",
-        title: "Démonstration artisanale & gestes techniques",
-        caption: "Publication valorisant la précision de pose aux abords d'une piscine."
-      },
-      {
+        id: 1,
         src: "/assets/social-proof-ra/post_terrace_before_after.png",
-        title: "Carrousel avant / après — Rénovation 52 m²",
-        caption: "Transformation visuelle d'un sol fissuré en résine drainante sans démolition."
+        thumbUrl: "/assets/social-proof-ra/post_terrace_before_after.png",
+        title: "Transformation terrasse — 52 m² en 48h",
+        description: "Format avant/après documentant la rénovation d'une dalle fissurée sans démolition pour rassurer sur la rapidité d'exécution.",
+        caption: "Format avant/après documentant la rénovation d'une dalle fissurée sans démolition pour rassurer sur la rapidité d'exécution.",
+        badge: "Réalisation terrain"
       },
       {
+        id: 2,
+        src: "/assets/social-proof-ra/post_pool_craft.png",
+        thumbUrl: "/assets/social-proof-ra/post_pool_craft.png",
+        title: "Savoir-faire artisanal — Abords de piscine",
+        description: "Focus éditorial sur la précision du geste technique et la régularité du talochage pour valoriser les finitions haut de gamme.",
+        caption: "Focus éditorial sur la précision du geste technique et la régularité du talochage pour valoriser les finitions haut de gamme.",
+        badge: "Geste métier"
+      },
+      {
+        id: 3,
         src: "/assets/social-proof-ra/post_trowel_craft.png",
-        title: "Précision matière — Règle des 8 millimètres",
-        caption: "Publication technique expliquant l'épaisseur idéale d'un revêtement drainant."
+        thumbUrl: "/assets/social-proof-ra/post_trowel_craft.png",
+        title: "Pédagogie matière — La règle des 8 mm",
+        description: "Post didactique vulgarisant l'épaisseur indispensable d'une résine drainante pour pérenniser l'ouvrage face au gel.",
+        caption: "Post didactique vulgarisant l'épaisseur indispensable d'une résine drainante pour pérenniser l'ouvrage face au gel.",
+        badge: "Contenu expert"
       },
       {
+        id: 4,
         src: "/assets/social-proof-ra/FB_stats.png",
-        title: "Consultations de profil Meta",
-        caption: "Statistiques de profil enregistrées au cours de la diffusion éditoriale."
+        thumbUrl: "/assets/social-proof-ra/FB_stats.png",
+        title: "Portée & Interactions — Bilan Meta 30 jours",
+        description: "Analyse des retombées organiques : +219 % de portée et +209 % d'interactions générées sans aucun budget publicitaire.",
+        caption: "Analyse des retombées organiques : +219 % de portée et +209 % d'interactions générées sans aucun budget publicitaire.",
+        badge: "+219 % portée"
       },
       {
-        src: "/assets/social-proof-ra/fb-resume.png",
-        title: "Synthèse d'audience Meta",
-        caption: "Données de couverture enregistrées sur Facebook et Instagram."
+        id: 5,
+        src: "/assets/social-proof-ra/Insta_1.png",
+        thumbUrl: "/assets/social-proof-ra/Insta_1.png",
+        title: "Acquisition qualifiée — Trafic Instagram",
+        description: "Suivi des visites du profil générées par les gabarits visuels : 648 visites spontanées de prospects locaux.",
+        caption: "Suivi des visites du profil générées par les gabarits visuels : 648 visites spontanées de prospects locaux.",
+        badge: "648 visites"
       },
       {
-        src: "/assets/social-proof-ra/Followers_FB.png",
-        title: "Évolution de la communauté",
-        caption: "Suivi des abonnés au cours de la période d'harmonisation éditoriale."
-      },
-      {
+        id: 6,
         src: "/assets/social-proof-ra/Comparaison_FB_entreprises_similaires.png",
-        title: "Données de benchmark Facebook",
-        caption: "Suivi comparatif des interactions dans le secteur BTP régional."
-      },
-      {
-        src: "/assets/social-proof-ra/Comparaison_insta_entreprises_similaires.png",
-        title: "Données de benchmark Instagram",
-        caption: "Suivi comparatif des interactions sur les réseaux sociaux."
+        thumbUrl: "/assets/social-proof-ra/Comparaison_FB_entreprises_similaires.png",
+        title: "Benchmark sectoriel — Performance régionale",
+        description: "Comparatif d'engagement face aux artisans du secteur : volume d'interactions supérieur à la moyenne locale.",
+        caption: "Comparatif d'engagement face aux artisans du secteur : volume d'interactions supérieur à la moyenne locale.",
+        badge: "Benchmark"
       }
     ],
     alt: "Direction artistique BTP — Résin'Architecte",

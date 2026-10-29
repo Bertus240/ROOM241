@@ -12,6 +12,8 @@ import {
   Sparkles,
   Video,
   Maximize2,
+  ZoomIn,
+  ZoomOut,
   X,
   ChevronLeft,
   ChevronRight,
@@ -28,6 +30,7 @@ import {
 import { motion, AnimatePresence } from 'framer-motion';
 import BadgesCarousel from '../components/BadgesCarousel';
 import AnimatedStat from '../components/AnimatedStat';
+import EditorialViewer from '../components/EditorialViewer';
 
 export default function Projects({ navigate }) {
   const tabContainerRef = useRef(null);
@@ -126,7 +129,9 @@ export default function Projects({ navigate }) {
   const [badgeModalIndex, setBadgeModalIndex] = useState(null);
   const [isPosterModalOpen, setIsPosterModalOpen] = useState(false);
   const [raModalIndex, setRaModalIndex] = useState(null);
+  const [isRaZoomed, setIsRaZoomed] = useState(false);
   const [standModalImage, setStandModalImage] = useState(null);
+  const [isFicViewerOpen, setIsFicViewerOpen] = useState(false);
 
   const handleNav = (path) => (e) => {
     if (e) e.preventDefault();
@@ -166,38 +171,75 @@ export default function Projects({ navigate }) {
 
 
 
-  const raAssets = [
+  const helixPosterMedia = [
     {
-      src: "/assets/social-proof-ra/post_terrace_before_after.png",
-      title: "Rénovation avant / après — Terrasse de 52 m²",
-      caption: "Mise en avant visuelle d'une transformation complète d'une dalle béton en 48h sans démolition."
-    },
-    {
-      src: "/assets/social-proof-ra/post_pool_craft.png",
-      title: "Précision artisanale aux abords d’une piscine",
-      caption: "Mise en valeur photographique et éditoriale de la précision de pose de résine drainante aux abords d'un bassin résidentiel. La communication documente le geste artisanal, la régularité du talochage et les finitions soignées pour démontrer le savoir-faire technique auprès d'une clientèle exigeante sans recours à des allégations publicitaires agressives."
-    },
-    {
-      src: "/assets/social-proof-ra/post_trowel_craft.png",
-      title: "Pédagogie matière — La règle des 8 mm",
-      caption: "Explication technique de l'épaisseur requise pour un revêtement en résine drainante pérenne."
-    },
-    {
-      src: "/assets/social-proof-ra/FB_stats.png",
-      title: "Statistiques d'audience Meta Business",
-      caption: "Capture de preuve : +219 % de portée organique et +209 % d'interactions en 30 jours."
-    },
-    {
-      src: "/assets/social-proof-ra/Insta_1.png",
-      title: "Tableau de bord Meta Instagram",
-      caption: "Capture de preuve : 648 visites de profil générées sans aucun budget publicitaire (0 €)."
-    },
-    {
-      src: "/assets/social-proof-ra/Comparaison_FB_entreprises_similaires.png",
-      title: "Benchmark sectoriel régional",
-      caption: "Comparatif des interactions face aux entreprises de revêtements du secteur."
+      id: 'helix-poster',
+      src: '/assets/hornetsecurity/affiche_helix_sprint.jpg',
+      alt: "Affiche officielle du héros cyber Helix Nova pour Hornetsecurity by Proofpoint",
+      title: "Helix Nova — Affiche officielle",
+      description: "Photographie in situ de l'affiche imprimée grand format • Sprint créatif de Hanovre (36h) pour Hornetsecurity by Proofpoint.",
+      badge: "Sprint Hanovre 36h",
+      place: "Hanovre, Allemagne"
     }
   ];
+
+  const slidesResinArchitecte = [
+    {
+      id: 1,
+      src: "/assets/social-proof-ra/post_terrace_before_after.png",
+      thumbUrl: "/assets/social-proof-ra/post_terrace_before_after.png",
+      title: "Transformation terrasse — 52 m² en 48h",
+      description: "Format avant/après documentant la rénovation d'une dalle fissurée sans démolition pour rassurer sur la rapidité d'exécution.",
+      badge: "Réalisation terrain",
+      isAnalytics: false
+    },
+    {
+      id: 2,
+      src: "/assets/social-proof-ra/post_pool_craft.png",
+      thumbUrl: "/assets/social-proof-ra/post_pool_craft.png",
+      title: "Savoir-faire artisanal — Abords de piscine",
+      description: "Focus éditorial sur la précision du geste technique et la régularité du talochage pour valoriser les finitions haut de gamme.",
+      badge: "Geste métier",
+      isAnalytics: false
+    },
+    {
+      id: 3,
+      src: "/assets/social-proof-ra/post_trowel_craft.png",
+      thumbUrl: "/assets/social-proof-ra/post_trowel_craft.png",
+      title: "Pédagogie matière — La règle des 8 mm",
+      description: "Post didactique vulgarisant l'épaisseur indispensable d'une résine drainante pour pérenniser l'ouvrage face au gel.",
+      badge: "Contenu expert",
+      isAnalytics: false
+    },
+    {
+      id: 4,
+      src: "/assets/social-proof-ra/FB_stats.png",
+      thumbUrl: "/assets/social-proof-ra/FB_stats.png",
+      title: "Portée & Interactions — Bilan Meta 30 jours",
+      description: "Analyse des retombées organiques : +219 % de portée et +209 % d'interactions générées sans aucun budget publicitaire.",
+      badge: "+219 % portée",
+      isAnalytics: true
+    },
+    {
+      id: 5,
+      src: "/assets/social-proof-ra/Insta_1.png",
+      thumbUrl: "/assets/social-proof-ra/Insta_1.png",
+      title: "Acquisition qualifiée — Trafic Instagram",
+      description: "Suivi des visites du profil générées par les gabarits visuels : 648 visites spontanées de prospects locaux.",
+      badge: "648 visites",
+      isAnalytics: true
+    },
+    {
+      id: 6,
+      src: "/assets/social-proof-ra/Comparaison_FB_entreprises_similaires.png",
+      thumbUrl: "/assets/social-proof-ra/Comparaison_FB_entreprises_similaires.png",
+      title: "Benchmark sectoriel — Performance régionale",
+      description: "Comparatif d'engagement face aux artisans du secteur : volume d'interactions supérieur à la moyenne locale.",
+      badge: "Benchmark",
+      isAnalytics: true
+    }
+  ];
+  const raAssets = slidesResinArchitecte;
 
   return (
     <div className="pt-28 pb-28 space-y-20 sm:space-y-32">
@@ -456,14 +498,14 @@ export default function Projects({ navigate }) {
                     className="relative w-full h-full group overflow-hidden"
                   >
                     <div
-                      onClick={() => setStandModalImage(ficMediaList[hornetMediaIndex])}
+                      onClick={() => setIsFicViewerOpen(true)}
                       role="button"
                       tabIndex={0}
                       aria-label={`Agrandir la photographie : ${ficMediaList[hornetMediaIndex].title}`}
                       onKeyDown={(e) => {
                         if (e.key === 'Enter' || e.key === ' ') {
                           e.preventDefault();
-                          setStandModalImage(ficMediaList[hornetMediaIndex]);
+                          setIsFicViewerOpen(true);
                         }
                       }}
                       className="relative w-full h-full cursor-pointer"
@@ -1194,10 +1236,10 @@ export default function Projects({ navigate }) {
                 </div>
                 <div className="space-y-1 px-1">
                   <h4 className="text-sm font-bold text-[#09090B] group-hover:text-zinc-700 transition-colors">
-                    Rénovation avant / après — Terrasse de 52 m²
+                    Transformation terrasse — 52 m² en 48h
                   </h4>
                   <p className="text-xs text-[#52525B] leading-relaxed">
-                    Transformation d'une dalle béton dégradée en résine drainante en 48h sans démolition.
+                    Format avant/après documentant la rénovation d'une dalle fissurée sans démolition pour rassurer sur la rapidité d'exécution.
                   </p>
                 </div>
               </div>
@@ -1232,7 +1274,7 @@ export default function Projects({ navigate }) {
                     Précision artisanale aux abords d'une piscine
                   </h4>
                   <p className="text-xs text-[#52525B] leading-relaxed">
-                    Continuité minérale, finition sans raccord et confort thermique au sol sur chantier résidentiel.
+                    Focus éditorial sur la précision du geste technique et la régularité du talochage pour valoriser les finitions haut de gamme.
                   </p>
                 </div>
               </div>
@@ -1267,7 +1309,7 @@ export default function Projects({ navigate }) {
                     Pédagogie matière — La règle des 8 mm
                   </h4>
                   <p className="text-xs text-[#52525B] leading-relaxed">
-                    Application manuelle à la taloche garantissant la perméabilité et la tenue dans le temps.
+                    Post didactique vulgarisant l'épaisseur indispensable d'une résine drainante pour pérenniser l'ouvrage face au gel.
                   </p>
                 </div>
               </div>
@@ -1448,247 +1490,40 @@ export default function Projects({ navigate }) {
       {typeof document !== 'undefined' &&
         createPortal(
           <>
-            {/* MODAL 1 : ZOOM HAUTE RÉSOLUTION DE LA PHOTOGRAPHIE DU STAND */}
-            <AnimatePresence>
-              {standModalImage && (
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
-                  role="dialog"
-                  aria-modal="true"
-                  aria-label="Visionneuse de photographie haute résolution du stand"
-                  className="fixed inset-0 z-[9999] w-screen h-screen bg-black/95 backdrop-blur-xl flex flex-col justify-between p-3 sm:p-6 select-none"
-                  onClick={() => setStandModalImage(null)}
-                >
-                  {/* Barre haute */}
-                  <div
-                    className="flex items-center justify-between text-white text-xs w-full max-w-6xl mx-auto z-40 py-2"
-                    onClick={(e) => e.stopPropagation()}
-                  >
-                    <div className="flex items-center gap-2">
-                      <span className="font-mono text-zinc-300 text-xs px-3 py-1 rounded-full bg-white/10 border border-white/10">
-                        Photographie in situ
-                      </span>
-                      <span className="text-zinc-300 font-medium truncate max-w-md">{standModalImage.title}</span>
-                    </div>
+            {/* ========================================================
+              MODALES UNIFIÉES HAUT DE GAMME — ROOM241 EDITORIAL VIEWER
+             ======================================================== */}
+            {/* Visionneuse Scénographie FIC 2026 */}
+            <EditorialViewer
+              isOpen={isFicViewerOpen || standModalImage !== null}
+              onClose={() => {
+                setIsFicViewerOpen(false);
+                setStandModalImage(null);
+              }}
+              items={ficMediaList}
+              currentIndex={hornetMediaIndex}
+              onIndexChange={(idx) => setHornetMediaIndex(idx)}
+              projectContext="Forum InCyber · Scénographie Stand > 150 m²"
+            />
 
-                    <button
-                      type="button"
-                      onClick={() => setStandModalImage(null)}
-                      className="p-2 sm:px-3 sm:py-1.5 rounded-full bg-white/10 hover:bg-white/20 text-white border border-white/15 transition-colors flex items-center gap-1.5 text-xs font-medium cursor-pointer"
-                      aria-label="Fermer la prévisualisation"
-                    >
-                      <X className="w-4 h-4" />
-                      <span>Fermer</span>
-                    </button>
-                  </div>
+            {/* Visionneuse Affiche Helix Nova */}
+            <EditorialViewer
+              isOpen={isPosterModalOpen}
+              onClose={() => setIsPosterModalOpen(false)}
+              items={helixPosterMedia}
+              currentIndex={0}
+              projectContext="Direction Artistique · Héros Cyber Helix Nova"
+            />
 
-                  {/* Zone centrale : Image pleine hauteur sans recadrage */}
-                  <div
-                    className="relative flex-1 min-h-0 w-full flex items-center justify-center p-2 sm:p-4 select-none overflow-hidden my-auto"
-                    onClick={(e) => e.stopPropagation()}
-                  >
-                    <img
-                      src={standModalImage.src}
-                      alt={standModalImage.title}
-                      className="max-h-[calc(100vh-140px)] max-w-full w-auto h-auto object-contain rounded-xl sm:rounded-2xl shadow-2xl border border-white/10"
-                    />
-                  </div>
-
-                  {/* Barre basse */}
-                  <div className="text-center text-zinc-300 text-xs py-2" onClick={(e) => e.stopPropagation()}>
-                    <p className="font-semibold text-white">{standModalImage.title}</p>
-                    <p className="text-zinc-400 text-[11px] font-mono mt-0.5">{standModalImage.caption || "Format d'origine haute définition • Forum InCyber Lille Grand Palais"}</p>
-                  </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
-            
-
-            {/* MODAL 2 : ZOOM HAUTE RÉSOLUTION DE L'AFFICHE HELIX NOVA */}
-            <AnimatePresence>
-              {isPosterModalOpen && (
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
-                  className="fixed inset-0 z-[9999] w-screen h-screen bg-black/98 backdrop-blur-xl flex flex-col justify-between p-3 sm:p-6 select-none"
-                  onClick={() => setIsPosterModalOpen(false)}
-                >
-                  {/* Barre haute */}
-                  <div
-                    className="flex items-center justify-between text-white text-xs w-full max-w-6xl mx-auto z-40 py-2"
-                    onClick={(e) => e.stopPropagation()}
-                  >
-                    <div className="flex items-center gap-2">
-                      <span className="font-mono text-zinc-300 text-xs px-3 py-1 rounded-full bg-white/10 border border-white/10">
-                        Affiche officielle
-                      </span>
-                      <span className="text-zinc-300 font-medium">Helix Nova · Sprint de Hanovre (36 h)</span>
-                    </div>
-
-                    <button
-                      type="button"
-                      onClick={() => setIsPosterModalOpen(false)}
-                      className="p-2 sm:px-3 sm:py-1.5 rounded-full bg-white/10 hover:bg-white/20 text-white border border-white/15 transition-colors flex items-center gap-1.5 text-xs font-medium cursor-pointer"
-                      aria-label="Fermer la prévisualisation"
-                    >
-                      <X className="w-4 h-4" />
-                      <span>Fermer</span>
-                    </button>
-                  </div>
-
-                  {/* Zone centrale : Image pleine hauteur non coupée */}
-                  <div
-                    className="relative flex-1 min-h-0 w-full flex items-center justify-center p-2 sm:p-4 select-none overflow-hidden my-auto"
-                    onClick={(e) => e.stopPropagation()}
-                  >
-                    <img
-                      src="/assets/hornetsecurity/affiche_helix_sprint.jpg"
-                      alt="Affiche de présentation officielle du héros cyber Helix Nova"
-                      className="max-h-full max-w-full w-auto h-auto object-contain rounded-xl sm:rounded-2xl shadow-2xl border border-white/10" style={{ maxHeight: "calc(100vh - 160px)" }}
-                    />
-                  </div>
-
-                  {/* Barre basse */}
-                  <div className="text-center text-zinc-300 text-xs py-2" onClick={(e) => e.stopPropagation()}>
-                    <p className="font-semibold text-white">HELIX NOVA — Hornetsecurity by Proofpoint</p>
-                    <p className="text-zinc-400 text-[11px] font-mono mt-0.5">Photographie in situ · Format d'origine respecté</p>
-                  </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
-
-            {/* MODAL 3 : LIGHTBOX ÉDITORIALE CLAIRE — RÉSIN'ARCHITECTE */}
-            <AnimatePresence>
-              {raModalIndex !== null && (
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
-                  role="dialog"
-                  aria-modal="true"
-                  aria-label="Visionneuse de réalisation Résin'Architecte"
-                  className="fixed inset-0 z-[9999] w-screen h-screen bg-black/45 backdrop-blur-md flex items-center justify-center p-3 sm:p-6 md:p-8 select-none"
-                  onClick={() => setRaModalIndex(null)}
-                >
-                  {/* Carte principale claire et éditoriale (Glass Design ROOM241) */}
-                  <motion.div
-                    initial={{ opacity: 0, scale: 0.96, y: 12 }}
-                    animate={{ opacity: 1, scale: 1, y: 0 }}
-                    exit={{ opacity: 0, scale: 0.96, y: 12 }}
-                    transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
-                    onClick={(e) => e.stopPropagation()}
-                    className="relative w-full max-w-4xl sm:max-w-5xl bg-white/95 dark:bg-zinc-950/95 backdrop-blur-2xl rounded-3xl p-5 sm:p-7 md:p-8 shadow-[0_24px_80px_rgba(24,24,27,0.12)] border border-zinc-200/90 dark:border-white/15 flex flex-col max-h-[92vh] overflow-y-auto space-y-4"
-                  >
-                    {/* En-tête intégré sobre : pagination dynamique, indication Échap et fermeture */}
-                    <div className="flex items-center justify-between pb-3 border-b border-zinc-100 dark:border-white/10 select-none">
-                      <div className="flex items-center gap-2.5">
-                        <span className="w-1.5 h-1.5 rounded-full bg-[#FFAD00] shadow-[0_0_6px_rgba(255,173,0,0.8)]" />
-                        <span className="font-mono text-xs font-bold text-zinc-900 dark:text-white tracking-wider">
-                          {String(raModalIndex + 1).padStart(2, '0')} sur {String(raAssets.length).padStart(2, '0')}
-                        </span>
-                        <span className="text-zinc-300 dark:text-zinc-600">·</span>
-                        <span className="text-xs font-medium text-zinc-500 dark:text-zinc-400 hidden sm:inline">
-                          Résin’Architecte · Réalisation &amp; Analyse
-                        </span>
-                      </div>
-
-                      <div className="flex items-center gap-4">
-                        <span className="hidden md:inline-block text-[11px] text-zinc-400 font-mono">
-                          Échap pour fermer
-                        </span>
-                        <button
-                          type="button"
-                          onClick={() => setRaModalIndex(null)}
-                          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-zinc-100 dark:bg-zinc-800 hover:bg-zinc-200 dark:hover:bg-zinc-700 text-zinc-700 dark:text-zinc-200 text-xs font-semibold transition-colors cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FFAD00]"
-                          aria-label="Fermer la vue agrandie"
-                        >
-                          <X className="w-4 h-4 text-zinc-600 dark:text-zinc-300" />
-                          <span>Fermer</span>
-                        </button>
-                      </div>
-                    </div>
-
-                    {/* Cadre média équilibré avec boutons de navigation discrets */}
-                    <div className="relative w-full flex items-center justify-center min-h-[260px] sm:min-h-[380px] max-h-[56vh] bg-zinc-50/70 dark:bg-zinc-900/40 rounded-2xl p-2 sm:p-4 overflow-hidden border border-zinc-100 dark:border-white/5">
-                      {/* Bouton Précédent discret */}
-                      <button
-                        type="button"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          setRaModalIndex((prev) => (prev - 1 + raAssets.length) % raAssets.length);
-                        }}
-                        className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-white/90 dark:bg-zinc-800/90 hover:bg-white dark:hover:bg-zinc-700 text-zinc-700 dark:text-zinc-200 hover:text-zinc-950 border border-zinc-200/90 dark:border-white/10 shadow-md backdrop-blur-sm flex items-center justify-center transition-all hover:scale-105 active:scale-95 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FFAD00]"
-                        aria-label="Capture précédente"
-                      >
-                        <ChevronLeft className="w-5 h-5" />
-                      </button>
-
-                      {/* Bouton Suivant discret */}
-                      <button
-                        type="button"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          setRaModalIndex((prev) => (prev + 1) % raAssets.length);
-                        }}
-                        className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-white/90 dark:bg-zinc-800/90 hover:bg-white dark:hover:bg-zinc-700 text-zinc-700 dark:text-zinc-200 hover:text-zinc-950 border border-zinc-200/90 dark:border-white/10 shadow-md backdrop-blur-sm flex items-center justify-center transition-all hover:scale-105 active:scale-95 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FFAD00]"
-                        aria-label="Capture suivante"
-                      >
-                        <ChevronRight className="w-5 h-5" />
-                      </button>
-
-                      {/* Image responsive plein format, respectant les dimensions et le ratio naturel */}
-                      <AnimatePresence mode="wait">
-                        <motion.img
-                          key={raModalIndex}
-                          src={raAssets[raModalIndex].src}
-                          alt={raAssets[raModalIndex].title}
-                          initial={{ opacity: 0, scale: 0.98 }}
-                          animate={{ opacity: 1, scale: 1 }}
-                          exit={{ opacity: 0, scale: 0.98 }}
-                          transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
-                          className="max-h-[52vh] max-w-full w-auto h-auto object-contain rounded-xl shadow-xs"
-                        />
-                      </AnimatePresence>
-                    </div>
-
-                    {/* Légende éditoriale intégrée dans le flux de la carte (zéro bandeau noir, lisibilité intégrale) */}
-                    <div className="space-y-1.5 pt-1">
-                      <h3 className="font-extrabold text-base sm:text-lg text-[#09090B] dark:text-white tracking-tight">
-                        {raAssets[raModalIndex].title}
-                      </h3>
-                      <p className="text-xs sm:text-sm text-[#52525B] dark:text-zinc-300 leading-relaxed max-w-3xl">
-                        {raAssets[raModalIndex].caption}
-                      </p>
-                    </div>
-
-                    {/* Rangée de miniatures discrètes */}
-                    <div className="flex items-center gap-2 pt-2 border-t border-zinc-100 dark:border-white/10 overflow-x-auto pb-1 max-w-full">
-                      {raAssets.map((asset, idx) => (
-                        <button
-                          key={idx}
-                          type="button"
-                          onClick={() => setRaModalIndex(idx)}
-                          className={`h-9 w-14 sm:h-11 sm:w-16 rounded-lg overflow-hidden border transition-all shrink-0 cursor-pointer ${
-                            idx === raModalIndex
-                              ? 'border-[#FFAD00] ring-2 ring-[#FFAD00]/40 scale-105 shadow-xs opacity-100'
-                              : 'border-zinc-200/80 dark:border-white/10 opacity-60 hover:opacity-100 hover:border-zinc-300'
-                          }`}
-                          aria-label={`Afficher ${asset.title}`}
-                        >
-                          <img src={asset.src} alt="" className="w-full h-full object-cover" />
-                        </button>
-                      ))}
-                    </div>
-                  </motion.div>
-                </motion.div>
-              )}
-            </AnimatePresence>
+            {/* Visionneuse Résin'Architecte */}
+            <EditorialViewer
+              isOpen={raModalIndex !== null}
+              onClose={() => setRaModalIndex(null)}
+              items={slidesResinArchitecte}
+              currentIndex={raModalIndex || 0}
+              onIndexChange={(idx) => setRaModalIndex(idx)}
+              projectContext="Résin'Architecte · Chantiers & Métriques"
+            />
           </>,
           document.body
         )}

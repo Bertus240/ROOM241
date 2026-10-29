@@ -24,6 +24,7 @@ import {
 import { motion, AnimatePresence } from 'framer-motion';
 import { profileData } from '../data/profile';
 import AnimatedStat from '../components/AnimatedStat';
+import EditorialViewer from '../components/EditorialViewer';
 import { editorialPhotos, marathonPhoto } from '../data/gallery';
 
 export default function Parcours({ navigate, onOpenCvModal }) {
@@ -1171,138 +1172,16 @@ export default function Parcours({ navigate, onOpenCvModal }) {
       </section>
 
       {/* ========================================================
-          VISIONNEUSE PLEIN ÉCRAN (LIGHTBOX INTERACTIVE ÉDITORIALE)
-          Portalisée directement sur document.body (zéro fuite d'arrière-plan au sommet)
+          VISIONNEUSE PLEIN ÉCRAN HAUT DE GAMME — ROOM241 EDITORIAL VIEWER
          ======================================================== */}
-      {typeof document !== 'undefined' &&
-        createPortal(
-          <AnimatePresence>
-            {lightboxIndex !== null && (
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
-                className="fixed inset-0 z-[99999] w-screen h-screen bg-white/95 backdrop-blur-2xl flex flex-col justify-between p-3 sm:p-6 select-none"
-                onClick={() => setLightboxIndex(null)}
-              >
-                {/* Barre supérieure flottante — Glass Design Premium Luminous */}
-                <div
-                  className="flex items-center justify-between text-zinc-900 text-xs w-full max-w-5xl mx-auto z-40 px-4 py-2.5 rounded-full bg-white/90 backdrop-blur-xl border border-zinc-200/90 shadow-[0_8px_30px_rgba(0,0,0,0.06)]"
-                  onClick={(e) => e.stopPropagation()}
-                >
-                  <div className="flex items-center gap-3">
-                    <span className="font-mono text-zinc-950 font-bold text-xs px-3 py-1 rounded-full bg-zinc-100 border border-zinc-200 tracking-wider">
-                      {String(lightboxIndex + 1).padStart(2, '0')} <span className="text-[#FFAD00]">/</span> {String(allModalImages.length).padStart(2, '0')}
-                    </span>
-                    {allModalImages[lightboxIndex]?.category && (
-                      <span className="inline-flex px-3 py-1 rounded-full bg-zinc-100 text-zinc-800 border border-zinc-200 text-xs font-semibold tracking-wide">
-                        {allModalImages[lightboxIndex].category}
-                      </span>
-                    )}
-                  </div>
-
-                  <div className="flex items-center gap-3">
-                    <span className="hidden md:inline-block text-[11px] text-zinc-500 font-mono">
-                      Échap pour fermer • Flèches pour naviguer
-                    </span>
-                    <button
-                      type="button"
-                      onClick={() => setLightboxIndex(null)}
-                      className="px-3.5 py-1.5 rounded-full bg-zinc-100 hover:bg-zinc-200 text-zinc-900 border border-zinc-200 transition-all flex items-center gap-1.5 text-xs font-semibold cursor-pointer shadow-xs hover:scale-105 active:scale-95"
-                      aria-label="Fermer la visionneuse"
-                    >
-                      <X className="w-4 h-4 text-[#FFAD00]" />
-                      <span>Fermer</span>
-                    </button>
-                  </div>
-                </div>
-
-                {/* Boutons de navigation latéraux Glass Design */}
-                <button
-                  type="button"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setLightboxIndex((prev) => (prev - 1 + allModalImages.length) % allModalImages.length);
-                  }}
-                  className="fixed left-3 sm:left-6 md:left-8 top-1/2 -translate-y-1/2 z-40 w-11 h-11 sm:w-13 sm:h-13 rounded-full bg-white/90 hover:bg-white text-zinc-900 border border-zinc-200/90 transition-all hover:scale-105 active:scale-95 shadow-xl backdrop-blur-md flex items-center justify-center cursor-pointer"
-                  aria-label="Photographie précédente"
-                >
-                  <ChevronLeft className="w-6 h-6" />
-                </button>
-
-                <button
-                  type="button"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setLightboxIndex((prev) => (prev + 1) % allModalImages.length);
-                  }}
-                  className="fixed right-3 sm:right-6 md:right-8 top-1/2 -translate-y-1/2 z-40 w-11 h-11 sm:w-13 sm:h-13 rounded-full bg-white/90 hover:bg-white text-zinc-900 border border-zinc-200/90 transition-all hover:scale-105 active:scale-95 shadow-xl backdrop-blur-md flex items-center justify-center cursor-pointer"
-                  aria-label="Photographie suivante"
-                >
-                  <ChevronRight className="w-6 h-6" />
-                </button>
-
-                {/* Zone centrale : Image plein format sans rognage */}
-                <div
-                  className="relative flex-1 min-h-0 w-full flex items-center justify-center px-4 sm:px-12 md:px-20 py-2 overflow-hidden"
-                  onClick={(e) => e.stopPropagation()}
-                >
-                  <AnimatePresence mode="wait">
-                    <motion.img
-                      key={lightboxIndex}
-                      src={allModalImages[lightboxIndex].src}
-                      alt={allModalImages[lightboxIndex].alt}
-                      initial={{ opacity: 0, scale: 0.98 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      exit={{ opacity: 0, scale: 0.98 }}
-                      transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
-                      className="max-h-[72vh] max-w-full w-auto h-auto object-contain rounded-xl sm:rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.12)] border border-zinc-200/80"
-                    />
-                  </AnimatePresence>
-                </div>
-
-                {/* Légende intégrée haute lisibilité et sélecteur de miniatures */}
-                <div
-                  className="text-center text-zinc-900 max-w-2xl mx-auto w-full space-y-3 z-40 py-2"
-                  onClick={(e) => e.stopPropagation()}
-                >
-                  <div className="bg-white/90 backdrop-blur-xl border border-zinc-200/90 rounded-2xl px-6 py-3.5 shadow-xl max-w-xl mx-auto space-y-1">
-                    <p className="font-bold text-sm sm:text-base text-zinc-950 tracking-tight">
-                      {allModalImages[lightboxIndex].caption || allModalImages[lightboxIndex].alt}
-                    </p>
-                    {allModalImages[lightboxIndex].place && (
-                      <div className="flex items-center justify-center gap-1.5 text-[#FFAD00] text-xs font-mono font-medium">
-                        <MapPin className="w-3.5 h-3.5" />
-                        <span className="text-zinc-600 font-semibold">{allModalImages[lightboxIndex].place}</span>
-                      </div>
-                    )}
-                  </div>
-
-                  {/* Barre de vignettes / pagination miniature */}
-                  <div className="flex items-center justify-center gap-1.5 pt-1 overflow-x-auto max-w-full pb-1">
-                    {allModalImages.map((img, idx) => (
-                      <button
-                        key={idx}
-                        type="button"
-                        onClick={() => setLightboxIndex(idx)}
-                        className={`h-8 w-11 sm:h-10 sm:w-14 rounded-md overflow-hidden border transition-all shrink-0 cursor-pointer ${
-                          idx === lightboxIndex
-                            ? 'border-[#FFAD00] scale-105 opacity-100 ring-2 ring-[#FFAD00]/40 shadow-md'
-                            : 'border-zinc-200 opacity-60 hover:opacity-100'
-                        }`}
-                        aria-label={`Afficher la photo ${idx + 1}`}
-                      >
-                        <img src={img.src} alt="" className="w-full h-full object-cover" />
-                      </button>
-                    ))}
-                  </div>
-                </div>
-              </motion.div>
-            )}
-          </AnimatePresence>,
-          document.body
-        )}
+      <EditorialViewer
+        isOpen={lightboxIndex !== null}
+        onClose={() => setLightboxIndex(null)}
+        items={allModalImages}
+        currentIndex={lightboxIndex || 0}
+        onIndexChange={(idx) => setLightboxIndex(idx)}
+        projectContext="Parcours · Photographies & Hors-cadre"
+      />
 
     </div>
   );

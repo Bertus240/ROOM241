@@ -6,24 +6,40 @@ export default function SectionResinArchitecte() {
 
   const proofAssets = [
     {
-      src: "/assets/social-proof-ra/post_pool_craft.png",
-      title: "Démonstration artisanale & gestes techniques",
-      caption: "Mise en avant de la précision de pose aux abords d'une piscine."
+      src: "/assets/social-proof-ra/post_terrace_before_after.png",
+      title: "Transformation terrasse — 52 m² en 48h",
+      caption: "Format avant/après documentant la rénovation d'une dalle fissurée sans démolition pour rassurer sur la rapidité d'exécution.",
+      badge: "Réalisation terrain"
     },
     {
-      src: "/assets/social-proof-ra/post_terrace_before_after.png",
-      title: "Rénovation avant / après — 52 m²",
-      caption: "Transformation d'un béton fissuré en 48h sans démolition."
+      src: "/assets/social-proof-ra/post_pool_craft.png",
+      title: "Savoir-faire artisanal — Abords de piscine",
+      caption: "Focus éditorial sur la précision du geste technique et la régularité du talochage pour valoriser les finitions haut de gamme.",
+      badge: "Geste métier"
     },
     {
       src: "/assets/social-proof-ra/post_trowel_craft.png",
-      title: "Précision matière — Règle des 8 mm",
-      caption: "Pédagogie technique sur l'épaisseur idéale d'un revêtement drainant."
+      title: "Pédagogie matière — La règle des 8 mm",
+      caption: "Post didactique vulgarisant l'épaisseur indispensable d'une résine drainante pour pérenniser l'ouvrage face au gel.",
+      badge: "Contenu expert"
     },
     {
       src: "/assets/social-proof-ra/FB_stats.png",
-      title: "Statistiques d'audience Meta",
-      caption: "648 visites de profil générées sur la période de relance (0 € d'ads)."
+      title: "Portée & Interactions — Bilan Meta 30 jours",
+      caption: "Analyse des retombées organiques : +219 % de portée et +209 % d'interactions générées sans aucun budget publicitaire.",
+      badge: "+219 % portée"
+    },
+    {
+      src: "/assets/social-proof-ra/Insta_1.png",
+      title: "Acquisition qualifiée — Trafic Instagram",
+      caption: "Suivi des visites du profil générées par les gabarits visuels : 648 visites spontanées de prospects locaux.",
+      badge: "648 visites"
+    },
+    {
+      src: "/assets/social-proof-ra/Comparaison_FB_entreprises_similaires.png",
+      title: "Benchmark sectoriel — Performance régionale",
+      caption: "Comparatif d'engagement face aux artisans du secteur : volume d'interactions supérieur à la moyenne locale.",
+      badge: "Benchmark"
     }
   ];
 
