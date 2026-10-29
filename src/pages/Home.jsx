@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { ArrowRight, ArrowUpRight, Play, Shield, Sparkles, Camera, Award, CheckCircle2, Video } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { profileData } from '../data/profile';
+import AnimatedStat from '../components/AnimatedStat';
 
 export default function Home({ navigate }) {
   const [isPlayingPitch, setIsPlayingPitch] = useState(false);
@@ -74,60 +75,39 @@ export default function Home({ navigate }) {
                 <div className="p-5 sm:p-7 rounded-2xl sm:rounded-3xl bg-white/80 backdrop-blur-xl border border-zinc-200/90 shadow-[0_4px_25px_rgba(0,0,0,0.03)] grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-0 sm:divide-x divide-zinc-200/80 text-left">
                   
                   {/* Stat 1 */}
-                  <div className="space-y-1.5 sm:pr-6">
-                    <div className="flex items-center gap-1.5">
-                      <span className="w-1.5 h-1.5 rounded-full bg-[#FFAD00]" />
-                      <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-zinc-400">
-                        Polyvalence
-                      </span>
-                    </div>
-                    <div className="text-3xl sm:text-4xl lg:text-[40px] font-black font-mono text-[#09090B] tracking-tight whitespace-nowrap leading-none py-1">
-                      3+ ans
-                    </div>
-                    <div className="text-xs font-bold text-zinc-900 tracking-tight">
-                      Expérience 360°
-                    </div>
-                    <p className="text-xs text-zinc-500 leading-relaxed">
-                      Design graphique, scénographie et vidéo de terrain.
-                    </p>
+                  <div className="sm:pr-6">
+                    <AnimatedStat
+                      value="3+ ans"
+                      label="Expérience 360°"
+                      description="Design graphique, scénographie et vidéo de terrain."
+                      tag="Polyvalence"
+                      size="hero"
+                      delay={0}
+                    />
                   </div>
 
                   {/* Stat 2 */}
-                  <div className="space-y-1.5 sm:px-6 pt-5 sm:pt-0 border-t sm:border-t-0 border-zinc-200/60">
-                    <div className="flex items-center gap-1.5">
-                      <span className="w-1.5 h-1.5 rounded-full bg-[#FFAD00]" />
-                      <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-zinc-400">
-                        Événementiel
-                      </span>
-                    </div>
-                    <div className="text-3xl sm:text-4xl lg:text-[40px] font-black font-mono text-[#09090B] tracking-tight whitespace-nowrap leading-none py-1">
-                      4&nbsp;000+
-                    </div>
-                    <div className="text-xs font-bold text-zinc-900 tracking-tight">
-                      Contacts FIC
-                    </div>
-                    <p className="text-xs text-zinc-500 leading-relaxed">
-                      Enregistrés collectivement sur le stand &gt; 150 m².
-                    </p>
+                  <div className="sm:px-6 pt-5 sm:pt-0 border-t sm:border-t-0 border-zinc-200/60">
+                    <AnimatedStat
+                      value="4 000+"
+                      label="Contacts FIC"
+                      description="Enregistrés collectivement sur le stand > 150 m²."
+                      tag="Événementiel"
+                      size="hero"
+                      delay={0.08}
+                    />
                   </div>
 
                   {/* Stat 3 */}
-                  <div className="space-y-1.5 sm:pl-6 pt-5 sm:pt-0 border-t sm:border-t-0 border-zinc-200/60">
-                    <div className="flex items-center gap-1.5">
-                      <span className="w-1.5 h-1.5 rounded-full bg-[#FFAD00]" />
-                      <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-zinc-400">
-                        Crowdfunding
-                      </span>
-                    </div>
-                    <div className="text-3xl sm:text-4xl lg:text-[40px] font-black font-mono text-[#09090B] tracking-tight whitespace-nowrap leading-none py-1">
-                      116 %
-                    </div>
-                    <div className="text-xs font-bold text-zinc-900 tracking-tight">
-                      Validé à 116 %
-                    </div>
-                    <p className="text-xs text-zinc-500 leading-relaxed">
-                      Campagne Ulule Fresh Data validée avec succès.
-                    </p>
+                  <div className="sm:pl-6 pt-5 sm:pt-0 border-t sm:border-t-0 border-zinc-200/60">
+                    <AnimatedStat
+                      value="116 %"
+                      label="Validé à 116 %"
+                      description="Campagne Ulule Fresh Data validée avec succès."
+                      tag="Crowdfunding"
+                      size="hero"
+                      delay={0.16}
+                    />
                   </div>
 
                 </div>

@@ -244,7 +244,7 @@ export default function HornetCaseStudy({ navigate }) {
               <img
                 src="/assets/hornetsecurity/fic/Capain/captain.jpeg"
                 alt="Rémi Brocart en costume de Captain Security sur la passerelle d'accès du salon InCyber"
-                className="w-full h-full object-cover object-[center_54%] scale-[1.68] origin-[center_54%]"
+                className="w-full h-full object-cover object-[center_56%] scale-[2.15] origin-[center_56%]"
                 loading="lazy"
               />
             </div>

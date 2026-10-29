@@ -534,3 +534,27 @@ a:active:not([disabled]) {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+
+/* ==========================================================================
+   STYLE D'IMPRESSION HAUTE DÉFINITION (CV & DOCUMENTS STUDIO ROOM241)
+   ========================================================================== */
+@media print {
+  body {
+    background: #FFFFFF !important;
+    color: #09090B !important;
+    overflow: visible !important;
+  }
+  header, footer, #presentation-video, #kuro-container, .print\:hidden {
+    display: none !important;
+  }
+  [role="dialog"] {
+    position: static !important;
+    max-height: none !important;
+    box-shadow: none !important;
+    border: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+}

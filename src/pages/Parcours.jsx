@@ -23,6 +23,7 @@ import {
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { profileData } from '../data/profile';
+import AnimatedStat from '../components/AnimatedStat';
 import { editorialPhotos, marathonPhoto } from '../data/gallery';
 
 export default function Parcours({ navigate, onOpenCvModal }) {
@@ -650,23 +651,43 @@ export default function Parcours({ navigate, onOpenCvModal }) {
             Leader européen de la cybersécurité Cloud. Évolution au sein d'une équipe design internationale basée principalement en Allemagne : conception d'espaces événementiels à fort enjeu, direction graphique de supports publicitaires de performance et coordination quotidienne en anglais avec les partenaires scéniques.
           </p>
 
-          {/* Repères chiffrés et chronologiques (Style studio suisse épuré avec surbrillance ambrée) */}
+          {/* Repères chiffrés et chronologiques (Style studio suisse épuré avec forte hiérarchie typographique) */}
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 p-5 rounded-2xl bg-white/80 backdrop-blur-md border border-zinc-200/80 shadow-2xs">
-            <div className="space-y-0.5 p-2 rounded-xl hover:bg-amber-50/50 transition-colors group">
-              <span className="text-2xl sm:text-3xl font-extrabold font-mono text-zinc-950 block group-hover:text-amber-600 transition-colors">&gt; 150 m²</span>
-              <span className="text-xs text-zinc-500 font-medium block">Stand dédié au Zénith</span>
+            <div className="p-3 rounded-xl hover:bg-amber-50/50 transition-colors">
+              <AnimatedStat
+                value="> 150 m²"
+                label="Stand dédié au Zénith"
+                description="Forum InCyber (FIC) à Lille Grand Palais."
+                size="card"
+                delay={0}
+              />
             </div>
-            <div className="space-y-0.5 p-2 rounded-xl hover:bg-amber-50/50 transition-colors group">
-              <span className="text-2xl sm:text-3xl font-extrabold font-mono text-zinc-950 block group-hover:text-amber-600 transition-colors">4 000+</span>
-              <span className="text-xs text-zinc-500 font-medium block">Contacts enregistrés (collectif)</span>
+            <div className="p-3 rounded-xl hover:bg-amber-50/50 transition-colors">
+              <AnimatedStat
+                value="4 000+"
+                label="Contacts enregistrés"
+                description="Résultat collectif sur le stand."
+                size="card"
+                delay={0.08}
+              />
             </div>
-            <div className="space-y-0.5 p-2 rounded-xl hover:bg-amber-50/50 transition-colors group">
-              <span className="text-2xl sm:text-3xl font-extrabold font-mono text-zinc-950 block group-hover:text-amber-600 transition-colors">36 h</span>
-              <span className="text-xs text-zinc-500 font-medium block">Design Sprint autonome à Hanovre</span>
+            <div className="p-3 rounded-xl hover:bg-amber-50/50 transition-colors">
+              <AnimatedStat
+                value="36 h"
+                label="Design Sprint autonome"
+                description="Hanovre, Allemagne."
+                size="card"
+                delay={0.16}
+              />
             </div>
-            <div className="space-y-0.5 p-2 rounded-xl hover:bg-amber-50/50 transition-colors group">
-              <span className="text-2xl sm:text-3xl font-extrabold font-mono text-zinc-950 block group-hover:text-amber-600 transition-colors">Europe</span>
-              <span className="text-xs text-zinc-500 font-medium block">Lille, Nuremberg, Hanovre</span>
+            <div className="p-3 rounded-xl hover:bg-amber-50/50 transition-colors">
+              <AnimatedStat
+                value="Europe"
+                label="Lille, Nuremberg, Hanovre"
+                description="Équipe design internationale."
+                size="card"
+                delay={0.24}
+              />
             </div>
           </div>
 
@@ -1031,7 +1052,7 @@ export default function Parcours({ navigate, onOpenCvModal }) {
                 </div>
                 <div>
                   <span className="text-zinc-400 block text-[11px]">Chrono officiel</span>
-                  <span className="font-bold text-zinc-950 font-mono">{athleticProof.officialChrono}</span>
+                  <span className="font-semibold text-zinc-950 font-sans tabular-nums">{athleticProof.officialChrono}</span>
                 </div>
               </div>
             </div>

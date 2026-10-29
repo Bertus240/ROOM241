@@ -1,6 +1,19 @@
 import React, { useState, useEffect, useLayoutEffect, useRef } from 'react';
-import { Menu, X, ArrowUpRight } from 'lucide-react';
+import { Menu, X, ArrowUpRight, Mail, Phone, Linkedin } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 
+/**
+ * Header & Menu Mobile Plein Écran Éditorial — Studio ROOM241
+ * 
+ * Direction artistique :
+ * - Desktop : Barre de navigation minimaliste blanche avec curseur coulissant continu 100% stable
+ * - Mobile : Expérience plein écran immersive (Full-Screen Editorial Drawer)
+ *   * Typographie Geist / Inter généreuse et aérée
+ *   * Entrée séquentielle soignée (staggered delay)
+ *   * Liens avec numérotation 01, 02, 03 et sous-titres éditoriaux
+ *   * Zone inférieure structurée (Disponibilité, Coordonnées directes, CTA de contact)
+ *   * Respect strict de prefers-reduced-motion, accessibilité ARIA et fermeture Échap
+ */
 export default function Header({ currentPath = '/', navigate }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -42,11 +55,11 @@ export default function Header({ currentPath = '/', navigate }) {
     };
   }, [mobileMenuOpen]);
 
-  // Exactement 3 entrées principales
+  // Exactement 3 entrées principales documentées
   const navLinks = [
-    { label: 'Accueil', path: '/' },
-    { label: 'Projets', path: '/projets' },
-    { label: 'Parcours', path: '/parcours' },
+    { label: 'Accueil', path: '/', subtitle: 'Vision créative & présentation 360°' },
+    { label: 'Projets', path: '/projets', subtitle: 'Stands > 150 m², identités de marque & vidéo' },
+    { label: 'Parcours', path: '/parcours', subtitle: 'Expériences, compétences, photo & marathon' },
   ];
 
   // Calcul déterministe de l'index actif (Accueil: 0, Projets: 1, Parcours: 2)
@@ -69,7 +82,7 @@ export default function Header({ currentPath = '/', navigate }) {
     }
   }, [currentPath]);
 
-  // Mesure et mise à jour de la position exacte du curseur coulissant
+  // Mesure et mise à jour de la position exacte du curseur coulissant continu
   const updateIndicator = () => {
     const nav = navRef.current;
     const activeTab = tabRefs.current[activeIndex];
@@ -125,177 +138,249 @@ export default function Header({ currentPath = '/', navigate }) {
   };
 
   return (
-    <header
-      className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${scrolled
-          ? 'bg-white/95 backdrop-blur-md border-b border-zinc-200/80 py-3 shadow-[0_2px_15px_rgba(0,0,0,0.03)]'
-          : 'bg-white/80 backdrop-blur-sm py-4 border-b border-zinc-100'
+    <>
+      <header
+        className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
+          scrolled
+            ? 'bg-white/95 backdrop-blur-md border-b border-zinc-200/80 py-3 shadow-[0_2px_15px_rgba(0,0,0,0.03)]'
+            : 'bg-white/80 backdrop-blur-sm py-4 border-b border-zinc-100'
         }`}
-    >
-      <div className="max-w-[1280px] mx-auto px-5 sm:px-8 lg:px-10 flex items-center justify-between">
+      >
+        <div className="max-w-[1280px] mx-auto px-5 sm:px-8 lg:px-10 flex items-center justify-between">
 
-        {/* Gauche : Logo officiel ROOM241 pur sans point ambré */}
-        <a
-          href="/"
-          onClick={handleNav('/')}
-          className="group flex items-center focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FFAD00] rounded-lg px-1 py-0.5"
-          aria-label="ROOM241 - Retour à l'accueil"
-        >
-          <img
-            src="/assets/logos/430x95_Framer_Black@4x.png"
-            alt="ROOM241"
-            className="h-6 sm:h-7 md:h-8 w-auto object-contain transition-transform group-hover:scale-[1.02]"
-            loading="eager"
-          />
-        </a>
-
-        {/* Centre : Navigation principale avec curseur coulissant continu 100% stable (sans glitch, sans unmount) */}
-        <nav
-          ref={navRef}
-          className="hidden md:flex items-center gap-1 p-1 rounded-full bg-zinc-100/90 border border-zinc-200/70 relative backdrop-blur-sm select-none"
-          aria-label="Navigation principale"
-        >
-          {/* Curseur de sélection unique animé par GPU — parfaitement centré verticalement via top-1 bottom-1 */}
-          <span
-            aria-hidden="true"
-            className="absolute top-1 bottom-1 left-0 rounded-full bg-white shadow-[0_2px_8px_rgba(0,0,0,0.06)] border border-zinc-200/80 pointer-events-none transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] z-0"
-            style={{
-              transform: `translate3d(${indicatorStyle.left}px, 0, 0)`,
-              width: `${indicatorStyle.width}px`,
-              opacity: indicatorStyle.ready ? 1 : 0,
-            }}
-          />
-
-          {navLinks.map((link, index) => {
-            const active = index === activeIndex;
-            return (
-              <a
-                key={link.path}
-                ref={(el) => (tabRefs.current[index] = el)}
-                href={link.path}
-                onClick={handleNav(link.path)}
-                className={`relative px-4 py-1.5 rounded-full text-xs font-semibold transition-colors duration-200 select-none z-10 ${
-                  active
-                    ? 'text-[#09090B]'
-                    : 'text-[#52525B] hover:text-[#09090B]'
-                }`}
-                aria-current={active ? 'page' : undefined}
-              >
-                <span>{link.label}</span>
-              </a>
-            );
-          })}
-        </nav>
-
-        {/* Droite : Bouton distinct d'action « Prendre contact » */}
-        <div className="hidden md:flex items-center gap-3">
+          {/* Gauche : Logo officiel ROOM241 pur sans point ambré */}
           <a
-            href="#contact"
-            onClick={handleNav('#contact')}
-            className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-[#09090B] text-white text-xs font-semibold hover:bg-zinc-800 transition-colors shadow-sm"
+            href="/"
+            onClick={handleNav('/')}
+            className="group flex items-center focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FFAD00] rounded-lg px-1 py-0.5"
+            aria-label="ROOM241 - Retour à l'accueil"
           >
-            <span>Prendre contact</span>
-            <ArrowUpRight className="w-3.5 h-3.5 text-[#FFAD00]" />
+            <img
+              src="/assets/logos/430x95_Framer_Black@4x.png"
+              alt="ROOM241"
+              className="h-6 sm:h-7 md:h-8 w-auto object-contain transition-transform group-hover:scale-[1.02]"
+              loading="eager"
+            />
           </a>
-        </div>
 
-        {/* Mobile : Bouton hamburger avec croix nette et non floutée */}
-        <div className="flex md:hidden items-center gap-2">
-          <button
-            type="button"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="w-10 h-10 flex items-center justify-center rounded-xl bg-zinc-100/90 text-zinc-900 hover:bg-zinc-200 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FFAD00]"
-            aria-label={mobileMenuOpen ? 'Fermer le menu de navigation' : 'Ouvrir le menu de navigation'}
-            aria-expanded={mobileMenuOpen}
-            aria-controls="mobile-navigation"
+          {/* Centre : Navigation principale Desktop avec curseur coulissant continu 100% stable */}
+          <nav
+            ref={navRef}
+            className="hidden md:flex items-center relative p-1 rounded-full bg-zinc-100/90 border border-zinc-200/80 shadow-inner"
+            aria-label="Navigation principale"
           >
-            {mobileMenuOpen ? (
-              <X className="w-5 h-5 text-zinc-900" strokeWidth={2.5} />
-            ) : (
-              <Menu className="w-5 h-5 text-zinc-900" strokeWidth={2.25} />
-            )}
-          </button>
-        </div>
+            {/* Curseur coulissant physique continu */}
+            <span
+              className={`absolute top-1 bottom-1 rounded-full bg-white shadow-sm transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] pointer-events-none ${
+                indicatorStyle.ready ? 'opacity-100' : 'opacity-0'
+              }`}
+              style={{
+                left: `${indicatorStyle.left}px`,
+                width: `${indicatorStyle.width}px`,
+              }}
+              aria-hidden="true"
+            />
 
-      </div>
+            {navLinks.map((link, index) => {
+              const active = index === activeIndex;
+              return (
+                <a
+                  key={link.path}
+                  ref={(el) => (tabRefs.current[index] = el)}
+                  href={link.path}
+                  onClick={handleNav(link.path)}
+                  className={`relative z-10 px-5 py-2 text-xs font-semibold rounded-full transition-colors duration-200 select-none ${
+                    active ? 'text-zinc-950 font-bold' : 'text-zinc-600 hover:text-zinc-950'
+                  }`}
+                  aria-current={active ? 'page' : undefined}
+                >
+                  <span>{link.label}</span>
+                </a>
+              );
+            })}
+          </nav>
 
-      {/* Fond occultant translucide (backdrop) fermant au clic en dehors */}
-      {mobileMenuOpen && (
-        <div
-          className="fixed inset-0 bg-black/60 backdrop-blur-sm z-30 md:hidden animate-in fade-in duration-200"
-          onClick={() => setMobileMenuOpen(false)}
-          aria-hidden="true"
-        />
-      )}
-
-      {/* Menu mobile déroulant haut de gamme parfaitement joint au header */}
-      {mobileMenuOpen && (
-        <div
-          id="mobile-navigation"
-          role="dialog"
-          aria-modal="true"
-          aria-label="Navigation principale mobile"
-          style={{ backgroundColor: '#ffffff', minHeight: 'calc(100dvh - 60px)' }}
-          className="fixed top-full left-0 right-0 z-40 md:hidden bg-white border-b border-zinc-200 shadow-2xl p-6 sm:p-8 flex flex-col justify-between overflow-y-auto animate-in fade-in slide-in-from-top-2 duration-200"
-        >
-          <div className="space-y-6">
-            <div className="flex items-center justify-between pb-3 border-b border-zinc-100">
-              <span className="text-[11px] font-mono font-bold uppercase tracking-widest text-zinc-400">Navigation studio</span>
-              <span className="inline-flex items-center gap-1.5 text-[11px] font-mono text-zinc-600 bg-zinc-100 px-2.5 py-0.5 rounded-full border border-zinc-200/60">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#FFAD00]" />
-                ROOM241
-              </span>
-            </div>
-
-            <nav className="flex flex-col gap-1.5">
-              {navLinks.map((link, index) => {
-                const active = index === activeIndex || isActive(link.path);
-                return (
-                  <a
-                    key={link.path}
-                    href={link.path}
-                    onClick={handleNav(link.path)}
-                    className={`py-3.5 px-3.5 rounded-xl text-base font-semibold transition-all flex items-center justify-between ${
-                      active
-                        ? 'text-zinc-950 font-bold bg-zinc-50 border border-zinc-200/60'
-                        : 'text-zinc-600 hover:text-zinc-950 hover:bg-zinc-50/70'
-                    }`}
-                    aria-current={active ? 'page' : undefined}
-                  >
-                    <span className="tracking-tight">{link.label}</span>
-                    {active ? (
-                      <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-[#FFAD00]/15 border border-[#FFAD00]/30 text-xs font-mono font-bold text-amber-900">
-                        <span className="w-1.5 h-1.5 rounded-full bg-[#FFAD00] animate-pulse" />
-                        Actuel
-                      </span>
-                    ) : (
-                      <span className="text-xs font-mono text-zinc-400">0{index + 1}</span>
-                    )}
-                  </a>
-                );
-              })}
-            </nav>
-          </div>
-
-          <div className="pt-6 space-y-4 border-t border-zinc-100 pb-6">
-            <div className="space-y-1">
-              <span className="text-[10px] font-mono uppercase tracking-wider text-zinc-400 block">Disponibilité</span>
-              <span className="inline-flex items-center gap-2 text-xs font-medium text-zinc-700">
-                <span className="w-2 h-2 rounded-full bg-emerald-500 shadow-[0_0_6px_rgba(16,185,129,0.7)]" />
-                Disponible immédiatement • Lille &amp; Hybride
-              </span>
-            </div>
-
+          {/* Droite : Bouton distinct d'action « Prendre contact » Desktop */}
+          <div className="hidden md:flex items-center gap-3">
             <a
               href="#contact"
               onClick={handleNav('#contact')}
-              className="w-full h-12 flex items-center justify-center gap-2 rounded-full bg-[#09090B] hover:bg-zinc-800 text-white text-xs font-semibold shadow-sm transition-all active:scale-[0.99]"
+              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-[#09090B] text-white text-xs font-semibold hover:bg-zinc-800 transition-colors shadow-sm"
             >
               <span>Prendre contact</span>
               <ArrowUpRight className="w-3.5 h-3.5 text-[#FFAD00]" />
             </a>
           </div>
+
+          {/* Mobile : Bouton hamburger d'ouverture */}
+          <div className="flex md:hidden items-center gap-2">
+            <button
+              type="button"
+              onClick={() => setMobileMenuOpen(true)}
+              className="w-10 h-10 flex items-center justify-center rounded-xl bg-zinc-100 text-zinc-900 hover:bg-zinc-200 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FFAD00] active:scale-95"
+              aria-label="Ouvrir le menu de navigation"
+              aria-expanded={mobileMenuOpen}
+              aria-controls="mobile-navigation"
+            >
+              <Menu className="w-5 h-5 text-zinc-900" strokeWidth={2.25} />
+            </button>
+          </div>
+
         </div>
-      )}
-    </header>
+      </header>
+
+      {/* ========================================================
+          MENU MOBILE PLEIN ÉCRAN ÉDITORIAL (EXPÉRIENCE D'AUTEUR)
+         ======================================================== */}
+      <AnimatePresence>
+        {mobileMenuOpen && (
+          <motion.div
+            id="mobile-navigation"
+            role="dialog"
+            aria-modal="true"
+            aria-label="Menu principal"
+            initial={{ opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.24, ease: [0.16, 1, 0.3, 1] }}
+            className="fixed inset-0 z-50 md:hidden bg-white flex flex-col justify-between overflow-y-auto"
+          >
+            {/* Lueur d'ambiance dorée d'arrière-plan */}
+            <div className="absolute top-0 right-0 w-80 h-80 bg-gradient-to-bl from-[#FFAD00]/10 via-amber-200/5 to-transparent blur-3xl pointer-events-none" />
+
+            {/* 1. Barre d'en-tête du menu mobile */}
+            <div className="px-6 py-4 border-b border-zinc-100 flex items-center justify-between shrink-0 relative z-10 bg-white/80 backdrop-blur-md">
+              <a
+                href="/"
+                onClick={handleNav('/')}
+                className="flex items-center"
+                aria-label="ROOM241 - Accueil"
+              >
+                <img
+                  src="/assets/logos/430x95_Framer_Black@4x.png"
+                  alt="ROOM241"
+                  className="h-6 w-auto object-contain"
+                />
+              </a>
+
+              <button
+                type="button"
+                onClick={() => setMobileMenuOpen(false)}
+                className="w-10 h-10 rounded-full bg-zinc-100 hover:bg-zinc-200 text-zinc-900 flex items-center justify-center transition-all cursor-pointer active:scale-95 border border-zinc-200 shadow-2xs"
+                aria-label="Fermer le menu"
+              >
+                <X className="w-5 h-5 text-zinc-900" strokeWidth={2.25} />
+              </button>
+            </div>
+
+            {/* 2. Navigation centrale avec typographie éditoriale généreuse */}
+            <div className="px-6 py-8 flex-grow flex flex-col justify-center space-y-6 relative z-10">
+              
+              <div className="flex items-center gap-2 pb-2 border-b border-zinc-100">
+                <span className="w-2 h-2 rounded-full bg-[#FFAD00] shadow-[0_0_8px_rgba(255,173,0,0.8)]" />
+                <span className="text-[11px] font-mono font-bold uppercase tracking-widest text-zinc-400">
+                  Navigation // Studio ROOM241
+                </span>
+              </div>
+
+              <nav className="flex flex-col space-y-2">
+                {navLinks.map((link, index) => {
+                  const active = index === activeIndex || isActive(link.path);
+                  return (
+                    <motion.a
+                      key={link.path}
+                      href={link.path}
+                      onClick={handleNav(link.path)}
+                      initial={{ opacity: 0, x: -12 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ duration: 0.25, delay: index * 0.06, ease: [0.16, 1, 0.3, 1] }}
+                      className={`group p-4 rounded-2xl transition-all flex items-center justify-between ${
+                        active
+                          ? 'bg-zinc-50 border border-zinc-200 shadow-2xs'
+                          : 'hover:bg-zinc-50/70 border border-transparent'
+                      }`}
+                      aria-current={active ? 'page' : undefined}
+                    >
+                      <div className="space-y-1">
+                        <div className="flex items-center gap-3">
+                          <span className="text-xs font-mono font-bold text-zinc-400 group-hover:text-[#FFAD00] transition-colors">
+                            0{index + 1}
+                          </span>
+                          <span className={`text-2xl font-extrabold tracking-tight ${
+                            active ? 'text-zinc-950' : 'text-zinc-800 group-hover:text-zinc-950'
+                          }`}>
+                            {link.label}
+                          </span>
+                        </div>
+                        <p className="text-xs text-zinc-500 pl-7 leading-snug">
+                          {link.subtitle}
+                        </p>
+                      </div>
+
+                      {active ? (
+                        <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#FFAD00]/15 border border-[#FFAD00]/30 text-xs font-sans font-bold text-amber-950 shrink-0">
+                          <span className="w-1.5 h-1.5 rounded-full bg-[#FFAD00] animate-pulse" />
+                          Actuel
+                        </span>
+                      ) : (
+                        <ArrowUpRight className="w-4 h-4 text-zinc-300 group-hover:text-zinc-900 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all shrink-0" />
+                      )}
+                    </motion.a>
+                  );
+                })}
+              </nav>
+
+            </div>
+
+            {/* 3. Zone inférieure intégrée : Statut, Coordonnées & CTA d'action */}
+            <div className="p-6 bg-zinc-50/90 border-t border-zinc-200/80 space-y-4 shrink-0 relative z-10">
+              
+              {/* Carte de disponibilité */}
+              <div className="flex items-center justify-between p-3 rounded-xl bg-white border border-zinc-200/80 shadow-2xs">
+                <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-zinc-400">
+                  Statut
+                </span>
+                <span className="inline-flex items-center gap-1.5 text-xs font-medium text-zinc-800">
+                  <span className="w-2 h-2 rounded-full bg-emerald-500 shadow-[0_0_6px_rgba(16,185,129,0.7)]" />
+                  Disponible immédiatement • Lille &amp; Hybride
+                </span>
+              </div>
+
+              {/* Contact direct & LinkedIn */}
+              <div className="flex items-center justify-between gap-2 text-xs font-medium text-zinc-600 px-1">
+                <a
+                  href="mailto:brocart.remi02@gmail.com"
+                  className="hover:text-zinc-950 flex items-center gap-1.5 truncate"
+                >
+                  <Mail className="w-3.5 h-3.5 text-[#FFAD00] shrink-0" />
+                  <span className="truncate">brocart.remi02@gmail.com</span>
+                </a>
+                <a
+                  href="https://www.linkedin.com/in/remibrocart/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-zinc-950 flex items-center gap-1 shrink-0"
+                >
+                  <Linkedin className="w-3.5 h-3.5 text-blue-600" />
+                  <span>LinkedIn</span>
+                </a>
+              </div>
+
+              {/* Bouton d'action principal « Prendre contact » */}
+              <a
+                href="#contact"
+                onClick={handleNav('#contact')}
+                className="w-full h-12 flex items-center justify-center gap-2 rounded-full bg-[#09090B] hover:bg-zinc-800 text-white text-xs font-bold shadow-md transition-all active:scale-[0.98] cursor-pointer"
+              >
+                <span>Prendre contact avec Rémi</span>
+                <ArrowUpRight className="w-4 h-4 text-[#FFAD00]" />
+              </a>
+
+            </div>
+
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
   );
 }

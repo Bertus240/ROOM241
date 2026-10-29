@@ -27,6 +27,7 @@ import {
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import BadgesCarousel from '../components/BadgesCarousel';
+import AnimatedStat from '../components/AnimatedStat';
 
 export default function Projects({ navigate }) {
   const tabContainerRef = useRef(null);
@@ -320,23 +321,43 @@ export default function Projects({ navigate }) {
               </span>
             </div>
 
-            {/* Repères chiffrés typographiques suisses */}
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 pt-6 border-t border-zinc-200/70">
-              <div className="space-y-1">
-                <span className="text-2xl sm:text-3xl font-extrabold font-mono text-[#09090B] block tabular-nums tracking-tight">&gt; 150 m²</span>
-                <span className="text-xs text-zinc-500 font-medium block">Stand dédié au Zénith</span>
+            {/* Repères chiffrés typographiques suisses — 4 indicateurs documentés Hornetsecurity */}
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 pt-6 border-t border-zinc-200/70">
+              <div className="p-4 sm:p-5 rounded-2xl bg-white/70 border border-zinc-200/80 shadow-2xs hover:border-[#FFAD00]/40 transition-colors">
+                <AnimatedStat
+                  value="> 150 m²"
+                  label="Stand dédié au Zénith"
+                  description="Forum InCyber (FIC) à Lille Grand Palais."
+                  size="card"
+                  delay={0}
+                />
               </div>
-              <div className="space-y-1">
-                <span className="text-2xl sm:text-3xl font-extrabold font-mono text-[#09090B] block tabular-nums tracking-tight whitespace-nowrap">4 000+</span>
-                <span className="text-xs text-zinc-500 font-medium block">Contacts B2B enregistrés collectivement</span>
+              <div className="p-4 sm:p-5 rounded-2xl bg-white/70 border border-zinc-200/80 shadow-2xs hover:border-[#FFAD00]/40 transition-colors">
+                <AnimatedStat
+                  value="4 000+"
+                  label="Contacts B2B enregistrés"
+                  description="Résultat collectif sur les 3 jours du salon."
+                  size="card"
+                  delay={0.08}
+                />
               </div>
-              <div className="space-y-1">
-                <span className="text-2xl sm:text-3xl font-extrabold font-mono text-[#09090B] block tabular-nums tracking-tight">36 h</span>
-                <span className="text-xs text-zinc-500 font-medium block">Sprint autonome 3D à Hanovre</span>
+              <div className="p-4 sm:p-5 rounded-2xl bg-white/70 border border-zinc-200/80 shadow-2xs hover:border-[#FFAD00]/40 transition-colors">
+                <AnimatedStat
+                  value="36 h"
+                  label="Sprint autonome 3D"
+                  description="Développement créatif à Hanovre."
+                  size="card"
+                  delay={0.16}
+                />
               </div>
-              <div className="space-y-1">
-                <span className="text-2xl sm:text-3xl font-extrabold font-mono text-[#09090B] block tracking-tight">Europe</span>
-                <span className="text-xs text-zinc-500 font-medium block">Lille, Nuremberg</span>
+              <div className="p-4 sm:p-5 rounded-2xl bg-white/70 border border-zinc-200/80 shadow-2xs hover:border-[#FFAD00]/40 transition-colors">
+                <AnimatedStat
+                  value="Europe"
+                  label="Salons internationaux"
+                  description="Lille, Nuremberg, Hanovre."
+                  size="card"
+                  delay={0.24}
+                />
               </div>
             </div>
           </div>
@@ -616,7 +637,7 @@ export default function Projects({ navigate }) {
                   <img
                     src="/assets/hornetsecurity/fic/Capain/captain.jpeg"
                     alt="Rémi Brocart en costume de Captain Security sur la passerelle d'accès"
-                    className="w-full h-full object-cover object-[center_54%] scale-[1.68] origin-[center_54%]"
+                    className="w-full h-full object-cover object-[center_56%] scale-[2.15] origin-[center_56%]"
                     loading="lazy"
                   />
                 </div>
