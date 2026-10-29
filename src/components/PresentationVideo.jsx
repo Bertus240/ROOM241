@@ -84,18 +84,18 @@ export default function PresentationVideo({ openVideoModal }) {
                   </div>
 
                   {/* Center Play Button */}
-                  <div className="absolute inset-0 flex flex-col items-center justify-center p-6 text-center">
+                  <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-sm flex flex-col items-center justify-center p-4 text-center z-20 pointer-events-none">
                     <div className="relative mb-3 flex items-center justify-center">
-                      <span className="absolute w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-room-amber/20 animate-ping opacity-75" />
-                      <div className="relative w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-room-amber hover:bg-room-amberHover text-black flex items-center justify-center shadow-[0_0_35px_rgba(255,173,0,0.5)] transition-transform duration-300 ease-premium group-hover/cover:scale-110">
+                      <span className="absolute w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-room-amber/25 animate-ping opacity-75" />
+                      <div className="relative w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-room-amber hover:bg-room-amberHover text-black flex items-center justify-center shadow-[0_0_35px_rgba(255,173,0,0.6)] transition-all duration-300 ease-premium group-hover/cover:scale-110">
                         <Play className="w-7 h-7 sm:w-8 sm:h-8 fill-current ml-1 text-black" />
                       </div>
                     </div>
 
-                    <span className="text-white font-sans font-bold text-lg sm:text-xl drop-shadow-md tracking-tight block">
+                    <span className="whitespace-nowrap text-white font-sans font-bold text-lg sm:text-xl drop-shadow-md tracking-tight block select-none">
                       Lancer la vidéo
                     </span>
-                    <span className="text-white/80 font-sans text-xs mt-0.5">
+                    <span className="whitespace-nowrap text-white/85 font-sans text-xs mt-0.5 select-none">
                       1 min 28 s • Son &amp; haute définition
                     </span>
                   </div>

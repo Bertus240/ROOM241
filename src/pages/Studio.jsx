@@ -136,9 +136,12 @@ export default function Studio({ navigate }) {
                   loading="lazy"
                 />
                 <div className="absolute inset-0 bg-black/30 transition-opacity group-hover:bg-black/15" />
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-[#FFAD00] hover:bg-[#E59B00] text-black flex items-center justify-center shadow-[0_0_30px_rgba(255,173,0,0.4)] transition-transform duration-200 group-hover:scale-110">
-                    <Play className="w-7 h-7 sm:w-8 sm:h-8 fill-current ml-0.5 text-black" />
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center justify-center z-20 pointer-events-none">
+                  <div className="relative flex items-center justify-center">
+                    <span className="absolute w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-[#FFAD00]/30 animate-ping opacity-75" />
+                    <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-[#FFAD00] hover:bg-[#E59B00] text-black flex items-center justify-center shadow-[0_0_35px_rgba(255,173,0,0.6)] transition-all duration-200 group-hover:scale-110 active:scale-95">
+                      <Play className="w-7 h-7 sm:w-8 sm:h-8 fill-current ml-1 text-black" />
+                    </div>
                   </div>
                 </div>
               </div>

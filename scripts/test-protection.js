@@ -147,6 +147,16 @@ assert(resFR.responseHeaders['Location'] === '/', 'Redirection FR cible la racin
 const resSimDE = runHandler({}, 'https://room241.studio/api/geoblock?test_country=DE');
 assert(resSimDE.statusCode === 403, 'Simulation via ?test_country=DE renvoie 403 Forbidden');
 
+// --- 5. Vercel Edge Middleware (middleware.js) ---
+console.log('\n// --- 5. Vercel Edge Middleware (middleware.js) ---');
+const middlewarePath = path.join(rootDir, 'middleware.js');
+assert(fs.existsSync(middlewarePath), 'middleware.js existe à la racine du projet');
+const middlewareContent = fs.readFileSync(middlewarePath, 'utf8');
+assert(middlewareContent.includes('export default function middleware'), 'middleware.js exporte la fonction middleware par défaut');
+assert(middlewareContent.includes("const BLOCKED_COUNTRY = 'DE'"), 'middleware.js cible spécifiquement BLOCKED_COUNTRY = DE');
+assert(middlewareContent.includes("status: 403"), 'middleware.js retourne le code de statut HTTP 403');
+assert(middlewareContent.includes("export const config"), 'middleware.js définit le matcher d\'interception global config');
+
 console.log('\n====================================================');
 console.log(` BILAN : ${passedTests} passés / ${totalTests} tests au total (${failedTests} échec(s))`);
 console.log('====================================================');
