@@ -87,45 +87,53 @@ export default function BadgesCarousel() {
 
       {/* Conteneur avec masques de fondu latéraux */}
       <div className="relative group/carousel overflow-hidden">
-        {/* Dégradé d'estompage gauche */}
+        {/* Dégradé d'estompage gauche parfaitement accordé au conteneur */}
         <div 
-          className="pointer-events-none absolute left-0 top-0 bottom-0 w-12 sm:w-24 bg-gradient-to-r from-white via-white/80 to-transparent z-10 dark:from-zinc-950 dark:via-zinc-950/80" 
+          className="pointer-events-none absolute left-0 top-0 bottom-0 w-12 sm:w-24 bg-gradient-to-r from-zinc-50 via-zinc-50/85 to-transparent z-10" 
           aria-hidden="true"
         />
 
-        {/* Dégradé d'estompage droit */}
+        {/* Dégradé d'estompage droit parfaitement accordé au conteneur */}
         <div 
-          className="pointer-events-none absolute right-0 top-0 bottom-0 w-12 sm:w-24 bg-gradient-to-l from-white via-white/80 to-transparent z-10 dark:from-zinc-950 dark:via-zinc-950/80" 
+          className="pointer-events-none absolute right-0 top-0 bottom-0 w-12 sm:w-24 bg-gradient-to-l from-zinc-50 via-zinc-50/85 to-transparent z-10" 
           aria-hidden="true"
         />
 
         {/* Piste de défilement CSS sans saut ni réinitialisation */}
         <div className="badges-marquee-track py-3">
-          {/* Répétition double pour continuité 100% parfaite */}
+          {/* Répétition double pour continuité 100% parfaite (les copies sont purement décoratives pour l'accessibilité) */}
           {[...badges, ...badges].map((badge, idx) => {
             const originalIndex = idx % badges.length;
+            const isDuplicate = idx >= badges.length;
             return (
               <div
                 key={`${badge.id}-${idx}`}
                 onClick={() => setModalIndex(originalIndex)}
                 className="shrink-0 px-3 sm:px-4 cursor-pointer group/badge focus:outline-none"
-                role="button"
-                tabIndex={0}
-                aria-label={`Agrandir l'insigne ${badge.title}`}
+                role={isDuplicate ? undefined : "button"}
+                tabIndex={isDuplicate ? -1 : 0}
+                aria-hidden={isDuplicate ? "true" : undefined}
+                aria-label={isDuplicate ? undefined : `Agrandir l'insigne ${badge.title}`}
                 onKeyDown={(e) => {
+                  if (isDuplicate) return;
                   if (e.key === 'Enter' || e.key === ' ') {
                     e.preventDefault();
                     setModalIndex(originalIndex);
                   }
                 }}
               >
-                <div className="relative flex items-center justify-center p-4 sm:p-5 w-44 sm:w-52 h-24 sm:h-28 rounded-2xl bg-white/70 dark:bg-zinc-900/60 backdrop-blur-xl border border-zinc-200/80 dark:border-white/10 shadow-[0_4px_20px_rgba(0,0,0,0.03)] hover:shadow-[0_10px_30px_rgba(0,0,0,0.08)] hover:border-[#FFAD00]/50 hover:bg-white dark:hover:bg-zinc-800 transition-all duration-300 transform group-hover/badge:-translate-y-1">
-                  <img
-                    src={`/assets/hornetsecurity/Badges/${badge.file}`}
-                    alt={badge.alt}
-                    className="max-h-full max-w-full w-auto h-auto object-contain transition-transform duration-300 group-hover/badge:scale-108 drop-shadow-sm"
-                    loading="lazy"
-                  />
+                <div className="relative flex flex-col items-center justify-between p-4 sm:p-4.5 w-44 sm:w-52 h-40 sm:h-44 rounded-2xl bg-white border border-zinc-200/90 shadow-[0_4px_20px_rgba(0,0,0,0.03)] hover:shadow-[0_10px_30px_rgba(0,0,0,0.08)] hover:border-[#FFAD00]/50 transition-all duration-300 transform group-hover/badge:-translate-y-1">
+                  <div className="flex-1 w-full flex items-center justify-center min-h-0 pt-1">
+                    <img
+                      src={`/assets/hornetsecurity/Badges/${badge.file}`}
+                      alt={badge.alt}
+                      className="max-h-full max-w-full w-auto h-auto object-contain transition-transform duration-300 group-hover/badge:scale-108 drop-shadow-sm"
+                      loading="lazy"
+                    />
+                  </div>
+                  <span className="text-[11px] font-mono font-bold text-zinc-800 tracking-tight text-center truncate w-full pt-2 border-t border-zinc-100">
+                    {badge.title}
+                  </span>
                 </div>
               </div>
             );

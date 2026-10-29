@@ -221,63 +221,77 @@ export default function Header({ currentPath = '/', navigate }) {
       {/* Fond occultant translucide (backdrop) fermant au clic en dehors */}
       {mobileMenuOpen && (
         <div
-          className="fixed inset-0 bg-black/45 backdrop-blur-sm z-30 md:hidden animate-in fade-in duration-200"
+          className="fixed inset-0 bg-black/60 backdrop-blur-sm z-30 md:hidden animate-in fade-in duration-200"
           onClick={() => setMobileMenuOpen(false)}
           aria-hidden="true"
         />
       )}
 
-      {/* Menu mobile déroulant avec typographie nette et fermeture fiable */}
+      {/* Menu mobile déroulant haut de gamme parfaitement joint au header */}
       {mobileMenuOpen && (
         <div
           id="mobile-navigation"
           role="dialog"
           aria-modal="true"
           aria-label="Navigation principale mobile"
-          className="relative z-40 md:hidden bg-white border-b border-zinc-200 shadow-2xl p-6 space-y-4 animate-in fade-in slide-in-from-top-2 duration-200"
+          style={{ backgroundColor: '#ffffff', minHeight: 'calc(100dvh - 60px)' }}
+          className="fixed top-full left-0 right-0 z-40 md:hidden bg-white border-b border-zinc-200 shadow-2xl p-6 sm:p-8 flex flex-col justify-between overflow-y-auto animate-in fade-in slide-in-from-top-2 duration-200"
         >
-          <div className="flex items-center justify-between pb-2 border-b border-zinc-100">
-            <span className="text-xs font-bold uppercase tracking-wider text-zinc-400">Navigation</span>
-            <button
-              type="button"
-              onClick={() => setMobileMenuOpen(false)}
-              className="p-1.5 rounded-lg text-zinc-600 hover:text-black hover:bg-zinc-100 transition-colors"
-              aria-label="Fermer le menu"
-            >
-              <X className="w-4 h-4 text-zinc-900" strokeWidth={2.5} />
-            </button>
+          <div className="space-y-6">
+            <div className="flex items-center justify-between pb-3 border-b border-zinc-100">
+              <span className="text-[11px] font-mono font-bold uppercase tracking-widest text-zinc-400">Navigation studio</span>
+              <span className="inline-flex items-center gap-1.5 text-[11px] font-mono text-zinc-600 bg-zinc-100 px-2.5 py-0.5 rounded-full border border-zinc-200/60">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#FFAD00]" />
+                ROOM241
+              </span>
+            </div>
+
+            <nav className="flex flex-col gap-1.5">
+              {navLinks.map((link, index) => {
+                const active = index === activeIndex || isActive(link.path);
+                return (
+                  <a
+                    key={link.path}
+                    href={link.path}
+                    onClick={handleNav(link.path)}
+                    className={`py-3.5 px-3.5 rounded-xl text-base font-semibold transition-all flex items-center justify-between ${
+                      active
+                        ? 'text-zinc-950 font-bold bg-zinc-50 border border-zinc-200/60'
+                        : 'text-zinc-600 hover:text-zinc-950 hover:bg-zinc-50/70'
+                    }`}
+                    aria-current={active ? 'page' : undefined}
+                  >
+                    <span className="tracking-tight">{link.label}</span>
+                    {active ? (
+                      <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-[#FFAD00]/15 border border-[#FFAD00]/30 text-xs font-mono font-bold text-amber-900">
+                        <span className="w-1.5 h-1.5 rounded-full bg-[#FFAD00] animate-pulse" />
+                        Actuel
+                      </span>
+                    ) : (
+                      <span className="text-xs font-mono text-zinc-400">0{index + 1}</span>
+                    )}
+                  </a>
+                );
+              })}
+            </nav>
           </div>
 
-          <nav className="flex flex-col gap-2">
-            {navLinks.map((link, index) => {
-              const active = index === activeIndex || isActive(link.path);
-              return (
-                <a
-                  key={link.path}
-                  href={link.path}
-                  onClick={handleNav(link.path)}
-                  className={`px-4 py-3 rounded-xl text-sm font-semibold transition-colors flex items-center justify-between ${
-                    active
-                      ? 'bg-zinc-100 text-[#09090B] font-bold'
-                      : 'text-[#52525B] hover:bg-zinc-50 hover:text-[#09090B]'
-                  }`}
-                  aria-current={active ? 'page' : undefined}
-                >
-                  <span>{link.label}</span>
-                  {active && <span className="w-2 h-2 rounded-full bg-[#FFAD00]" />}
-                </a>
-              );
-            })}
-          </nav>
+          <div className="pt-6 space-y-4 border-t border-zinc-100 pb-6">
+            <div className="space-y-1">
+              <span className="text-[10px] font-mono uppercase tracking-wider text-zinc-400 block">Disponibilité</span>
+              <span className="inline-flex items-center gap-2 text-xs font-medium text-zinc-700">
+                <span className="w-2 h-2 rounded-full bg-emerald-500 shadow-[0_0_6px_rgba(16,185,129,0.7)]" />
+                Disponible immédiatement • Lille &amp; Hybride
+              </span>
+            </div>
 
-          <div className="pt-2 border-t border-zinc-100">
             <a
               href="#contact"
               onClick={handleNav('#contact')}
-              className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-[#09090B] text-white text-sm font-semibold hover:bg-zinc-800 transition-colors"
+              className="w-full h-12 flex items-center justify-center gap-2 rounded-full bg-[#09090B] hover:bg-zinc-800 text-white text-xs font-semibold shadow-sm transition-all active:scale-[0.99]"
             >
               <span>Prendre contact</span>
-              <ArrowUpRight className="w-4 h-4 text-[#FFAD00]" />
+              <ArrowUpRight className="w-3.5 h-3.5 text-[#FFAD00]" />
             </a>
           </div>
         </div>

@@ -26,6 +26,7 @@ import {
   Compass
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import BadgesCarousel from '../components/BadgesCarousel';
 
 export default function Projects({ navigate }) {
   const tabContainerRef = useRef(null);
@@ -41,7 +42,8 @@ export default function Projects({ navigate }) {
     {
       id: 'stand-arch-photo',
       tabLabel: "Arche (photo)",
-      title: "Arche d'accueil active — Vue in situ au Forum InCyber (Lille Grand Palais)",
+      title: "Arche d'accueil active — Repère visuel au cœur du stand au Zénith",
+      subtitle: "Forum InCyber (Accès Grand Palais · Implantation au Zénith)",
       type: 'image',
       src: '/assets/hornetsecurity/fic/Stand/IMG20250401075104.jpg',
       badge: "Photographie in situ • Stand actif",
@@ -51,11 +53,11 @@ export default function Projects({ navigate }) {
     {
       id: 'stand-overview',
       tabLabel: "Vue plongeante",
-      title: "Perspective panoramique en plongée du hall et des flux — Stand 150 m²",
+      title: "Perspective panoramique en plongée du hall dédié au Zénith — Stand > 150 m²",
       type: 'image',
       src: '/assets/hornetsecurity/fic/Stand/IMG20250401075301.jpg',
       badge: "Photographie in situ • Vue en plongée",
-      caption: "Prise de vue panoramique montrant la structure du stand et la circulation des visiteurs",
+      caption: "Vue d'ensemble du hall dédié au Zénith : organisation des flux et identification du stand",
       straighten: false
     },
     {
@@ -309,7 +311,7 @@ export default function Projects({ navigate }) {
                   FIC 2026 — Scénographie &amp; expérience événementielle
                 </h2>
                 <p className="text-sm sm:text-base text-[#52525B] mt-2 max-w-3xl leading-relaxed">
-                  Conception graphique et habillage de l'espace événementiel de plus de 150 m² au Forum InCyber (Lille Grand Palais), réalisation de la boucle motion design After Effects sur l'arche vidéo d'accueil et présence active sur le terrain.
+                  Conception graphique et scénographie de l'espace événementiel de plus de 150 m² au Forum InCyber : dans le cadre du changement de lieu vers le Zénith de Lille (accès via le Grand Palais), l'arche vidéo LED a été conçue comme le point de repère visuel majeur guidant les flux et affirmant la présence de la marque dans ce nouvel environnement.
                 </p>
               </div>
 
@@ -320,20 +322,20 @@ export default function Projects({ navigate }) {
 
             {/* Repères chiffrés typographiques suisses */}
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 pt-6 border-t border-zinc-200/70">
-              <div className="space-y-0.5">
-                <span className="text-2xl sm:text-3xl font-extrabold font-mono text-[#09090B] block">&gt; 150 m²</span>
-                <span className="text-xs text-zinc-500 font-medium block">Stand FIC Lille Grand Palais</span>
+              <div className="space-y-1">
+                <span className="text-2xl sm:text-3xl font-extrabold font-mono text-[#09090B] block tabular-nums tracking-tight">&gt; 150 m²</span>
+                <span className="text-xs text-zinc-500 font-medium block">Stand dédié au Zénith</span>
               </div>
-              <div className="space-y-0.5">
-                <span className="text-2xl sm:text-3xl font-extrabold font-mono text-[#09090B] block">4 000+</span>
-                <span className="text-xs text-zinc-500 font-medium block">Contacts B2B enregistrés (collectif)</span>
+              <div className="space-y-1">
+                <span className="text-2xl sm:text-3xl font-extrabold font-mono text-[#09090B] block tabular-nums tracking-tight whitespace-nowrap">4 000+</span>
+                <span className="text-xs text-zinc-500 font-medium block">Contacts B2B enregistrés collectivement</span>
               </div>
-              <div className="space-y-0.5">
-                <span className="text-2xl sm:text-3xl font-extrabold font-mono text-[#09090B] block">36 h</span>
+              <div className="space-y-1">
+                <span className="text-2xl sm:text-3xl font-extrabold font-mono text-[#09090B] block tabular-nums tracking-tight">36 h</span>
                 <span className="text-xs text-zinc-500 font-medium block">Sprint autonome 3D à Hanovre</span>
               </div>
-              <div className="space-y-0.5">
-                <span className="text-2xl sm:text-3xl font-extrabold font-mono text-[#09090B] block">Europe</span>
+              <div className="space-y-1">
+                <span className="text-2xl sm:text-3xl font-extrabold font-mono text-[#09090B] block tracking-tight">Europe</span>
                 <span className="text-xs text-zinc-500 font-medium block">Lille, Nuremberg</span>
               </div>
             </div>
@@ -382,11 +384,11 @@ export default function Projects({ navigate }) {
               </div>
             </div>
 
-            {/* Barre de sélection d'onglets studio ROOM241 (grille réactive et élégante) */}
+            {/* Barre de sélection d'onglets studio ROOM241 (légère, élégante et ergonomique) */}
             <div className="relative w-full">
               <div
                 ref={tabContainerRef}
-                className="flex items-center gap-1.5 p-1.5 rounded-2xl bg-zinc-100/90 dark:bg-zinc-800/80 border border-zinc-200/80 dark:border-white/10 text-xs overflow-x-auto no-scrollbar sm:grid sm:grid-cols-6"
+                className="flex items-center gap-1 p-1 rounded-full bg-zinc-100/80 border border-zinc-200/70 text-xs overflow-x-auto no-scrollbar sm:grid sm:grid-cols-6 backdrop-blur-xs"
                 style={{
                   WebkitOverflowScrolling: 'touch',
                   scrollbarWidth: 'none',
@@ -404,10 +406,10 @@ export default function Projects({ navigate }) {
                         setHornetMediaIndex(idx);
                         setIsHornetVideoPlaying(false);
                       }}
-                      className={`py-2 px-2.5 rounded-xl transition-all duration-200 shrink-0 cursor-pointer text-xs font-sans whitespace-nowrap sm:whitespace-normal flex items-center justify-center gap-1.5 ${
+                      className={`py-2 px-3 rounded-full transition-all duration-200 shrink-0 cursor-pointer text-xs font-sans whitespace-nowrap sm:whitespace-normal flex items-center justify-center gap-1.5 ${
                         isActive
-                          ? "bg-white dark:bg-zinc-900 text-zinc-950 dark:text-white font-semibold shadow-sm border border-zinc-200/90 dark:border-white/15"
-                          : "text-zinc-600 dark:text-zinc-400 hover:text-black dark:hover:text-white hover:bg-white/60 dark:hover:bg-zinc-700/60"
+                          ? "bg-white text-zinc-950 font-bold shadow-xs border border-zinc-200/90"
+                          : "text-zinc-500 hover:text-zinc-950 hover:bg-white/50"
                       }`}
                     >
                       <span className={`font-mono text-[11px] ${isActive ? "text-[#FFAD00] font-bold" : "text-zinc-400"}`}>
@@ -514,7 +516,7 @@ export default function Projects({ navigate }) {
                   </h5>
                 </div>
                 <p className="text-xs text-[#52525B] dark:text-zinc-300 leading-relaxed">
-                  Habillage graphique du stand de plus de 150 m² pour le FIC 2026. Conception des totems d'information, des bornes interactives et organisation du parcours visiteur en coordination avec les scénographes.
+                  Habillage graphique et signalétique du stand de plus de 150 m² au Zénith de Lille (accès Grand Palais). Organisation des flux et hiérarchisation de l'information pour rendre le stand immédiatement identifiable dans un environnement scénique inédit.
                 </p>
               </div>
 
@@ -526,7 +528,7 @@ export default function Projects({ navigate }) {
                   </h5>
                 </div>
                 <p className="text-xs text-[#52525B] dark:text-zinc-300 leading-relaxed">
-                  Conception et animation de la boucle vidéo diffusée sur l'arche LED d'accueil à l'entrée du stand. Accompagnement de la transition de marque « HORNETSECURITY FORMERLY Vade ».
+                  Animation After Effects 1080p 60fps diffusée sur l'arche LED à l'entrée du stand. Un signal immersif clé qui assurait le repérage du stand au Zénith et valorisait la transition de co-branding « HORNETSECURITY FORMERLY Vade ».
                 </p>
               </div>
 
@@ -597,9 +599,9 @@ export default function Projects({ navigate }) {
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
-              <div>
-                <div className="aspect-[4/3] rounded-2xl overflow-hidden border border-zinc-200 bg-zinc-950 shadow-sm flex items-center justify-center">
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
+              <div className="md:col-span-7">
+                <div className="aspect-[16/11] rounded-2xl overflow-hidden border border-zinc-200 bg-zinc-950 shadow-sm flex items-center justify-center">
                   <img
                     src="/assets/hornetsecurity/fic/Capain/captain2.jpg"
                     alt="Rémi Brocart en Captain Security sur la scène plénière avec les mascottes partenaires au Forum InCyber"
@@ -609,12 +611,12 @@ export default function Projects({ navigate }) {
                 </div>
               </div>
 
-              <div>
-                <div className="aspect-[4/3] rounded-2xl overflow-hidden border border-zinc-200 bg-zinc-950 shadow-sm flex items-center justify-center">
+              <div className="md:col-span-5">
+                <div className="aspect-[4/5] rounded-2xl overflow-hidden border border-zinc-200 bg-zinc-950 shadow-sm flex items-center justify-center relative">
                   <img
                     src="/assets/hornetsecurity/fic/Capain/captain.jpeg"
                     alt="Rémi Brocart en costume de Captain Security sur la passerelle d'accès"
-                    className="w-full h-full object-cover object-[center_8%]"
+                    className="w-full h-full object-cover object-[center_54%] scale-[1.68] origin-[center_54%]"
                     loading="lazy"
                   />
                 </div>
@@ -741,6 +743,31 @@ export default function Projects({ navigate }) {
 
             </div>
           </div>
+
+          {/* Séquence dédiée : Système officiel de badges partenaires B2B (Programme de certification international) */}
+          <div className="p-6 sm:p-10 rounded-3xl bg-zinc-50 border border-zinc-200/80 space-y-6">
+            <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2 border-b border-zinc-200/60 pb-4">
+              <div>
+                <span className="text-xs font-bold uppercase tracking-wider text-[#FFAD00] flex items-center gap-1.5">
+                  <Award className="w-4 h-4" />
+                  Programme Partenaires B2B • Certification de marque
+                </span>
+                <h3 className="text-xl sm:text-2xl font-extrabold text-[#09090B] mt-1">
+                  Refonte du système officiel de badges partenaires
+                </h3>
+              </div>
+              <span className="text-xs font-semibold text-zinc-700 bg-white px-3 py-1 rounded-full border border-zinc-200 w-fit shrink-0">
+                7 insignes vectoriels officiels
+              </span>
+            </div>
+
+            <p className="text-xs sm:text-sm text-[#52525B] max-w-3xl leading-relaxed">
+              Harmonisation de la grille visuelle pour les 7 statuts officiels du programme international Hornetsecurity (Platinum Partner, Gold Partner, Silver Partner, Bronze Partner, Value Added Distributor, Value Added Reseller, OEM Partner). Déclinaisons graphiques rigoureuses conçues pour les portails B2B, les signatures de communication et les certifications remises aux partenaires.
+            </p>
+
+            {/* Carrousel visuel horizontal des 7 badges avec modale plein écran */}
+            <BadgesCarousel />
+          </div>
         </section>
       )}
 
@@ -839,7 +866,7 @@ export default function Projects({ navigate }) {
               <div className="text-[11px] font-mono text-zinc-400 mb-2">03 • AIDE À LA VENTE</div>
               <div className="text-zinc-900 font-semibold text-sm mb-2">Dossiers Commerciaux B2B</div>
               <p className="text-zinc-600 text-xs leading-relaxed">
-                Mise en page des dossiers et plaquettes de présentation présentés par le fondateur lors des rendez-vous stratégiques avec les centrales d'achats de la grande distribution (Auchan, Grand Frais, E.Leclerc) pour soutenir la prospection.
+                Mise en page des dossiers et plaquettes de présentation utilisés par le fondateur lors des rendez-vous stratégiques B2B auprès des décideurs de la grande distribution pour outiller la prospection commerciale.
               </p>
             </div>
 
@@ -953,13 +980,13 @@ export default function Projects({ navigate }) {
             {/* Carte 3 */}
             <div className="bg-white border border-zinc-200/70 rounded-2xl p-6 shadow-sm hover:border-zinc-300 transition-all">
               <div className="flex items-center justify-between mb-3">
-                <span className="text-zinc-900 font-semibold text-sm">3. Échanges grande distribution</span>
+                <span className="text-zinc-900 font-semibold text-sm">3. Supports commerciaux B2B</span>
                 <span className="bg-zinc-100 text-zinc-700 text-[11px] font-medium px-2.5 py-1 rounded-full border border-zinc-200/60">
                   Contacts qualifiés
                 </span>
               </div>
               <p className="text-zinc-600 text-xs md:text-sm leading-relaxed">
-                La rigueur des livrables graphiques et la clarté de la démonstration des données promo ont directement soutenu l'ouverture d'échanges qualifiés avec les centrales d'achats d'Auchan, Grand Frais et E.Leclerc pour envisager des déploiements pilotes de la solution.
+                La rigueur des livrables graphiques et la clarté de la restitution des données publicitaires ont outillé la prospection commerciale du fondateur et crédibilisé les présentations lors des échanges avec les acteurs de la filière.
               </p>
             </div>
           </div>

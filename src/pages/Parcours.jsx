@@ -39,8 +39,8 @@ export default function Parcours({ navigate, onOpenCvModal }) {
     ...editorialPhotos,
     {
       src: "/assets/hornetsecurity/fic/Stand/IMG20250401075301.jpg",
-      alt: "Stand Hornetsecurity > 150 m² au FIC Lille Grand Palais",
-      caption: "Scénographie et flux visiteurs — Stand 150 m² au FIC 2026 (Lille Grand Palais)",
+      alt: "Stand Hornetsecurity > 150 m² au FIC (Zénith de Lille)",
+      caption: "Scénographie et flux visiteurs — Stand 150 m² au FIC (Zénith de Lille, accès Grand Palais)",
       place: "Lille, France",
       category: "Scénographie"
     },
@@ -607,17 +607,20 @@ export default function Parcours({ navigate, onOpenCvModal }) {
         </div>
 
         {/* ========================================================
-            BLOC MAÎTRE : EXPÉRIENCE PRINCIPALE HORNETSECURITY (CDI)
+            BLOC MAÎTRE : EXPÉRIENCE PRINCIPALE HORNETSECURITY (CDI) — HIGHLIGHT MAJEUR DU PARCOURS
            ======================================================== */}
-        <div className="p-7 sm:p-9 md:p-10 rounded-3xl bg-white/70 backdrop-blur-xl border border-zinc-200/50 shadow-sm shadow-zinc-950/[0.03] space-y-9 transition-all duration-300 hover:bg-white/90 hover:border-zinc-300/60 hover:shadow-md hover:shadow-zinc-950/[0.05]">
+        <div className="relative p-7 sm:p-9 md:p-10 rounded-3xl bg-gradient-to-b from-white via-white/95 to-amber-50/25 backdrop-blur-2xl border-2 border-[#FFAD00]/30 shadow-[0_25px_60px_rgba(255,173,0,0.06),0_4px_25px_rgba(0,0,0,0.03)] space-y-9 transition-all duration-300 hover:border-[#FFAD00]/50 hover:shadow-[0_30px_70px_rgba(255,173,0,0.1)] overflow-hidden">
+          
+          {/* Liseré supérieur signature ambré */}
+          <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#FFAD00] via-amber-300 to-transparent" />
           
           {/* Ligne d'en-tête de l'expérience */}
-          <div className="flex flex-col lg:flex-row lg:items-start justify-between gap-4 border-b border-zinc-200/50 pb-6">
+          <div className="flex flex-col lg:flex-row lg:items-start justify-between gap-4 border-b border-zinc-200/60 pb-6">
             <div className="space-y-1.5">
               <div className="flex flex-wrap items-center gap-2.5">
                 <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-zinc-950 text-white text-xs font-semibold shadow-xs border border-white/10">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#FFAD00] shadow-[0_0_8px_rgba(255,173,0,0.9)]" />
-                  <span>Highlight • Expérience CDI</span>
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#FFAD00] shadow-[0_0_8px_rgba(255,173,0,0.9)] animate-pulse" />
+                  <span>Highlight • Expérience majeure CDI</span>
                 </span>
                 <span className="text-xs font-mono font-medium text-zinc-500">
                   Septembre 2025 – Octobre 2026
@@ -632,8 +635,8 @@ export default function Parcours({ navigate, onOpenCvModal }) {
             </div>
 
             <div className="flex flex-col lg:items-end gap-1 shrink-0">
-              <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-zinc-800 bg-zinc-100/80 px-3.5 py-1.5 rounded-full border border-zinc-200/60 w-fit">
-                <MapPin className="w-3.5 h-3.5 text-zinc-400" />
+              <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-zinc-800 bg-white/90 px-3.5 py-1.5 rounded-full border border-zinc-200/80 shadow-2xs w-fit">
+                <MapPin className="w-3.5 h-3.5 text-[#FFAD00]" />
                 <span>Lille • Salons européens (Nuremberg, Hanovre)</span>
               </span>
               <span className="text-[11px] text-zinc-400 font-mono pt-1">
@@ -647,22 +650,22 @@ export default function Parcours({ navigate, onOpenCvModal }) {
             Leader européen de la cybersécurité Cloud. Évolution au sein d'une équipe design internationale basée principalement en Allemagne : conception d'espaces événementiels à fort enjeu, direction graphique de supports publicitaires de performance et coordination quotidienne en anglais avec les partenaires scéniques.
           </p>
 
-          {/* Repères chiffrés et chronologiques (Style studio suisse épuré) */}
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 p-5 rounded-2xl bg-zinc-50/80 backdrop-blur-sm border border-zinc-200/70 shadow-2xs">
-            <div className="space-y-0.5">
-              <span className="text-2xl sm:text-3xl font-extrabold font-mono text-zinc-950 block">&gt; 150 m²</span>
-              <span className="text-xs text-zinc-500 font-medium block">Stand FIC Lille Grand Palais</span>
+          {/* Repères chiffrés et chronologiques (Style studio suisse épuré avec surbrillance ambrée) */}
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 p-5 rounded-2xl bg-white/80 backdrop-blur-md border border-zinc-200/80 shadow-2xs">
+            <div className="space-y-0.5 p-2 rounded-xl hover:bg-amber-50/50 transition-colors group">
+              <span className="text-2xl sm:text-3xl font-extrabold font-mono text-zinc-950 block group-hover:text-amber-600 transition-colors">&gt; 150 m²</span>
+              <span className="text-xs text-zinc-500 font-medium block">Stand dédié au Zénith</span>
             </div>
-            <div className="space-y-0.5">
-              <span className="text-2xl sm:text-3xl font-extrabold font-mono text-zinc-950 block">4 000+</span>
+            <div className="space-y-0.5 p-2 rounded-xl hover:bg-amber-50/50 transition-colors group">
+              <span className="text-2xl sm:text-3xl font-extrabold font-mono text-zinc-950 block group-hover:text-amber-600 transition-colors">4 000+</span>
               <span className="text-xs text-zinc-500 font-medium block">Contacts enregistrés (collectif)</span>
             </div>
-            <div className="space-y-0.5">
-              <span className="text-2xl sm:text-3xl font-extrabold font-mono text-zinc-950 block">36 h</span>
+            <div className="space-y-0.5 p-2 rounded-xl hover:bg-amber-50/50 transition-colors group">
+              <span className="text-2xl sm:text-3xl font-extrabold font-mono text-zinc-950 block group-hover:text-amber-600 transition-colors">36 h</span>
               <span className="text-xs text-zinc-500 font-medium block">Design Sprint autonome à Hanovre</span>
             </div>
-            <div className="space-y-0.5">
-              <span className="text-2xl sm:text-3xl font-extrabold font-mono text-zinc-950 block">Europe</span>
+            <div className="space-y-0.5 p-2 rounded-xl hover:bg-amber-50/50 transition-colors group">
+              <span className="text-2xl sm:text-3xl font-extrabold font-mono text-zinc-950 block group-hover:text-amber-600 transition-colors">Europe</span>
               <span className="text-xs text-zinc-500 font-medium block">Lille, Nuremberg, Hanovre</span>
             </div>
           </div>
@@ -693,7 +696,7 @@ export default function Parcours({ navigate, onOpenCvModal }) {
                     Scénographie événementielle &amp; orientation des flux
                   </h5>
                   <p className="text-xs sm:text-sm text-zinc-600 leading-relaxed">
-                    Conception graphique et signalétique des stands pour les salons européens (dont le stand de plus de 150 m² au Forum InCyber à Lille Grand Palais, ainsi qu'à it-sa Nuremberg). Traitement de l'espace, hiérarchie de l'information et coordination avec les prestataires techniques pour une orientation fluide des visiteurs professionnels.
+                    Conception graphique et signalétique des stands pour les salons européens (dont le stand de plus de 150 m² au Forum InCyber au Zénith de Lille avec accès Grand Palais, ainsi qu'à it-sa Nuremberg). Traitement de l'espace, hiérarchie de l'information et coordination avec les prestataires techniques pour une orientation fluide des visiteurs professionnels.
                   </p>
                 </div>
 
@@ -706,7 +709,7 @@ export default function Parcours({ navigate, onOpenCvModal }) {
                 >
                   <img
                     src="/assets/hornetsecurity/fic/Stand/IMG20250401075301.jpg"
-                    alt="Vue plongeante du stand Hornetsecurity > 150 m² au FIC Lille Grand Palais"
+                    alt="Vue plongeante du stand Hornetsecurity > 150 m² au FIC (Zénith de Lille)"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     loading="lazy"
                   />
@@ -715,7 +718,7 @@ export default function Parcours({ navigate, onOpenCvModal }) {
                     <Maximize2 className="w-3 h-3" />
                   </div>
                   <div className="absolute bottom-2 left-2.5 right-2.5 flex items-center justify-between text-[11px] text-white">
-                    <span className="font-medium truncate drop-shadow">Stand 150 m² in situ (Lille Grand Palais)</span>
+                    <span className="font-medium truncate drop-shadow">Stand 150 m² au Zénith (accès Grand Palais)</span>
                     <span className="font-mono text-[10px] text-white/80 shrink-0 ml-1">Agrandir ↗</span>
                   </div>
                 </div>

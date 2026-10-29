@@ -242,9 +242,9 @@ export default function HornetCaseStudy({ navigate }) {
           <div className="md:col-span-5 space-y-3">
             <div className="aspect-[4/5] w-full rounded-3xl overflow-hidden border border-zinc-200/80 bg-zinc-950 shadow-sm">
               <img
-                src="/assets/hornetsecurity/FIC_photo+videos/Capain/captain.jpeg"
+                src="/assets/hornetsecurity/fic/Capain/captain.jpeg"
                 alt="Rémi Brocart en costume de Captain Security sur la passerelle d'accès du salon InCyber"
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover object-[center_54%] scale-[1.68] origin-[center_54%]"
                 loading="lazy"
               />
             </div>

@@ -92,15 +92,14 @@ export default function Kuro({ navigate }) {
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isScrolling, setIsScrolling] = useState(false);
+  const [isNearBottom, setIsNearBottom] = useState(false);
+  const [isArrivalWaveActive, setIsArrivalWaveActive] = useState(false);
+  const [kuroCoords, setKuroCoords] = useState({ x: 36, y: typeof window !== 'undefined' ? window.innerHeight - 36 : 600 });
+  const [isMicroWaveActive, setIsMicroWaveActive] = useState(false);
+  const [isTouched, setIsTouched] = useState(false);
 
-  // État de présentation centrale au premier chargement (uniquement >= 768px)
-  const [isCenterStage, setIsCenterStage] = useState(() => {
-    if (typeof window === 'undefined') return false;
-    // Règle impérative : pas d'ouverture automatique en dessous de 768px (mobile)
-    if (window.innerWidth < 768) return false;
-    const welcomed = sessionStorage.getItem('room241_kuro_welcomed');
-    return welcomed !== 'true';
-  });
+  // Présence subtile et élégante : Kuro reste calme dans son coin au chargement, pas de popup intempestif
+  const [isCenterStage, setIsCenterStage] = useState(false);
 
   // Système de bulles contextuelles en coin
   const [activeMessage, setActiveMessage] = useState(null);
@@ -120,6 +119,37 @@ export default function Kuro({ navigate }) {
     return () => mq.removeEventListener('change', handler);
   }, []);
 
+  // Déclenchement de la séquence d'ondes lumineuses d'arrivée (une seule fois par session)
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    if (prefersReducedMotion) return;
+
+    const played = sessionStorage.getItem('room241_kuro_waves_played');
+    if (played === 'true') return;
+
+    // Mesurer les coordonnées physiques réelles de Kuro dès son ancrage
+    const timer = setTimeout(() => {
+      if (kuroRef.current) {
+        const rect = kuroRef.current.getBoundingClientRect();
+        setKuroCoords({
+          x: rect.left + rect.width / 2,
+          y: rect.top + rect.height / 2,
+        });
+      }
+      setIsArrivalWaveActive(true);
+
+      // Clôture et démontage complet du portail d'ondes après 2.6s
+      const teardown = setTimeout(() => {
+        setIsArrivalWaveActive(false);
+        sessionStorage.setItem('room241_kuro_waves_played', 'true');
+      }, 2600);
+
+      return () => clearTimeout(teardown);
+    }, 350);
+
+    return () => clearTimeout(timer);
+  }, [prefersReducedMotion]);
+
   // Détection du scroll : atténue discrètement Kuro pendant le défilement et restaure à l'arrêt
   useEffect(() => {
     if (typeof window === 'undefined') return;
@@ -130,6 +160,10 @@ export default function Kuro({ navigate }) {
       scrollTimeoutRef.current = setTimeout(() => {
         setIsScrolling(false);
       }, 250);
+
+      // Détection de proximité du pied de page pour éviter tout chevauchement avec les liens
+      const distanceToBottom = document.documentElement.scrollHeight - (window.scrollY + window.innerHeight);
+      setIsNearBottom(distanceToBottom < 180);
     };
 
     window.addEventListener('scroll', handleScrollActivity, { passive: true });
@@ -293,7 +327,7 @@ export default function Kuro({ navigate }) {
     }, 6500);
   };
 
-  // Détection du scroll contextuel
+  // Détection du scroll contextuel (met à jour le contexte en coulisse sans ouvrir intempestivement la bulle)
   useEffect(() => {
     if (isCenterStage) return;
 
@@ -308,7 +342,10 @@ export default function Kuro({ navigate }) {
     ];
 
     const handleScroll = () => {
-      if (isBubbleOpen) return;
+      // Ferme automatiquement la bulle dès que l'utilisateur scrolle pour ne jamais masquer le contenu
+      if (isBubbleOpen) {
+        setIsBubbleOpen(false);
+      }
 
       const scrollPos = window.scrollY + window.innerHeight * 0.45;
 
@@ -318,15 +355,7 @@ export default function Kuro({ navigate }) {
           const top = el.offsetTop;
           const bottom = top + el.offsetHeight;
           if (scrollPos >= top && scrollPos <= bottom) {
-            if (!seenSectionsRef.current.has(sec.data.key)) {
-              seenSectionsRef.current.add(sec.data.key);
-              setActiveMessage(sec.data);
-              setIsBubbleOpen(true);
-              if (autoCloseTimerRef.current) clearTimeout(autoCloseTimerRef.current);
-              autoCloseTimerRef.current = setTimeout(() => {
-                setIsBubbleOpen(false);
-              }, 6500);
-            }
+            setActiveMessage(sec.data);
             break;
           }
         }
@@ -443,41 +472,135 @@ export default function Kuro({ navigate }) {
   return (
     <>
       {/* ========================================================
-          1. MODALE D'ACCUEIL ÉDITORIALE KURO (AVEC FOND FLOU)
-          Fermeture stricte via le bouton de fermeture ou Échap
+          0. ONDES CONCENTRIQUES LUMINEUSES D'ARRIVÉE (SIGNATURE VISUELLE IMMERSIVE)
+          Strictement décoratif, pointer-events-none, sans scrollbar ni layout shift
+         ======================================================== */}
+      {typeof document !== 'undefined' &&
+        isArrivalWaveActive &&
+        createPortal(
+          <div
+            className="fixed inset-0 pointer-events-none overflow-hidden z-30 select-none"
+            aria-hidden="true"
+          >
+            {/* Lueur d'ambiance radiale dorée douce centrée sur Kuro */}
+            <div
+              className="absolute rounded-full transition-opacity duration-1000"
+              style={{
+                left: kuroCoords.x,
+                top: kuroCoords.y,
+                width: 500,
+                height: 500,
+                transform: 'translate(-50%, -50%)',
+                background:
+                  'radial-gradient(circle, rgba(255, 173, 0, 0.18) 0%, rgba(255, 173, 0, 0.05) 45%, transparent 70%)',
+              }}
+            />
+
+            {/* Onde 1 : Vaste onde lumineuse principale */}
+            <motion.div
+              initial={{ width: 36, height: 36, opacity: 0.65, scale: 0.8 }}
+              animate={{
+                width: typeof window !== 'undefined' && window.innerWidth < 768 ? 700 : 1800,
+                height: typeof window !== 'undefined' && window.innerWidth < 768 ? 700 : 1800,
+                opacity: 0,
+                scale: 1,
+              }}
+              transition={{
+                duration: typeof window !== 'undefined' && window.innerWidth < 768 ? 1.8 : 2.4,
+                ease: [0.16, 1, 0.3, 1],
+              }}
+              className="absolute rounded-full border border-[#FFAD00]/45 shadow-[0_0_25px_rgba(255,173,0,0.35)]"
+              style={{
+                left: kuroCoords.x,
+                top: kuroCoords.y,
+                transform: 'translate(-50%, -50%)',
+              }}
+            />
+
+            {/* Onde 2 : Écho médian décalé */}
+            <motion.div
+              initial={{ width: 36, height: 36, opacity: 0.55, scale: 0.8 }}
+              animate={{
+                width: typeof window !== 'undefined' && window.innerWidth < 768 ? 520 : 1350,
+                height: typeof window !== 'undefined' && window.innerWidth < 768 ? 520 : 1350,
+                opacity: 0,
+                scale: 1,
+              }}
+              transition={{
+                delay: 0.28,
+                duration: typeof window !== 'undefined' && window.innerWidth < 768 ? 1.6 : 2.1,
+                ease: [0.16, 1, 0.3, 1],
+              }}
+              className="absolute rounded-full border border-[#FFAD00]/40 shadow-[0_0_20px_rgba(255,173,0,0.25)]"
+              style={{
+                left: kuroCoords.x,
+                top: kuroCoords.y,
+                transform: 'translate(-50%, -50%)',
+              }}
+            />
+
+            {/* Onde 3 : Cœur dense et précis */}
+            <motion.div
+              initial={{ width: 36, height: 36, opacity: 0.5, scale: 0.8 }}
+              animate={{
+                width: typeof window !== 'undefined' && window.innerWidth < 768 ? 360 : 950,
+                height: typeof window !== 'undefined' && window.innerWidth < 768 ? 360 : 950,
+                opacity: 0,
+                scale: 1,
+              }}
+              transition={{
+                delay: 0.55,
+                duration: typeof window !== 'undefined' && window.innerWidth < 768 ? 1.4 : 1.8,
+                ease: [0.16, 1, 0.3, 1],
+              }}
+              className="absolute rounded-full border border-[#FFAD00]/30 shadow-[0_0_15px_rgba(255,173,0,0.2)]"
+              style={{
+                left: kuroCoords.x,
+                top: kuroCoords.y,
+                transform: 'translate(-50%, -50%)',
+              }}
+            />
+          </div>,
+          document.body
+        )}
+
+      {/* ========================================================
+          1. PRÉSENTATION CENTRALE (UNIQUEMENT LORS D'UN APPEL EXPLICITE)
          ======================================================== */}
       {typeof document !== 'undefined' &&
         createPortal(
           <AnimatePresence>
-            {isCenterStage && (
+            {isCenterStage && !isModalOpen && (
               <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-                className="fixed inset-0 z-[9990] w-screen h-screen bg-black/70 backdrop-blur-md flex items-center justify-center p-4 sm:p-6 select-none"
+                role="dialog"
+                aria-modal="true"
+                aria-label="Présentation officielle de Kuro, compagnon du studio ROOM241"
+                className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/75 backdrop-blur-md select-none"
               >
-                {/* Carte de la modale : clic intérieur isolé */}
+                <div className="absolute inset-0 cursor-default" onClick={handleDismissCenter} />
+
                 <motion.div
-                  initial={{ opacity: 0, scale: 0.94, y: 16 }}
-                  animate={{ opacity: 1, scale: 1, y: 0 }}
-                  exit={{ opacity: 0, scale: 0.92, y: 20 }}
+                  initial={{ scale: 0.9, y: 16, opacity: 0 }}
+                  animate={{ scale: 1, y: 0, opacity: 1 }}
+                  exit={{ scale: 0.9, y: 16, opacity: 0 }}
                   transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
                   onClick={(e) => e.stopPropagation()}
-                  className="relative w-full max-w-md sm:max-w-lg bg-[#09090B]/95 backdrop-blur-2xl rounded-3xl p-7 sm:p-9 shadow-[0_30px_90px_rgba(0,0,0,0.85)] border border-white/15 text-center space-y-6 text-white"
+                  className="relative w-full max-w-lg rounded-3xl bg-[#09090B] border border-white/20 p-7 sm:p-9 shadow-2xl text-center space-y-6 z-10 overflow-hidden"
                 >
-                  {/* Bouton de fermeture explicite en haut à droite */}
                   <button
                     type="button"
                     onClick={handleDismissCenter}
-                    className="absolute top-4 right-4 p-2 rounded-full text-zinc-400 hover:text-white hover:bg-white/10 transition-colors cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FFAD00]"
-                    aria-label="Fermer la présentation"
+                    className="absolute top-4 right-4 p-2 rounded-full text-zinc-400 hover:text-white hover:bg-white/10 transition-colors cursor-pointer"
+                    aria-label="Fermer la présentation de Kuro"
                   >
                     <X className="w-5 h-5" />
                   </button>
 
-                  {/* Kuro en vedette au centre avec halo ambré subtil et flottement doux */}
-                  <div className="flex flex-col items-center justify-center pt-2">
+                  <div className="flex justify-center pt-2">
                     <div className="relative">
                       <div className="absolute -inset-4 rounded-full bg-gradient-to-tr from-[#FFAD00]/30 to-transparent blur-2xl animate-pulse pointer-events-none" />
                       <motion.div
@@ -489,26 +612,21 @@ export default function Kuro({ navigate }) {
                     </div>
                   </div>
 
-                  {/* Contenu textuel officiel et exact */}
                   <div className="space-y-3.5">
-                    {/* Signature supérieure discrète et élégante */}
                     <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/15 text-[11px] font-mono font-medium tracking-wider text-zinc-300">
                       <span className="w-1.5 h-1.5 rounded-full bg-[#FFAD00] shadow-[0_0_6px_rgba(255,173,0,0.9)]" />
                       <span>ROOM241 | KURO, COMPAGNON CRÉATIF</span>
                     </div>
 
-                    {/* Titre officiel avec point */}
                     <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-white leading-tight">
                       Bienvenue chez ROOM241.
                     </h2>
 
-                    {/* Texte descriptif exact */}
                     <p className="text-sm sm:text-base text-zinc-300 leading-relaxed max-w-md mx-auto font-normal">
                       Moi, c’est Kuro. Je vous accompagne à travers les projets de Rémi : du design, de la vidéo et des idées qui prennent vie sur le terrain. Par ici, je vous montre tout ça.
                     </p>
                   </div>
 
-                  {/* Bouton d'action principal avec accent ambré mesuré */}
                   <div className="pt-2">
                     <button
                       type="button"
@@ -526,7 +644,7 @@ export default function Kuro({ navigate }) {
         )}
 
       {/* ========================================================
-          2. KURO NICHE DANS SON COIN (BOTTOM-4 LEFT-4 MOBILE, BOTTOM-6 LEFT-6 DESKTOP)
+          2. KURO NICHE DANS SON COIN (AVEC SAFE-AREA, TOUCH TARGET 44PX & MICRO-ONDE)
           Atténuation discrète pendant le défilement (isScrolling)
          ======================================================== */}
       {!isCenterStage && !isModalOpen && (
@@ -536,11 +654,17 @@ export default function Kuro({ navigate }) {
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.8 }}
           transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
-          className={`fixed bottom-4 left-4 sm:bottom-6 sm:left-6 z-40 select-none flex flex-col items-start gap-3 transition-opacity duration-300 ${
+          style={{
+            left: 'max(1rem, env(safe-area-inset-left, 1rem))',
+            bottom: isNearBottom
+              ? 'max(5.5rem, calc(env(safe-area-inset-bottom, 1rem) + 4.5rem))'
+              : 'max(1rem, env(safe-area-inset-bottom, 1rem))',
+          }}
+          className={`fixed z-40 select-none flex flex-col items-start gap-3 transition-all duration-300 ${
             isScrolling ? 'opacity-30 pointer-events-none' : 'opacity-100'
           }`}
         >
-          {/* Bulle de dialogue contextuelle au-dessus de Kuro */}
+          {/* Bulle de dialogue contextuelle au-dessus de Kuro (bornée à la largeur mobile pour ne jamais déborder) */}
           <AnimatePresence>
             {isBubbleOpen && activeMessage && (
               <motion.div
@@ -548,7 +672,7 @@ export default function Kuro({ navigate }) {
                 animate={{ opacity: 1, scale: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.9, y: 10 }}
                 transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
-                className="relative max-w-xs sm:max-w-sm rounded-2xl bg-[#09090B] text-white p-4 shadow-2xl border border-white/15 backdrop-blur-xl space-y-2"
+                className="relative w-full max-w-[calc(100vw-2rem)] sm:max-w-sm rounded-2xl bg-[#09090B] text-white p-4 shadow-2xl border border-white/15 backdrop-blur-xl space-y-2"
               >
                 <div className="flex items-center justify-between gap-2 border-b border-white/10 pb-1.5">
                   <div className="flex items-center gap-1.5">
@@ -599,6 +723,19 @@ export default function Kuro({ navigate }) {
               aria-hidden="true"
             />
 
+            {/* Micro-onde lumineuse lors du survol ou du toucher mobile */}
+            <AnimatePresence>
+              {isMicroWaveActive && !prefersReducedMotion && (
+                <motion.div
+                  initial={{ width: 36, height: 36, opacity: 0.85, scale: 0.85 }}
+                  animate={{ width: 96, height: 96, opacity: 0, scale: 2.3 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.6, ease: 'easeOut' }}
+                  className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-[#FFAD00]/70 pointer-events-none shadow-[0_0_15px_rgba(255,173,0,0.5)]"
+                />
+              )}
+            </AnimatePresence>
+
             {/* Wrapper d'animation organique lente (flottement 3-4px & micro-inclinaison 1°, désactivé sur reduced-motion et scroll) */}
             <motion.div
               animate={
@@ -626,9 +763,25 @@ export default function Kuro({ navigate }) {
                 type="button"
                 animate={controls}
                 onClick={handleCornerClick}
-                onMouseEnter={() => setIsHovered(true)}
+                onMouseEnter={() => {
+                  setIsHovered(true);
+                  if (!prefersReducedMotion) {
+                    setIsMicroWaveActive(true);
+                    setTimeout(() => setIsMicroWaveActive(false), 650);
+                  }
+                }}
                 onMouseLeave={() => setIsHovered(false)}
-                className="relative flex items-center gap-2 px-2 py-1.5 sm:px-3 sm:py-2 rounded-full bg-[#09090B]/95 hover:bg-[#09090B] backdrop-blur-xl border border-white/15 hover:border-[#FFAD00]/50 shadow-[0_8px_25px_rgba(0,0,0,0.4)] transition-all cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FFAD00]"
+                onTouchStart={() => {
+                  setIsTouched(true);
+                  if (!prefersReducedMotion) {
+                    setIsMicroWaveActive(true);
+                    setTimeout(() => setIsMicroWaveActive(false), 650);
+                  }
+                }}
+                onTouchEnd={() => setIsTouched(false)}
+                className={`relative flex items-center gap-2 px-2.5 py-1.5 sm:px-3 sm:py-2 min-h-[44px] min-w-[44px] rounded-full bg-[#09090B]/95 hover:bg-[#09090B] backdrop-blur-xl border border-white/15 hover:border-[#FFAD00]/50 shadow-[0_8px_25px_rgba(0,0,0,0.4)] transition-all cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FFAD00] ${
+                  isTouched ? 'scale-95' : ''
+                }`}
                 aria-label="Kuro, compagnon interactif du studio ROOM241. Cliquez pour échanger."
                 title="Kuro · Cliquez pour échanger"
               >

@@ -71,20 +71,20 @@ export default function Home({ navigate }) {
 
               {/* Repères d'impact éditoriaux — Finition Glass Studio ROOM241 */}
               <div className="pt-8">
-                <div className="p-5 sm:p-7 rounded-2xl sm:rounded-3xl bg-white/70 backdrop-blur-xl border border-zinc-200/80 shadow-[0_4px_25px_rgba(0,0,0,0.03)] grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-0 sm:divide-x divide-zinc-200/70 text-left">
+                <div className="p-5 sm:p-7 rounded-2xl sm:rounded-3xl bg-white/80 backdrop-blur-xl border border-zinc-200/90 shadow-[0_4px_25px_rgba(0,0,0,0.03)] grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-0 sm:divide-x divide-zinc-200/80 text-left">
                   
                   {/* Stat 1 */}
-                  <div className="space-y-1 sm:pr-6">
+                  <div className="space-y-1.5 sm:pr-6">
                     <div className="flex items-center gap-1.5">
                       <span className="w-1.5 h-1.5 rounded-full bg-[#FFAD00]" />
                       <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-zinc-400">
                         Polyvalence
                       </span>
                     </div>
-                    <div className="text-3xl sm:text-4xl font-extrabold font-mono text-[#09090B] tracking-tight">
+                    <div className="text-3xl sm:text-4xl lg:text-[40px] font-black font-mono text-[#09090B] tracking-tight whitespace-nowrap leading-none py-1">
                       3+ ans
                     </div>
-                    <div className="text-xs font-bold text-zinc-900">
+                    <div className="text-xs font-bold text-zinc-900 tracking-tight">
                       Expérience 360°
                     </div>
                     <p className="text-xs text-zinc-500 leading-relaxed">
@@ -93,17 +93,17 @@ export default function Home({ navigate }) {
                   </div>
 
                   {/* Stat 2 */}
-                  <div className="space-y-1 sm:px-6 pt-4 sm:pt-0 border-t sm:border-t-0 border-zinc-100">
+                  <div className="space-y-1.5 sm:px-6 pt-5 sm:pt-0 border-t sm:border-t-0 border-zinc-200/60">
                     <div className="flex items-center gap-1.5">
                       <span className="w-1.5 h-1.5 rounded-full bg-[#FFAD00]" />
                       <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-zinc-400">
                         Événementiel
                       </span>
                     </div>
-                    <div className="text-3xl sm:text-4xl font-extrabold font-mono text-[#09090B] tracking-tight">
-                      4 000+
+                    <div className="text-3xl sm:text-4xl lg:text-[40px] font-black font-mono text-[#09090B] tracking-tight whitespace-nowrap leading-none py-1">
+                      4&nbsp;000+
                     </div>
-                    <div className="text-xs font-bold text-zinc-900">
+                    <div className="text-xs font-bold text-zinc-900 tracking-tight">
                       Contacts FIC
                     </div>
                     <p className="text-xs text-zinc-500 leading-relaxed">
@@ -112,17 +112,17 @@ export default function Home({ navigate }) {
                   </div>
 
                   {/* Stat 3 */}
-                  <div className="space-y-1 sm:pl-6 pt-4 sm:pt-0 border-t sm:border-t-0 border-zinc-100">
+                  <div className="space-y-1.5 sm:pl-6 pt-5 sm:pt-0 border-t sm:border-t-0 border-zinc-200/60">
                     <div className="flex items-center gap-1.5">
                       <span className="w-1.5 h-1.5 rounded-full bg-[#FFAD00]" />
                       <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-zinc-400">
                         Crowdfunding
                       </span>
                     </div>
-                    <div className="text-3xl sm:text-4xl font-extrabold font-mono text-[#09090B] tracking-tight">
+                    <div className="text-3xl sm:text-4xl lg:text-[40px] font-black font-mono text-[#09090B] tracking-tight whitespace-nowrap leading-none py-1">
                       116 %
                     </div>
-                    <div className="text-xs font-bold text-zinc-900">
+                    <div className="text-xs font-bold text-zinc-900 tracking-tight">
                       Validé à 116 %
                     </div>
                     <p className="text-xs text-zinc-500 leading-relaxed">
@@ -295,7 +295,7 @@ export default function Home({ navigate }) {
                 Fresh Data
               </h3>
               <p className="text-sm text-[#52525B] leading-relaxed">
-                Création de l'univers visuel d'une solution de veille concurrentielle et de pige publicitaire grande distribution, campagne Ulule validée à 116 % et supports d'aide à la vente pour les centrales d'achats (Auchan, Grand Frais, E.Leclerc).
+                Création de l'univers visuel et des supports de communication de Fresh Data aux côtés du fondateur Marc-Henri Blarel : vulgarisation d'une solution de pige publicitaire grande distribution, campagne Ulule validée à 116 % et supports commerciaux B2B.
               </p>
             </div>
 

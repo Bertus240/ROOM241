@@ -119,7 +119,7 @@ export const profileData = {
       highlights: [
         {
           title: "Fresh Data (Retail Data & Veille) — Campagne Ulule & Salon MEDFEL",
-          desc: "Contribution à la visibilité de la campagne Ulule (validée à 116 %), actions radio et captation vidéo d'interviews au salon international MEDFEL ayant ouvert des conversations qualifiées avec Auchan, Grand Frais et E.Leclerc."
+          desc: "Création de l'univers visuel et des supports de communication aux côtés du fondateur Marc-Henri Blarel : campagne Ulule validée à 116 %, visuels radio, captation vidéo au salon MEDFEL et supports d'aide à la vente B2B."
         },
         {
           title: "Résin'Architecte (BTP Haut de Gamme) — Communication & Terrain",

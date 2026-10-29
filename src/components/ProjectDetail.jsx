@@ -167,7 +167,7 @@ export default function ProjectDetail({ slug, navigate }) {
         {/* Media Showcase Section — Mises en scène adaptées à chaque réalisation */}
         <Reveal delay={100} className="mb-24">
           {project.isNda ? (
-            /* Monumental Architectural Monograph for SaaS NDA Case */
+            /* Architectural Monograph for SaaS NDA Case */
             <div className="w-full relative rounded-3xl overflow-hidden border border-neutral-200 dark:border-white/10 bg-[#0C0C0E] text-white p-8 sm:p-16 shadow-2xl">
               {/* Architectural Grid Background */}
               <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:3rem_3rem] pointer-events-none" />

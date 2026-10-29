@@ -311,7 +311,7 @@ export const projectsData = {
     },
     act3: {
       title: "03. L'Impact Mesurable",
-      text: "Campagne Ulule validée à 116 % avec succès. Structuration de dossiers commerciaux B2B ouvrant des échanges qualifiés avec les centrales d'achats d'Auchan, Grand Frais et E.Leclerc."
+      text: "Campagne Ulule validée à 116 % du premier palier. Conception d'outils d'aide à la vente clairs et rigoureux pour structurer la prospection commerciale auprès des décideurs de la filière."
     },
     nextSlug: "hornetsecurity",
     nextTitle: "Hornetsecurity (Cybersécurité B2B)"

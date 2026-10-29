@@ -37,7 +37,7 @@ export default function PresentationVideo({ openVideoModal }) {
           </p>
         </Reveal>
 
-        {/* Monumental Cinematic Stage */}
+        {/* Cinematic Stage */}
         <Reveal>
           <div className="relative w-full rounded-2xl sm:rounded-3xl overflow-hidden border border-neutral-200/80 dark:border-white/10 hover:border-room-amber/40 bg-neutral-950 shadow-[0_20px_50px_-15px_rgba(0,0,0,0.3)] dark:shadow-[0_25px_70px_-20px_rgba(0,0,0,0.8)] transition-all duration-300 group">
             

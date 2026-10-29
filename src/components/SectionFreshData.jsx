@@ -89,7 +89,7 @@ export default function SectionFreshData() {
               Résultat
             </h3>
             <p className="text-sm text-[#3F3F46] leading-relaxed">
-              Campagne Ulule validée à 116 % et ouverture d'échanges qualifiés avec les centrales d'achats (Auchan, Grand Frais, E.Leclerc).
+              Campagne Ulule validée à 116 % du premier palier et supports de communication multicanaux valorisant la plateforme auprès des professionnels du secteur.
             </p>
           </div>
         </div>

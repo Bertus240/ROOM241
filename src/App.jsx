@@ -7,6 +7,8 @@ import FooterContact from './components/FooterContact';
 import CvModal from './components/CvModal';
 import AdminDashboard from './components/AdminDashboard';
 import ProjectDetail from './components/ProjectDetail';
+import MentionsLegales from './components/MentionsLegales';
+import PolitiqueConfidentialite from './components/PolitiqueConfidentialite';
 import BackToTop from './components/BackToTop';
 import StudioPointer from './components/StudioPointer';
 import Kuro from './components/Kuro';
@@ -105,6 +107,14 @@ export default function App() {
       case '/a-propos':
       case '/hors-cadre':
         return <Parcours navigate={navigate} onOpenCvModal={() => setIsCvModalOpen(true)} />;
+
+      // 4. Mentions légales et politique de confidentialité
+      case '/mentions-legales':
+        return <MentionsLegales navigate={navigate} />;
+
+      case '/politique-de-confidentialite':
+      case '/politique-confidentialite':
+        return <PolitiqueConfidentialite navigate={navigate} />;
 
       // 1. Accueil par défaut
       case '/':

@@ -1,28 +1,48 @@
 /**
- * Vercel Serverless Function - Protection Géographique (DE -> 403 Forbidden)
- * Studio ROOM241 - Rémi Brocart
+ * Vercel Serverless Function — Protection Géographique & Restriction Réseau (DE -> 403 Forbidden)
+ * Studio ROOM241 — Rémi Brocart
+ *
+ * Spécifications de sécurité :
+ * 1. Source géographique : signal infrastructure strict 'x-vercel-ip-country' (fourni par le CDN Vercel Edge).
+ * 2. En production (VERCEL_ENV === 'production'), aucun paramètre d'URL (ex: test_country) ni en-tête client
+ *    arbitraire (x-test-country) n'est accepté. Le contournement client est strictement prohibé.
+ * 3. En environnement de test / local (NODE_ENV !== 'production' || VERCEL_ENV !== 'production'),
+ *    la simulation contrôlée via ?test_country=DE ou x-test-country reste permise pour les tests automatisés.
+ * 4. Prévention des faux positifs : un accès direct non ciblé DE est redirigé vers l'accueil (302 -> /).
+ * 5. En-têtes HTTP de réponse 403 : X-Robots-Tag noindex, nofollow, Vary: X-Vercel-IP-Country, Cache-Control no-store.
  */
 export default function handler(req, res) {
-  // Récupération sécurisée du pays injecté par l'infrastructure Vercel
+  const isProduction = process.env.VERCEL_ENV === 'production';
   const vercelCountry = req.headers['x-vercel-ip-country'];
-  const testCountry = req.headers['x-test-country'];
 
-  // Gestion des paramètres URL pour les tests de simulation contrôlés
-  let searchParams;
-  try {
-    const host = req.headers.host || 'localhost';
-    const parsedUrl = new URL(req.url, `https://${host}`);
-    searchParams = parsedUrl.searchParams;
-  } catch {
-    searchParams = new URLSearchParams();
+  let queryCountry = null;
+  let testCountry = null;
+
+  // En environnement hors production uniquement : autoriser la simulation contrôlée pour test-protection.js
+  if (!isProduction) {
+    testCountry = req.headers['x-test-country'];
+    try {
+      const host = req.headers.host || 'localhost';
+      const parsedUrl = new URL(req.url, `https://${host}`);
+      queryCountry = parsedUrl.searchParams.get('test_country');
+    } catch {
+      queryCountry = null;
+    }
   }
 
-  const queryCountry = searchParams.get('test_country');
-  const effectiveCountry = (vercelCountry || testCountry || queryCountry || '').toUpperCase();
+  // Détermination du pays effectif (en prod : strictement vercelCountry)
+  const effectiveCountry = (vercelCountry || (!isProduction ? (testCountry || queryCountry) : '') || '').toUpperCase();
 
   // Si la requête provient d'un autre pays et accède directement à cette fonction sans être ciblée DE,
   // rediriger vers l'accueil pour éviter un faux positif.
   if (effectiveCountry && effectiveCountry !== 'DE' && !queryCountry) {
+    res.writeHead(302, { Location: '/' });
+    res.end();
+    return;
+  }
+
+  // Si le pays n'est ni DE ni simulé DE (signal absent ou invalide hors rewrite), rediriger vers l'accueil
+  if (effectiveCountry !== 'DE') {
     res.writeHead(302, { Location: '/' });
     res.end();
     return;

@@ -175,7 +175,7 @@ export default function Studio({ navigate }) {
               3. Retombées opérationnelles
             </h3>
             <p className="text-sm text-[#52525B] leading-relaxed">
-              La visibilité et le sérieux des supports ont contribué à ouvrir des discussions qualifiées avec des acteurs majeurs de la distribution (<strong className="text-[#09090B]">Auchan, Grand Frais, E.Leclerc</strong>) au sujet de tests ou de déploiements pilotes.
+              La lisibilité et la rigueur des supports ont permis de clarifier la proposition de valeur de la solution et d'outiller efficacement les présentations commerciales auprès des professionnels de la grande distribution.
             </p>
           </div>
 
