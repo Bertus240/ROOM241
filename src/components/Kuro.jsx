@@ -163,10 +163,12 @@ export default function Kuro({ currentPath = '/', navigate, onOpenCvModal }) {
   const [isHovered, setIsHovered] = useState(false);
   const [isScrolling, setIsScrolling] = useState(false);
   const [eyeOffset, setEyeOffset] = useState({ x: 0, y: 0 });
+  const [isReturning, setIsReturning] = useState(false);
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
   const [activeContext, setActiveContext] = useState(CONTEXT_MESSAGES.home);
 
   const containerRef = useRef(null);
+  const headRef = useRef(null);
   const canvasRef = useRef(null);
   const animFrameRef = useRef(null);
   const scrollTimeout = useRef(null);
@@ -328,22 +330,27 @@ export default function Kuro({ currentPath = '/', navigate, onOpenCvModal }) {
     setExpression('neutral');
   }, [isIntroActive]);
 
-  // Suivi subtil du regard vers le curseur
+  // Suivi subtil du regard vers le curseur (desktop) et le contact tactile (mobile & tablette)
   useEffect(() => {
     if (prefersReducedMotion) return;
 
-    const handleMouseMove = (e) => {
+    let rafId = null;
+    let pendingCoords = null;
+    let returnTimeout = null;
+
+    const computeEyePosition = (clientX, clientY) => {
       let centerX = window.innerWidth / 2;
       let centerY = window.innerHeight / 2;
 
-      if (!isIntroActive && containerRef.current) {
-        const rect = containerRef.current.getBoundingClientRect();
+      const targetEl = headRef.current || containerRef.current;
+      if (targetEl) {
+        const rect = targetEl.getBoundingClientRect();
         centerX = rect.left + rect.width / 2;
         centerY = rect.top + rect.height / 2;
       }
 
-      const deltaX = e.clientX - centerX;
-      const deltaY = e.clientY - centerY;
+      const deltaX = clientX - centerX;
+      const deltaY = clientY - centerY;
       const dist = Math.hypot(deltaX, deltaY);
 
       if (dist === 0) {
@@ -360,8 +367,125 @@ export default function Kuro({ currentPath = '/', navigate, onOpenCvModal }) {
       });
     };
 
+    const scheduleUpdate = (clientX, clientY) => {
+      pendingCoords = { clientX, clientY };
+      if (!rafId) {
+        rafId = requestAnimationFrame(() => {
+          if (pendingCoords) {
+            computeEyePosition(pendingCoords.clientX, pendingCoords.clientY);
+          }
+          rafId = null;
+        });
+      }
+    };
+
+    // 1. Mouvement souris (Desktop) — Comportement existant préservé à l'identique
+    const handleMouseMove = (e) => {
+      setIsReturning(false);
+      clearTimeout(returnTimeout);
+      scheduleUpdate(e.clientX, e.clientY);
+    };
+
+    // 2. Interaction tactile (Mobile & Tablette)
+    // Au toucher : orientation immédiate vers le point de contact
+    const handleTouchStart = (e) => {
+      if (e.touches && e.touches.length > 0) {
+        setIsReturning(false);
+        clearTimeout(returnTimeout);
+        const t = e.touches[0];
+        computeEyePosition(t.clientX, t.clientY);
+      }
+    };
+
+    // Pendant le déplacement du doigt : suivi continu et fluide
+    const handleTouchMove = (e) => {
+      if (e.touches && e.touches.length > 0) {
+        setIsReturning(false);
+        clearTimeout(returnTimeout);
+        const t = e.touches[0];
+        scheduleUpdate(t.clientX, t.clientY);
+      }
+    };
+
+    // Au relâchement : retour progressif et naturel vers la position neutre
+    const handleTouchEnd = (e) => {
+      if (e.touches && e.touches.length > 0) {
+        const t = e.touches[0];
+        scheduleUpdate(t.clientX, t.clientY);
+      } else {
+        setIsReturning(true);
+        if (rafId) {
+          cancelAnimationFrame(rafId);
+          rafId = null;
+        }
+        pendingCoords = null;
+        setEyeOffset({ x: 0, y: 0 });
+        returnTimeout = setTimeout(() => {
+          setIsReturning(false);
+        }, 400);
+      }
+    };
+
+    // Sortie de fenêtre sur desktop : retour doux à la position neutre
+    const handleMouseLeave = () => {
+      setIsReturning(true);
+      if (rafId) {
+        cancelAnimationFrame(rafId);
+        rafId = null;
+      }
+      pendingCoords = null;
+      setEyeOffset({ x: 0, y: 0 });
+      returnTimeout = setTimeout(() => {
+        setIsReturning(false);
+      }, 400);
+    };
+
+    // Pointer Events pour stylet / pen sur tablette
+    const handlePointerDown = (e) => {
+      if (e.pointerType === 'pen') {
+        setIsReturning(false);
+        clearTimeout(returnTimeout);
+        computeEyePosition(e.clientX, e.clientY);
+      }
+    };
+    const handlePointerMove = (e) => {
+      if (e.pointerType === 'pen') {
+        setIsReturning(false);
+        clearTimeout(returnTimeout);
+        scheduleUpdate(e.clientX, e.clientY);
+      }
+    };
+    const handlePointerUp = (e) => {
+      if (e.pointerType === 'pen') {
+        handleTouchEnd({ touches: [] });
+      }
+    };
+
     window.addEventListener('mousemove', handleMouseMove, { passive: true });
-    return () => window.removeEventListener('mousemove', handleMouseMove);
+    window.addEventListener('touchstart', handleTouchStart, { passive: true });
+    window.addEventListener('touchmove', handleTouchMove, { passive: true });
+    window.addEventListener('touchend', handleTouchEnd, { passive: true });
+    window.addEventListener('touchcancel', handleTouchEnd, { passive: true });
+    window.addEventListener('pointerdown', handlePointerDown, { passive: true });
+    window.addEventListener('pointermove', handlePointerMove, { passive: true });
+    window.addEventListener('pointerup', handlePointerUp, { passive: true });
+    window.addEventListener('pointercancel', handlePointerUp, { passive: true });
+    document.addEventListener('mouseleave', handleMouseLeave);
+
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('touchstart', handleTouchStart);
+      window.removeEventListener('touchmove', handleTouchMove);
+      window.removeEventListener('touchend', handleTouchEnd);
+      window.removeEventListener('touchcancel', handleTouchEnd);
+      window.removeEventListener('pointerdown', handlePointerDown);
+      window.removeEventListener('pointermove', handlePointerMove);
+      window.removeEventListener('pointerup', handlePointerUp);
+      window.removeEventListener('pointercancel', handlePointerUp);
+      document.removeEventListener('mouseleave', handleMouseLeave);
+      if (rafId) cancelAnimationFrame(rafId);
+      clearTimeout(returnTimeout);
+    };
   }, [isIntroActive, prefersReducedMotion]);
 
   // Atténuation lors du défilement actif
@@ -580,7 +704,10 @@ export default function Kuro({ currentPath = '/', navigate, onOpenCvModal }) {
     const isClosed = !isIntroActive && expression === 'blink';
 
     return (
-      <div className={`relative ${sizeClasses} flex items-center justify-center shrink-0 select-none`}>
+      <div
+        ref={headRef}
+        className={`relative ${sizeClasses} flex items-center justify-center shrink-0 select-none`}
+      >
         {/* RESPIRATION MOCHI & MICRO-IMPULSION CORPORELLE */}
         <motion.div
           animate={
@@ -693,7 +820,9 @@ export default function Kuro({ currentPath = '/', navigate, onOpenCvModal }) {
                   width: `${pupilSizePx}px`,
                   height: `${pupilSizePx}px`,
                   transform: `translate(${pxOffsetX}px, ${pxOffsetY}px)`,
-                  transition: 'transform 0.08s ease-out',
+                  transition: isReturning
+                    ? 'transform 0.38s cubic-bezier(0.16, 1, 0.3, 1)'
+                    : 'transform 0.08s ease-out',
                 }}
               >
                 <span
@@ -725,7 +854,9 @@ export default function Kuro({ currentPath = '/', navigate, onOpenCvModal }) {
                   width: `${pupilSizePx}px`,
                   height: `${pupilSizePx}px`,
                   transform: `translate(${pxOffsetX}px, ${pxOffsetY}px)`,
-                  transition: 'transform 0.08s ease-out',
+                  transition: isReturning
+                    ? 'transform 0.38s cubic-bezier(0.16, 1, 0.3, 1)'
+                    : 'transform 0.08s ease-out',
                 }}
               >
                 <span

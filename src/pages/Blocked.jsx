@@ -42,6 +42,7 @@ const translations = {
 export default function Blocked({ navigate }) {
   const [lang, setLang] = useState('en');
   const [eyeOffset, setEyeOffset] = useState({ x: 0, y: 0 });
+  const [isReturning, setIsReturning] = useState(false);
   const [isBlinking, setIsBlinking] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
   const [reactionIndex, setReactionIndex] = useState(0);
@@ -51,19 +52,26 @@ export default function Blocked({ navigate }) {
 
   const t = translations[lang];
 
-  // Suivi subtil du regard vers le curseur sur desktop
+  // Suivi subtil du regard vers le curseur (desktop) et le contact tactile (mobile & tablette)
   useEffect(() => {
-    const handleMouseMove = (e) => {
+    let rafId = null;
+    let pendingCoords = null;
+    let returnTimeout = null;
+
+    const computeEyePosition = (clientX, clientY) => {
       if (!mochiRef.current) return;
       const rect = mochiRef.current.getBoundingClientRect();
       const centerX = rect.left + rect.width / 2;
       const centerY = rect.top + rect.height / 2;
 
-      const deltaX = e.clientX - centerX;
-      const deltaY = e.clientY - centerY;
+      const deltaX = clientX - centerX;
+      const deltaY = clientY - centerY;
       const distance = Math.hypot(deltaX, deltaY);
 
-      if (distance === 0) return;
+      if (distance === 0) {
+        setEyeOffset({ x: 0, y: 0 });
+        return;
+      }
 
       const maxOffset = 3.6; // Déplacement maximal des pupilles en pixels
       const clampedDist = Math.min(distance, 350) / 350;
@@ -73,8 +81,90 @@ export default function Blocked({ navigate }) {
       setEyeOffset({ x: offsetX, y: offsetY });
     };
 
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
+    const scheduleUpdate = (clientX, clientY) => {
+      pendingCoords = { clientX, clientY };
+      if (!rafId) {
+        rafId = requestAnimationFrame(() => {
+          if (pendingCoords) {
+            computeEyePosition(pendingCoords.clientX, pendingCoords.clientY);
+          }
+          rafId = null;
+        });
+      }
+    };
+
+    const handleMouseMove = (e) => {
+      setIsReturning(false);
+      clearTimeout(returnTimeout);
+      scheduleUpdate(e.clientX, e.clientY);
+    };
+
+    const handleTouchStart = (e) => {
+      if (e.touches && e.touches.length > 0) {
+        setIsReturning(false);
+        clearTimeout(returnTimeout);
+        const t = e.touches[0];
+        computeEyePosition(t.clientX, t.clientY);
+      }
+    };
+
+    const handleTouchMove = (e) => {
+      if (e.touches && e.touches.length > 0) {
+        setIsReturning(false);
+        clearTimeout(returnTimeout);
+        const t = e.touches[0];
+        scheduleUpdate(t.clientX, t.clientY);
+      }
+    };
+
+    const handleTouchEnd = (e) => {
+      if (e.touches && e.touches.length > 0) {
+        const t = e.touches[0];
+        scheduleUpdate(t.clientX, t.clientY);
+      } else {
+        setIsReturning(true);
+        if (rafId) {
+          cancelAnimationFrame(rafId);
+          rafId = null;
+        }
+        pendingCoords = null;
+        setEyeOffset({ x: 0, y: 0 });
+        returnTimeout = setTimeout(() => {
+          setIsReturning(false);
+        }, 400);
+      }
+    };
+
+    const handleMouseLeave = () => {
+      setIsReturning(true);
+      if (rafId) {
+        cancelAnimationFrame(rafId);
+        rafId = null;
+      }
+      pendingCoords = null;
+      setEyeOffset({ x: 0, y: 0 });
+      returnTimeout = setTimeout(() => {
+        setIsReturning(false);
+      }, 400);
+    };
+
+    window.addEventListener('mousemove', handleMouseMove, { passive: true });
+    window.addEventListener('touchstart', handleTouchStart, { passive: true });
+    window.addEventListener('touchmove', handleTouchMove, { passive: true });
+    window.addEventListener('touchend', handleTouchEnd, { passive: true });
+    window.addEventListener('touchcancel', handleTouchEnd, { passive: true });
+    document.addEventListener('mouseleave', handleMouseLeave);
+
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('touchstart', handleTouchStart);
+      window.removeEventListener('touchmove', handleTouchMove);
+      window.removeEventListener('touchend', handleTouchEnd);
+      window.removeEventListener('touchcancel', handleTouchEnd);
+      document.removeEventListener('mouseleave', handleMouseLeave);
+      if (rafId) cancelAnimationFrame(rafId);
+      clearTimeout(returnTimeout);
+    };
   }, []);
 
   // Clignement d'yeux irrégulier et naturel
@@ -314,7 +404,7 @@ export default function Blocked({ navigate }) {
                       width: 'clamp(8px, 1.3vw, 11px)',
                       height: 'clamp(8px, 1.3vw, 11px)',
                       transform: `translate(${eyeOffset.x}px, ${eyeOffset.y}px)`,
-                      transition: 'transform 0.06s ease-out',
+                      transition: isReturning ? 'transform 0.38s cubic-bezier(0.16, 1, 0.3, 1)' : 'transform 0.06s ease-out',
                     }}
                   >
                     <span
@@ -346,7 +436,7 @@ export default function Blocked({ navigate }) {
                       width: 'clamp(8px, 1.3vw, 11px)',
                       height: 'clamp(8px, 1.3vw, 11px)',
                       transform: `translate(${eyeOffset.x}px, ${eyeOffset.y}px)`,
-                      transition: 'transform 0.06s ease-out',
+                      transition: isReturning ? 'transform 0.38s cubic-bezier(0.16, 1, 0.3, 1)' : 'transform 0.06s ease-out',
                     }}
                   >
                     <span

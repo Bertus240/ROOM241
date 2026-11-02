@@ -584,23 +584,29 @@ export default function handler(req, res) {
       }
     }
 
-    // Suivi fluide du regard de Kuro vers le curseur de la souris (comme sur le site web)
+    // Suivi fluide du regard de Kuro vers le curseur (desktop) et le contact tactile (mobile & tablette)
     (function initKuroEyes() {
       const kuroOrb = document.getElementById('kuro-orb');
       const pupils = document.querySelectorAll('.kuro-pupil');
       const eyes = document.querySelectorAll('.kuro-eye');
       if (!kuroOrb || pupils.length === 0) return;
 
-      window.addEventListener('mousemove', (e) => {
+      function updateEyes(clientX, clientY, fast) {
+        pupils.forEach(p => {
+          p.style.transition = fast ? 'transform 0.08s ease-out' : 'transform 0.38s cubic-bezier(0.16, 1, 0.3, 1)';
+        });
         const rect = kuroOrb.getBoundingClientRect();
         const centerX = rect.left + rect.width / 2;
         const centerY = rect.top + rect.height / 2;
 
-        const dx = e.clientX - centerX;
-        const dy = e.clientY - centerY;
+        const dx = clientX - centerX;
+        const dy = clientY - centerY;
         const dist = Math.hypot(dx, dy);
 
-        if (dist === 0) return;
+        if (dist === 0) {
+          pupils.forEach(p => { p.style.transform = 'translate(0px, 0px)'; });
+          return;
+        }
 
         const angle = Math.atan2(dy, dx);
         const intensity = Math.min(dist / 220, 1) * 3.2; // Intensité identique au site web (3.2px)
@@ -610,7 +616,41 @@ export default function handler(req, res) {
         pupils.forEach(p => {
           p.style.transform = 'translate(' + ox.toFixed(2) + 'px, ' + oy.toFixed(2) + 'px)';
         });
+      }
+
+      function resetEyes() {
+        pupils.forEach(p => {
+          p.style.transition = 'transform 0.38s cubic-bezier(0.16, 1, 0.3, 1)';
+          p.style.transform = 'translate(0px, 0px)';
+        });
+      }
+
+      window.addEventListener('mousemove', (e) => {
+        updateEyes(e.clientX, e.clientY, true);
       }, { passive: true });
+
+      window.addEventListener('touchstart', (e) => {
+        if (e.touches && e.touches.length > 0) {
+          updateEyes(e.touches[0].clientX, e.touches[0].clientY, true);
+        }
+      }, { passive: true });
+
+      window.addEventListener('touchmove', (e) => {
+        if (e.touches && e.touches.length > 0) {
+          updateEyes(e.touches[0].clientX, e.touches[0].clientY, true);
+        }
+      }, { passive: true });
+
+      window.addEventListener('touchend', (e) => {
+        if (e.touches && e.touches.length > 0) {
+          updateEyes(e.touches[0].clientX, e.touches[0].clientY, true);
+        } else {
+          resetEyes();
+        }
+      }, { passive: true });
+
+      window.addEventListener('touchcancel', resetEyes, { passive: true });
+      document.addEventListener('mouseleave', resetEyes);
 
       // Clignement d'yeux naturel et irrégulier
       function blink() {

@@ -1,3 +1,4 @@
+import { track } from '@vercel/analytics';
 import { hasAnalyticsConsent, ANALYTICS_EVENTS_KEY, PAGE_VIEWS_KEY } from './visitorChoice';
 
 const STORAGE_KEY = ANALYTICS_EVENTS_KEY;
@@ -107,8 +108,10 @@ export function trackEvent(eventName, properties = {}) {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
 
     // Also send to Vercel Analytics if available
-    if (typeof window !== 'undefined' && window.va) {
-      window.va('event', eventName, properties);
+    try {
+      track(eventName, properties);
+    } catch {
+      // Ignore if analytics not available
     }
   } catch (err) {
     console.error('Failed to track event:', err);
