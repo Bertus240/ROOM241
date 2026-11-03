@@ -115,9 +115,45 @@ export const projectsData = {
       text: "Conception et habillage de pavillons d'exposition majeurs (FIC Lille avec piste de karting, it-sa Nuremberg, InfoSec Londres), réalisation de supports d'édition B2B rigoureux, formats courts motion design pour LinkedIn et sprint créatif de 36h au siège à Hanovre."
     },
     act3: {
-      title: "03. L'Impact & Continuité",
-      text: "Un accompagnement de 3 ans garantissant cohérence de marque, autonomie de production et impact terrain mesuré lors des temps forts de l'entreprise (+4 000 contacts collectifs enregistrés au FIC)."
+      title: "03. Présence Terrain & Incarnation de Marque",
+      text: "De la préparation des salons professionnels à l'expérience vécue sur place, j'ai contribué à faire rayonner Hornetsecurity auprès de publics internationaux. J'ai également incarné le super-héros de la marque lors de deux éditions consécutives d'it-sa Nuremberg, renforçant la proximité et l'impact mémorable auprès des décideurs."
     },
+    proofAssetsTitle: "ÉVÉNEMENTIEL INTERNATIONAL",
+    proofAssetsSubtitle: "Bien plus que des stands : faire vivre la marque sur le terrain",
+    proofAssets: [
+      {
+        id: 1,
+        src: "/assets/hornetsecurity/fic/Stand/IMG20250401075104.jpg",
+        thumbUrl: "/assets/hornetsecurity/fic/Stand/IMG20250401075104.jpg",
+        title: "Scénographie et stand d'envergure (> 150 m²)",
+        description: "Direction artistique et habillage visuel grand format au Forum InCyber (FIC) à Lille : signalétique haute visibilité et piste e-karting intégrée.",
+        caption: "Direction artistique et habillage visuel grand format au Forum InCyber (FIC) à Lille : signalétique haute visibilité et piste e-karting intégrée."
+      },
+      {
+        id: 2,
+        src: "/assets/hornetsecurity/affiche_helix_sprint.jpg",
+        thumbUrl: "/assets/hornetsecurity/affiche_helix_sprint.jpg",
+        title: "Communication visuelle événementielle & Supports B2B",
+        description: "Préparation et déclinaison de supports physiques pour les forces de vente internationales : kakémonos salon, brochures et fiches produits.",
+        caption: "Préparation et déclinaison de supports physiques pour les forces de vente internationales : kakémonos salon, brochures et fiches produits."
+      },
+      {
+        id: 3,
+        src: "/assets/hornetsecurity/fic/Capain/captain2.jpg",
+        thumbUrl: "/assets/hornetsecurity/fic/Capain/captain2.jpg",
+        title: "Représentation et animation de la marque sur le terrain",
+        description: "Incarnation du super-héros Hornetsecurity lors de deux éditions consécutives du salon it-sa à Nuremberg, créant un lien immédiat avec les visiteurs.",
+        caption: "Incarnation du super-héros Hornetsecurity lors de deux éditions consécutives du salon it-sa à Nuremberg, créant un lien immédiat avec les visiteurs."
+      },
+      {
+        id: 4,
+        src: "/assets/hornetsecurity/fic/Stand/tmp_8551ceee-de3b-46ec-ba5a-a37cac8e00df.jpeg",
+        thumbUrl: "/assets/hornetsecurity/fic/Stand/tmp_8551ceee-de3b-46ec-ba5a-a37cac8e00df.jpeg",
+        title: "Captation terrain & Formats courts",
+        description: "Captation des temps forts et interviews lors des salons professionnels européens pour alimenter la communication digitale de l'éditeur.",
+        caption: "Captation des temps forts et interviews lors des salons professionnels européens pour alimenter la communication digitale de l'éditeur."
+      }
+    ],
     nextSlug: "fresh-data",
     nextTitle: "Fresh Data (Retail Data & Financement)"
   },
