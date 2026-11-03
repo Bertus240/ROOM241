@@ -16,15 +16,22 @@ import Kuro from './components/Kuro';
 import Blocked from './pages/Blocked';
 import { projectsData } from './data/projects';
 import { incrementPageView } from './lib/telemetry';
-import { initTheme } from './lib/theme';
+import { initTheme, syncThemeWithRoute, applyTheme } from './lib/theme';
+import { SpeedInsights } from '@vercel/speed-insights/react';
 
 export default function App() {
   const [currentPath, setCurrentPath] = useState(window.location.pathname || '/');
-  const [isCvModalOpen, setIsCvModalOpen] = useState(false);
+  const [isCvModalOpen, setIsCvModalOpen] = useState(() => {
+    if (typeof window !== 'undefined') {
+      const params = new URLSearchParams(window.location.search);
+      return params.get('cv') === 'open' || window.location.hash === '#cv';
+    }
+    return false;
+  });
 
-  // Initialisation du thème light-mode pur et gestion de la persistance de scroll au reload
+  // Initialisation du thème déterministe et gestion de la persistance de scroll au reload
   useEffect(() => {
-    initTheme();
+    initTheme(window.location.pathname);
 
     // Empêcher le navigateur de reset le scroll avant que React ait monté les composants
     if ('scrollRestoration' in window.history) {
@@ -94,13 +101,20 @@ export default function App() {
   // Écoute de l'historique du navigateur (boutons précédent / suivant)
   useEffect(() => {
     const handleLocationChange = () => {
-      setCurrentPath(window.location.pathname || '/');
+      const nextPath = window.location.pathname || '/';
+      syncThemeWithRoute(nextPath);
+      setCurrentPath(nextPath);
       incrementPageView();
     };
 
     window.addEventListener('popstate', handleLocationChange);
     return () => window.removeEventListener('popstate', handleLocationChange);
   }, []);
+
+  // Synchronisation stricte et déterministe du thème avec la route active
+  useEffect(() => {
+    syncThemeWithRoute(currentPath);
+  }, [currentPath]);
 
   // Navigation client fluide avec pushState
   const navigate = (path) => {
@@ -116,8 +130,10 @@ export default function App() {
       return;
     }
 
+    const targetPath = pathname || '/';
+    syncThemeWithRoute(targetPath);
     window.history.pushState({}, '', path);
-    setCurrentPath(pathname || '/');
+    setCurrentPath(targetPath);
     incrementPageView();
 
     if (hash) {
@@ -168,15 +184,17 @@ export default function App() {
         <CvModal isOpen={isCvModalOpen} onClose={() => setIsCvModalOpen(false)} />
         <Kuro currentPath={currentPath} navigate={navigate} onOpenCvModal={() => setIsCvModalOpen(true)} />
         <BackToTop />
+        <SpeedInsights />
       </div>
     );
   }
 
-  // Rendu des 3 rubriques principales (avec alias rétro-compatibles)
+  // Rendu des rubriques principales (avec alias rétro-compatibles)
   const renderPage = () => {
     switch (currentPath) {
       // 2. Projets (regroupant toutes les études de cas documentées)
       case '/projets':
+      case '/realisations':
       case '/hornetsecurity':
       case '/studio':
         return <Projects navigate={navigate} />;
@@ -242,6 +260,9 @@ export default function App() {
         isOpen={isCvModalOpen}
         onClose={() => setIsCvModalOpen(false)}
       />
+
+      {/* Mesure de performance Vercel Speed Insights */}
+      <SpeedInsights />
 
     </div>
   );

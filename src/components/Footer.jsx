@@ -27,14 +27,14 @@ export default function Footer({ navigate }) {
           >
             {/* Logo noir pour le thème clair */}
             <img
-              src="/430x95_Framer_Black@4x.png"
+              src="/assets/logos/430x95_Framer_Black@4x.png"
               alt="ROOM241"
               className="h-6 sm:h-7 w-auto object-contain dark:hidden"
               loading="lazy"
             />
             {/* Logo blanc pour le thème sombre */}
             <img
-              src="/430x95_Framer_white@4x.png"
+              src="/assets/logos/430x95_Framer_white@4x.png"
               alt="ROOM241"
               className="h-6 sm:h-7 w-auto object-contain hidden dark:block"
               loading="lazy"

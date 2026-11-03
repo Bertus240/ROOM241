@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   Compass,
@@ -20,9 +20,10 @@ import {
   CheckCircle2,
   ChevronRight
 } from 'lucide-react';
-import MochiAvatar from '../components/MochiAvatar';
 import EditorialViewer from '../components/EditorialViewer';
 import { editorialPhotos, marathonPhoto } from '../data/gallery';
+import { applyTheme } from '../lib/theme';
+import { getTrainingStats } from '../lib/trainingStats';
 
 /**
  * Univers Personnel — « Au-delà du travail » (Mode sombre authentique)
@@ -35,7 +36,12 @@ import { editorialPhotos, marathonPhoto } from '../data/gallery';
  */
 export default function PersonalUniverse({ navigate, onSwitchToPro }) {
   const [lightboxIndex, setLightboxIndex] = useState(null);
-  const [mochiReaction, setMochiReaction] = useState(0);
+  const trainingStats = getTrainingStats();
+
+  // Activation immédiate du mode sombre authentique dès l'entrée dans l'univers personnel
+  useEffect(() => {
+    applyTheme('dark');
+  }, []);
 
   const handleNav = (path) => (e) => {
     if (e) e.preventDefault();
@@ -58,7 +64,7 @@ export default function PersonalUniverse({ navigate, onSwitchToPro }) {
   return (
     <div className="bg-[#0B0A09] text-[#EDEDED] min-h-screen font-sans selection:bg-[#FFAD00] selection:text-black">
       
-      {/* 1. HERO D'OUVERTURE PERSONNEL AVEC MOCHI */}
+      {/* 1. HERO D'OUVERTURE PERSONNEL AVEC KURO */}
       <section className="relative pt-32 pb-20 sm:pt-40 sm:pb-28 border-b border-white/10 overflow-hidden">
         {/* Glow ambré d'ambiance ultra-doux */}
         <div
@@ -68,14 +74,11 @@ export default function PersonalUniverse({ navigate, onSwitchToPro }) {
 
         <div className="max-w-[1280px] mx-auto px-5 sm:px-8 lg:px-10 relative z-10 space-y-12">
           
-          {/* Mochi en guide d'accueil */}
+          {/* En-tête personnel éditorial */}
           <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6 max-w-3xl">
-            <MochiAvatar
-              size="lg"
-              reaction={mochiReaction}
-              onClick={() => setMochiReaction((prev) => prev + 1)}
-              className="cursor-pointer"
-            />
+            <div className="w-14 h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center shrink-0 shadow-lg">
+              <Compass className="w-7 h-7 text-[#FFAD00]" />
+            </div>
             
             <div className="space-y-3 text-center sm:text-left">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-[#FFAD00]">
@@ -394,10 +397,10 @@ export default function PersonalUniverse({ navigate, onSwitchToPro }) {
                   </div>
                   <div className="flex items-center justify-between">
                     <span className="text-xs text-zinc-400">Semaines consécutives</span>
-                    <span className="text-sm font-mono font-bold text-[#FFAD00]">325 semaines</span>
+                    <span className="text-sm font-mono font-bold text-[#FFAD00]">{trainingStats.weeks} semaines</span>
                   </div>
                   <div className="pt-2 border-t border-white/5 text-[10px] font-mono text-zinc-500">
-                    État : Données issues d'un instantané de capture daté (non synchronisées en continu via API).
+                    Progression calculée depuis le {trainingStats.baseDateFormatted}
                   </div>
                 </div>
 
@@ -422,7 +425,7 @@ export default function PersonalUniverse({ navigate, onSwitchToPro }) {
         </div>
       </section>
 
-      {/* 6. COMPRENDRE LES MÉCANISMES : INVESTISSEMENT & IMMOBILIER */}
+      {/* 6. COMPRENDRE LES MÉCANISMES : INVESTISSEMENT & SYSTÈMES ÉCONOMIQUES */}
       <section className="py-20 sm:py-28 border-b border-white/10">
         <div className="max-w-[1280px] mx-auto px-5 sm:px-8 lg:px-10 space-y-12">
           
@@ -430,40 +433,40 @@ export default function PersonalUniverse({ navigate, onSwitchToPro }) {
             <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-zinc-500">
               <span className="font-bold text-[#FFAD00]">05</span>
               <span>/</span>
-              <span>MÉTHODE, RISQUE &amp; ACTIFS CONCRETS</span>
+              <span>MÉTHODE, RISQUE &amp; TEMPS LONG</span>
             </div>
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight text-white flex items-center gap-3">
               <TrendingUp className="w-8 h-8 text-[#FFAD00]" />
-              <span>L'investissement : la méthode face aux émotions</span>
+              <span>Comprendre les systèmes économiques : méthode et discipline</span>
             </h2>
             <p className="text-sm sm:text-base text-zinc-400 leading-relaxed">
-              L'approche financière répond à la même logique que le travail technique : préférer une méthode structurée et éprouvée à la spéculation court terme, comprendre les mécanismes de risque avant de choisir un outil, et laisser le temps faire son œuvre.
+              L'intérêt pour l'économie répond à la même démarche que le design ou le code : comprendre le fonctionnement des systèmes sous-jacents, analyser les mécanismes de risque et construire dans la durée avec méthode plutôt que de réagir aux impulsions court terme.
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             
-            {/* Actifs financiers */}
+            {/* Actifs financiers & Stratégie indicielle */}
             <div className="p-7 sm:p-9 rounded-3xl bg-zinc-900/60 border border-white/10 space-y-4">
-              <span className="text-xs font-mono uppercase tracking-wider text-[#FFAD00]">Régularité &amp; Automatisation</span>
-              <h3 className="text-xl font-bold text-white">Stratégie indicielle et DCA</h3>
+              <span className="text-xs font-mono uppercase tracking-wider text-[#FFAD00]">Régularité &amp; Horizon Long</span>
+              <h3 className="text-xl font-bold text-white">Méthode indicielle, DCA et diversification</h3>
               <p className="text-xs sm:text-sm text-zinc-400 leading-relaxed">
-                Automatisation des versements programmés (Dollar-Cost Averaging) via Trade Republic sur des indices mondiaux et américains (S&P 500, Nasdaq). Complément de diversification avec une exposition au Bitcoin (mécanisme d'arrondis automatiques Bitstack) et à l'or. Compréhension indispensable des instruments à effet de levier (ex: levier x2), conçus pour des contextes précis mais porteurs de volatilité accrue.
+                L'investissement régulier programmé (Dollar-Cost Averaging) sur des paniers indiciels diversifiés permet de soustraire la décision aux biais émotionnels du marché. Cette logique s'accompagne d'une curiosité pour la diversification des réserves de valeur (indices larges, or physique, Bitcoin) et l'analyse rigoureuse de la volatilité, loin de toute spéculation immédiate.
               </p>
               <div className="text-[11px] font-mono text-zinc-500 pt-2 border-t border-white/10">
-                Principe : Méthode froide, aucun conseil en investissement, gestion rigoureuse du risque.
+                Ligne directrice : Méthode froide, gestion mesurée du risque et vision pluriannuelle.
               </div>
             </div>
 
-            {/* Immobilier concret */}
+            {/* Économie réelle, modélisation & systèmes */}
             <div className="p-7 sm:p-9 rounded-3xl bg-zinc-900/60 border border-white/10 space-y-4">
-              <span className="text-xs font-mono uppercase tracking-wider text-[#FFAD00]">Actif Tangible • Début 2026</span>
-              <h3 className="text-xl font-bold text-white">Acquisition d'un studio de 32 m² à Loos</h3>
+              <span className="text-xs font-mono uppercase tracking-wider text-[#FFAD00]">Systèmes &amp; Cadre Réel</span>
+              <h3 className="text-xl font-bold text-white">Compréhension des flux, modélisation du risque et autonomie</h3>
               <p className="text-xs sm:text-sm text-zinc-400 leading-relaxed">
-                L'achat d'un studio de 32 m² au début de l'année 2026 à Loos (périphérie lilloise) constitue un exercice pratique complet : compréhension concrète du crédit bancaire, modélisation de l'effet de levier, analyse des charges et de la fiscalité en location meublée (LMNP), et articulation entre actifs financiers liquides et patrimoine tangible.
+                Cette démarche d'apprentissage intellectuel s'étend à la compréhension des grands équilibres macroéconomiques, des cycles de marché et de la régulation des flux. Comprendre comment s'articulent les politiques monétaires, analyser les structures de coûts et anticiper les contraintes de terrain relève d'une même curiosité systémique.
               </p>
               <div className="text-[11px] font-mono text-zinc-500 pt-2 border-t border-white/10">
-                Principe : Maîtriser le fonctionnement des contrats, des emprunts et de la gestion réelle.
+                Ligne directrice : Analyser la structure sous-jacente et raisonner en termes de ratios de risque.
               </div>
             </div>
 
@@ -530,3 +533,4 @@ export default function PersonalUniverse({ navigate, onSwitchToPro }) {
     </div>
   );
 }
+

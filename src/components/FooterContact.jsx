@@ -55,27 +55,27 @@ export default function FooterContact({ navigate }) {
           
           {/* Colonne Gauche : Présentation, posture et disponibilité avec dégagement sécurisé */}
           <div className="lg:col-span-5 space-y-6">
-            <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-white/95 backdrop-blur-xl border border-zinc-200/80 text-xs font-semibold text-zinc-800 shadow-[0_2px_8px_rgba(0,0,0,0.03)]">
+            <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-white/95 dark:bg-[#121214] backdrop-blur-xl border border-zinc-200/80 dark:border-zinc-800 text-xs font-semibold text-zinc-800 dark:text-zinc-200 shadow-[0_2px_8px_rgba(0,0,0,0.03)]">
               <span className="w-2 h-2 rounded-full bg-[#FFAD00] shadow-[0_0_8px_rgba(255,173,0,0.85)] animate-pulse" />
               <span>{identity.brand} • {identity.name}</span>
             </div>
 
-            <h2 className="text-3xl sm:text-4xl lg:text-[44px] font-extrabold tracking-tight text-[#09090B] leading-[1.12]">
+            <h2 className="text-3xl sm:text-4xl lg:text-[44px] font-extrabold tracking-tight text-[#09090B] dark:text-white leading-[1.12]">
               Échangeons sur vos projets &amp; opportunités
             </h2>
 
-            <p className="text-sm sm:text-base text-[#52525B] leading-relaxed max-w-lg">
+            <p className="text-sm sm:text-base text-[#52525B] dark:text-zinc-300 leading-relaxed max-w-lg">
               Disponible pour échanger sur vos besoins en direction artistique, scénographie événementielle, création de marque ou sur un poste en design graphique.
             </p>
 
             {/* Badges de réassurance et disponibilité */}
             <div className="pt-2 flex flex-wrap items-center gap-2.5">
-              <span className="inline-flex items-center gap-2 text-xs font-mono text-zinc-800 bg-white/90 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-zinc-200/90 shadow-[0_2px_8px_rgba(0,0,0,0.03)]">
+              <span className="inline-flex items-center gap-2 text-xs font-mono text-zinc-800 dark:text-zinc-300 bg-white/90 dark:bg-[#121214] backdrop-blur-md px-3.5 py-1.5 rounded-full border border-zinc-200/90 dark:border-zinc-800 shadow-[0_2px_8px_rgba(0,0,0,0.03)]">
                 <span className="w-2 h-2 rounded-full bg-emerald-500 shadow-[0_0_6px_rgba(16,185,129,0.7)]" />
                 <span>Disponible immédiatement • Lille, Métropole &amp; Hybride</span>
               </span>
 
-              <span className="inline-flex items-center gap-1.5 text-xs font-mono text-zinc-500 bg-zinc-100/90 px-3 py-1.5 rounded-full border border-zinc-200/60">
+              <span className="inline-flex items-center gap-1.5 text-xs font-mono text-zinc-500 dark:text-zinc-400 bg-zinc-100/90 dark:bg-zinc-900/90 px-3 py-1.5 rounded-full border border-zinc-200/60 dark:border-zinc-800">
                 <span>⏱ Réponse sous 24h ouvrées</span>
               </span>
             </div>
@@ -85,18 +85,18 @@ export default function FooterContact({ navigate }) {
           <div className="lg:col-span-7 space-y-4">
             
             {/* Carte Email */}
-            <div className="p-5 sm:p-6 rounded-2xl bg-white/80 hover:bg-white backdrop-blur-2xl border border-zinc-200/80 hover:border-[#FFAD00]/60 shadow-[0_4px_24px_rgba(0,0,0,0.03)] hover:shadow-[0_16px_40px_rgba(255,173,0,0.08)] transition-all duration-300 flex flex-col sm:flex-row sm:items-center justify-between gap-4 group">
+            <div className="p-5 sm:p-6 rounded-2xl bg-white/80 hover:bg-white dark:bg-[#121214] dark:hover:bg-[#18181b] backdrop-blur-2xl border border-zinc-200/80 hover:border-[#FFAD00]/60 dark:border-zinc-800 dark:hover:border-[#FFAD00]/60 shadow-[0_4px_24px_rgba(0,0,0,0.03)] hover:shadow-[0_16px_40px_rgba(255,173,0,0.08)] transition-all duration-300 flex flex-col sm:flex-row sm:items-center justify-between gap-4 group">
               <div className="flex items-start gap-4">
                 <div className="w-11 h-11 rounded-xl bg-amber-500/10 border border-amber-500/25 flex items-center justify-center shrink-0 mt-0.5 group-hover:scale-105 group-hover:bg-[#FFAD00] transition-all">
                   <Mail className="w-5 h-5 text-[#FFAD00] group-hover:text-black transition-colors" />
                 </div>
                 <div className="space-y-1">
-                  <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-zinc-400 block">
+                  <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-zinc-400 dark:text-zinc-500 block">
                     Email direct
                   </span>
                   <a
                     href={`mailto:${identity.links.email}`}
-                    className="text-base sm:text-lg font-bold text-zinc-950 hover:text-[#FFAD00] transition-colors break-all"
+                    className="text-base sm:text-lg font-bold text-zinc-950 dark:text-zinc-100 hover:text-[#FFAD00] transition-colors break-all"
                   >
                     {identity.links.email}
                   </a>
@@ -106,7 +106,7 @@ export default function FooterContact({ navigate }) {
               <div className="flex items-center gap-2 shrink-0 pt-2 sm:pt-0 pl-15 sm:pl-0">
                 <a
                   href={`mailto:${identity.links.email}`}
-                  className="px-4 py-2 rounded-full bg-[#09090B] hover:bg-zinc-800 text-white text-xs font-semibold inline-flex items-center gap-1.5 transition-all shadow-xs active:scale-95 cursor-pointer"
+                  className="px-4 py-2 rounded-full bg-[#09090B] hover:bg-zinc-800 dark:bg-zinc-800 dark:hover:bg-zinc-700 dark:border dark:border-zinc-700 text-white text-xs font-semibold inline-flex items-center gap-1.5 transition-all shadow-xs active:scale-95 cursor-pointer"
                 >
                   <span>Écrire</span>
                   <ArrowUpRight className="w-3.5 h-3.5 text-[#FFAD00]" />
@@ -114,7 +114,7 @@ export default function FooterContact({ navigate }) {
                 <button
                   type="button"
                   onClick={handleCopyEmail}
-                  className="px-3.5 py-2 rounded-full bg-white hover:bg-zinc-100 text-zinc-700 text-xs font-medium border border-zinc-200 inline-flex items-center gap-1.5 transition-all cursor-pointer shadow-2xs active:scale-95"
+                  className="px-3.5 py-2 rounded-full bg-white hover:bg-zinc-100 dark:bg-zinc-800/90 dark:hover:bg-zinc-800 text-zinc-700 dark:text-zinc-200 text-xs font-medium border border-zinc-200 dark:border-zinc-700 inline-flex items-center gap-1.5 transition-all cursor-pointer shadow-2xs active:scale-95"
                   title="Copier l'adresse email"
                 >
                   {copiedEmail ? (
@@ -133,18 +133,18 @@ export default function FooterContact({ navigate }) {
             </div>
 
             {/* Carte Téléphone */}
-            <div className="p-5 sm:p-6 rounded-2xl bg-white/80 hover:bg-white backdrop-blur-2xl border border-zinc-200/80 hover:border-[#FFAD00]/60 shadow-[0_4px_24px_rgba(0,0,0,0.03)] hover:shadow-[0_16px_40px_rgba(255,173,0,0.08)] transition-all duration-300 flex flex-col sm:flex-row sm:items-center justify-between gap-4 group">
+            <div className="p-5 sm:p-6 rounded-2xl bg-white/80 hover:bg-white dark:bg-[#121214] dark:hover:bg-[#18181b] backdrop-blur-2xl border border-zinc-200/80 hover:border-[#FFAD00]/60 dark:border-zinc-800 dark:hover:border-[#FFAD00]/60 shadow-[0_4px_24px_rgba(0,0,0,0.03)] hover:shadow-[0_16px_40px_rgba(255,173,0,0.08)] transition-all duration-300 flex flex-col sm:flex-row sm:items-center justify-between gap-4 group">
               <div className="flex items-start gap-4">
-                <div className="w-11 h-11 rounded-xl bg-zinc-100 border border-zinc-200/90 flex items-center justify-center shrink-0 mt-0.5 group-hover:scale-105 group-hover:bg-zinc-950 transition-all">
-                  <Phone className="w-5 h-5 text-zinc-700 group-hover:text-white transition-colors" />
+                <div className="w-11 h-11 rounded-xl bg-zinc-100 dark:bg-zinc-800/80 border border-zinc-200/90 dark:border-zinc-700 flex items-center justify-center shrink-0 mt-0.5 group-hover:scale-105 group-hover:bg-zinc-950 dark:group-hover:bg-zinc-700 transition-all">
+                  <Phone className="w-5 h-5 text-zinc-700 dark:text-zinc-300 group-hover:text-white transition-colors" />
                 </div>
                 <div className="space-y-1">
-                  <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-zinc-400 block">
+                  <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-zinc-400 dark:text-zinc-500 block">
                     Téléphone professionnel
                   </span>
                   <a
                     href={`tel:${identity.links.phone}`}
-                    className="text-base sm:text-lg font-bold text-zinc-950 hover:text-[#FFAD00] transition-colors"
+                    className="text-base sm:text-lg font-bold text-zinc-950 dark:text-zinc-100 hover:text-[#FFAD00] transition-colors"
                   >
                     {identity.links.phoneFormatted}
                   </a>
@@ -154,7 +154,7 @@ export default function FooterContact({ navigate }) {
               <div className="flex items-center gap-2 shrink-0 pt-2 sm:pt-0 pl-15 sm:pl-0">
                 <a
                   href={`tel:${identity.links.phone}`}
-                  className="px-4 py-2 rounded-full bg-[#09090B] hover:bg-zinc-800 text-white text-xs font-semibold inline-flex items-center gap-1.5 transition-all shadow-xs active:scale-95 cursor-pointer"
+                  className="px-4 py-2 rounded-full bg-[#09090B] hover:bg-zinc-800 dark:bg-zinc-800 dark:hover:bg-zinc-700 dark:border dark:border-zinc-700 text-white text-xs font-semibold inline-flex items-center gap-1.5 transition-all shadow-xs active:scale-95 cursor-pointer"
                 >
                   <span>Appeler</span>
                   <ArrowUpRight className="w-3.5 h-3.5 text-[#FFAD00]" />
@@ -162,7 +162,7 @@ export default function FooterContact({ navigate }) {
                 <button
                   type="button"
                   onClick={handleCopyPhone}
-                  className="px-3.5 py-2 rounded-full bg-white hover:bg-zinc-100 text-zinc-700 text-xs font-medium border border-zinc-200 inline-flex items-center gap-1.5 transition-all cursor-pointer shadow-2xs active:scale-95"
+                  className="px-3.5 py-2 rounded-full bg-white hover:bg-zinc-100 dark:bg-zinc-800/90 dark:hover:bg-zinc-800 text-zinc-700 dark:text-zinc-200 text-xs font-medium border border-zinc-200 dark:border-zinc-700 inline-flex items-center gap-1.5 transition-all cursor-pointer shadow-2xs active:scale-95"
                   title="Copier le numéro de téléphone"
                 >
                   {copiedPhone ? (
@@ -181,20 +181,20 @@ export default function FooterContact({ navigate }) {
             </div>
 
             {/* Carte LinkedIn */}
-            <div className="p-5 sm:p-6 rounded-2xl bg-white/80 hover:bg-white backdrop-blur-2xl border border-zinc-200/80 hover:border-[#FFAD00]/60 shadow-[0_4px_24px_rgba(0,0,0,0.03)] hover:shadow-[0_16px_40px_rgba(255,173,0,0.08)] transition-all duration-300 flex flex-col sm:flex-row sm:items-center justify-between gap-4 group">
+            <div className="p-5 sm:p-6 rounded-2xl bg-white/80 hover:bg-white dark:bg-[#121214] dark:hover:bg-[#18181b] backdrop-blur-2xl border border-zinc-200/80 hover:border-[#FFAD00]/60 dark:border-zinc-800 dark:hover:border-[#FFAD00]/60 shadow-[0_4px_24px_rgba(0,0,0,0.03)] hover:shadow-[0_16px_40px_rgba(255,173,0,0.08)] transition-all duration-300 flex flex-col sm:flex-row sm:items-center justify-between gap-4 group">
               <div className="flex items-start gap-4">
-                <div className="w-11 h-11 rounded-xl bg-blue-50 border border-blue-200/80 flex items-center justify-center shrink-0 mt-0.5 group-hover:scale-105 group-hover:bg-[#0A66C2] transition-all">
-                  <Linkedin className="w-5 h-5 text-blue-600 group-hover:text-white transition-colors" />
+                <div className="w-11 h-11 rounded-xl bg-blue-50 dark:bg-blue-950/40 border border-blue-200/80 dark:border-blue-900/60 flex items-center justify-center shrink-0 mt-0.5 group-hover:scale-105 group-hover:bg-[#0A66C2] transition-all">
+                  <Linkedin className="w-5 h-5 text-blue-600 dark:text-blue-400 group-hover:text-white transition-colors" />
                 </div>
                 <div className="space-y-1">
-                  <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-zinc-400 block">
+                  <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-zinc-400 dark:text-zinc-500 block">
                     Profil LinkedIn
                   </span>
                   <a
                     href={identity.links.linkedin}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-base sm:text-lg font-bold text-zinc-950 hover:text-[#FFAD00] transition-colors"
+                    className="text-base sm:text-lg font-bold text-zinc-950 dark:text-zinc-100 hover:text-[#FFAD00] transition-colors"
                   >
                     {identity.links.linkedinDisplay}
                   </a>
@@ -206,7 +206,7 @@ export default function FooterContact({ navigate }) {
                   href={identity.links.linkedin}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="px-4 py-2 rounded-full bg-[#09090B] hover:bg-zinc-800 text-white text-xs font-semibold inline-flex items-center gap-1.5 transition-all shadow-xs active:scale-95 cursor-pointer"
+                  className="px-4 py-2 rounded-full bg-[#09090B] hover:bg-zinc-800 dark:bg-zinc-800 dark:hover:bg-zinc-700 dark:border dark:border-zinc-700 text-white text-xs font-semibold inline-flex items-center gap-1.5 transition-all shadow-xs active:scale-95 cursor-pointer"
                 >
                   <span>Consulter le profil</span>
                   <ArrowUpRight className="w-3.5 h-3.5 text-[#FFAD00]" />
@@ -218,19 +218,19 @@ export default function FooterContact({ navigate }) {
         </div>
 
         {/* 5 entrées de navigation du pied de page & Copyright sobre (avec padding mobile pour Kuro sans asymétrie sur desktop) */}
-        <div className="pt-8 border-t border-zinc-200/80 flex flex-col md:flex-row items-center justify-between gap-4 text-xs font-medium text-zinc-600 pl-16 md:pl-0">
+        <div className="pt-8 border-t border-zinc-200/80 dark:border-zinc-800 flex flex-col md:flex-row items-center justify-between gap-4 text-xs font-medium text-zinc-600 dark:text-zinc-400 pl-16 md:pl-0">
           <nav className="flex flex-wrap items-center justify-center md:justify-start gap-x-6 gap-y-2" aria-label="Navigation pied de page">
             <a
               href="/"
               onClick={handleNav('/')}
-              className="hover:text-zinc-950 transition-colors py-1"
+              className="hover:text-zinc-950 dark:hover:text-white transition-colors py-1"
             >
               Accueil
             </a>
             <a
               href="/projets"
               onClick={handleNav('/projets')}
-              className="hover:text-zinc-950 transition-colors py-1"
+              className="hover:text-zinc-950 dark:hover:text-white transition-colors py-1"
             >
               Projets
             </a>
@@ -251,20 +251,40 @@ export default function FooterContact({ navigate }) {
             <a
               href="/mentions-legales"
               onClick={handleNav('/mentions-legales')}
-              className="hover:text-zinc-950 transition-colors py-1"
+              className="hover:text-zinc-950 dark:hover:text-white transition-colors py-1"
             >
               Mentions légales
             </a>
             <a
               href="/politique-de-confidentialite"
               onClick={handleNav('/politique-de-confidentialite')}
-              className="hover:text-zinc-950 transition-colors py-1"
+              className="hover:text-zinc-950 dark:hover:text-white transition-colors py-1"
             >
               Politique de confidentialité
             </a>
           </nav>
 
-          <div className="text-xs text-zinc-400 font-mono text-center md:text-right">
+          <div className="flex flex-col sm:flex-row items-center gap-3 text-xs text-zinc-400 font-mono text-center md:text-right">
+            <a
+              href="/"
+              onClick={handleNav('/')}
+              className="inline-flex items-center opacity-85 hover:opacity-100 transition-opacity"
+              aria-label="Retour à l'accueil ROOM241"
+            >
+              <img
+                src="/assets/logos/430x95_Framer_Black@4x.png"
+                alt="ROOM241"
+                className="h-4 sm:h-5 w-auto object-contain dark:hidden"
+                loading="lazy"
+              />
+              <img
+                src="/assets/logos/430x95_Framer_white@4x.png"
+                alt="ROOM241"
+                className="h-4 sm:h-5 w-auto object-contain hidden dark:block"
+                loading="lazy"
+              />
+            </a>
+            <span className="hidden sm:inline text-zinc-300 dark:text-zinc-700">•</span>
             <span>© 2026 {identity.brand} • {identity.name}. Tous droits réservés.</span>
           </div>
         </div>

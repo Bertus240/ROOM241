@@ -12,7 +12,7 @@ const translations = {
     linkedin: "View LinkedIn profile ↗",
     email: "Send an email",
     footer: "Studio ROOM241 • Rémi Brocart",
-    mochiDialogues: [
+    kuroDialogues: [
       "Oops... (•‿•)",
       "Guarding the portal!",
       "403! But let's connect ✉",
@@ -29,7 +29,7 @@ const translations = {
     linkedin: "Voir le profil LinkedIn ↗",
     email: "Envoyer un e-mail",
     footer: "Studio ROOM241 • Rémi Brocart",
-    mochiDialogues: [
+    kuroDialogues: [
       "Oups... (•‿•)",
       "Je veille sur la porte !",
       "403 ! Mais on peut échanger ✉",
@@ -47,7 +47,7 @@ export default function Blocked({ navigate }) {
   const [isHovered, setIsHovered] = useState(false);
   const [reactionIndex, setReactionIndex] = useState(0);
   const [currentSpeech, setCurrentSpeech] = useState(null);
-  const mochiRef = useRef(null);
+  const kuroRef = useRef(null);
   const speechTimeoutRef = useRef(null);
 
   const t = translations[lang];
@@ -59,8 +59,8 @@ export default function Blocked({ navigate }) {
     let returnTimeout = null;
 
     const computeEyePosition = (clientX, clientY) => {
-      if (!mochiRef.current) return;
-      const rect = mochiRef.current.getBoundingClientRect();
+      if (!kuroRef.current) return;
+      const rect = kuroRef.current.getBoundingClientRect();
       const centerX = rect.left + rect.width / 2;
       const centerY = rect.top + rect.height / 2;
 
@@ -199,13 +199,13 @@ export default function Blocked({ navigate }) {
     return () => clearTimeout(blinkTimeout);
   }, []);
 
-  // Déclencheur d'interaction sur Mochi (clic ou tap)
-  const handleMochiInteract = () => {
+  // Déclencheur d'interaction sur Kuro (clic ou tap)
+  const handleKuroInteract = () => {
     const nextIdx = (reactionIndex + 1) % 3;
     setReactionIndex(nextIdx);
 
     // Sélection d'un petit dialogue de réaction
-    const dialogues = t.mochiDialogues;
+    const dialogues = t.kuroDialogues;
     const randomSpeech = dialogues[Math.floor(Math.random() * dialogues.length)];
     setCurrentSpeech(randomSpeech);
 
@@ -223,7 +223,7 @@ export default function Blocked({ navigate }) {
 
   return (
     <div className="min-h-screen min-h-[100dvh] bg-[#FFFFFF] text-[#09090B] flex flex-col justify-between items-center px-4 py-6 sm:px-8 sm:py-8 font-sans antialiased relative selection:bg-[#FFAD00] selection:text-black overflow-x-hidden">
-      
+
       {/* Halo ambré doux en arrière-plan */}
       <div
         aria-hidden="true"
@@ -259,11 +259,10 @@ export default function Blocked({ navigate }) {
             lang="en"
             aria-pressed={lang === 'en'}
             onClick={() => setLang('en')}
-            className={`px-3 py-1 text-xs font-mono font-semibold rounded-full transition-all cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FFAD00] ${
-              lang === 'en'
+            className={`px-3 py-1 text-xs font-mono font-semibold rounded-full transition-all cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FFAD00] ${lang === 'en'
                 ? 'bg-white text-zinc-950 shadow-xs scale-102'
                 : 'text-zinc-500 hover:text-zinc-900'
-            }`}
+              }`}
           >
             EN
           </button>
@@ -272,11 +271,10 @@ export default function Blocked({ navigate }) {
             lang="fr"
             aria-pressed={lang === 'fr'}
             onClick={() => setLang('fr')}
-            className={`px-3 py-1 text-xs font-mono font-semibold rounded-full transition-all cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FFAD00] ${
-              lang === 'fr'
+            className={`px-3 py-1 text-xs font-mono font-semibold rounded-full transition-all cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FFAD00] ${lang === 'fr'
                 ? 'bg-white text-zinc-950 shadow-xs scale-102'
                 : 'text-zinc-500 hover:text-zinc-900'
-            }`}
+              }`}
           >
             FR
           </button>
@@ -287,7 +285,7 @@ export default function Blocked({ navigate }) {
           COMPOSITION CENTRALE — SCULPTURE 403 & MOCHI VIVANT
          ======================================================== */}
       <main className="w-full max-w-xl my-auto py-4 sm:py-8 flex flex-col items-center text-center z-10 space-y-5 sm:space-y-6">
-        
+
         {/* Badge statut éditorial discret */}
         <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-zinc-100 border border-zinc-200/80 text-xs font-mono text-zinc-600 shadow-2xs">
           <span className="w-1.5 h-1.5 rounded-full bg-[#FFAD00] shadow-[0_0_6px_rgba(255,173,0,0.8)] animate-pulse" />
@@ -296,7 +294,7 @@ export default function Blocked({ navigate }) {
 
         {/* LA SCULPTURE 403 : Le chiffre 4, Mochi vivant au cœur du 0, et le chiffre 3 */}
         <div className="relative flex items-center justify-center gap-1 sm:gap-3 select-none py-2">
-          
+
           {/* Micro-bulle interactive apparaissant au clic sur Mochi */}
           <AnimatePresence>
             {currentSpeech && (
@@ -319,23 +317,22 @@ export default function Blocked({ navigate }) {
             4
           </span>
 
-          {/* Mochi — Sphère vitrée vivante et interactive au centre du 403 */}
+          {/* Kuro — Sphère vitrée vivante et interactive au centre du 403 */}
           <div
-            ref={mochiRef}
-            onClick={handleMochiInteract}
-            onTouchStart={handleMochiInteract}
+            ref={kuroRef}
+            onClick={handleKuroInteract}
+            onTouchStart={handleKuroInteract}
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
             role="button"
             tabIndex={0}
-            aria-label="Mochi, le compagnon interactif. Cliquez pour jouer avec lui."
+            aria-label="Kuro, le compagnon interactif. Cliquez pour jouer avec lui."
             className="group relative w-[clamp(74px,12vw,104px)] h-[clamp(74px,12vw,104px)] mx-1 sm:mx-2 rounded-full cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FFAD00] focus-visible:ring-offset-4 flex items-center justify-center"
           >
             {/* Halo ambré doux réagissant au survol */}
             <div
-              className={`absolute -inset-3 rounded-full bg-gradient-to-tr from-[#FFAD00]/30 to-transparent blur-md transition-opacity duration-300 pointer-events-none ${
-                isHovered ? 'opacity-100 scale-110' : 'opacity-40 scale-100'
-              }`}
+              className={`absolute -inset-3 rounded-full bg-gradient-to-tr from-[#FFAD00]/30 to-transparent blur-md transition-opacity duration-300 pointer-events-none ${isHovered ? 'opacity-100 scale-110' : 'opacity-40 scale-100'
+                }`}
             />
 
             {/* Corps sphérique de Mochi avec animations organiques */}
@@ -343,15 +340,15 @@ export default function Blocked({ navigate }) {
               animate={
                 reactionIndex === 1
                   ? {
-                      scale: [1, 1.18, 0.94, 1],
-                      y: [0, -14, 2, 0],
-                    }
+                    scale: [1, 1.18, 0.94, 1],
+                    y: [0, -14, 2, 0],
+                  }
                   : reactionIndex === 2
-                  ? {
+                    ? {
                       rotate: [0, -8, 8, -4, 0],
                       scale: [1, 1.08, 1],
                     }
-                  : {
+                    : {
                       scale: isHovered ? 1.06 : [1, 1.035, 1],
                       y: isHovered ? -2 : [0, -2, 0],
                     }
@@ -360,10 +357,10 @@ export default function Blocked({ navigate }) {
                 reactionIndex > 0
                   ? { duration: 0.45, ease: [0.16, 1, 0.3, 1] }
                   : {
-                      duration: 4.5,
-                      repeat: Infinity,
-                      ease: 'easeInOut',
-                    }
+                    duration: 4.5,
+                    repeat: Infinity,
+                    ease: 'easeInOut',
+                  }
               }
               className="relative w-full h-full rounded-full bg-[#09090B] flex items-center justify-center border border-white/25 shadow-[0_18px_36px_-6px_rgba(0,0,0,0.45),inset_0_2px_4px_rgba(255,255,255,0.45),inset_0_-4px_10px_rgba(255,173,0,0.35)]"
             >
@@ -477,7 +474,7 @@ export default function Blocked({ navigate }) {
             ACTIONS DE SORTIE — ACCUEIL & CONTACT DIRECTS
            ======================================================== */}
         <div className="flex flex-col sm:flex-row items-center justify-center gap-3 w-full max-w-md pt-2 px-2">
-          
+
           {/* Bouton principal : Retourner à l'accueil */}
           <a
             href="/"

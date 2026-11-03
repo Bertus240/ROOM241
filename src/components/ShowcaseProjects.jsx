@@ -1,118 +1,40 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
+import { projectsData } from '../data/projects';
+import { formatNbsp } from './ProjectBadgeHeader';
 
-const AUTO_PLAY_INTERVAL = 5000; // 5 secondes de défilement maîtrisé
-
-export const SHOWCASE_PROJECTS = [
-  {
-    id: 'hornetsecurity',
-    slug: 'hornetsecurity',
-    number: '01',
-    category: 'Scénographie & Cybersécurité B2B',
-    title: "Stand de plus de 150 m² au FIC, arche vidéo After Effects & Captain Security",
-    description: "Conception graphique et habillage de stands internationaux pour le leader européen de la cybersécurité Cloud (Forum InCyber à Lille, it-sa à Nuremberg). Création de la boucle motion design diffusée sur l'arche vidéo du stand, incarnation de marque et supports partenaires B2B.",
-    highlights: [
-      'Scénographie grand format (> 150 m²)',
-      'Arche vidéo After Effects',
-      'Salons européens (Lille & Nuremberg)',
-    ],
-    link: '/projets#hornetsecurity',
-    image: '/assets/hornetsecurity/fic/Stand/IMG20250401075104.jpg',
-    alt: "Scénographie événementielle, stand et arche d'accueil Hornetsecurity",
-    badgeLabel: "Étude de cas phare",
-  },
-  {
-    id: 'fresh-data',
-    slug: 'fresh-data',
-    number: '02',
-    category: 'Retail Data & Financement',
-    title: "Fresh Data — Identité visuelle, pige publicitaire & captation salon MEDFEL",
-    description: "Conception de l'univers visuel et des supports de communication pour une solution de veille concurrentielle et de pige publicitaire grande distribution : vulgarisation visuelle de flux de données, supports de présentation commerciale et captation d'interviews au salon MEDFEL.",
-    highlights: [
-      'Veille publicitaire grande distribution',
-      'Campagne de financement participatif',
-      'Captation & interviews terrain',
-    ],
-    link: '/projets#fresh-data',
-    image: '/assets/fresh-data-video-cover.jpg',
-    alt: "Fresh Data - Couverture salon MEDFEL et supports de communication",
-    badgeLabel: "Retail & Vidéo",
-  },
-  {
-    id: 'resin-architecte',
-    slug: 'resin-architecte',
-    number: '03',
-    category: 'Revêtements de sol & Savoir-faire',
-    title: "Résin'Architecte — Valorisation technique & communication de chantiers",
-    description: "Formalisation de la charte graphique et structuration de la communication pour un spécialiste des revêtements de sol en résine minérale : conception de gabarits éditoriaux, mise en valeur du geste technique et fiches didactiques d'explication de pose.",
-    highlights: [
-      'Moquette de pierre & résines drainantes',
-      'Pédagogie matière & chantiers réels',
-      'Gabarits de communication terrain',
-    ],
-    link: '/projets#resin-architecte',
-    image: '/assets/social-proof-ra/post_pool_craft.png',
-    alt: "Résin'Architecte - Démonstration technique de pose de résine drainante aux abords d'une piscine",
-    badgeLabel: "Direction artistique BTP",
-  },
-  {
-    id: 'jardimax',
-    slug: 'jardimax',
-    number: '04',
-    category: 'Vidéo, Motion & Retail',
-    title: "Jardimax — Production vidéo, intervention face caméra & motion design",
-    description: "Conception et réalisation d'un dispositif vidéo pour l'enseigne de motoculture Jardimax (SAS DESMELIE, siège à Bailleul) : écriture éditoriale, tournage showroom et atelier, animation motion design pédagogique et déclinaisons 16:9 et 9:16.",
-    highlights: [
-      'Formats 16:9 (YouTube) & 9:16 (TikTok)',
-      'Motion design pédagogique "430 €"',
-      'Tournage en showroom & atelier technique',
-    ],
-    link: '/projets#jardimax',
-    image: '/assets/jardimax/jardimax_cover.jpg',
-    alt: "Jardimax - Showroom physique et production vidéo",
-    badgeLabel: "Vidéo & Motion",
-  },
-];
+// Dérivation déterministe et autonome des projets du showcase depuis la source de vérité projectsData
+export const SHOWCASE_PROJECTS = Object.values(projectsData).map((p, idx) => ({
+  id: p.slug,
+  slug: p.slug,
+  number: String(idx + 1).padStart(2, '0'),
+  projectName: p.projectName,
+  category: p.category,
+  editorialTag: p.editorialTag || p.tag,
+  shortTag: p.shortTag,
+  title: p.title,
+  description: p.description,
+  highlights: p.highlights || (p.tags ? p.tags.slice(0, 3) : []),
+  link: p.destination || `/realisations/${p.slug}`,
+  image: p.image,
+  alt: p.alt || p.title,
+  badgeLabel: p.statusLabel || p.category,
+  metricBadge: p.metricBadge,
+  secondaryMetric: p.secondaryMetric,
+}));
 
 export default function ShowcaseProjects({ navigate }) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [direction, setDirection] = useState(1);
   const [isHovered, setIsHovered] = useState(false);
   const [isTouching, setIsTouching] = useState(false);
-  const [isTabHidden, setIsTabHidden] = useState(false);
-  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
-  const [progress, setProgress] = useState(0);
 
   const containerRef = useRef(null);
-  const timerRef = useRef(null);
-  const progressIntervalRef = useRef(null);
-  const startTimeRef = useRef(Date.now());
-
   const total = SHOWCASE_PROJECTS.length;
   const currentProject = SHOWCASE_PROJECTS[currentIndex];
   const nextIndex = (currentIndex + 1) % total;
   const nextProject = SHOWCASE_PROJECTS[nextIndex];
-
-  // Détection du mode mouvement réduit
-  useEffect(() => {
-    if (typeof window !== 'undefined' && window.matchMedia) {
-      const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
-      setPrefersReducedMotion(mq.matches);
-      const listener = (e) => setPrefersReducedMotion(e.matches);
-      mq.addEventListener('change', listener);
-      return () => mq.removeEventListener('change', listener);
-    }
-  }, []);
-
-  // Détection de visibilité d'onglet
-  useEffect(() => {
-    const handleVisibility = () => {
-      setIsTabHidden(document.visibilityState === 'hidden');
-    };
-    document.addEventListener('visibilitychange', handleVisibility);
-    return () => document.removeEventListener('visibilitychange', handleVisibility);
-  }, []);
 
   const paginate = useCallback((newDirection) => {
     setDirection(newDirection);
@@ -122,38 +44,7 @@ export default function ShowcaseProjects({ navigate }) {
       }
       return (prev - 1 + total) % total;
     });
-    setProgress(0);
-    startTimeRef.current = Date.now();
   }, [total]);
-
-  // Gestion du défilement automatique toutes les 5 secondes
-  const isPaused = isHovered || isTouching || isTabHidden || prefersReducedMotion;
-
-  useEffect(() => {
-    if (isPaused) {
-      if (timerRef.current) clearTimeout(timerRef.current);
-      if (progressIntervalRef.current) clearInterval(progressIntervalRef.current);
-      return;
-    }
-
-    startTimeRef.current = Date.now() - (progress / 100) * AUTO_PLAY_INTERVAL;
-
-    progressIntervalRef.current = setInterval(() => {
-      const elapsed = Date.now() - startTimeRef.current;
-      const currentPct = Math.min((elapsed / AUTO_PLAY_INTERVAL) * 100, 100);
-      setProgress(currentPct);
-    }, 50);
-
-    const remaining = Math.max(AUTO_PLAY_INTERVAL - (Date.now() - startTimeRef.current), 100);
-    timerRef.current = setTimeout(() => {
-      paginate(1);
-    }, remaining);
-
-    return () => {
-      if (timerRef.current) clearTimeout(timerRef.current);
-      if (progressIntervalRef.current) clearInterval(progressIntervalRef.current);
-    };
-  }, [isPaused, currentIndex, paginate, progress]);
 
   // Navigation au clavier lorsque le composant est actif ou survolé
   useEffect(() => {
@@ -328,7 +219,7 @@ export default function ShowcaseProjects({ navigate }) {
               >
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
                   
-                  {/* Visuel principal haute définition */}
+                  {/* Visuel principal haute définition avec overlay progressif */}
                   <div className="lg:col-span-7 order-1 lg:order-2">
                     <div className="relative aspect-[16/10] w-full rounded-2xl overflow-hidden border border-zinc-200 dark:border-white/15 bg-zinc-950 shadow-sm group">
                       <img
@@ -337,13 +228,28 @@ export default function ShowcaseProjects({ navigate }) {
                         className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                         loading={currentIndex === 0 ? "eager" : "lazy"}
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none" />
+                      {/* Overlay photographique progressif depuis le bas */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-transparent pointer-events-none" />
                       
-                      {/* Badge flottant sur l'image */}
-                      <div className="absolute bottom-3 left-3 sm:bottom-4 sm:left-4">
-                        <span className="inline-flex items-center gap-1.5 text-[11px] font-mono uppercase tracking-wider text-white bg-black/75 backdrop-blur-md px-3 py-1 rounded-full border border-white/20">
-                          <span className="w-1.5 h-1.5 rounded-full bg-[#FFAD00]" />
-                          <span>{currentProject.badgeLabel}</span>
+                      {/* Badge métrique en verre dépoli (Frosted Glass) */}
+                      {currentProject.metricBadge && (
+                        <div className="absolute top-3.5 right-3.5 sm:top-4 sm:right-4 z-10 pointer-events-none">
+                          <div className="inline-flex items-center gap-1.5 sm:gap-2 px-2.5 py-1 sm:px-3.5 sm:py-2 rounded-xl bg-black/55 backdrop-blur-md border border-white/20 shadow-md text-white">
+                            <span className="font-mono font-bold text-xs sm:text-base text-[#FFAD00] tracking-tight whitespace-nowrap">
+                              {formatNbsp(currentProject.metricBadge.value)}
+                            </span>
+                            <span className="text-[10px] sm:text-xs text-zinc-200 font-medium tracking-wide whitespace-nowrap">
+                              {formatNbsp(currentProject.metricBadge.label)}
+                            </span>
+                          </div>
+                        </div>
+                      )}
+
+                      {/* Badge de statut / tag éditorial au bas de l'image */}
+                      <div className="absolute bottom-3 left-3 sm:bottom-4 sm:left-4 z-10 pointer-events-none">
+                        <span className="inline-flex items-center gap-1.5 text-[10px] sm:text-[11px] font-semibold uppercase tracking-wider text-white bg-black/65 backdrop-blur-md px-2.5 py-1 sm:px-3 sm:py-1 rounded-full border border-white/20 shadow-sm">
+                          <span className="w-1.5 h-1.5 rounded-full bg-[#FFAD00] shadow-[0_0_6px_rgba(255,173,0,0.8)]" />
+                          <span>{currentProject.shortTag || currentProject.editorialTag || currentProject.badgeLabel}</span>
                         </span>
                       </div>
                     </div>
@@ -353,26 +259,36 @@ export default function ShowcaseProjects({ navigate }) {
                   <div className="lg:col-span-5 order-2 lg:order-1 space-y-5">
                     <div className="space-y-3">
                       <div className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-[#FFAD00]">
-                        <span>{currentProject.category}</span>
+                        <span className="w-1.5 h-1.5 rounded-full bg-[#FFAD00]" />
+                        <span>{currentProject.editorialTag || currentProject.category}</span>
                       </div>
 
                       <h3 className="text-xl sm:text-2xl lg:text-3xl font-extrabold tracking-tight text-[#09090B] dark:text-white leading-[1.2]">
                         {currentProject.title}
                       </h3>
 
-                      <p className="text-sm sm:text-base text-[#52525B] dark:text-zinc-300 leading-relaxed">
+                      <p className="text-sm sm:text-base text-[#52525B] dark:text-zinc-300 leading-relaxed font-normal">
                         {currentProject.description}
                       </p>
                     </div>
 
-                    {/* Points saillants qualitatifs */}
-                    <div className="pt-1 flex flex-col gap-2 text-xs text-zinc-700 dark:text-zinc-300 font-medium">
-                      {currentProject.highlights.map((item, idx) => (
-                        <div key={idx} className="flex items-center gap-2">
-                          <span className="w-1 h-1 rounded-full bg-zinc-400 dark:bg-zinc-500" />
-                          <span>{item}</span>
+                    {/* Points saillants qualitatifs & métrique secondaire */}
+                    <div className="space-y-2 pt-1">
+                      {currentProject.secondaryMetric && (
+                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-lg bg-zinc-100 dark:bg-zinc-800 text-xs font-mono text-zinc-700 dark:text-zinc-300 border border-zinc-200/80 dark:border-white/10">
+                          <span className="font-bold text-[#FFAD00] whitespace-nowrap">{formatNbsp(currentProject.secondaryMetric.value)}</span>
+                          <span className="text-[11px] text-zinc-600 dark:text-zinc-400 whitespace-nowrap">{formatNbsp(currentProject.secondaryMetric.label)}</span>
                         </div>
-                      ))}
+                      )}
+
+                      <div className="flex flex-col gap-2 text-xs text-zinc-700 dark:text-zinc-300 font-medium">
+                        {currentProject.highlights.map((item, idx) => (
+                          <div key={idx} className="flex items-center gap-2">
+                            <span className="w-1 h-1 rounded-full bg-zinc-400 dark:bg-zinc-500" />
+                            <span>{item}</span>
+                          </div>
+                        ))}
+                      </div>
                     </div>
 
                     {/* Action principale vers l'étude de cas */}
@@ -445,27 +361,16 @@ export default function ShowcaseProjects({ navigate }) {
         </div>
       </div>
 
-      {/* 3. Ligne de progression discrète en bas de section */}
-      <div className="flex items-center justify-between gap-4 pt-2">
-        <div className="flex-grow h-1.5 rounded-full bg-zinc-200/80 dark:bg-zinc-800 overflow-hidden relative">
-          <motion.div
-            className="absolute top-0 bottom-0 left-0 bg-[#FFAD00] rounded-full"
-            style={{ width: `${progress}%` }}
-            transition={{ ease: 'linear', duration: 0.05 }}
-          />
-        </div>
-
-        {/* Raccourci tactile mobile vers tous les projets */}
-        <div className="md:hidden shrink-0">
-          <a
-            href="/projets"
-            onClick={handleNav('/projets')}
-            className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#09090B] dark:text-white hover:text-[#FFAD00] transition-colors"
-          >
-            <span>Tous les projets</span>
-            <ArrowRight className="w-3.5 h-3.5" />
-          </a>
-        </div>
+      {/* 3. Raccourci tactile mobile vers tous les projets */}
+      <div className="flex items-center justify-end pt-2 md:hidden">
+        <a
+          href="/projets"
+          onClick={handleNav('/projets')}
+          className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#09090B] dark:text-white hover:text-[#FFAD00] transition-colors"
+        >
+          <span>Tous les projets</span>
+          <ArrowRight className="w-3.5 h-3.5" />
+        </a>
       </div>
     </section>
   );

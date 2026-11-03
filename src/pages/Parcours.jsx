@@ -975,7 +975,7 @@ export default function Parcours({ navigate, onOpenCvModal }) {
           {/* Sciences de l'Ingénieur */}
           <div className="p-7 rounded-3xl bg-white/70 backdrop-blur-xl border border-zinc-200/50 shadow-sm shadow-zinc-950/[0.03] space-y-3 hover:bg-white/90 hover:border-zinc-300/60 transition-all duration-300">
             <span className="font-mono text-xs font-bold text-zinc-950 block">
-              Mention Bien · 2020
+              2020
             </span>
             <h3 className="text-base font-bold text-zinc-950 leading-snug">
               Sciences de l'Ingénieur

@@ -4,7 +4,6 @@ import { motion } from 'framer-motion';
 import { profileData } from '../data/profile';
 import AnimatedStat from '../components/AnimatedStat';
 import ShowcaseProjects from '../components/ShowcaseProjects';
-import MochiAvatar from '../components/MochiAvatar';
 import { applyTheme } from '../lib/theme';
 
 export default function Home({ navigate }) {
@@ -241,16 +240,18 @@ export default function Home({ navigate }) {
       </section>
 
       {/* ========================================================
-          4. MOCHI & LA PASSERELLE VERS L'UNIVERS PERSONNEL
+          4. KURO & LA PASSERELLE VERS L'UNIVERS PERSONNEL
          ======================================================== */}
       <section className="max-w-[1280px] mx-auto px-5 sm:px-8 lg:px-10">
         <div className="p-8 sm:p-12 rounded-3xl bg-zinc-50 dark:bg-zinc-900/60 border border-zinc-200/80 dark:border-white/10 shadow-sm space-y-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
             
-            {/* Guide Mochi & Discours éditorial */}
+            {/* Guide Kuro & Discours éditorial */}
             <div className="lg:col-span-7 space-y-6">
               <div className="flex items-center gap-4">
-                <MochiAvatar size="md" />
+                <div className="w-10 h-10 rounded-full bg-[#FFAD00]/15 border border-[#FFAD00]/30 flex items-center justify-center shrink-0 shadow-2xs">
+                  <Compass className="w-5 h-5 text-[#FFAD00]" />
+                </div>
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white dark:bg-white/10 border border-zinc-200/80 dark:border-white/10 text-xs font-semibold text-zinc-800 dark:text-zinc-200 shadow-2xs">
                   <span className="w-1.5 h-1.5 rounded-full bg-[#FFAD00] shadow-[0_0_6px_rgba(255,173,0,0.8)]" />
                   <span>AU-DELÀ DU TRAVAIL • EXPÉRIENCE COMPLÉMENTAIRE</span>

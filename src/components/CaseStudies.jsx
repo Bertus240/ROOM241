@@ -303,15 +303,6 @@ export default function CaseStudies({ isPreview, isFullPage, navigate }) {
             </div>
           </article>
 
-                <div className="inline-flex items-center gap-2 text-sm font-sans font-semibold text-room-text group-hover:text-room-amber transition-colors duration-150">
-                  <span>Consulter l'étude de cas complète</span>
-                  <ArrowUpRight className="w-4 h-4 text-room-amber transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                </div>
-              </div>
-
-            </div>
-          </article>
-
         </div>
 
       </div>

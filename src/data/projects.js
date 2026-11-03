@@ -1,40 +1,69 @@
 export const projectsData = {
   "hornetsecurity": {
     slug: "hornetsecurity",
-    id: "PROJET 01 — PHARE",
-    title: "Hornetsecurity",
+    id: "PROJET 01",
+    projectName: "Hornetsecurity",
+    client: "Hornetsecurity",
+    refLabel: "PROJET 01 · SALON INTERNATIONAL & EXPÉRIENCE DE MARQUE",
+    title: "Scénographie et stand d'envergure (> 150 m²)",
+    fullTitle: "Hornetsecurity — Scénographie et stand d'envergure (> 150 m²)",
     subtitle: "Leader européen de la cybersécurité Cloud & protection Microsoft 365",
     sector: "Cybersécurité B2B internationale",
-    category: "Cybersécurité B2B internationale",
-    categories: ["event", "video", "strategy"],
+    category: "Scénographie & Cybersécurité B2B",
+    categories: ["scenography", "branding", "motion", "photo"],
+    editorialTag: "SALON INTERNATIONAL & EXPÉRIENCE DE MARQUE",
+    shortTag: "SALON INTERNATIONAL",
+    tag: "SALON INTERNATIONAL & EXPÉRIENCE DE MARQUE",
     deliverables: "Stands événementiels (> 150 m² au FIC), Print & Édition, Digital & Motion, Vidéo & Formats courts",
     year: "3 ans d'accompagnement",
-    statusLabel: "CASE STUDY PHARE",
-    tags: ["Cybersécurité B2B", "Événementiel International", "Design 360°", "3 ans de polyvalence"],
+    statusLabel: "SALON INTERNATIONAL",
+    tags: ["Cybersécurité B2B", "Événementiel International", "Design 360°", "Stand > 150 m²"],
+    highlights: [
+      "Scénographie grand format (> 150 m²)",
+      "Arche vidéo After Effects",
+      "Salons européens (Lille & Nuremberg)"
+    ],
+    heroStage: {
+      tag: "SALON INTERNATIONAL & ÉVÉNEMENTIEL B2B",
+      title: "Arche d'entrée immersive et scénographie au FIC",
+      description: "Direction artistique et habillage visuel grand format pour affirmer le positionnement de leader européen en cybersécurité auprès des décideurs.",
+      metricBadge: {
+        value: "+4 000",
+        label: "visiteurs accueillis sur le stand"
+      }
+    },
+    metricBadge: {
+      value: "+4 000",
+      label: "visiteurs accueillis"
+    },
+    secondaryMetric: {
+      value: "100 %",
+      label: "charte respectée"
+    },
     metric: "+4 000",
-    metricLabel: "Contacts qualifiés enregistrés collectivement au FIC",
-    heroMetric: "3 ans",
-    heroMetricLabel: "de polyvalence créative et technique",
+    metricLabel: "visiteurs accueillis au salon FIC",
+    heroMetric: "+4 000",
+    heroMetricLabel: "visiteurs accueillis",
     metrics: [
       {
         value: "+4 000",
-        label: "Leads (collectif)",
-        detail: "Contacts B2B enregistrés par les équipes au salon FIC"
+        label: "Visiteurs accueillis",
+        detail: "Contacts qualifiés et visiteurs accueillis sur le stand au salon FIC"
+      },
+      {
+        value: "100 %",
+        label: "Charte respectée",
+        detail: "Alignement graphique rigoureux sur l'ensemble du pavillon"
       },
       {
         value: "> 150 m²",
         label: "Stand FIC Lille",
-        detail: "Stand d'exposition avec piste e-karting intégrée"
+        detail: "Stand d'exposition d'envergure avec piste e-karting intégrée"
       },
       {
         value: "3 Salons",
         label: "Envergure européenne",
         detail: "FIC (Forum InCyber), it-sa Nuremberg"
-      },
-      {
-        value: "360°",
-        label: "Exécution autonome",
-        detail: "3D, print, motion design, captation et montage vidéo"
       }
     ],
     bentoCards: [
@@ -81,95 +110,57 @@ export const projectsData = {
     ],
     isNda: false,
     image: "/assets/hornetsecurity/fic/Stand/IMG20250401075104.jpg",
-    description: "Accompagnement continu auprès du leader européen de la cybersécurité Cloud (+71k abonnés). Déploiement graphique de stands européens (dont le stand de plus de 150 m² au FIC), campagnes publicitaires (Paid Ads) et réalisation d'un sprint créatif de 36h à Hanovre.",
+    alt: "Scénographie et stand d'envergure (> 150 m²) — Hornetsecurity au Forum InCyber (FIC)",
+    description: "Direction artistique, habillage grand format et déclinaisons visuelles pour un leader européen de la cybersécurité.",
+    destination: "/realisations/hornetsecurity",
+    link: "/realisations/hornetsecurity",
     cta: "Consulter l'étude de cas ↗",
-        proofAssets: [
-      {
-        id: 1,
-        src: "/assets/social-proof-ra/post_terrace_before_after.png",
-        thumbUrl: "/assets/social-proof-ra/post_terrace_before_after.png",
-        title: "Transformation terrasse — 52 m² en 48h",
-        description: "Format avant/après documentant la rénovation d'une dalle fissurée sans démolition pour rassurer sur la rapidité d'exécution.",
-        caption: "Format avant/après documentant la rénovation d'une dalle fissurée sans démolition pour rassurer sur la rapidité d'exécution.",
-        badge: "Réalisation terrain"
-      },
-      {
-        id: 2,
-        src: "/assets/social-proof-ra/post_pool_craft.png",
-        thumbUrl: "/assets/social-proof-ra/post_pool_craft.png",
-        title: "Savoir-faire artisanal — Abords de piscine",
-        description: "Focus éditorial sur la précision du geste technique et la régularité du talochage pour valoriser les finitions haut de gamme.",
-        caption: "Focus éditorial sur la précision du geste technique et la régularité du talochage pour valoriser les finitions haut de gamme.",
-        badge: "Geste métier"
-      },
-      {
-        id: 3,
-        src: "/assets/social-proof-ra/post_trowel_craft.png",
-        thumbUrl: "/assets/social-proof-ra/post_trowel_craft.png",
-        title: "Pédagogie matière — La règle des 8 mm",
-        description: "Post didactique vulgarisant l'épaisseur indispensable d'une résine drainante pour pérenniser l'ouvrage face au gel.",
-        caption: "Post didactique vulgarisant l'épaisseur indispensable d'une résine drainante pour pérenniser l'ouvrage face au gel.",
-        badge: "Contenu expert"
-      },
-      {
-        id: 4,
-        src: "/assets/social-proof-ra/FB_stats.png",
-        thumbUrl: "/assets/social-proof-ra/FB_stats.png",
-        title: "Portée & Interactions — Bilan Meta 30 jours",
-        description: "Analyse des retombées organiques : +219 % de portée et +209 % d'interactions générées sans aucun budget publicitaire.",
-        caption: "Analyse des retombées organiques : +219 % de portée et +209 % d'interactions générées sans aucun budget publicitaire.",
-        badge: "+219 % portée"
-      },
-      {
-        id: 5,
-        src: "/assets/social-proof-ra/Insta_1.png",
-        thumbUrl: "/assets/social-proof-ra/Insta_1.png",
-        title: "Acquisition qualifiée — Trafic Instagram",
-        description: "Suivi des visites du profil générées par les gabarits visuels : 648 visites spontanées de prospects locaux.",
-        caption: "Suivi des visites du profil générées par les gabarits visuels : 648 visites spontanées de prospects locaux.",
-        badge: "648 visites"
-      },
-      {
-        id: 6,
-        src: "/assets/social-proof-ra/Comparaison_FB_entreprises_similaires.png",
-        thumbUrl: "/assets/social-proof-ra/Comparaison_FB_entreprises_similaires.png",
-        title: "Benchmark sectoriel — Performance régionale",
-        description: "Comparatif d'engagement face aux artisans du secteur : volume d'interactions supérieur à la moyenne locale.",
-        caption: "Comparatif d'engagement face aux artisans du secteur : volume d'interactions supérieur à la moyenne locale.",
-        badge: "Benchmark"
-      }
-    ],
-    alt: "Direction artistique BTP — Résin'Architecte",
-    description: "Résin’Architecte développe des solutions de revêtements de sol en résine pour les espaces intérieurs et extérieurs. De la moquette de pierre aux revêtements décoratifs, drainants ou appliqués sur béton, l'entreprise associe savoir-faire technique et recherche esthétique pour répondre à des usages variés.",
-    cta: "Consulter l'étude de cas ↗",
-    challenge: "Résin'Architecte disposait d'un savoir-faire reconnu dans les revêtements de sol en résine minérale, mais sans règles graphiques formalisées ni supports structurés pour valoriser ses réalisations.",
-    solution: "Formalisation de l'identité existante : conception de gabarits éditoriaux réguliers, mise en page de visuels avant/après de chantiers et création de fiches d'aide à la vente axées sur la pédagogie technique (règle des 8 mm, préparation des supports).",
-    impact: "Harmonisation de la présence en ligne, clarté visuelle accrue des réalisations de chantiers et mise à disposition d'outils commerciaux concrets pour l'équipe terrain.",
     act1: {
-      title: "01. Le Contexte initial",
-      text: "L'entreprise disposait d'une identité visuelle et d'un savoir-faire technique en pose de résine, mais sa communication manquait de régularité et de règles graphiques formalisées."
+      title: "01. Le Défi de l'envergure européenne",
+      text: "Accompagner le leader européen de la cybersécurité dans sa communication B2B internationale, en maintenant un niveau d'exigence graphique élevé sur des supports très variés (stands de plus de 150 m², supports commerciaux, contenus digitaux et vidéo)."
     },
     act2: {
-      title: "02. L'Intervention graphique",
-      text: "Formalisation de la charte existante, création de gabarits réutilisables pour les réseaux sociaux, composition de visuels avant/après de chantiers et fiches d'explication technique."
+      title: "02. L'Arbitrage Créatif & Terrain",
+      text: "Conception et habillage de pavillons d'exposition majeurs (FIC Lille avec piste de karting, it-sa Nuremberg, InfoSec Londres), réalisation de supports d'édition B2B rigoureux, formats courts motion design pour LinkedIn et sprint créatif de 36h au siège à Hanovre."
     },
     act3: {
-      title: "03. Les Livrables concrets",
-      text: "Une gamme de supports cohérents permettant à l'entreprise de valoriser ses chantiers sur les réseaux et d'appuyer son discours commercial auprès de ses clients."
+      title: "03. L'Impact & Continuité",
+      text: "Un accompagnement de 3 ans garantissant cohérence de marque, autonomie de production et impact terrain mesuré lors des temps forts de l'entreprise (+4 000 contacts collectifs enregistrés au FIC)."
     },
     nextSlug: "fresh-data",
     nextTitle: "Fresh Data (Retail Data & Financement)"
   },
   "fresh-data": {
     slug: "fresh-data",
-    id: "PROJET 03",
-    title: "Fresh Data",
+    id: "PROJET 02",
+    projectName: "Fresh Data",
+    client: "Fresh Data",
+    refLabel: "PROJET 02 · RETAIL DATA & CROWDFUNDING",
+    title: "Fresh Data — Identité visuelle, pige publicitaire & captation salon MEDFEL",
+    fullTitle: "Fresh Data — Identité visuelle, pige publicitaire & captation salon MEDFEL",
     subtitle: "Pige publicitaire & veille concurrentielle grande distribution • Campagne Ulule & Salon MEDFEL",
     category: "Retail Data & Financement",
+    categories: ["branding", "web", "motion"],
+    editorialTag: "RETAIL DATA & CROWDFUNDING",
+    shortTag: "RETAIL DATA & ULULE",
+    tag: "RETAIL DATA & CROWDFUNDING",
     deliverables: "Identité Visuelle, Vulgarisation Data, Financement Participatif, Dossiers B2B",
     year: "2026",
-    statusLabel: "VEILLE PROMO & FINANCEMENT",
+    statusLabel: "RETAIL DATA & FINANCEMENT",
     tags: ["Retail Data", "Veille Concurrentielle", "Crowdfunding", "Vidéo Terrain"],
+    highlights: [
+      "Veille publicitaire grande distribution",
+      "Campagne de financement participatif",
+      "Captation & interviews terrain"
+    ],
+    metricBadge: {
+      value: "116 %",
+      label: "objectif Ulule validé"
+    },
+    secondaryMetric: {
+      value: "50+",
+      label: "clients pionniers"
+    },
     metric: "116 %",
     metricLabel: "Campagne Ulule validée avec succès",
     metrics: [
@@ -200,8 +191,10 @@ export const projectsData = {
     image: "/assets/fresh-data-video-cover.jpg",
     youtubeEmbedUrl: "https://www.youtube-nocookie.com/embed/mf6eguKkok8?rel=0&modestbranding=1&playsinline=1",
     videoTitle: "Fresh Data — Captation vidéo au salon MEDFEL",
-    alt: "Direction artistique Retail Data — Fresh Data",
+    alt: "Fresh Data — Direction artistique et captation salon MEDFEL",
     description: "Création graphique et vulgarisation visuelle d'une solution de veille concurrentielle et de pige publicitaire multicanale grande distribution. Campagne Ulule validée à 116 %, dossiers commerciaux B2B et captation salon MEDFEL.",
+    destination: "/realisations/fresh-data",
+    link: "/realisations/fresh-data",
     cta: "Consulter l'étude de cas ↗",
     act1: {
       title: "01. Le Défi initial",
@@ -221,17 +214,46 @@ export const projectsData = {
   "resin-architecte": {
     slug: "resin-architecte",
     id: "PROJET 03",
-    title: "Résin'Architecte",
+    projectName: "Résin'Architecte",
+    client: "Résin'Architecte",
+    refLabel: "PROJET 03 · BTP, ARTISANAT & SAVOIR-FAIRE",
+    title: "Résin'Architecte — Valorisation technique & communication de chantiers",
+    fullTitle: "Résin'Architecte — Valorisation technique & communication de chantiers",
     subtitle: "Captation de chantier, formalisation d'identité & supports commerciaux (BTP & Revêtements de sol)",
     category: "Revêtements de sol & Savoir-faire",
-    categories: ["identity", "strategy"],
+    categories: ["branding", "photo"],
+    editorialTag: "BTP, ARTISANAT & SAVOIR-FAIRE",
+    shortTag: "BTP & SAVOIR-FAIRE",
+    tag: "BTP, ARTISANAT & SAVOIR-FAIRE",
     sector: "Artisanat d'art, BTP & Revêtements de sol",
     deliverables: "Captation vidéo sur chantier, Gabarits éditoriaux réseaux sociaux, Fiches techniques d'aide à la vente, Roadmap stratégique 12 mois",
     year: "2025 - 2026",
-    statusLabel: "IDENTITÉ & TERRAIN",
+    statusLabel: "BTP & ARTISANAT",
     tags: ["BTP & Artisanat", "Identité Visuelle", "Captation Terrain", "Roadmap 12 mois"],
+    highlights: [
+      "Moquette de pierre & résines drainantes",
+      "Pédagogie matière & chantiers réels",
+      "Gabarits de communication terrain"
+    ],
+    heroStage: {
+      tag: "IMMERSION CHANTIER & SAVOIR-FAIRE",
+      title: "Précision de pose aux abords d'une piscine résidentielle",
+      description: "Captation des gestes techniques valorisant l'artisanat et la qualité minérale du revêtement drainant.",
+      metricBadge: {
+        value: "+219% ORGANIQUE",
+        label: "0 € D'ACHAT D'ESPACE"
+      }
+    },
+    metricBadge: {
+      value: "+219 %",
+      label: "portée organique"
+    },
+    secondaryMetric: {
+      value: "648",
+      label: "visites de profil"
+    },
     metric: "+219 %",
-    metricLabel: "De portée organique mesurée sur Meta en 30 jours",
+    metricLabel: "portée organique mesurée sur Meta en 30 jours",
     heroMetric: "+219 %",
     heroMetricLabel: "de portée organique mesurée",
     metrics: [
@@ -259,8 +281,10 @@ export const projectsData = {
     isNda: false,
     isVideo: false,
     image: "/assets/social-proof-ra/post_pool_craft.png",
-    alt: "Résin'Architecte — Savoir-faire artisanal et pose de résine drainante",
-    description: "Intervention concrète pour Résin'Architecte : immersion et captation vidéo directe sur chantiers, formalisation de l'identité visuelle, création de gabarits éditoriaux et conception d'outils didactiques d'aide à la vente (règle des 8 mm drainants).",
+    alt: "Résin'Architecte — Savoir-faire artisanal et pose de résine drainante aux abords d'une piscine",
+    description: "Immersion directe sur chantiers, formalisation de l'identité visuelle, création de gabarits éditoriaux et conception d'outils didactiques d'aide à la vente (règle des 8 mm drainants).",
+    destination: "/realisations/resin-architecte",
+    link: "/realisations/resin-architecte",
     cta: "Consulter l'étude de cas ↗",
     act1: {
       title: "01. Contexte & Enjeux",
@@ -274,6 +298,8 @@ export const projectsData = {
       title: "03. Résultats & Perspectives",
       text: "Traction initiale mesurée sur une période test de 30 jours 100 % organique : +219 % de portée sur Meta, +209 % d'interactions et 648 visites spontanées de profil sur Instagram, ouvrant la voie à la roadmap de développement à 12 mois."
     },
+    proofAssetsTitle: "Pièces justificatives & Données Meta",
+    proofAssetsSubtitle: "Captures Meta Business Suite — période test (30 jours) · 0 € Paid Ads",
     proofAssets: [
       {
         id: 1,
@@ -314,15 +340,35 @@ export const projectsData = {
   "jardimax": {
     slug: "jardimax",
     id: "PROJET 04",
-    title: "Jardimax",
+    projectName: "Jardimax",
+    client: "Jardimax (SAS DESMELIE)",
+    refLabel: "PROJET 04 · VIDÉO, MOTION DESIGN & RETAIL",
+    title: "Jardimax — Production vidéo, intervention face caméra & motion design",
+    fullTitle: "Jardimax — Production vidéo, intervention face caméra & motion design",
     subtitle: "Production vidéo, intervention face caméra & motion design pour l'enseigne de motoculture et de pièces détachées (SAS DESMELIE · Bailleul)",
     category: "Vidéo, Motion & Retail",
-    categories: ["video", "strategy", "digital"],
+    categories: ["motion", "branding", "web"],
+    editorialTag: "PRODUCTION VIDÉO & MOTION DESIGN",
+    shortTag: "VIDÉO & MOTION DESIGN",
+    tag: "PRODUCTION VIDÉO & MOTION DESIGN",
     sector: "E-commerce & Motoculture physique",
     deliverables: "Construction éditoriale, Prise de parole face caméra, Montage vidéo, Motion design estimatif, Déclinaison 16:9 & 9:16",
     year: "2026",
-    statusLabel: "PRODUCTION VIDÉO & MOTION",
+    statusLabel: "VIDÉO & MOTION",
     tags: ["Production Vidéo", "Motion Design", "Formats TikTok & YouTube", "Showroom & Atelier"],
+    highlights: [
+      "Formats 16:9 (YouTube) & 9:16 (TikTok)",
+      'Motion design pédagogique "430 €"',
+      "Tournage en showroom & atelier technique"
+    ],
+    metricBadge: {
+      value: "1 jour",
+      label: "délai d'exécution"
+    },
+    secondaryMetric: {
+      value: "2 formats",
+      label: "16:9 & 9:16"
+    },
     metric: "1 jour",
     metricLabel: "De la réflexion éditoriale à la finalisation des livrables 16:9 et 9:16",
     heroMetric: "1 jour",
@@ -358,6 +404,8 @@ export const projectsData = {
     image: "/assets/jardimax/jardimax_cover.jpg",
     alt: "Jardimax — Production vidéo, motion design et showroom",
     description: "Conception et production intégrale d'un dispositif vidéo pour Jardimax (enseigne de la SAS DESMELIE, basée à Bailleul) : construction du message éditorial, intervention face caméra, motion design pédagogique en 5 étapes, déclinaison horizontale YouTube 16:9 et verticale TikTok 9:16.",
+    destination: "/realisations/jardimax",
+    link: "/realisations/jardimax",
     cta: "Consulter l'étude de cas ↗",
     act1: {
       title: "01. Contexte & Enjeux",
@@ -371,6 +419,8 @@ export const projectsData = {
       title: "03. Livrables & Déclinaisons Multi-Plateformes",
       text: "Finalisation de deux formats distincts respectant les usages de diffusion : un film horizontal 16:9 pour YouTube et le web (83s), et une déclinaison verticale 9:16 calibrée pour TikTok, Instagram Reels et YouTube Shorts (60s), optimisée pour la rétention mobile."
     },
+    proofAssetsTitle: "Galerie de production & Visuels de tournage",
+    proofAssetsSubtitle: "Showroom physique, atelier technique et séquence motion design '430 €'",
     proofAssets: [
       {
         id: 1,

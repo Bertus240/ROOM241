@@ -41,7 +41,7 @@ function ProofFigure({ src, title, caption }) {
 }
 
 export default function ProjectDetail({ slug, navigate }) {
-  const project = projectsData[slug] || projectsData["editeur-saas-cloud"];
+  const project = projectsData[slug] || Object.values(projectsData)[0];
   const [isPlayingVideo, setIsPlayingVideo] = useState(false);
   const [activeVideoFormat, setActiveVideoFormat] = useState('ytb');
 
@@ -58,8 +58,8 @@ export default function ProjectDetail({ slug, navigate }) {
 
   const handleBack = (e) => {
     e.preventDefault();
-    if (navigate) navigate('/realisations');
-    else window.location.href = '/realisations';
+    if (navigate) navigate('/projets');
+    else window.location.href = '/projets';
   };
 
   /* Transition fluide vers l'étude suivante : navigation SPA + scroll remis à zéro. */
@@ -87,7 +87,7 @@ export default function ProjectDetail({ slug, navigate }) {
         {/* Navigation back link */}
         <div className="mb-12">
           <a
-            href="/realisations"
+            href="/projets"
             onClick={handleBack}
             className="link-arrow inline-flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-room-muted hover:text-room-text transition-colors duration-150 py-2"
           >
@@ -433,25 +433,43 @@ export default function ProjectDetail({ slug, navigate }) {
                 />
                 
                 {/* Overlay discret de contexte avec gradient très local en bas (85% de l'image libre) */}
-                <div className="absolute bottom-0 left-0 right-0 z-20 pointer-events-none bg-gradient-to-t from-black/90 via-black/45 to-transparent pt-16 pb-6 px-6 sm:px-8">
-                  <div className="flex flex-wrap items-end justify-between gap-4">
-                    <div>
-                      <span className="text-[11px] font-mono text-room-amber tracking-wider uppercase block mb-1">
-                        IMMERSION CHANTIER &amp; SAVOIR-FAIRE
-                      </span>
-                      <h4 className="text-xl sm:text-2xl font-extrabold text-white tracking-tight drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)]">
-                        Précision de pose aux abords d'une piscine résidentielle
-                      </h4>
-                      <p className="text-xs text-neutral-300 font-sans mt-1 max-w-xl hidden sm:block">
-                        Captation des gestes techniques valorisant l'artisanat et la qualité minérale du revêtement drainant.
-                      </p>
-                    </div>
-                    <div className="px-3.5 py-1.5 rounded-lg bg-black/60 backdrop-blur-md border border-white/20 text-right shadow-lg">
-                      <span className="text-xs font-mono text-room-amber font-bold block">+219% ORGANIQUE</span>
-                      <span className="text-[10px] font-mono text-neutral-300">0 € D'ACHAT D'ESPACE</span>
+                {project.heroStage && (
+                  <div className="absolute bottom-0 left-0 right-0 z-20 pointer-events-none bg-gradient-to-t from-black/90 via-black/45 to-transparent pt-16 pb-6 px-6 sm:px-8">
+                    <div className="flex flex-wrap items-end justify-between gap-4">
+                      <div>
+                        {project.heroStage.tag && (
+                          <span className="text-[11px] font-mono text-room-amber tracking-wider uppercase block mb-1">
+                            {project.heroStage.tag}
+                          </span>
+                        )}
+                        {project.heroStage.title && (
+                          <h4 className="text-xl sm:text-2xl font-extrabold text-white tracking-tight drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)]">
+                            {project.heroStage.title}
+                          </h4>
+                        )}
+                        {project.heroStage.description && (
+                          <p className="text-xs text-neutral-300 font-sans mt-1 max-w-xl hidden sm:block">
+                            {project.heroStage.description}
+                          </p>
+                        )}
+                      </div>
+                      {project.heroStage.metricBadge && (
+                        <div className="px-3.5 py-1.5 rounded-lg bg-black/60 backdrop-blur-md border border-white/20 text-right shadow-lg shrink-0">
+                          {project.heroStage.metricBadge.value && (
+                            <span className="text-xs font-mono text-room-amber font-bold block whitespace-nowrap">
+                              {project.heroStage.metricBadge.value}
+                            </span>
+                          )}
+                          {project.heroStage.metricBadge.label && (
+                            <span className="text-[10px] font-mono text-neutral-300 whitespace-nowrap">
+                              {project.heroStage.metricBadge.label}
+                            </span>
+                          )}
+                        </div>
+                      )}
                     </div>
                   </div>
-                </div>
+                )}
               </div>
 
               {/* Bandeau panoramique de validation Meta (ratio 4.7:1 préservé intégralement) */}
@@ -513,10 +531,10 @@ export default function ProjectDetail({ slug, navigate }) {
           <Reveal className="mb-24">
             <div className="border-t border-room-border pt-10">
               <span className="font-mono text-xs text-room-amber font-semibold uppercase tracking-wider block mb-3">
-                Pièces justificatives &amp; Données Meta
+                {project.proofAssetsTitle || "Pièces justificatives & Données vérifiées"}
               </span>
               <p className="text-xs font-mono text-room-subtle uppercase tracking-wider mb-8">
-                Captures Meta Business Suite — période de relance (30 jours) · 0 € Paid Ads
+                {project.proofAssetsSubtitle || "Documents et visuels de production"}
               </p>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {project.proofAssets.map((asset, idx) => (

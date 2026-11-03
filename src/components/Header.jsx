@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useLayoutEffect, useRef } from 'react';
-import { Menu, X, ArrowUpRight, Mail, Phone, Linkedin, Compass, Briefcase, Moon, Sun } from 'lucide-react';
+import { Menu, X, ArrowUpRight, ArrowRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { getStoredTheme, applyTheme, onThemeChange, toggleTheme } from '../lib/theme';
+import { getStoredTheme, applyTheme, onThemeChange } from '../lib/theme';
 
 /**
  * Header & Menu Mobile Plein Écran Éditorial — Studio ROOM241
@@ -59,19 +59,16 @@ export default function Header({ currentPath = '/', navigate }) {
     };
   }, [mobileMenuOpen]);
 
-  // Liens de navigation éditoriale
+  // Liens de navigation éditoriale — Exactement 3 entrées principales
   const navLinks = [
     { label: 'Accueil', path: '/', subtitle: 'Vision créative & présentation 360°' },
     { label: 'Projets', path: '/projets', subtitle: 'Stands > 150 m², identités de marque & vidéo' },
     { label: 'Parcours', path: '/parcours', subtitle: 'Expériences, compétences & CV' },
-    { label: 'Au-delà du travail', path: '/hors-cadre', subtitle: 'Curiosité, Meridian, rituels & endurance' },
   ];
 
-  // Calcul déterministe de l'index actif (Accueil: 0, Projets: 1, Parcours: 2, Au-delà: 3)
+  // Calcul déterministe de l'index actif (Accueil: 0, Projets: 1, Parcours: 2)
   useEffect(() => {
-    if (currentPath === '/hors-cadre' || currentPath === '/au-dela-du-travail') {
-      setActiveIndex(3);
-    } else if (
+    if (
       currentPath.startsWith('/parcours') ||
       currentPath.startsWith('/a-propos')
     ) {
@@ -83,17 +80,22 @@ export default function Header({ currentPath = '/', navigate }) {
       currentPath.startsWith('/realisations')
     ) {
       setActiveIndex(1);
-    } else {
+    } else if (currentPath === '/') {
       setActiveIndex(0);
+    } else {
+      setActiveIndex(-1);
     }
   }, [currentPath]);
 
   // Mesure et mise à jour de la position exacte du curseur coulissant
   const updateIndicator = () => {
     const nav = navRef.current;
-    const activeTab = tabRefs.current[activeIndex];
-    if (!nav || !activeTab) return;
+    if (activeIndex === -1 || !tabRefs.current[activeIndex] || !nav) {
+      setIndicatorStyle({ left: 0, width: 0, ready: false });
+      return;
+    }
 
+    const activeTab = tabRefs.current[activeIndex];
     const navRect = nav.getBoundingClientRect();
     const tabRect = activeTab.getBoundingClientRect();
 
@@ -143,21 +145,7 @@ export default function Header({ currentPath = '/', navigate }) {
     }
   };
 
-  const handleToggleUniverse = (targetUniverse) => {
-    if (targetUniverse === 'dark') {
-      applyTheme('dark');
-      if (currentPath !== '/hors-cadre' && currentPath !== '/au-dela-du-travail') {
-        if (navigate) navigate('/hors-cadre');
-      }
-    } else {
-      applyTheme('light');
-      if (currentPath === '/hors-cadre' || currentPath === '/au-dela-du-travail') {
-        if (navigate) navigate('/');
-      }
-    }
-  };
-
-  const isDark = currentTheme === 'dark';
+  const isDark = currentTheme === 'dark' || currentPath.startsWith('/hors-cadre') || currentPath.startsWith('/au-dela-du-travail');
 
   return (
     <>
@@ -228,41 +216,8 @@ export default function Header({ currentPath = '/', navigate }) {
             })}
           </nav>
 
-          {/* Droite : Commutateur d'univers & Bouton Contact Desktop */}
+          {/* Droite : Bouton Contact Desktop */}
           <div className="hidden md:flex items-center gap-3">
-            
-            {/* Commutateur Univers Professionnel / Univers Personnel */}
-            <div className="flex items-center p-0.5 rounded-full bg-zinc-100 dark:bg-zinc-900 border border-zinc-200/80 dark:border-white/10 text-xs">
-              <button
-                type="button"
-                onClick={() => handleToggleUniverse('light')}
-                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full font-semibold transition-all cursor-pointer ${
-                  !isDark
-                    ? 'bg-white text-zinc-950 shadow-xs'
-                    : 'text-zinc-400 hover:text-zinc-200'
-                }`}
-                title="Univers Professionnel (Mon travail)"
-              >
-                <Briefcase className="w-3.5 h-3.5 text-[#FFAD00]" />
-                <span className="text-[11px]">Travail</span>
-              </button>
-
-              <button
-                type="button"
-                onClick={() => handleToggleUniverse('dark')}
-                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full font-semibold transition-all cursor-pointer ${
-                  isDark
-                    ? 'bg-zinc-800 text-white shadow-xs'
-                    : 'text-zinc-500 hover:text-zinc-800'
-                }`}
-                title="Univers Personnel (Au-delà du travail)"
-              >
-                <Compass className="w-3.5 h-3.5 text-[#FFAD00]" />
-                <span className="text-[11px]">Au-delà</span>
-              </button>
-            </div>
-
-            {/* Bouton Contact */}
             <a
               href="#contact"
               onClick={handleNav('#contact')}
@@ -273,22 +228,8 @@ export default function Header({ currentPath = '/', navigate }) {
             </a>
           </div>
 
-          {/* Mobile : Switcher rapide + Bouton Menu */}
+          {/* Mobile : Bouton Menu */}
           <div className="flex md:hidden items-center gap-2">
-            <button
-              type="button"
-              onClick={() => handleToggleUniverse(isDark ? 'light' : 'dark')}
-              className="w-10 h-10 flex items-center justify-center rounded-xl bg-zinc-100 dark:bg-zinc-900 border border-zinc-200/80 dark:border-white/10 text-zinc-900 dark:text-white transition-colors"
-              aria-label="Basculer d'univers"
-              title={isDark ? "Passer à l'univers travail" : "Passer à l'univers personnel"}
-            >
-              {isDark ? (
-                <Sun className="w-4 h-4 text-[#FFAD00]" />
-              ) : (
-                <Compass className="w-4 h-4 text-zinc-800" />
-              )}
-            </button>
-
             <button
               type="button"
               onClick={() => setMobileMenuOpen(true)}
@@ -347,37 +288,7 @@ export default function Header({ currentPath = '/', navigate }) {
                 </button>
               </div>
 
-              {/* Commutateur d'univers sur mobile */}
-              <div className="p-1 rounded-2xl bg-zinc-100 dark:bg-zinc-900 border border-zinc-200/80 dark:border-white/10 flex items-center">
-                <button
-                  type="button"
-                  onClick={() => {
-                    handleToggleUniverse('light');
-                    setMobileMenuOpen(false);
-                  }}
-                  className={`flex-1 flex items-center justify-center gap-1.5 py-2 rounded-xl text-xs font-semibold ${
-                    !isDark ? 'bg-white text-zinc-950 shadow-xs' : 'text-zinc-400'
-                  }`}
-                >
-                  <Briefcase className="w-3.5 h-3.5 text-[#FFAD00]" />
-                  <span>Mon travail</span>
-                </button>
-                <button
-                  type="button"
-                  onClick={() => {
-                    handleToggleUniverse('dark');
-                    setMobileMenuOpen(false);
-                  }}
-                  className={`flex-1 flex items-center justify-center gap-1.5 py-2 rounded-xl text-xs font-semibold ${
-                    isDark ? 'bg-zinc-800 text-white shadow-xs' : 'text-zinc-500'
-                  }`}
-                >
-                  <Compass className="w-3.5 h-3.5 text-[#FFAD00]" />
-                  <span>Au-delà</span>
-                </button>
-              </div>
-
-              {/* Liste des liens de navigation */}
+              {/* Liste des liens de navigation (Accueil, Projets, Parcours) */}
               <div className="space-y-2">
                 {navLinks.map((link, idx) => (
                   <a

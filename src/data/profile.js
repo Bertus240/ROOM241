@@ -160,7 +160,7 @@ export const profileData = {
     {
       degree: "Baccalauréat Scientifique (Sciences de l'Ingénieur)",
       institution: "Sciences de l'Ingénieur",
-      period: "Mention Bien · 2020",
+      period: "2020",
       field: "Rigueur logique, analyse & méthode",
       description: "Formation scientifique axée sur la méthode, la résolution de problèmes, la modélisation et la rigueur dans la gestion des contraintes techniques."
     },
