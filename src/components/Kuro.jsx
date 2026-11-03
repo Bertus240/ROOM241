@@ -664,7 +664,7 @@ export default function Kuro({ currentPath = '/', navigate, onOpenCvModal }) {
     closeBubble();
 
     if (action.isMail) {
-      window.location.href = 'mailto:contact@room241.fr';
+      window.location.href = 'mailto:brocart.remi02@gmail.com';
       return;
     }
 

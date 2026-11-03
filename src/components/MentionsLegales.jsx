@@ -1,5 +1,5 @@
 import React from 'react';
-import { ArrowLeft } from 'lucide-react';
+import { ArrowLeft, Shield, FileText, Scale, Lock, Server } from 'lucide-react';
 import { Reveal } from '../lib/motion';
 
 export default function MentionsLegales({ navigate }) {
@@ -22,99 +22,218 @@ export default function MentionsLegales({ navigate }) {
         </a>
 
         <Reveal>
-          <span className="text-xs font-mono text-room-muted tracking-wider uppercase font-medium mb-3 block">
-            Conformité légale
-          </span>
+          <div className="flex items-center gap-2 mb-3">
+            <Scale className="w-4 h-4 text-room-amber" />
+            <span className="text-xs font-mono text-room-muted tracking-wider uppercase font-medium">
+              Cadre réglementaire & mentions obligatoires
+            </span>
+          </div>
           <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-room-text leading-[1.1] mb-4">
             Mentions légales.
           </h1>
           <p className="text-xs font-mono text-room-subtle uppercase mb-12">
-            Dernière mise à jour : septembre 2026
+            Dernière mise à jour : novembre 2026
           </p>
         </Reveal>
 
-        <div className="space-y-10 text-sm sm:text-base font-sans leading-relaxed">
+        <div className="space-y-12 text-sm sm:text-base font-sans leading-relaxed">
+          {/* 1. Éditeur du site */}
           <Reveal>
-            <h2 className="text-xl font-bold text-room-text tracking-tight mb-3">
-              1. Édition du site
-            </h2>
-            <div className="text-room-muted space-y-2">
-              <p>
-                <strong className="text-room-text font-semibold">Éditeur :</strong> Studio
-                ROOM241 — Rémi Brocart, Entrepreneur Individuel (micro-entreprise).
-              </p>
-              <p>
-                <strong className="text-room-text font-semibold">SIRET :</strong> numéro en
-                cours de communication — il sera affiché ici dès sa fourniture. Aucun
-                numéro fictif n'est présenté sur cette page.
-              </p>
-              <p>
-                <strong className="text-room-text font-semibold">Siège :</strong> Cysoing (59830), Métropole Européenne de Lille, Hauts-de-France, France.
-              </p>
-              <p>
-                <strong className="text-room-text font-semibold">TVA :</strong> Franchise en base de TVA — TVA non applicable, article 293 B du CGI.
-              </p>
-              <p>
-                <strong className="text-room-text font-semibold">Directeur de la
-                publication :</strong> Rémi Brocart.
-              </p>
-              <p>
-                <strong className="text-room-text font-semibold">Contact :</strong>{' '}
-                <a
-                  href="mailto:contact@room241.fr"
-                  className="text-room-text underline underline-offset-2 hover:text-room-amber transition-colors duration-150"
-                >
-                  contact@room241.fr
-                </a>
-              </p>
-              <p>
-                <strong className="text-room-text font-semibold">LinkedIn :</strong>{' '}
-                <a
-                  href="https://www.linkedin.com/in/remibrocart/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-room-text underline underline-offset-2 hover:text-room-amber transition-colors duration-150"
-                >
-                  linkedin.com/in/remibrocart
-                </a>
-              </p>
+            <div className="border border-room-border/80 rounded-xl p-6 sm:p-8 bg-room-surface/30">
+              <div className="flex items-center gap-2 mb-4">
+                <FileText className="w-5 h-5 text-room-amber" />
+                <h2 className="text-xl font-bold text-room-text tracking-tight">
+                  1. Édition du site et identification de l'entreprise
+                </h2>
+              </div>
+              <div className="text-room-muted space-y-2.5">
+                <p>
+                  <strong className="text-room-text font-semibold">Éditeur :</strong> Rémi Brocart, Entrepreneur Individuel (EI).
+                </p>
+                <p>
+                  <strong className="text-room-text font-semibold">Régime juridique :</strong> Micro-entreprise.
+                </p>
+                <p>
+                  <strong className="text-room-text font-semibold">Nom commercial :</strong> ROOM241.
+                </p>
+                <p>
+                  <strong className="text-room-text font-semibold">Numéro SIREN :</strong> 934 313 305.
+                </p>
+                <p>
+                  <strong className="text-room-text font-semibold">Numéro SIRET :</strong> 934 313 305 00013.
+                </p>
+                <p>
+                  <strong className="text-room-text font-semibold">Code APE / NAF :</strong> 70.21Z — Conseil en relations publiques et communication (activités exercées : marketing, communication, digital, design).
+                </p>
+                <p>
+                  <strong className="text-room-text font-semibold">Inscription au RNE :</strong> Inscrit au Registre National des Entreprises (RNE) depuis le 17 octobre 2024.
+                </p>
+                <p>
+                  <strong className="text-room-text font-semibold">Registre du Commerce et des Sociétés (RCS) :</strong> Non inscrit. En raison de la nature libérale et des prestations de services intellectuels exercées, l'entrepreneur individuel n'est pas assujetti à l'obligation d'immatriculation au RCS.
+                </p>
+                <p>
+                  <strong className="text-room-text font-semibold">Taxe sur la Valeur Ajoutée (TVA) :</strong> Franchise en base de TVA — <em className="text-room-text font-medium not-italic">« TVA non applicable, article 293 B du CGI »</em>.
+                </p>
+                <p>
+                  <strong className="text-room-text font-semibold">Adresse professionnelle :</strong>{' '}
+                  <span className="text-room-subtle italic">
+                    [Adresse professionnelle complète — à confirmer (ex. Erquinghem-Lys / Métropole Européenne de Lille, Hauts-de-France)]
+                  </span>
+                </p>
+                <p>
+                  <strong className="text-room-text font-semibold">Directeur de la publication :</strong> Rémi Brocart.
+                </p>
+                <p>
+                  <strong className="text-room-text font-semibold">Adresse électronique officielle :</strong>{' '}
+                  <a
+                    href="mailto:brocart.remi02@gmail.com"
+                    className="text-room-text underline underline-offset-2 hover:text-room-amber transition-colors duration-150"
+                  >
+                    brocart.remi02@gmail.com
+                  </a>
+                </p>
+                <p>
+                  <strong className="text-room-text font-semibold">Profil LinkedIn :</strong>{' '}
+                  <a
+                    href="https://www.linkedin.com/in/remibrocart/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-room-text underline underline-offset-2 hover:text-room-amber transition-colors duration-150"
+                  >
+                    linkedin.com/in/remibrocart
+                  </a>
+                </p>
+              </div>
             </div>
           </Reveal>
 
+          {/* 2. Hébergement */}
           <Reveal delay={50}>
-            <h2 className="text-xl font-bold text-room-text tracking-tight mb-3">
-              2. Hébergement
-            </h2>
-            <p className="text-room-muted">
-              Ce site est hébergé par <strong className="text-room-text font-semibold">Vercel
-              Inc.</strong>, 440 N Barranca Ave #4133, Covina, CA 91723, USA (plateforme cloud mondiale sécurisée).
-            </p>
+            <div className="border border-room-border/80 rounded-xl p-6 sm:p-8 bg-room-surface/30">
+              <div className="flex items-center gap-2 mb-4">
+                <Server className="w-5 h-5 text-room-amber" />
+                <h2 className="text-xl font-bold text-room-text tracking-tight">
+                  2. Hébergement du site
+                </h2>
+              </div>
+              <div className="text-room-muted space-y-3">
+                <p>
+                  Le site <strong className="text-room-text font-semibold">ROOM241</strong> est hébergé sur les infrastructures mondiales et le réseau de distribution de contenu (Edge Network) de :
+                </p>
+                <p>
+                  <strong className="text-room-text font-semibold">Vercel Inc.</strong><br />
+                  440 N Barranca Ave #4133<br />
+                  Covina, CA 91723, États-Unis<br />
+                  Site web :{' '}
+                  <a
+                    href="https://vercel.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-room-text underline underline-offset-2 hover:text-room-amber transition-colors duration-150"
+                  >
+                    vercel.com
+                  </a>
+                </p>
+                <p className="text-xs text-room-subtle">
+                  La plateforme d'hébergement opère avec des protocoles de sécurité avancés et un chiffrement strict des flux en transit (HTTPS / TLS).
+                </p>
+              </div>
+            </div>
           </Reveal>
 
+          {/* 3. Propriété intellectuelle */}
           <Reveal delay={100}>
-            <h2 className="text-xl font-bold text-room-text tracking-tight mb-3">
-              3. Propriété intellectuelle
-            </h2>
-            <p className="text-room-muted">
-              L'ensemble des réalisations, systèmes visuels et créations présentés sur ce
-              site sont la propriété exclusive de ROOM241 ou de ses clients respectifs.
-              Les droits d'exploitation et fichiers sources sont intégralement cédés aux
-              clients à la clôture de chaque projet. Toute reproduction, représentation ou
-              diffusion sans autorisation écrite préalable est interdite.
-            </p>
+            <div className="border border-room-border/80 rounded-xl p-6 sm:p-8 bg-room-surface/30">
+              <div className="flex items-center gap-2 mb-4">
+                <Shield className="w-5 h-5 text-room-amber" />
+                <h2 className="text-xl font-bold text-room-text tracking-tight">
+                  3. Propriété intellectuelle et conditions d'exploitation
+                </h2>
+              </div>
+              <div className="text-room-muted space-y-4">
+                <div>
+                  <h3 className="text-room-text font-semibold mb-1">
+                    3.1 Créations et éléments propres au portfolio
+                  </h3>
+                  <p>
+                    L'architecture générale du site, le code source, les compositions typographiques, les animations, les éléments interactifs, le graphisme, les textes, ainsi que les éléments d'identité de marque (dont la dénomination ROOM241 et sa charte graphique) sont protégés par le Code de la Propriété Intellectuelle (articles L. 111-1 et suivants) et constituent des œuvres originales de Rémi Brocart.
+                  </p>
+                  <p className="mt-2">
+                    Toute reproduction, représentation, diffusion, adaptation ou rediffusion, totale ou partielle, sans l'accord écrit exprès et préalable de Rémi Brocart, est formellement interdite et constitue une contrefaçon passible des sanctions prévues aux articles L. 335-2 et suivants du Code de la Propriété Intellectuelle.
+                  </p>
+                </div>
+
+                <div>
+                  <h3 className="text-room-text font-semibold mb-1">
+                    3.2 Créations réalisées pour le compte de commanditaires & cession de droits
+                  </h3>
+                  <p>
+                    Conformément aux dispositions de l'article L. 131-3 du Code de la Propriété Intellectuelle, la cession des droits patrimoniaux d'auteur sur les créations réalisées par Rémi Brocart au profit de ses clients est subordonnée à ce que chacun des droits cédés fasse l'objet d'une mention expresse et délimitée (droits de reproduction, de représentation, étendue, destination, supports définis, territoire géographique et durée déterminée).
+                  </p>
+                  <p className="mt-2">
+                    Sauf stipulation conventionnelle contraire expressément formulée au devis ou au contrat signé entre les parties, toute cession éventuelle de droits patrimoniaux est expressément conditionnée au complet paiement de l'intégralité des sommes convenues. Les fichiers sources, ébauches et déclinaisons non retenues demeurent la propriété exclusive de leur créateur.
+                  </p>
+                  <p className="mt-2">
+                    En application de la législation française, Rémi Brocart conserve en toute circonstance son droit moral perpétuel, inaliénable et imprescriptible d'auteur (droit à la paternité de son nom et respect de l'œuvre), ainsi que le droit de présenter les créations achevées et validées à titre d'illustration de son savoir-faire dans son portfolio professionnel et ses démarches de prospection (droit de citation et de référence), sous réserve des impératifs de confidentialité convenus.
+                  </p>
+                </div>
+
+                <div>
+                  <h3 className="text-room-text font-semibold mb-1">
+                    3.3 Marques et éléments graphiques de tiers
+                  </h3>
+                  <p>
+                    Les marques, dénominations sociales, logotypes, produits ou contenus de tiers cités ou reproduits au titre des études de cas et collaborations professionnelles demeurent la propriété exclusive de leurs détenteurs respectifs. Leur mention sur ce portfolio intervient au titre de la stricte valorisation de références professionnelles réelles.
+                  </p>
+                </div>
+              </div>
+            </div>
           </Reveal>
 
+          {/* 4. Confidentialité réciproque et projets sous scellé */}
           <Reveal delay={150}>
-            <h2 id="engagement-nda" className="text-xl font-bold text-room-text tracking-tight mb-3 scroll-mt-28">
-              4. Engagement NDA
-            </h2>
-            <p className="text-room-muted">
-              Le studio s'engage par contrat au secret professionnel le plus strict. Les
-              études de cas estampillées sous scellé font l'objet d'accords de
-              non-divulgation stricts protégeant les données stratégiques de nos
-              partenaires. Les visuels complets de ces missions ne sont présentés que sur
-              demande, aux marques et pairs du secteur.
-            </p>
+            <div id="engagement-nda" className="border border-room-border/80 rounded-xl p-6 sm:p-8 bg-room-surface/30 scroll-mt-28">
+              <div className="flex items-center gap-2 mb-4">
+                <Lock className="w-5 h-5 text-room-amber" />
+                <h2 className="text-xl font-bold text-room-text tracking-tight">
+                  4. Confidentialité réciproque et projets sous scellé
+                </h2>
+              </div>
+              <div className="text-room-muted space-y-3">
+                <p>
+                  Dans le cadre des prises de contact, demandes de chiffrage et missions confiées au studio, des informations stratégiques, financières, commerciales ou techniques à caractère non public peuvent être échangées entre les parties.
+                </p>
+                <p>
+                  <strong className="text-room-text font-semibold">Engagement mutuel :</strong> ROOM241 et ses interlocuteurs s'engagent à préserver la confidentialité réciproque de ces informations et à ne pas les divulguer à des tiers non habilités sans autorisation préalable, pour une durée de deux (2) années suivant la clôture des échanges ou de la mission.
+                </p>
+                <p>
+                  Ne sont pas couvertes par cet engagement les informations déjà accessibles au public au jour de leur communication, celles légitimement reçues d'un tiers sans obligation de secret, ou celles dont la communication est exigée par une autorité judiciaire ou réglementaire compétente.
+                </p>
+                <p>
+                  <strong className="text-room-text font-semibold">Projets « sous scellé » & accord dédié (NDA) :</strong> Certaines études de cas figurant au portfolio sont présentées avec des restrictions visuelles partielles (« sous scellé ») par respect pour la stratégie de mise sur le marché de nos partenaires. Pour tout projet requérant des garanties juridiques renforcées avant la transmission d'éléments confidentiels, un accord de confidentialité bilatéral dédié (NDA ad hoc) peut être conclu sur simple demande préalable.
+                </p>
+              </div>
+            </div>
+          </Reveal>
+
+          {/* 5. Responsabilité et liens hypertextes */}
+          <Reveal delay={200}>
+            <div className="border border-room-border/80 rounded-xl p-6 sm:p-8 bg-room-surface/30">
+              <div className="flex items-center gap-2 mb-4">
+                <Scale className="w-5 h-5 text-room-amber" />
+                <h2 className="text-xl font-bold text-room-text tracking-tight">
+                  5. Responsabilité et liens hypertextes
+                </h2>
+              </div>
+              <div className="text-room-muted space-y-3">
+                <p>
+                  Rémi Brocart met en œuvre l'ensemble des moyens raisonnables pour assurer l'exactitude des informations publiées et la continuité d'accès au portfolio. Toutefois, sa responsabilité ne saurait être engagée pour tout dysfonctionnement temporaire du réseau Internet, indisponibilité de l'hébergeur ou erreurs matérielles involontaires.
+                </p>
+                <p>
+                  Le site contient des liens hypertextes orientant vers des sites externes (notamment LinkedIn, Google Agenda, Vercel, YouTube). ROOM241 n'exerce aucun contrôle sur ces plateformes tierces et ne peut être tenu responsable de leurs contenus, de leurs politiques de confidentialité ou de leurs éventuels changements de conditions d'utilisation.
+                </p>
+              </div>
+            </div>
           </Reveal>
         </div>
       </div>

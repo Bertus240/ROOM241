@@ -27,7 +27,7 @@ export default function CaseStudies({ isPreview, isFullPage, navigate }) {
   const handleNdaMailClick = (e) => {
     e.stopPropagation();
     window.location.href =
-      "mailto:contact@room241.fr?subject=Demande%20de%20pr%C3%A9sentation%20%E2%80%94%20Dispositif%20%C3%A9v%C3%A9nementiel%20150m%C2%B2";
+      "mailto:brocart.remi02@gmail.com?subject=Demande%20de%20pr%C3%A9sentation%20%E2%80%94%20Dispositif%20%C3%A9v%C3%A9nementiel%20150m%C2%B2";
   };
 
   return (
