@@ -77,7 +77,7 @@ export default function MentionsLegales({ navigate }) {
                 <p>
                   <strong className="text-room-text font-semibold">Adresse professionnelle :</strong>{' '}
                   <span className="text-room-subtle italic">
-                    [Adresse professionnelle complète — à confirmer (ex. Erquinghem-Lys / Métropole Européenne de Lille, Hauts-de-France)]
+                    [Adresse professionnelle — Cysoing (59830) / Métropole Européenne de Lille — à confirmer avant publication définitive]
                   </span>
                 </p>
                 <p>
@@ -190,13 +190,13 @@ export default function MentionsLegales({ navigate }) {
             </div>
           </Reveal>
 
-          {/* 4. Confidentialité réciproque et projets sous scellé */}
+          {/* 4. Confidentialité et projets sous scellé */}
           <Reveal delay={150}>
             <div id="engagement-nda" className="border border-room-border/80 rounded-xl p-6 sm:p-8 bg-room-surface/30 scroll-mt-28">
               <div className="flex items-center gap-2 mb-4">
                 <Lock className="w-5 h-5 text-room-amber" />
                 <h2 className="text-xl font-bold text-room-text tracking-tight">
-                  4. Confidentialité réciproque et projets sous scellé
+                  4. Confidentialité des échanges et projets sous scellé
                 </h2>
               </div>
               <div className="text-room-muted space-y-3">
@@ -204,10 +204,10 @@ export default function MentionsLegales({ navigate }) {
                   Dans le cadre des prises de contact, demandes de chiffrage et missions confiées au studio, des informations stratégiques, financières, commerciales ou techniques à caractère non public peuvent être échangées entre les parties.
                 </p>
                 <p>
-                  <strong className="text-room-text font-semibold">Engagement mutuel :</strong> ROOM241 et ses interlocuteurs s'engagent à préserver la confidentialité réciproque de ces informations et à ne pas les divulguer à des tiers non habilités sans autorisation préalable, pour une durée de deux (2) années suivant la clôture des échanges ou de la mission.
+                  <strong className="text-room-text font-semibold">Cadre contractuel :</strong> Lorsque les devis ou contrats conclus le prévoient expressément, ou lors des échanges préalables nécessitant la communication de données non publiques, les parties conviennent de préserver la confidentialité réciproque de ces informations et de ne pas les divulguer sans accord préalable, selon les durées et modalités stipulées contractuellement.
                 </p>
                 <p>
-                  Ne sont pas couvertes par cet engagement les informations déjà accessibles au public au jour de leur communication, celles légitimement reçues d'un tiers sans obligation de secret, ou celles dont la communication est exigée par une autorité judiciaire ou réglementaire compétente.
+                  Ne sont pas couvertes par cette obligation les informations déjà accessibles au public au jour de leur communication, celles légitimement reçues d'un tiers sans obligation de secret, ou celles dont la communication est exigée par une décision judiciaire ou réglementaire exécutoire.
                 </p>
                 <p>
                   <strong className="text-room-text font-semibold">Projets « sous scellé » & accord dédié (NDA) :</strong> Certaines études de cas figurant au portfolio sont présentées avec des restrictions visuelles partielles (« sous scellé ») par respect pour la stratégie de mise sur le marché de nos partenaires. Pour tout projet requérant des garanties juridiques renforcées avant la transmission d'éléments confidentiels, un accord de confidentialité bilatéral dédié (NDA ad hoc) peut être conclu sur simple demande préalable.

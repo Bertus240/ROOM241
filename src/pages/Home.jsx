@@ -3,6 +3,7 @@ import { ArrowRight, ArrowUpRight, Play, Shield, Sparkles, Camera, Award, CheckC
 import { motion } from 'framer-motion';
 import { profileData } from '../data/profile';
 import AnimatedStat from '../components/AnimatedStat';
+import ShowcaseProjects from '../components/ShowcaseProjects';
 
 export default function Home({ navigate }) {
   const [isPlayingPitch, setIsPlayingPitch] = useState(false);
@@ -178,160 +179,9 @@ export default function Home({ navigate }) {
       </section>
 
       {/* ========================================================
-          2. SÉLECTION ÉDITORIALE DES RÉALISATIONS (HIGHLIGHTS)
+          2. SÉLECTION ÉDITORIALE DES RÉALISATIONS (SHOWCASE HORIZONTAL CINÉMATIQUE)
          ======================================================== */}
-      <section className="max-w-[1280px] mx-auto px-5 sm:px-8 lg:px-10 space-y-10 sm:space-y-12">
-        
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-4 border-b border-zinc-100">
-          <div className="space-y-1.5">
-            <span className="text-xs font-semibold uppercase tracking-wider text-[#FFAD00] flex items-center gap-1.5">
-              <Shield className="w-3.5 h-3.5" />
-              Sélection éditoriale • Projets clés
-            </span>
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight text-[#09090B]">
-              Sélection de réalisations
-            </h2>
-            <p className="text-xs sm:text-sm text-[#71717A] max-w-xl font-normal leading-relaxed pt-0.5">
-              Une sélection de collaborations concrètes articulant scénographie grand format, univers de marque et valorisation technique de terrain.
-            </p>
-          </div>
-
-          <a
-            href="/projets"
-            onClick={handleNav('/projets')}
-            className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-[#09090B] hover:text-[#FFAD00] transition-colors shrink-0"
-          >
-            <span>Voir tous les projets</span>
-            <ArrowRight className="w-4 h-4" />
-          </a>
-        </div>
-
-        {/* Projet 1 mis en majesté : Hornetsecurity (Scénographie > 150 m² & Marque) */}
-        <div className="p-6 sm:p-10 rounded-3xl bg-zinc-50/90 border border-zinc-200/80 hover:border-zinc-300 transition-all space-y-8 group">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-            
-            <div className="lg:col-span-7 space-y-4">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white border border-zinc-200 text-xs font-semibold text-[#09090B] shadow-2xs">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#FFAD00]" />
-                <span>Hornetsecurity • Salons européens</span>
-              </div>
-              <h3 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-[#09090B] group-hover:text-zinc-800 transition-colors">
-                Stand de plus de 150 m² au FIC, arche vidéo After Effects &amp; Captain Security
-              </h3>
-              <p className="text-sm sm:text-base text-[#52525B] leading-relaxed">
-                Conception graphique et habillage de stands internationaux pour le leader européen de la cybersécurité Cloud (Forum InCyber à Lille, it-sa à Nuremberg). Création de la boucle motion design After Effects diffusée sur l'arche vidéo du stand, incarnation sur scène du personnage Captain Security et refonte du système de badges partenaires B2B.
-              </p>
-              
-              <div className="pt-2 flex flex-wrap items-center gap-4 sm:gap-6 text-xs text-[#71717A]">
-                <span className="font-medium text-zinc-900">Stand FIC &gt; 150 m²</span>
-                <span>•</span>
-                <span>Arche vidéo LED After Effects</span>
-                <span>•</span>
-                <span>4 000+ contacts B2B qualifiés</span>
-              </div>
-
-              <div className="pt-2">
-                <a
-                  href="/projets#hornetsecurity"
-                  onClick={handleNav('/projets#hornetsecurity')}
-                  className="inline-flex items-center gap-2 text-xs font-bold text-[#09090B] hover:text-[#FFAD00] transition-colors"
-                >
-                  <span>Lire l'étude de cas complète</span>
-                  <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
-                </a>
-              </div>
-            </div>
-
-            <div className="lg:col-span-5">
-              <div className="aspect-[4/3] w-full rounded-2xl overflow-hidden border border-zinc-200 bg-zinc-950 shadow-sm">
-                <img
-                  src="/assets/hornetsecurity/fic/Stand/IMG20250401075104.jpg"
-                  alt="Scénographie événementielle, stand et arche vidéo d'accueil Hornetsecurity"
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                  loading="lazy"
-                />
-              </div>
-            </div>
-
-          </div>
-        </div>
-
-        {/* Projets 2 & 3 en colonnes équilibrées : Fresh Data & Résin'Architecte */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          
-          {/* Fresh Data : Retail Data & Crowdfunding */}
-          <div
-            onClick={handleNav('/projets#fresh-data')}
-            className="group cursor-pointer p-6 sm:p-8 rounded-3xl bg-white border border-zinc-200/80 hover:border-zinc-300 transition-all space-y-5 flex flex-col justify-between"
-          >
-            <div className="space-y-5">
-              <div className="aspect-[16/10] w-full rounded-2xl overflow-hidden bg-zinc-950 border border-zinc-100 shadow-2xs">
-                <img
-                  src="/assets/fresh-data-video-cover.jpg"
-                  alt="Fresh Data - Couverture vidéo salon MEDFEL et campagne Ulule"
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                  loading="lazy"
-                />
-              </div>
-
-              <div className="space-y-2">
-                <div className="flex items-center justify-between text-xs">
-                  <span className="font-semibold text-[#FFAD00]">Retail Data &amp; Crowdfunding</span>
-                  <span className="text-zinc-500 font-mono text-[11px]">Validé à 116 % • MEDFEL</span>
-                </div>
-                <h3 className="text-xl sm:text-2xl font-extrabold text-[#09090B] group-hover:text-zinc-700 transition-colors">
-                  Fresh Data
-                </h3>
-                <p className="text-sm text-[#52525B] leading-relaxed">
-                  Création de l'univers visuel et des supports de communication de Fresh Data aux côtés du fondateur Marc-Henri Blarel : vulgarisation d'une solution de pige publicitaire grande distribution, campagne Ulule validée à 116 % et supports commerciaux B2B.
-                </p>
-              </div>
-            </div>
-
-            <div className="pt-2 flex items-center gap-1.5 text-xs font-bold text-[#09090B]">
-              <span>Découvrir le projet</span>
-              <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
-            </div>
-          </div>
-
-          {/* Résin'Architecte : Revêtements en résine & Contenu de terrain */}
-          <div
-            onClick={handleNav('/projets#resin-architecte')}
-            className="group cursor-pointer p-6 sm:p-8 rounded-3xl bg-white border border-zinc-200/80 hover:border-zinc-300 transition-all space-y-5 flex flex-col justify-between"
-          >
-            <div className="space-y-5">
-              <div className="aspect-[16/10] w-full rounded-2xl overflow-hidden bg-zinc-50 border border-zinc-100 flex items-center justify-center p-3 shadow-2xs">
-                <img
-                  src="/assets/social-proof-ra/post_pool_craft.png"
-                  alt="Résin'Architecte - Démonstration technique de pose de résine drainante aux abords d'une piscine"
-                  className="max-h-full w-auto object-contain transition-transform duration-500 group-hover:scale-105"
-                  loading="lazy"
-                />
-              </div>
-
-              <div className="space-y-2">
-                <div className="flex items-center justify-between text-xs">
-                  <span className="font-semibold text-[#FFAD00]">Revêtements de sol en résine</span>
-                  <span className="text-zinc-500 font-mono text-[11px]">+219 % portée • Chantiers réels</span>
-                </div>
-                <h3 className="text-xl sm:text-2xl font-extrabold text-[#09090B] group-hover:text-zinc-700 transition-colors">
-                  Résin'Architecte
-                </h3>
-                <p className="text-sm text-[#52525B] leading-relaxed">
-                  Résin’Architecte développe des solutions de revêtements de sol en résine pour les espaces intérieurs et extérieurs. De la moquette de pierre aux revêtements décoratifs, drainants ou appliqués sur béton, l'entreprise associe savoir-faire technique et recherche esthétique pour répondre à des usages variés.
-                </p>
-              </div>
-            </div>
-
-            <div className="pt-2 flex items-center gap-1.5 text-xs font-bold text-[#09090B]">
-              <span>Découvrir le projet</span>
-              <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
-            </div>
-          </div>
-
-        </div>
-
-      </section>
+      <ShowcaseProjects navigate={navigate} />
 
       {/* ========================================================
           3. PRÉSENTATION PERSONNELLE : LE VISAGE DERRIÈRE ROOM241

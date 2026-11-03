@@ -19,6 +19,8 @@ export default function CvModal({ isOpen, onClose }) {
   const [copiedPhone, setCopiedPhone] = useState(false);
   const [activeTab, setActiveTab] = useState('experiences');
   const scrollContainerRef = useRef(null);
+  const isManualScrollRef = useRef(false);
+  const manualScrollTimeoutRef = useRef(null);
 
   // 1. Fermeture par la touche Échap
   useEffect(() => {
@@ -39,6 +41,57 @@ export default function CvModal({ isOpen, onClose }) {
     document.body.style.overflow = 'hidden';
     return () => {
       document.body.style.overflow = originalOverflow || '';
+    };
+  }, [isOpen]);
+
+  // 3. Suivi automatique de la section visible au scroll (Scroll Spy avec IntersectionObserver)
+  useEffect(() => {
+    if (!isOpen) return;
+    const container = scrollContainerRef.current;
+    if (!container) return;
+
+    const sections = [
+      { id: 'cv-section-experiences', tab: 'experiences' },
+      { id: 'cv-section-skills', tab: 'skills' },
+      { id: 'cv-section-education', tab: 'education' },
+    ];
+
+    const elements = sections
+      .map((s) => ({ el: document.getElementById(s.id), tab: s.tab }))
+      .filter((s) => s.el !== null);
+
+    if (elements.length === 0) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (isManualScrollRef.current) return;
+        const visible = entries.filter((entry) => entry.isIntersecting);
+        if (visible.length > 0) {
+          visible.sort((a, b) => {
+            const topA = Math.abs(a.boundingClientRect.top - container.getBoundingClientRect().top);
+            const topB = Math.abs(b.boundingClientRect.top - container.getBoundingClientRect().top);
+            return topA - topB;
+          });
+          const match = sections.find((s) => s.id === visible[0].target.id);
+          if (match) {
+            setActiveTab(match.tab);
+          }
+        }
+      },
+      {
+        root: container,
+        rootMargin: '-10% 0px -50% 0px',
+        threshold: [0, 0.2, 0.5, 0.8],
+      }
+    );
+
+    elements.forEach(({ el }) => observer.observe(el));
+
+    return () => {
+      observer.disconnect();
+      if (manualScrollTimeoutRef.current) {
+        clearTimeout(manualScrollTimeoutRef.current);
+      }
     };
   }, [isOpen]);
 
@@ -64,6 +117,14 @@ export default function CvModal({ isOpen, onClose }) {
 
   const scrollToSection = (sectionId, tabKey) => {
     setActiveTab(tabKey);
+    isManualScrollRef.current = true;
+    if (manualScrollTimeoutRef.current) {
+      clearTimeout(manualScrollTimeoutRef.current);
+    }
+    manualScrollTimeoutRef.current = setTimeout(() => {
+      isManualScrollRef.current = false;
+    }, 800);
+
     const container = scrollContainerRef.current;
     const target = document.getElementById(sectionId);
     if (container && target) {

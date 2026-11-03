@@ -59,7 +59,7 @@ export default function PolitiqueConfidentialite({ navigate }) {
                   <p>Nom commercial : ROOM241 (Micro-entreprise)</p>
                   <p>SIREN : 934 313 305 — SIRET : 934 313 305 00013</p>
                   <p className="text-room-subtle italic">
-                    [Adresse professionnelle complète — à confirmer (ex. Erquinghem-Lys / Métropole Européenne de Lille, Hauts-de-France)]
+                    [Adresse professionnelle — Cysoing (59830) / Métropole Européenne de Lille — à confirmer avant publication définitive]
                   </p>
                 </div>
                 <p>
@@ -111,29 +111,23 @@ export default function PolitiqueConfidentialite({ navigate }) {
                 </ul>
               </div>
 
-              {/* Traitement B : Prise de rendez-vous en ligne */}
+              {/* Traitement B : Prise de rendez-vous en ligne (lien sortant) */}
               <div className="border border-room-border/80 rounded-xl p-6 bg-room-surface/20 space-y-3">
                 <div className="flex items-center gap-2">
                   <Calendar className="w-5 h-5 text-room-amber" />
                   <h3 className="text-base sm:text-lg font-bold text-room-text">
-                    B. Prise de rendez-vous en ligne (Google Agenda / Meet)
+                    B. Prise de rendez-vous en ligne (Lien externe sortant vers Google Agenda)
                   </h3>
                 </div>
                 <ul className="text-room-muted text-sm space-y-1.5 list-disc list-inside pl-1">
                   <li>
-                    <strong className="text-room-text font-medium">Finalités :</strong> Organisation, confirmation et tenue d'échanges préparatoires ou de visio-conférences de cadrage.
+                    <strong className="text-room-text font-medium">Modalité technique :</strong> Il s'agit d'un lien hypertexte sortant pointant vers le service en ligne Google Agenda (<code className="text-xs bg-room-bg px-1.5 py-0.5 rounded font-mono text-room-amber">calendar.app.google</code>). Aucun script ou iframe Google n'est exécuté en arrière-plan sur les pages de ROOM241 pour ce service.
                   </li>
                   <li>
-                    <strong className="text-room-text font-medium">Données traitées :</strong> Nom, prénom, adresse électronique, date et heure du créneau réservé, fuseau horaire et notes fournies.
+                    <strong className="text-room-text font-medium">Traitement des données :</strong> Lorsque vous cliquez sur ce lien, vous quittez le site ROOM241. La réservation s'effectue directement sur l'infrastructure de Google Ireland Limited, qui opère ce service sous ses propres conditions d'utilisation et politique de confidentialité.
                   </li>
                   <li>
-                    <strong className="text-room-text font-medium">Base légale :</strong> Exécution de mesures précontractuelles sollicitées par l'utilisateur (art. 6.1.b du RGPD).
-                  </li>
-                  <li>
-                    <strong className="text-room-text font-medium">Sous-traitant / Destinataire :</strong> Google Ireland Limited (Gordon House, Barrow Street, Dublin 4, Irlande). Les transferts hors EEE sont encadrés par les clauses contractuelles types (CCT) de la Commission européenne.
-                  </li>
-                  <li>
-                    <strong className="text-room-text font-medium">Durée de conservation :</strong> Durée de l'organisation du rendez-vous, puis intégration au suivi commercial habituel (3 ans prospect).
+                    <strong className="text-room-text font-medium">Données collectées à des fins de rendez-vous :</strong> Nom, prénom, adresse e-mail professionnelle, date et créneau horaire sélectionné, nécessaires à la confirmation de la visioconférence.
                   </li>
                 </ul>
               </div>
@@ -148,61 +142,58 @@ export default function PolitiqueConfidentialite({ navigate }) {
                 </div>
                 <ul className="text-room-muted text-sm space-y-1.5 list-disc list-inside pl-1">
                   <li>
-                    <strong className="text-room-text font-medium">Finalités :</strong> Évaluation statistique de fréquentation (pages consultées, type de terminal, pays d'origine) et diagnostic de stabilité technique du site.
+                    <strong className="text-room-text font-medium">Finalités :</strong> Mesure globale et anonyme de la fréquentation (pages consultées, volume de visites, type de terminal et répartition géographique macroscopique) afin de détecter les anomalies techniques et d'optimiser la performance du portfolio.
                   </li>
                   <li>
-                    <strong className="text-room-text font-medium">Fonctionnement respectueux de la vie privée :</strong> Cet outil n'utilise aucun cookie, ne conserve aucune empreinte persistante du terminal et ne permet aucun recoupement intersites. Les adresses IP sont temporairement traitées en mémoire pour déterminer la zone géographique globale puis hachées de manière irréversible.
+                    <strong className="text-room-text font-medium">Architecture technique :</strong> La solution Vercel Web Analytics opère sans déposer de cookie persistant sur votre terminal, sans utiliser d'empreinte matérielle persistante (fingerprinting) et sans réaliser de recoupement intersites. Les adresses IP sont hachées de manière éphémère en mémoire avec un sel journalier tournant (rotation toutes les 24h) et ne sont pas conservées en base sous forme identifiable.
                   </li>
                   <li>
-                    <strong className="text-room-text font-medium">Base légale :</strong> Intérêt légitime de ROOM241 (art. 6.1.f du RGPD) à assurer le bon fonctionnement, la fluidité et la sécurité de sa vitrine en ligne, dispensé de consentement selon les critères de la CNIL pour les mesures d'audience anonymes.
+                    <strong className="text-room-text font-medium">Précision réglementaire :</strong> Cette configuration est déployée avec le souci constant de minimiser les données traitées. ROOM241 suit avec attention les critères et recommandations de la CNIL relatifs à l'exemption de consentement des outils de mesure d'audience anonymes.
                   </li>
                   <li>
-                    <strong className="text-room-text font-medium">Destinataire :</strong> Vercel Inc. (hébergeur cloud, États-Unis, sous garanties contractuelles appropriées).
+                    <strong className="text-room-text font-medium">Opposition :</strong> Les signaux standards de votre navigateur (Do Not Track) ou l'utilisation d'extensions de blocage d'analyse sont respectés.
                   </li>
                 </ul>
               </div>
 
-              {/* Traitement D : Stockage local des préférences */}
+              {/* Traitement D : Stockage local technique et absence de traceurs publicitaires */}
               <div className="border border-room-border/80 rounded-xl p-6 bg-room-surface/20 space-y-3">
                 <div className="flex items-center gap-2">
                   <HardDrive className="w-5 h-5 text-room-amber" />
                   <h3 className="text-base sm:text-lg font-bold text-room-text">
-                    D. Préférences de navigation et télémétrie locale (localStorage)
+                    D. Stockage local technique & absence de cookies publicitaires
                   </h3>
                 </div>
                 <ul className="text-room-muted text-sm space-y-1.5 list-disc list-inside pl-1">
                   <li>
-                    <strong className="text-room-text font-medium">Finalités :</strong> Mémorisation locale de votre choix sur le bandeau d'information et rétention de métriques d'interaction strictement locales dans votre propre navigateur pour adapter l'affichage.
+                    <strong className="text-room-text font-medium">Absence de cookies publicitaires :</strong> Le site ROOM241 ne dépose aucun cookie publicitaire, aucun pixel de reciblage (retargeting) et n'effectue aucun profilage commercial de ses visiteurs.
                   </li>
                   <li>
-                    <strong className="text-room-text font-medium">Caractéristiques :</strong> Ces clés sont conservées localement dans votre équipement terminal (<code className="text-xs bg-room-bg px-1.5 py-0.5 rounded font-mono text-room-amber">localStorage</code>). Elles ne sont transmises à aucun serveur publicitaire tiers.
+                    <strong className="text-room-text font-medium">Stockage de session (sessionStorage) :</strong> De rares données strictement techniques et temporaires (mémorisation de la position de scroll lors du retour arrière, session de dialogue du compagnon Kuro) sont conservées uniquement pendant la durée de votre visite et sont automatiquement détruites dès la fermeture de l'onglet.
                   </li>
                   <li>
-                    <strong className="text-room-text font-medium">Durée de conservation :</strong> Jusqu'à 13 mois maximum (398 jours) ou jusqu'à la purge volontaire par l'utilisateur (voir section 6).
-                  </li>
-                  <li>
-                    <strong className="text-room-text font-medium">Base légale :</strong> Consentement de l'utilisateur (art. 6.1.a du RGPD).
+                    <strong className="text-room-text font-medium">Préférences locales (localStorage) :</strong> Les éventuelles préférences enregistrées localement restent cantonnées à votre navigateur et ne sont jamais téléversées sur des serveurs tiers.
                   </li>
                 </ul>
               </div>
 
-              {/* Traitement E : Vidéos intégrées YouTube */}
+              {/* Traitement E : Lecteurs vidéo intégrés YouTube */}
               <div className="border border-room-border/80 rounded-xl p-6 bg-room-surface/20 space-y-3">
                 <div className="flex items-center gap-2">
                   <Video className="w-5 h-5 text-room-amber" />
                   <h3 className="text-base sm:text-lg font-bold text-room-text">
-                    E. Lecteur multimédia externe (YouTube en mode confidentialité renforcée)
+                    E. Lecteurs multimédias intégrés (YouTube en mode confidentialité renforcée)
                   </h3>
                 </div>
                 <ul className="text-room-muted text-sm space-y-1.5 list-disc list-inside pl-1">
                   <li>
-                    <strong className="text-room-text font-medium">Finalités :</strong> Diffusion de retours d'expérience et d'études de cas en vidéo.
+                    <strong className="text-room-text font-medium">Finalités :</strong> Lecture de vidéos d'études de cas et démonstrations audiovisuelles.
                   </li>
                   <li>
-                    <strong className="text-room-text font-medium">Intégration technique :</strong> Les vidéos utilisent le domaine sécurisé <code className="text-xs bg-room-bg px-1.5 py-0.5 rounded font-mono text-room-amber">youtube-nocookie.com</code>. Aucun cookie de ciblage n'est déposé tant que vous ne déclenchez pas la lecture de la vidéo.
+                    <strong className="text-room-text font-medium">Distinction technique importante :</strong> Les vidéos intégrées utilisent le domaine <code className="text-xs bg-room-bg px-1.5 py-0.5 rounded font-mono text-room-amber">youtube-nocookie.com</code>. Bien que ce mode prévienne le dépôt initial de cookies publicitaires au chargement passif de la page, le déclenchement actif de la lecture par l'utilisateur établit une connexion directe avec les serveurs de Google Ireland Limited / YouTube, susceptible d'engendrer des échanges techniques et le dépôt de cookies fonctionnels ou de mesure propres à la plateforme YouTube.
                   </li>
                   <li>
-                    <strong className="text-room-text font-medium">Sous-traitant :</strong> Google Ireland Limited / YouTube LLC.
+                    <strong className="text-room-text font-medium">Liens externes directs :</strong> Certains liens (« Ouvrir sur YouTube ») redirigent vers la plateforme externe YouTube sous ses propres conditions.
                   </li>
                 </ul>
               </div>
