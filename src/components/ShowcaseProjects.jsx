@@ -60,7 +60,7 @@ export const SHOWCASE_PROJECTS = [
     number: '04',
     category: 'Vidéo, Motion & Retail',
     title: "Jardimax — Production vidéo, intervention face caméra & motion design",
-    description: "Conception et réalisation d'un dispositif vidéo pour l'enseigne de motoculture Jardimax (SAS DESMEL à Bailleul) : écriture éditoriale, tournage showroom et atelier, animation motion design pédagogique et déclinaisons 16:9 et 9:16.",
+    description: "Conception et réalisation d'un dispositif vidéo pour l'enseigne de motoculture Jardimax (SAS DESMELIE à Bailleul) : écriture éditoriale, tournage showroom et atelier, animation motion design pédagogique et déclinaisons 16:9 et 9:16.",
     highlights: [
       'Formats 16:9 (YouTube) & 9:16 (TikTok)',
       'Motion design pédagogique "430 €"',

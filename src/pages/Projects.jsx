@@ -279,8 +279,8 @@ export default function Projects({ navigate }) {
       id: 1,
       src: "/assets/jardimax/jardimax_motion_430.jpg",
       thumbUrl: "/assets/jardimax/jardimax_motion_430.jpg",
-      title: "Motion design — Séquence '430 € d'économies'",
-      description: "Animation graphique pédagogique valorisant l'intérêt financier de réparer sa machine avec des pièces d'origine plutôt que de racheter neuf.",
+      title: "Motion design — Séquence '430 € d'économies potentielles'",
+      description: "Animation graphique pédagogique illustrant l'intérêt financier estimé de remplacer une pièce plutôt que de racheter une machine neuve.",
       badge: "Motion design"
     },
     {
@@ -288,23 +288,23 @@ export default function Projects({ navigate }) {
       src: "/assets/jardimax/jardimax_cover.jpg",
       thumbUrl: "/assets/jardimax/jardimax_cover.jpg",
       title: "Showroom physique — Bailleul (Flandres)",
-      description: "Valorisation des locaux historiques de la SAS DESMEL et de l'envergure du stock de pièces détachées en magasin.",
+      description: "Valorisation des locaux de la SAS DESMELIE et de la disponibilité immédiate du matériel et des pièces détachées en magasin.",
       badge: "Showroom Bailleul"
     },
     {
       id: 3,
       src: "/assets/jardimax/jardimax_atelier.jpg",
       thumbUrl: "/assets/jardimax/jardimax_atelier.jpg",
-      title: "Atelier & Équipe technique",
-      description: "Prises de vue du savoir-faire technique en atelier de réparation pour asseoir la légitimité du conseil et l'expertise locale.",
+      title: "Atelier & Savoir-faire technique",
+      description: "Captation in situ de l'équipe et de l'atelier de réparation (avec Calvin) attestant des compétences concrètes d'entretien et de conseil.",
       badge: "Atelier technique"
     },
     {
       id: 4,
       src: "/assets/jardimax/jardimax_ecommerce.jpg",
       thumbUrl: "/assets/jardimax/jardimax_ecommerce.jpg",
-      title: "Interface e-commerce & Vues éclatées",
-      description: "Démonstration du parcours d'achat et de l'identification précise des pièces sur le site marchand Jardimax.",
+      title: "Navigation e-commerce & Vues éclatées",
+      description: "Mise en avant du parcours numérique de recherche de pièces détachées à partir des schémas techniques sur le site marchand Jardimax.",
       badge: "Plateforme e-commerce"
     }
   ];
@@ -1638,12 +1638,12 @@ export default function Projects({ navigate }) {
                   Jardimax — Production vidéo, intervention face caméra &amp; motion design
                 </h2>
                 <p className="text-sm sm:text-base text-[#52525B] mt-2 max-w-3xl leading-relaxed">
-                  Conception et production intégrale d'un dispositif vidéo pour Jardimax (enseigne e-commerce et magasin physique de la SAS DESMEL à Bailleul) : construction du message éditorial, intervention face caméra, motion design chiffré démontrant l'intérêt de la réparation (430 € d'économie) et double déclinaison 16:9 paysage / 9:16 vertical TikTok.
+                  Conception et production intégrale d'un dispositif vidéo pour Jardimax (enseigne e-commerce et magasin physique de la SAS DESMELIE à Bailleul) : construction du message éditorial, intervention face caméra, motion design pédagogique illustrant l'intérêt de la réparation (estimation de 430 € d'économies potentielles) et double déclinaison 16:9 paysage / 9:16 vertical TikTok.
                 </p>
               </div>
 
               <span className="text-xs font-semibold text-zinc-900 bg-zinc-100 px-3.5 py-1.5 rounded-full border border-zinc-200 w-fit shrink-0">
-                Bailleul (Flandres) • SAS DESMEL
+                Bailleul (Flandres) • SAS DESMELIE
               </span>
             </div>
 
@@ -1670,8 +1670,8 @@ export default function Projects({ navigate }) {
               <div className="p-4 sm:p-5 rounded-2xl bg-white/70 border border-zinc-200/80 shadow-2xs hover:border-[#FFAD00]/40 transition-colors">
                 <AnimatedStat
                   value="430 €"
-                  label="Économie démontrée"
-                  description="Séquence motion comparant le coût d'une réparation au rachat neuf."
+                  label="Économie estimée"
+                  description="Séquence motion illustrant l'intérêt financier estimé d'une réparation face au rachat neuf."
                   size="card"
                   delay={200}
                 />
@@ -1789,7 +1789,7 @@ export default function Projects({ navigate }) {
                     key="jardimax-landscape"
                     controls
                     playsInline
-                    preload="metadata"
+                    preload="none"
                     poster="/assets/jardimax/poster_ytb.jpg"
                     className="w-full h-full object-cover"
                   >
@@ -1803,7 +1803,7 @@ export default function Projects({ navigate }) {
                     key="jardimax-vertical"
                     controls
                     playsInline
-                    preload="metadata"
+                    preload="none"
                     poster="/assets/jardimax/poster_tiktok.jpg"
                     className="w-full h-full object-cover"
                   >
@@ -1903,7 +1903,7 @@ export default function Projects({ navigate }) {
                 <span className="text-xs font-mono font-bold text-[#FFAD00] block">ACTE 01</span>
                 <h4 className="text-base font-bold text-[#09090B]">Contexte &amp; Enjeux</h4>
                 <p className="text-xs text-[#52525B] leading-relaxed">
-                  Jardimax, spécialiste reconnu de la pièce détachée de motoculture et enseigne de la SAS DESMEL à Bailleul, souhaitait sensibiliser les particuliers à l'économie et à la durabilité de la réparation d'outils de jardinage face au réflexe d'achat neuf.
+                  Jardimax, enseigne spécialisée de motoculture et de pièces détachées exploitée par la SAS DESMELIE à Bailleul, souhaitait valoriser son infrastructure réelle (showroom, atelier, stock) et sensibiliser à la réparabilité du matériel.
                 </p>
               </div>
 
@@ -1911,7 +1911,7 @@ export default function Projects({ navigate }) {
                 <span className="text-xs font-mono font-bold text-[#FFAD00] block">ACTE 02</span>
                 <h4 className="text-base font-bold text-[#09090B]">Approche Créative &amp; Production</h4>
                 <p className="text-xs text-[#52525B] leading-relaxed">
-                  Écriture d'un script direct et percutant, prise de parole face caméra pour incarner le discours, animation motion design démontrant l'économie de 430 € sur une tondeuse, et tournage in situ dans le showroom et l'atelier technique de Bailleul.
+                  Écriture d'un script direct, prise de parole face caméra pour incarner le message, animation motion design mettant en scène un montant illustratif de 430 € d'économies potentielles, et tournage in situ dans le showroom et l'atelier technique de Bailleul avec les équipes (Thomas et Calvin).
                 </p>
               </div>
 

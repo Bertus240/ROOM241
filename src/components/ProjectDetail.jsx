@@ -275,7 +275,7 @@ export default function ProjectDetail({ slug, navigate }) {
                     Production 4K • Déclinaison multi-plateformes
                   </span>
                   <span className="text-zinc-300 hidden sm:inline">•</span>
-                  <span>Jardimax (SAS DESMEL · Bailleul)</span>
+                  <span>Jardimax (SAS DESMELIE · Bailleul)</span>
                   <span className="text-zinc-300 hidden sm:inline">•</span>
                   <span>Motion Design '430 €' &amp; Tournage Showroom</span>
                 </div>

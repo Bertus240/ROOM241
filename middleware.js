@@ -719,15 +719,9 @@ export default function middleware(request) {
     });
   }
 
-  // Pour toutes les requêtes légitimes de navigation : réécriture Edge vers /index.html pour le routing SPA React
-  // Garantit l'accès direct et le rechargement sans 404 sur les sous-pages (/politique-de-confidentialite, /mentions-legales, etc.)
-  const rewriteUrl = new URL('/index.html', request.url);
-  return new Response(null, {
-    status: 200,
-    headers: {
-      'x-middleware-rewrite': rewriteUrl.toString(),
-    },
-  });
+  // Pour toutes les requêtes légitimes non bloquées : passage transparent vers les rewrites Vercel (vercel.json)
+  // Assure le fallback SPA vers /index.html sans interférence sur les sous-pages (/politique-de-confidentialite, /mentions-legales, etc.)
+  return undefined;
 }
 
 export const config = {
