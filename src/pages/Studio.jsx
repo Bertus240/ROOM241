@@ -24,8 +24,8 @@ export default function Studio({ navigate }) {
     },
     {
       src: "/assets/social-proof-ra/post_trowel_craft.png",
-      title: "Pédagogie matière — La règle des 8 mm",
-      caption: "Publication technique expliquant l'épaisseur idéale d'un revêtement en résine drainante."
+      title: "Pédagogie matière & gestes techniques",
+      caption: "Publication didactique valorisant les étapes clés de pose et le soin apporté au talochage."
     },
     {
       src: "/assets/social-proof-ra/FB_stats.png",
@@ -263,7 +263,7 @@ export default function Studio({ navigate }) {
               2. Valorisation de chantiers
             </h3>
             <p className="text-sm text-[#52525B] leading-relaxed">
-              Sélection et mise en page de photographies réelles issues de chantiers réels : carrousels avant/après, gestes techniques à la taloche et pédagogie sur la règle des 8 mm.
+              Sélection et mise en page de photographies réelles issues de chantiers réels : carrousels avant/après, gestes techniques à la taloche et valorisation des étapes de pose.
             </p>
           </div>
 

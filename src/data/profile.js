@@ -20,8 +20,8 @@ export const profileData = {
     logoMark: "/assets/logos/1920x1080_R241_NO_BG.png",
     links: {
       email: "brocart.remi02@gmail.com",
-      phone: "+33624074149",
-      phoneFormatted: "+33 (0)6 24 07 41 49",
+      phone: "+33767123858",
+      phoneFormatted: "07 67 12 38 58",
       linkedin: "https://www.linkedin.com/in/remibrocart/",
       linkedinDisplay: "linkedin.com/in/remibrocart"
     }

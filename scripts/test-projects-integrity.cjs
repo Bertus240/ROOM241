@@ -74,8 +74,12 @@ async function runTests() {
     'Métrique principale Hornetsecurity : +4 000 visiteurs accueillis'
   );
   assert(
-    hornet.secondaryMetric && hornet.secondaryMetric.value === '100 %' && hornet.secondaryMetric.label.includes('charte'),
-    'Métrique secondaire Hornetsecurity : 100 % charte respectée'
+    hornet.secondaryMetric === undefined,
+    'Hornetsecurity : Suppression du badge secondaire artificiel 100 % charte'
+  );
+  assert(
+    !JSON.stringify(hornet.metrics).includes('100 %') && !JSON.stringify(hornet.metrics).includes('3 Salons'),
+    'Hornetsecurity : Suppression des indicateurs artificiels (100% charte, 3 salons)'
   );
   assert(
     hornet.heroStage &&
@@ -127,6 +131,10 @@ async function runTests() {
     resin.heroStage.metricBadge.label === "0 € D'ACHAT D'ESPACE",
     'HeroStage Résin\'Architecte : Contenus artisanat et chantier préservés'
   );
+  assert(
+    !JSON.stringify(resin).includes('8 mm') && !JSON.stringify(resin).includes('8mm'),
+    'Résin\'Architecte : Suppression intégrale de la règle des 8 mm drainants'
+  );
 
   console.log('\n--- 4. Spécification exacte de Fresh Data et Jardimax ---');
   const fresh = projectsData['fresh-data'];
@@ -141,8 +149,12 @@ async function runTests() {
 
   const jardi = projectsData['jardimax'];
   assert(
-    jardi.metricBadge.value === '1 jour',
-    'Métrique Jardimax : 1 jour délai d\'exécution'
+    jardi.metricBadge.value === '1 journée' && jardi.metricBadge.label.includes('travail'),
+    'Métrique Jardimax : 1 journée de travail'
+  );
+  assert(
+    !JSON.stringify(jardi.metrics).includes('430 €'),
+    'Jardimax : Suppression des 430 € des résultats et indicateurs'
   );
   assert(
     jardi.image === '/assets/jardimax/jardimax_cover.jpg',
@@ -183,6 +195,11 @@ async function runTests() {
   // Vérification qu'un projet sans heroStage (fresh-data, jardimax) n'a pas d'objet heroStage fantôme
   assert(projectsData['fresh-data'].heroStage === undefined, 'Fresh Data n\'a pas de heroStage (utilise son propre videoStage)');
   assert(projectsData['jardimax'].heroStage === undefined, 'Jardimax n\'a pas de heroStage (pas de pollution croisée)');
+
+  console.log('\n--- 7. Coordonnées et validation éditoriale globale ---');
+  const profileModule = await import('file:///' + path.join(ROOT, 'src', 'data', 'profile.js').replace(/\\/g, '/'));
+  assert(profileModule.profileData.identity.links.phoneFormatted === '07 67 12 38 58', 'Numéro visible : 07 67 12 38 58');
+  assert(profileModule.profileData.identity.links.phone === '+33767123858', 'Numéro technique : tel:+33767123858');
 
   console.log('\n====================================================');
   console.log(` BILAN : ${passedTests} passés / ${totalTests} tests au total (${failedTests} échec(s))`);

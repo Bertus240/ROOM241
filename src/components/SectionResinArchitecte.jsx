@@ -19,8 +19,8 @@ export default function SectionResinArchitecte() {
     },
     {
       src: "/assets/social-proof-ra/post_trowel_craft.png",
-      title: "Pédagogie matière — La règle des 8 mm",
-      caption: "Post didactique vulgarisant l'épaisseur indispensable d'une résine drainante pour pérenniser l'ouvrage face au gel.",
+      title: "Pédagogie matière & gestes techniques",
+      caption: "Post didactique valorisant les étapes clés de mise en œuvre d'une résine drainante et le soin apporté à la pose.",
       badge: "Contenu expert"
     },
     {

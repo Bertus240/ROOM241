@@ -254,16 +254,16 @@ export default function Home({ navigate }) {
                 </div>
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white dark:bg-white/10 border border-zinc-200/80 dark:border-white/10 text-xs font-semibold text-zinc-800 dark:text-zinc-200 shadow-2xs">
                   <span className="w-1.5 h-1.5 rounded-full bg-[#FFAD00] shadow-[0_0_6px_rgba(255,173,0,0.8)]" />
-                  <span>AU-DELÀ DU TRAVAIL • EXPÉRIENCE COMPLÉMENTAIRE</span>
+                  <span>EN DEHORS DU CADRE PROFESSIONNEL</span>
                 </div>
               </div>
 
               <div className="space-y-3">
                 <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-[#09090B] dark:text-white leading-tight">
-                  « Tu connais maintenant ce que je fais. Voici un peu plus de ce qui me définit. »
+                  Le travail ne raconte pas toute l'histoire.
                 </h2>
                 <p className="text-sm sm:text-base text-[#52525B] dark:text-zinc-300 leading-relaxed font-normal">
-                  Passez dans l'univers personnel en mode sombre pour découvrir ce qui nourrit ma réflexion : le rapport aux climats frais et minéraux, l'autonomie sur le terrain avec le projet <strong>Meridian</strong>, les rituels du café en grain et du matcha, l'endurance au marathon (2h48) et l'envie constante de comprendre les rouages de chaque système.
+                  Il y a aussi les projets que l'on mène par curiosité, les kilomètres parcourus, les idées que l'on explore et les habitudes que l'on cultive. Meridian, le marathon (2 h 48), le café en grain ou le matcha : autant de façons d'expérimenter, d'apprendre et de sortir de ses habitudes. Un autre regard sur ce qui m'anime, loin des études de cas.
                 </p>
               </div>
 
@@ -285,7 +285,7 @@ export default function Home({ navigate }) {
                   onClick={handleNav('/parcours')}
                   className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#52525B] dark:text-zinc-400 hover:text-black dark:hover:text-white transition-colors"
                 >
-                  <span>Consulter mon parcours complet &amp; CV</span>
+                  <span>Consulter mon parcours &amp; mon CV</span>
                   <ArrowRight className="w-3.5 h-3.5 text-[#FFAD00]" />
                 </a>
               </div>

@@ -21,7 +21,7 @@ export const projectsData = {
     highlights: [
       "Scénographie grand format (> 150 m²)",
       "Arche vidéo After Effects",
-      "Salons européens (Lille & Nuremberg)"
+      "Salons professionnels européens (FIC, it-sa...)"
     ],
     heroStage: {
       tag: "SALON INTERNATIONAL & ÉVÉNEMENTIEL B2B",
@@ -36,10 +36,6 @@ export const projectsData = {
       value: "+4 000",
       label: "visiteurs accueillis"
     },
-    secondaryMetric: {
-      value: "100 %",
-      label: "charte respectée"
-    },
     metric: "+4 000",
     metricLabel: "visiteurs accueillis au salon FIC",
     heroMetric: "+4 000",
@@ -51,19 +47,14 @@ export const projectsData = {
         detail: "Contacts qualifiés et visiteurs accueillis sur le stand au salon FIC"
       },
       {
-        value: "100 %",
-        label: "Charte respectée",
-        detail: "Alignement graphique rigoureux sur l'ensemble du pavillon"
-      },
-      {
         value: "> 150 m²",
         label: "Stand FIC Lille",
         detail: "Stand d'exposition d'envergure avec piste e-karting intégrée"
       },
       {
-        value: "3 Salons",
-        label: "Envergure européenne",
-        detail: "FIC (Forum InCyber), it-sa Nuremberg"
+        value: "3 ans",
+        label: "D'accompagnement",
+        detail: "Scénographie, print B2B, formats motion et présence terrain"
       }
     ],
     bentoCards: [
@@ -282,7 +273,7 @@ export const projectsData = {
     isVideo: false,
     image: "/assets/social-proof-ra/post_pool_craft.png",
     alt: "Résin'Architecte — Savoir-faire artisanal et pose de résine drainante aux abords d'une piscine",
-    description: "Immersion directe sur chantiers, formalisation de l'identité visuelle, création de gabarits éditoriaux et conception d'outils didactiques d'aide à la vente (règle des 8 mm drainants).",
+    description: "Immersion directe sur chantiers, formalisation de l'identité visuelle, création de gabarits éditoriaux et conception d'outils didactiques d'aide à la vente.",
     destination: "/realisations/resin-architecte",
     link: "/realisations/resin-architecte",
     cta: "Consulter l'étude de cas ↗",
@@ -292,7 +283,7 @@ export const projectsData = {
     },
     act2: {
       title: "02. Rôle Terrain & Déploiement",
-      text: "Immersion directe sur les chantiers pour filmer les gestes techniques à la taloche et les étapes de pose. Création de gabarits éditoriaux pour les réseaux sociaux, formalisation des teintes minérales et rédaction de fiches didactiques d'aide à la vente (notamment sur la règle indispensable des 8 mm drainants face au gel)."
+      text: "Immersion directe sur les chantiers pour filmer les gestes techniques à la taloche et les étapes de pose. Création de gabarits éditoriaux pour les réseaux sociaux, formalisation des teintes minérales et rédaction de fiches didactiques d'aide à la vente valorisant la durabilité du revêtement minéral drainant."
     },
     act3: {
       title: "03. Résultats & Perspectives",
@@ -321,9 +312,9 @@ export const projectsData = {
         id: 3,
         src: "/assets/social-proof-ra/post_trowel_craft.png",
         thumbUrl: "/assets/social-proof-ra/post_trowel_craft.png",
-        title: "Pédagogie matière — La règle des 8 mm",
-        description: "Contenu didactique vulgarisant l'épaisseur indispensable d'une résine drainante pour pérenniser l'ouvrage face au gel.",
-        caption: "Contenu didactique vulgarisant l'épaisseur indispensable d'une résine drainante pour pérenniser l'ouvrage face au gel."
+        title: "Pédagogie matière & gestes techniques",
+        description: "Contenu didactique valorisant les étapes clés de mise en œuvre d'une résine drainante et le soin apporté à la pose.",
+        caption: "Contenu didactique valorisant les étapes clés de mise en œuvre d'une résine drainante et le soin apporté à la pose."
       },
       {
         id: 4,
@@ -358,36 +349,31 @@ export const projectsData = {
     tags: ["Production Vidéo", "Motion Design", "Formats TikTok & YouTube", "Showroom & Atelier"],
     highlights: [
       "Formats 16:9 (YouTube) & 9:16 (TikTok)",
-      'Motion design pédagogique "430 €"',
+      "Motion design didactique & pédagogique",
       "Tournage en showroom & atelier technique"
     ],
     metricBadge: {
-      value: "1 jour",
-      label: "délai d'exécution"
+      value: "1 journée",
+      label: "de travail"
     },
     secondaryMetric: {
       value: "2 formats",
       label: "16:9 & 9:16"
     },
-    metric: "1 jour",
-    metricLabel: "De la réflexion éditoriale à la finalisation des livrables 16:9 et 9:16",
-    heroMetric: "1 jour",
-    heroMetricLabel: "de la conception aux exports",
+    metric: "1 journée",
+    metricLabel: "de travail pour la conception, le tournage et le montage",
+    heroMetric: "1 journée",
+    heroMetricLabel: "de travail",
     metrics: [
       {
-        value: "1 jour",
-        label: "Délai d'exécution",
+        value: "1 journée",
+        label: "de travail",
         detail: "Conception, captation face caméra et double montage en autonomie"
       },
       {
         value: "2 formats",
         label: "Déclinaisons natives",
         detail: "16:9 paysage (YouTube/Web) et 9:16 vertical (TikTok/Shorts)"
-      },
-      {
-        value: "430 €",
-        label: "Économie estimée",
-        detail: "Séquence motion illustrant l'intérêt financier d'une réparation face au rachat neuf"
       },
       {
         value: "100 %",
@@ -413,22 +399,22 @@ export const projectsData = {
     },
     act2: {
       title: "02. Approche Créative & Production",
-      text: "Écriture d'un script direct, prise de parole face caméra pour incarner le propos, tournage in situ dans le showroom et l'atelier technique aux côtés des équipes (notamment Thomas côté conseil et Calvin côté atelier), et création d'une séquence motion design didactique articulée en 5 étapes : accroche, curiosité, argument d'autorité, révélation de l'estimation de 430 € d'économies potentielles sur 5 ans supplémentaires, et introduction de la solution d'entretien et de pièces de rechange."
+      text: "Écriture d'un script direct, prise de parole face caméra pour incarner le propos, tournage in situ dans le showroom et l'atelier technique aux côtés des équipes (notamment Thomas côté conseil et Calvin côté atelier), et création d'une séquence motion design didactique articulée en 5 étapes : accroche, curiosité, argument d'autorité, démonstration didactique de l'intérêt d'entretenir son matériel face au rachat neuf, et introduction de la solution de pièces de rechange."
     },
     act3: {
       title: "03. Livrables & Déclinaisons Multi-Plateformes",
       text: "Finalisation de deux formats distincts respectant les usages de diffusion : un film horizontal 16:9 pour YouTube et le web (83s), et une déclinaison verticale 9:16 calibrée pour TikTok, Instagram Reels et YouTube Shorts (60s), optimisée pour la rétention mobile."
     },
     proofAssetsTitle: "Galerie de production & Visuels de tournage",
-    proofAssetsSubtitle: "Showroom physique, atelier technique et séquence motion design '430 €'",
+    proofAssetsSubtitle: "Showroom physique, atelier technique et animation graphique",
     proofAssets: [
       {
         id: 1,
         src: "/assets/jardimax/jardimax_motion_430.jpg",
         thumbUrl: "/assets/jardimax/jardimax_motion_430.jpg",
-        title: "Motion design — Mécanique des '430 € d'économies potentielles'",
-        description: "Animation graphique en 5 étapes (accroche, curiosité, autorité, calcul estimatif sur 5 ans, solution) illustrant l'intérêt financier estimé d'un entretien régulier sans valeur de garantie contractuelle.",
-        caption: "Animation graphique en 5 étapes illustrant l'intérêt financier estimé d'un entretien régulier sans valeur de garantie contractuelle."
+        title: "Animation motion design pédagogique",
+        description: "Animation graphique didactique articulée en 5 étapes pour sensibiliser à la durabilité des équipements.",
+        caption: "Animation graphique didactique articulée en 5 étapes pour sensibiliser à la durabilité des équipements."
       },
       {
         id: 2,

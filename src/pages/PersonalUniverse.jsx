@@ -244,71 +244,23 @@ export default function PersonalUniverse({ navigate, onSwitchToPro }) {
         </div>
       </section>
 
-      {/* 4. LES RITUELS DU QUOTIDIEN : CAFÉ EN GRAIN & MATCHA */}
+      {/* 4. LES RITUELS DU QUOTIDIEN : CAFÉ & MATCHA */}
       <section className="py-20 sm:py-28 border-b border-white/10">
-        <div className="max-w-[1280px] mx-auto px-5 sm:px-8 lg:px-10 space-y-12">
-          
-          <div className="space-y-4 max-w-3xl">
+        <div className="max-w-[1280px] mx-auto px-5 sm:px-8 lg:px-10">
+          <div className="max-w-3xl space-y-6">
             <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-zinc-500">
               <span className="font-bold text-[#FFAD00]">03</span>
               <span>/</span>
-              <span>RITUELS &amp; ATTENTION PORTÉE AUX MATIÈRES</span>
+              <span>CAFÉ &amp; MATCHA</span>
             </div>
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight text-white flex items-center gap-3">
               <Coffee className="w-8 h-8 text-[#FFAD00]" />
-              <span>Le café en grain et le matcha cérémonial</span>
+              <span>Deux façons de prendre le temps.</span>
             </h2>
-            <p className="text-sm sm:text-base text-zinc-400 leading-relaxed">
-              Il ne s'agit pas d'accessoires de mode, mais d'une attention constante portée aux matières, aux températures, aux ratios et à la répétition du geste. Dans ces préparations comme dans le design ou le code, le résultat final découle directement de la précision des réglages initiaux.
+            <p className="text-base sm:text-lg text-zinc-400 leading-relaxed font-normal">
+              Espresso le matin, matcha à d'autres moments : j'aime autant la simplicité d'un café fraîchement moulu que la préparation plus posée d'un bol de matcha. Entre la cafetière italienne, le café filtre ou le fouet en bambou, chacun a ses habitudes. Ce sont simplement deux plaisirs que j'aime retrouver au quotidien.
             </p>
           </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            
-            {/* Le Café */}
-            <div className="p-7 sm:p-9 rounded-3xl bg-zinc-900/60 border border-white/10 space-y-5">
-              <div className="space-y-1.5">
-                <span className="text-xs font-mono uppercase tracking-wider text-[#FFAD00]">Extraction &amp; Mouture</span>
-                <h3 className="text-xl font-bold text-white">Le café en grain et ses variations</h3>
-              </div>
-              <p className="text-xs sm:text-sm text-zinc-400 leading-relaxed">
-                Chaque matin commence avec un espresso sur la De'Longhi Magnifica Evo. Mais l'intérêt vient surtout de la variété des méthodes : le moulin Melitta Molino pour ajuster la finesse de la mouture, la cafetière italienne Moka pour les tasses courtes et intenses, ou la cafetière à piston pour observer une infusion plus lente et extraire d'autres profils aromatiques.
-              </p>
-              <ul className="text-xs text-zinc-400 space-y-2 pt-2 border-t border-white/10">
-                <li className="flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#FFAD00]" />
-                  <span>Espresso quotidien : extraction maîtrisée sur grains fraîchement moulus</span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#FFAD00]" />
-                  <span>Moka &amp; Piston : observation du temps d'infusion et des densités</span>
-                </li>
-              </ul>
-            </div>
-
-            {/* Le Matcha */}
-            <div className="p-7 sm:p-9 rounded-3xl bg-zinc-900/60 border border-white/10 space-y-5">
-              <div className="space-y-1.5">
-                <span className="text-xs font-mono uppercase tracking-wider text-[#FFAD00]">Concentration &amp; Clarté</span>
-                <h3 className="text-xl font-bold text-white">Le matcha de grade cérémonial</h3>
-              </div>
-              <p className="text-xs sm:text-sm text-zinc-400 leading-relaxed">
-                Le matcha (notamment Matcha &amp; CO de grade cérémonial) accompagne les phases de travail approfondi et d'écriture. Préparé au fouet en bambou (chasen) dans une eau chauffée sans ébullition, sans sucre ni additif. C'est un rituel sobre de concentration, sans prétention médicale, simplement pour rythmer les sessions nécessitant un calme mental prolongé.
-              </p>
-              <ul className="text-xs text-zinc-400 space-y-2 pt-2 border-t border-white/10">
-                <li className="flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#FFAD00]" />
-                  <span>Préparation au fouet traditionnel dans un bol en céramique</span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#FFAD00]" />
-                  <span>Rituel associé aux longues plages de réflexion et de code</span>
-                </li>
-              </ul>
-            </div>
-
-          </div>
-
         </div>
       </section>
 

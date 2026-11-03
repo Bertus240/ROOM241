@@ -277,7 +277,7 @@ export default function ProjectDetail({ slug, navigate }) {
                   <span className="text-zinc-300 hidden sm:inline">•</span>
                   <span>Jardimax (SAS DESMELIE · Bailleul)</span>
                   <span className="text-zinc-300 hidden sm:inline">•</span>
-                  <span>Motion Design '430 €' &amp; Tournage Showroom</span>
+                  <span>Motion Design pédagogique &amp; Tournage Showroom</span>
                 </div>
               </div>
             </div>

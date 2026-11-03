@@ -205,13 +205,13 @@ export default function HornetCaseStudy({ navigate }) {
         <div className="space-y-3">
           <span className="text-xs font-semibold uppercase tracking-wider text-[#FFAD00] flex items-center gap-1.5">
             <Award className="w-3.5 h-3.5" />
-            Acte III • Présence Humaine &amp; Terrain
+            ÉVÉNEMENTIEL INTERNATIONAL
           </span>
           <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-[#09090B]">
-            Captain Security : Incarner la marque sur scène et dans les allées
+            Bien plus que des stands : faire vivre la marque sur le terrain.
           </h2>
           <p className="text-base text-[#52525B] max-w-3xl leading-relaxed">
-            Ma relation à la marque ne s'arrête pas aux logiciels de PAO ou aux exports d'imprimerie. Lors des salons internationaux (FIC à Lille, it-sa à Nuremberg), j'ai incarné Captain Security, le héros emblématique de Hornetsecurity.
+            De la préparation des salons professionnels à l'expérience vécue sur place, j'ai contribué à faire rayonner Hornetsecurity auprès de publics internationaux. J'ai également incarné le super-héros de la marque lors de deux éditions consécutives d'it-sa Nuremberg.
           </p>
         </div>
 

@@ -64,8 +64,13 @@ for (const slug of ['hornetsecurity', 'fresh-data', 'resin-architecte', 'jardima
   test(`Projet [${slug}] : tags de compétences présents et distincts de l'en-tête`, () => {
     assert(Array.isArray(p.tags) && p.tags.length > 0, 'tags manquants');
   });
-  test(`Projet [${slug}] : métrique secondaire présente pour le footer`, () => {
-    assert(p.secondaryMetric && p.secondaryMetric.value, 'secondaryMetric manquante');
+  test(`Projet [${slug}] : cohérence de la métrique secondaire de zone basse`, () => {
+    if (slug === 'hornetsecurity') {
+      // Hornetsecurity n'a plus de secondaryMetric artificielle suite à la suppression de 100% charte
+      assert(p.secondaryMetric === undefined, 'Hornetsecurity ne doit pas avoir de badge artificiel 100 % charte');
+    } else {
+      assert(p.secondaryMetric && p.secondaryMetric.value, 'secondaryMetric manquante');
+    }
   });
 }
 
