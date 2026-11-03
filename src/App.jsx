@@ -3,6 +3,7 @@ import Header from './components/Header';
 import Home from './pages/Home';
 import Projects from './pages/Projects';
 import Parcours from './pages/Parcours';
+import PersonalUniverse from './pages/PersonalUniverse';
 import FooterContact from './components/FooterContact';
 import CvModal from './components/CvModal';
 import AdminDashboard from './components/AdminDashboard';
@@ -157,7 +158,7 @@ export default function App() {
 
   if (isProjectDetailRoute && projectSlug && projectsData[projectSlug]) {
     return (
-      <div className="bg-[#FFFFFF] text-[#09090B] min-h-screen font-sans selection:bg-[#FFAD00] selection:text-black flex flex-col justify-between">
+      <div className="bg-[#FFFFFF] dark:bg-[#0B0A09] text-[#09090B] dark:text-[#EDEDED] min-h-screen font-sans selection:bg-[#FFAD00] selection:text-black flex flex-col justify-between transition-colors duration-300">
         <StudioPointer />
         <Header currentPath={currentPath} navigate={navigate} />
         <main className="flex-grow">
@@ -180,13 +181,25 @@ export default function App() {
       case '/studio':
         return <Projects navigate={navigate} />;
 
-      // 3. Parcours (profil, expérience, compétences, photographies, marathon)
+      // 3. Parcours (profil, expérience, compétences, CV)
       case '/parcours':
       case '/a-propos':
-      case '/hors-cadre':
         return <Parcours navigate={navigate} onOpenCvModal={() => setIsCvModalOpen(true)} />;
 
-      // 4. Mentions légales et politique de confidentialité
+      // 4. Univers Personnel (« Au-delà du travail » • Véritable mode sombre)
+      case '/hors-cadre':
+      case '/au-dela-du-travail':
+        return (
+          <PersonalUniverse
+            navigate={navigate}
+            onSwitchToPro={() => {
+              applyTheme('light');
+              navigate('/');
+            }}
+          />
+        );
+
+      // 5. Mentions légales et politique de confidentialité
       case '/mentions-legales':
         return <MentionsLegales navigate={navigate} />;
 
@@ -202,7 +215,7 @@ export default function App() {
   };
 
   return (
-    <div className="bg-[#FFFFFF] text-[#09090B] min-h-screen font-sans selection:bg-[#FFAD00] selection:text-black flex flex-col justify-between overflow-x-hidden">
+    <div className="bg-[#FFFFFF] dark:bg-[#0B0A09] text-[#09090B] dark:text-[#EDEDED] min-h-screen font-sans selection:bg-[#FFAD00] selection:text-black flex flex-col justify-between overflow-x-hidden transition-colors duration-300">
       
       {/* Halo jaune fluide ambiant qui suit la souris */}
       <StudioPointer />

@@ -36,7 +36,7 @@ export default function FooterContact({ navigate }) {
   return (
     <footer
       id="contact"
-      className="relative py-20 sm:py-28 pb-48 sm:pb-52 bg-gradient-to-b from-white via-zinc-50/70 to-zinc-100/50 text-[#09090B] border-t border-zinc-200/80 scroll-mt-16 overflow-hidden"
+      className="relative py-20 sm:py-28 pb-48 sm:pb-52 bg-gradient-to-b from-white via-zinc-50/70 to-zinc-100/50 dark:from-[#0B0A09] dark:via-zinc-950 dark:to-black text-[#09090B] dark:text-[#EDEDED] border-t border-zinc-200/80 dark:border-white/10 scroll-mt-16 overflow-hidden transition-colors duration-300"
     >
       {/* Halo ambré doux et lueur d'ambiance en arrière-plan */}
       <div 
@@ -237,9 +237,16 @@ export default function FooterContact({ navigate }) {
             <a
               href="/parcours"
               onClick={handleNav('/parcours')}
-              className="hover:text-zinc-950 transition-colors py-1"
+              className="hover:text-zinc-950 dark:hover:text-white transition-colors py-1"
             >
               Parcours
+            </a>
+            <a
+              href="/hors-cadre"
+              onClick={handleNav('/hors-cadre')}
+              className="hover:text-zinc-950 dark:hover:text-white transition-colors py-1 flex items-center gap-1 text-[#FFAD00]"
+            >
+              <span>Au-delà du travail</span>
             </a>
             <a
               href="/mentions-legales"

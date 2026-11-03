@@ -6,6 +6,7 @@ export const projectsData = {
     subtitle: "Leader européen de la cybersécurité Cloud & protection Microsoft 365",
     sector: "Cybersécurité B2B internationale",
     category: "Cybersécurité B2B internationale",
+    categories: ["event", "video", "strategy"],
     deliverables: "Stands événementiels (> 150 m² au FIC), Print & Édition, Digital & Motion, Vidéo & Formats courts",
     year: "3 ans d'accompagnement",
     statusLabel: "CASE STUDY PHARE",
@@ -214,6 +215,99 @@ export const projectsData = {
       title: "03. L'Impact Mesurable",
       text: "Campagne Ulule validée à 116 % du premier palier. Conception d'outils d'aide à la vente clairs et rigoureux pour structurer la prospection commerciale auprès des décideurs de la filière."
     },
+    nextSlug: "resin-architecte",
+    nextTitle: "Résin'Architecte (BTP & Savoir-faire)"
+  },
+  "resin-architecte": {
+    slug: "resin-architecte",
+    id: "PROJET 03",
+    title: "Résin'Architecte",
+    subtitle: "Captation de chantier, formalisation d'identité & supports commerciaux (BTP & Revêtements de sol)",
+    category: "Revêtements de sol & Savoir-faire",
+    categories: ["identity", "strategy"],
+    sector: "Artisanat d'art, BTP & Revêtements de sol",
+    deliverables: "Captation vidéo sur chantier, Gabarits éditoriaux réseaux sociaux, Fiches techniques d'aide à la vente, Roadmap stratégique 12 mois",
+    year: "2025 - 2026",
+    statusLabel: "IDENTITÉ & TERRAIN",
+    tags: ["BTP & Artisanat", "Identité Visuelle", "Captation Terrain", "Roadmap 12 mois"],
+    metric: "+219 %",
+    metricLabel: "De portée organique mesurée sur Meta en 30 jours",
+    heroMetric: "+219 %",
+    heroMetricLabel: "de portée organique mesurée",
+    metrics: [
+      {
+        value: "+219 %",
+        label: "Portée organique",
+        detail: "Progression mesurée sur Meta Business sans aucun achat d'espace"
+      },
+      {
+        value: "648",
+        label: "Visites de profil",
+        detail: "Visites spontanées de prospects locaux générées sur Instagram"
+      },
+      {
+        value: "52 m²",
+        label: "Chantier pilote",
+        detail: "Rénovation de terrasse en moquette de pierre drainante en 48h"
+      },
+      {
+        value: "12 mois",
+        label: "Roadmap opérationnelle",
+        detail: "Planification stratégique SEO, GEO et déploiement de supports"
+      }
+    ],
+    isNda: false,
+    isVideo: false,
+    image: "/assets/social-proof-ra/post_pool_craft.png",
+    alt: "Résin'Architecte — Savoir-faire artisanal et pose de résine drainante",
+    description: "Intervention concrète pour Résin'Architecte : immersion et captation vidéo directe sur chantiers, formalisation de l'identité visuelle, création de gabarits éditoriaux et conception d'outils didactiques d'aide à la vente (règle des 8 mm drainants).",
+    cta: "Consulter l'étude de cas ↗",
+    act1: {
+      title: "01. Contexte & Enjeux",
+      text: "Résin'Architecte développe des solutions de revêtements de sol en résine minérale (moquette de pierre, moquette de marbre, résines drainantes, EPDM). L'enjeu consistait à vulgariser ce savoir-faire technique auprès des particuliers et des professionnels, à prouver la rapidité d'exécution sans démolition et à professionnaliser la communication de terrain."
+    },
+    act2: {
+      title: "02. Rôle Terrain & Déploiement",
+      text: "Immersion directe sur les chantiers pour filmer les gestes techniques à la taloche et les étapes de pose. Création de gabarits éditoriaux pour les réseaux sociaux, formalisation des teintes minérales et rédaction de fiches didactiques d'aide à la vente (notamment sur la règle indispensable des 8 mm drainants face au gel)."
+    },
+    act3: {
+      title: "03. Résultats & Perspectives",
+      text: "Traction initiale mesurée sur une période test de 30 jours 100 % organique : +219 % de portée sur Meta, +209 % d'interactions et 648 visites spontanées de profil sur Instagram, ouvrant la voie à la roadmap de développement à 12 mois."
+    },
+    proofAssets: [
+      {
+        id: 1,
+        src: "/assets/social-proof-ra/post_terrace_before_after.png",
+        thumbUrl: "/assets/social-proof-ra/post_terrace_before_after.png",
+        title: "Transformation terrasse — 52 m² en 48h",
+        description: "Format avant/après documentant la rénovation d'une dalle fissurée sans démolition pour rassurer sur la rapidité d'exécution.",
+        caption: "Format avant/après documentant la rénovation d'une dalle fissurée sans démolition pour rassurer sur la rapidité d'exécution."
+      },
+      {
+        id: 2,
+        src: "/assets/social-proof-ra/post_pool_craft.png",
+        thumbUrl: "/assets/social-proof-ra/post_pool_craft.png",
+        title: "Savoir-faire artisanal — Abords de piscine",
+        description: "Focus éditorial sur la précision du geste technique et la régularité du talochage pour valoriser les finitions haut de gamme.",
+        caption: "Focus éditorial sur la précision du geste technique et la régularité du talochage pour valoriser les finitions haut de gamme."
+      },
+      {
+        id: 3,
+        src: "/assets/social-proof-ra/post_trowel_craft.png",
+        thumbUrl: "/assets/social-proof-ra/post_trowel_craft.png",
+        title: "Pédagogie matière — La règle des 8 mm",
+        description: "Contenu didactique vulgarisant l'épaisseur indispensable d'une résine drainante pour pérenniser l'ouvrage face au gel.",
+        caption: "Contenu didactique vulgarisant l'épaisseur indispensable d'une résine drainante pour pérenniser l'ouvrage face au gel."
+      },
+      {
+        id: 4,
+        src: "/assets/social-proof-ra/FB_stats.png",
+        thumbUrl: "/assets/social-proof-ra/FB_stats.png",
+        title: "Portée & Interactions — Bilan Meta 30 jours",
+        description: "Analyse des retombées organiques : +219 % de portée et +209 % d'interactions générées sans aucun budget publicitaire.",
+        caption: "Analyse des retombées organiques : +219 % de portée et +209 % d'interactions générées sans aucun budget publicitaire."
+      }
+    ],
     nextSlug: "jardimax",
     nextTitle: "Jardimax (Vidéo & Motion Design)"
   },
@@ -223,11 +317,12 @@ export const projectsData = {
     title: "Jardimax",
     subtitle: "Production vidéo, intervention face caméra & motion design pour l'enseigne de motoculture et de pièces détachées (SAS DESMELIE · Bailleul)",
     category: "Vidéo, Motion & Retail",
+    categories: ["video", "strategy", "digital"],
     sector: "E-commerce & Motoculture physique",
     deliverables: "Construction éditoriale, Prise de parole face caméra, Montage vidéo, Motion design estimatif, Déclinaison 16:9 & 9:16",
     year: "2026",
     statusLabel: "PRODUCTION VIDÉO & MOTION",
-    tags: ["Production Vidéo", "Motion Design", "Formats TikTok & YouTube", "Terrain Bailleul"],
+    tags: ["Production Vidéo", "Motion Design", "Formats TikTok & YouTube", "Showroom & Atelier"],
     metric: "1 jour",
     metricLabel: "De la réflexion éditoriale à la finalisation des livrables 16:9 et 9:16",
     heroMetric: "1 jour",
@@ -261,37 +356,37 @@ export const projectsData = {
     posterYtb: "/assets/jardimax/poster_ytb.jpg",
     posterTiktok: "/assets/jardimax/poster_tiktok.jpg",
     image: "/assets/jardimax/jardimax_cover.jpg",
-    alt: "Jardimax — Production vidéo, motion design et showroom à Bailleul",
-    description: "Conception et production intégrale d'un dispositif vidéo pour Jardimax (enseigne exploitée par la SAS DESMELIE à Bailleul) : construction du message éditorial, intervention face caméra, motion design pédagogique, déclinaison horizontale YouTube 16:9 et verticale TikTok 9:16.",
+    alt: "Jardimax — Production vidéo, motion design et showroom",
+    description: "Conception et production intégrale d'un dispositif vidéo pour Jardimax (enseigne de la SAS DESMELIE, basée à Bailleul) : construction du message éditorial, intervention face caméra, motion design pédagogique en 5 étapes, déclinaison horizontale YouTube 16:9 et verticale TikTok 9:16.",
     cta: "Consulter l'étude de cas ↗",
     act1: {
       title: "01. Contexte & Enjeux",
-      text: "Jardimax, enseigne spécialisée dans la vente de matériel de motoculture et de pièces détachées exploitée par la SAS DESMELIE à Bailleul, dispose d'un showroom physique, d'un atelier de réparation et d'une plateforme e-commerce. L'enjeu de communication consistait à valoriser la réalité de cette infrastructure et à sensibiliser les utilisateurs à la réparabilité de leurs machines."
+      text: "Jardimax, enseigne spécialisée dans la vente de matériel de motoculture et de pièces détachées exploitée par la SAS DESMELIE (siège à Bailleul), dispose d'un showroom physique, d'un atelier de réparation et d'une plateforme e-commerce. L'enjeu de communication consistait à valoriser la réalité de cette infrastructure et à sensibiliser les utilisateurs à la réparabilité de leurs machines face au réflexe du rachat neuf."
     },
     act2: {
       title: "02. Approche Créative & Production",
-      text: "Écriture d'un script direct, prise de parole face caméra pour incarner le propos, animation motion design mettant en scène un montant illustratif de 430 € d'économies potentielles, et tournage in situ dans le showroom et l'atelier technique de Bailleul aux côtés des équipes (notamment Thomas côté vente et Calvin côté atelier)."
+      text: "Écriture d'un script direct, prise de parole face caméra pour incarner le propos, tournage in situ dans le showroom et l'atelier technique aux côtés des équipes (notamment Thomas côté conseil et Calvin côté atelier), et création d'une séquence motion design didactique articulée en 5 étapes : accroche, curiosité, argument d'autorité, révélation de l'estimation de 430 € d'économies potentielles sur 5 ans supplémentaires, et introduction de la solution d'entretien et de pièces de rechange."
     },
     act3: {
       title: "03. Livrables & Déclinaisons Multi-Plateformes",
-      text: "Finalisation de deux formats distincts respectant les usages de diffusion : un film horizontal 16:9 pour YouTube et le web, et une déclinaison verticale 9:16 calibrée pour TikTok, Instagram Reels et YouTube Shorts, optimisée pour la rétention mobile."
+      text: "Finalisation de deux formats distincts respectant les usages de diffusion : un film horizontal 16:9 pour YouTube et le web (83s), et une déclinaison verticale 9:16 calibrée pour TikTok, Instagram Reels et YouTube Shorts (60s), optimisée pour la rétention mobile."
     },
     proofAssets: [
       {
         id: 1,
         src: "/assets/jardimax/jardimax_motion_430.jpg",
         thumbUrl: "/assets/jardimax/jardimax_motion_430.jpg",
-        title: "Motion design — Séquence '430 € d'économies potentielles'",
-        description: "Animation graphique pédagogique illustrant l'intérêt financier estimé de remplacer une pièce défectueuse plutôt que de racheter une machine neuve.",
-        caption: "Animation graphique pédagogique illustrant l'intérêt financier estimé de remplacer une pièce défectueuse plutôt que de racheter une machine neuve."
+        title: "Motion design — Mécanique des '430 € d'économies potentielles'",
+        description: "Animation graphique en 5 étapes (accroche, curiosité, autorité, calcul estimatif sur 5 ans, solution) illustrant l'intérêt financier estimé d'un entretien régulier sans valeur de garantie contractuelle.",
+        caption: "Animation graphique en 5 étapes illustrant l'intérêt financier estimé d'un entretien régulier sans valeur de garantie contractuelle."
       },
       {
         id: 2,
         src: "/assets/jardimax/jardimax_cover.jpg",
         thumbUrl: "/assets/jardimax/jardimax_cover.jpg",
-        title: "Showroom physique — Bailleul (Flandres)",
-        description: "Valorisation des locaux de la SAS DESMELIE et de la disponibilité immédiate du matériel et des pièces en magasin.",
-        caption: "Valorisation des locaux de la SAS DESMELIE et de la disponibilité immédiate du matériel et des pièces en magasin."
+        title: "Showroom & Rayonnages de pièces",
+        description: "Valorisation de l'infrastructure de l'enseigne de la SAS DESMELIE et de la disponibilité immédiate du matériel et des pièces.",
+        caption: "Valorisation de l'infrastructure de l'enseigne de la SAS DESMELIE et de la disponibilité immédiate du matériel et des pièces."
       },
       {
         id: 3,

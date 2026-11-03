@@ -16,6 +16,20 @@
   --room-amber-muted: rgba(255, 173, 0, 0.08);
 }
 
+html.dark {
+  --bg-main: #0B0A09;
+  --bg-surface: #141312;
+  --bg-card: #181716;
+  --border-color: rgba(255, 255, 255, 0.12);
+  --border-hover: rgba(255, 255, 255, 0.24);
+  --text-main: #F4F4F5;
+  --text-muted: #A1A1AA;
+  --text-subtle: #71717A;
+  --room-amber: #FFAD00;
+  --room-amber-hover: #FFB71A;
+  --room-amber-muted: rgba(255, 173, 0, 0.12);
+}
+
 @layer base {
   html {
     scroll-behavior: smooth;
@@ -27,12 +41,13 @@
   }
 
   body {
-    background-color: #FFFFFF;
-    color: #09090B;
+    background-color: var(--bg-main);
+    color: var(--text-main);
     font-family: 'Geist', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
+    transition: background-color 250ms ease, color 250ms ease;
   }
 
   /* Hiérarchie typographique : titres nets, équilibrés et aérés */

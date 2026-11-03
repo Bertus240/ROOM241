@@ -127,8 +127,26 @@ const CONTEXT_MESSAGES = {
     tag: "Étude de cas • Résin'Architecte",
     text: "Résin’Architecte : revêtements de sol en résine, moquette de pierre et chantiers de terrain.",
     actions: [
-      { label: "Voir le parcours", path: "/parcours", primary: true },
+      { label: "Projet suivant : Jardimax", path: "/realisations/jardimax", primary: true },
       { label: "Retour aux projets", path: "/projets", primary: false },
+    ],
+  },
+  caseStudyJardimax: {
+    id: 'caseStudyJardimax',
+    tag: "Étude de cas • Jardimax",
+    text: "Production vidéo, intervention face caméra et showroom technique (SAS DESMELIE).",
+    actions: [
+      { label: "Retour aux projets", path: "/projets", primary: true },
+      { label: "Univers personnel", path: "/hors-cadre", primary: false },
+    ],
+  },
+  horsCadre: {
+    id: 'horsCadre',
+    tag: "Au-delà du travail",
+    text: "Tu es ici dans l'univers personnel de Rémi. Prêt à explorer ?",
+    actions: [
+      { label: "Retrouver mon travail", path: "/", primary: true },
+      { label: "Découvrir les projets", path: "/projets", primary: false },
     ],
   },
   contact: {
@@ -221,13 +239,16 @@ export default function Kuro({ currentPath = '/', navigate, onOpenCvModal }) {
     const path = currentPath || (typeof window !== 'undefined' ? window.location.pathname : '/');
     let ctx = CONTEXT_MESSAGES.home;
 
-    if (path.startsWith('/realisations/')) {
-      const slug = path.replace('/realisations/', '');
+    if (path.startsWith('/realisations/') || (path.startsWith('/projets/') && path !== '/projets/')) {
+      const slug = path.replace('/realisations/', '').replace('/projets/', '');
       if (slug.includes('hornet')) ctx = CONTEXT_MESSAGES.caseStudyHornet;
       else if (slug.includes('fresh')) ctx = CONTEXT_MESSAGES.caseStudyFresh;
       else if (slug.includes('resin')) ctx = CONTEXT_MESSAGES.caseStudyResin;
+      else if (slug.includes('jardimax')) ctx = CONTEXT_MESSAGES.caseStudyJardimax;
       else ctx = CONTEXT_MESSAGES.caseStudyHornet;
-    } else if (path.startsWith('/parcours') || path.startsWith('/a-propos') || path.startsWith('/hors-cadre')) {
+    } else if (path.startsWith('/hors-cadre') || path.startsWith('/au-dela-du-travail')) {
+      ctx = CONTEXT_MESSAGES.horsCadre;
+    } else if (path.startsWith('/parcours') || path.startsWith('/a-propos')) {
       ctx = CONTEXT_MESSAGES.parcours;
     } else if (path.startsWith('/projets') || path.startsWith('/hornetsecurity') || path.startsWith('/studio')) {
       ctx = CONTEXT_MESSAGES.projets;

@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
-import { ArrowRight, ArrowUpRight, Play, Shield, Sparkles, Camera, Award, CheckCircle2, Video } from 'lucide-react';
+import { ArrowRight, ArrowUpRight, Play, Shield, Sparkles, Camera, Award, CheckCircle2, Video, Compass } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { profileData } from '../data/profile';
 import AnimatedStat from '../components/AnimatedStat';
 import ShowcaseProjects from '../components/ShowcaseProjects';
+import MochiAvatar from '../components/MochiAvatar';
+import { applyTheme } from '../lib/theme';
 
 export default function Home({ navigate }) {
   const [isPlayingPitch, setIsPlayingPitch] = useState(false);
@@ -239,52 +241,76 @@ export default function Home({ navigate }) {
       </section>
 
       {/* ========================================================
-          4. APERÇU PARCOURS & UNIVERS PERSONNEL
+          4. MOCHI & LA PASSERELLE VERS L'UNIVERS PERSONNEL
          ======================================================== */}
       <section className="max-w-[1280px] mx-auto px-5 sm:px-8 lg:px-10">
-        <div className="p-8 sm:p-12 rounded-3xl bg-zinc-50 border border-zinc-200/80">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        <div className="p-8 sm:p-12 rounded-3xl bg-zinc-50 dark:bg-zinc-900/60 border border-zinc-200/80 dark:border-white/10 shadow-sm space-y-8">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
             
-            <div className="lg:col-span-7 space-y-4">
-              <span className="text-xs font-semibold uppercase tracking-wider text-[#FFAD00] flex items-center gap-1.5">
-                <Camera className="w-3.5 h-3.5" />
-                Parcours • Hors-cadre
-              </span>
-              <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-[#09090B]">
-                Le parcours, la photographie et l'endurance
-              </h2>
-              <p className="text-sm sm:text-base text-[#52525B] leading-relaxed">
-                Un designer ne s'arrête pas aux fichiers livrés. Découvrez mon parcours universitaire et professionnel, ma sélection photographique personnelle (prise de vue numérique) ainsi que l'exigence du marathon de Venise (02h48'25).
-              </p>
+            {/* Guide Mochi & Discours éditorial */}
+            <div className="lg:col-span-7 space-y-6">
+              <div className="flex items-center gap-4">
+                <MochiAvatar size="md" />
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white dark:bg-white/10 border border-zinc-200/80 dark:border-white/10 text-xs font-semibold text-zinc-800 dark:text-zinc-200 shadow-2xs">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#FFAD00] shadow-[0_0_6px_rgba(255,173,0,0.8)]" />
+                  <span>AU-DELÀ DU TRAVAIL • EXPÉRIENCE COMPLÉMENTAIRE</span>
+                </div>
+              </div>
 
-              <div className="pt-2">
+              <div className="space-y-3">
+                <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-[#09090B] dark:text-white leading-tight">
+                  « Tu connais maintenant ce que je fais. Voici un peu plus de ce qui me définit. »
+                </h2>
+                <p className="text-sm sm:text-base text-[#52525B] dark:text-zinc-300 leading-relaxed font-normal">
+                  Passez dans l'univers personnel en mode sombre pour découvrir ce qui nourrit ma réflexion : le rapport aux climats frais et minéraux, l'autonomie sur le terrain avec le projet <strong>Meridian</strong>, les rituels du café en grain et du matcha, l'endurance au marathon (2h48) et l'envie constante de comprendre les rouages de chaque système.
+                </p>
+              </div>
+
+              <div className="pt-2 flex flex-wrap items-center gap-4">
+                <button
+                  type="button"
+                  onClick={(e) => {
+                    applyTheme('dark');
+                    handleNav('/hors-cadre')(e);
+                  }}
+                  className="inline-flex items-center gap-2.5 px-6 py-3 rounded-full bg-[#09090B] dark:bg-white text-white dark:text-[#09090B] text-xs font-bold hover:bg-zinc-800 dark:hover:bg-zinc-200 transition-all active:scale-95 shadow-sm cursor-pointer"
+                >
+                  <Compass className="w-4 h-4 text-[#FFAD00] dark:text-zinc-950" />
+                  <span>Découvrir mon univers personnel</span>
+                </button>
+
                 <a
                   href="/parcours"
                   onClick={handleNav('/parcours')}
-                  className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#09090B] text-white text-xs font-semibold hover:bg-zinc-800 transition-colors shadow-sm"
+                  className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#52525B] dark:text-zinc-400 hover:text-black dark:hover:text-white transition-colors"
                 >
-                  <span>En savoir plus sur mon profil</span>
+                  <span>Consulter mon parcours complet &amp; CV</span>
                   <ArrowRight className="w-3.5 h-3.5 text-[#FFAD00]" />
                 </a>
               </div>
             </div>
 
+            {/* Compositions photographiques réelles */}
             <div className="lg:col-span-5 grid grid-cols-2 gap-3">
-              <div className="aspect-square rounded-2xl overflow-hidden border border-zinc-200 bg-zinc-950">
+              <div className="aspect-square rounded-2xl overflow-hidden border border-zinc-200 dark:border-white/10 bg-zinc-950 relative group">
                 <img
                   src="/assets/autres/instagram/IMG20260403192340.jpg"
-                  alt="Rémi et sa copine sur le pin maritime face à la mer"
-                  className="w-full h-full object-cover object-[center_28%]"
+                  alt="Rémi et Laura face à la mer sous les pins maritimes"
+                  className="w-full h-full object-cover object-[center_28%] transition-transform duration-500 ease-out group-hover:scale-105"
                   loading="lazy"
                 />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
+                <span className="absolute bottom-2.5 left-2.5 text-[10px] font-mono text-white/90">Loin du cadre</span>
               </div>
-              <div className="aspect-square rounded-2xl overflow-hidden border border-zinc-200 bg-zinc-950">
+              <div className="aspect-square rounded-2xl overflow-hidden border border-zinc-200 dark:border-white/10 bg-zinc-950 relative group">
                 <img
                   src="/assets/autres/marathon6.jpg"
-                  alt="Marathon de Venise - Inscription officielle"
-                  className="w-full h-full object-cover object-[center_35%]"
+                  alt="Marathon de Venise - 2 h 48 min 25 s"
+                  className="w-full h-full object-cover object-[center_35%] transition-transform duration-500 ease-out group-hover:scale-105"
                   loading="lazy"
                 />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
+                <span className="absolute bottom-2.5 left-2.5 text-[10px] font-mono text-[#FFAD00]">Marathon 2h48</span>
               </div>
             </div>
 

@@ -1,26 +1,30 @@
 import React, { useState, useEffect, useLayoutEffect, useRef } from 'react';
-import { Menu, X, ArrowUpRight, Mail, Phone, Linkedin } from 'lucide-react';
+import { Menu, X, ArrowUpRight, Mail, Phone, Linkedin, Compass, Briefcase, Moon, Sun } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { getStoredTheme, applyTheme, onThemeChange, toggleTheme } from '../lib/theme';
 
 /**
  * Header & Menu Mobile Plein Écran Éditorial — Studio ROOM241
  * 
- * Direction artistique :
- * - Desktop : Barre de navigation minimaliste blanche avec curseur coulissant continu 100% stable
- * - Mobile : Expérience plein écran immersive (Full-Screen Editorial Drawer)
- *   * Typographie Geist / Inter généreuse et aérée
- *   * Entrée séquentielle soignée (staggered delay)
- *   * Liens avec numérotation 01, 02, 03 et sous-titres éditoriaux
- *   * Zone inférieure structurée (Disponibilité, Coordonnées directes, CTA de contact)
- *   * Respect strict de prefers-reduced-motion, accessibilité ARIA et fermeture Échap
+ * Intègre la navigation entre les deux univers :
+ * - « Mon travail » (Univers Professionnel • Mode clair)
+ * - « Au-delà du travail » (Univers Personnel • Véritable mode sombre)
  */
 export default function Header({ currentPath = '/', navigate }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
   const [indicatorStyle, setIndicatorStyle] = useState({ left: 0, width: 0, ready: false });
+  const [currentTheme, setCurrentTheme] = useState(getStoredTheme());
   const navRef = useRef(null);
   const tabRefs = useRef([]);
+
+  // Écoute des changements de thème globaux
+  useEffect(() => {
+    return onThemeChange((theme) => {
+      setCurrentTheme(theme);
+    });
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -55,19 +59,21 @@ export default function Header({ currentPath = '/', navigate }) {
     };
   }, [mobileMenuOpen]);
 
-  // Exactement 3 entrées principales documentées
+  // Liens de navigation éditoriale
   const navLinks = [
     { label: 'Accueil', path: '/', subtitle: 'Vision créative & présentation 360°' },
     { label: 'Projets', path: '/projets', subtitle: 'Stands > 150 m², identités de marque & vidéo' },
-    { label: 'Parcours', path: '/parcours', subtitle: 'Expériences, compétences, photo & marathon' },
+    { label: 'Parcours', path: '/parcours', subtitle: 'Expériences, compétences & CV' },
+    { label: 'Au-delà du travail', path: '/hors-cadre', subtitle: 'Curiosité, Meridian, rituels & endurance' },
   ];
 
-  // Calcul déterministe de l'index actif (Accueil: 0, Projets: 1, Parcours: 2)
+  // Calcul déterministe de l'index actif (Accueil: 0, Projets: 1, Parcours: 2, Au-delà: 3)
   useEffect(() => {
-    if (
+    if (currentPath === '/hors-cadre' || currentPath === '/au-dela-du-travail') {
+      setActiveIndex(3);
+    } else if (
       currentPath.startsWith('/parcours') ||
-      currentPath.startsWith('/a-propos') ||
-      currentPath.startsWith('/hors-cadre')
+      currentPath.startsWith('/a-propos')
     ) {
       setActiveIndex(2);
     } else if (
@@ -82,7 +88,7 @@ export default function Header({ currentPath = '/', navigate }) {
     }
   }, [currentPath]);
 
-  // Mesure et mise à jour de la position exacte du curseur coulissant continu
+  // Mesure et mise à jour de la position exacte du curseur coulissant
   const updateIndicator = () => {
     const nav = navRef.current;
     const activeTab = tabRefs.current[activeIndex];
@@ -100,7 +106,7 @@ export default function Header({ currentPath = '/', navigate }) {
 
   useLayoutEffect(() => {
     updateIndicator();
-  }, [activeIndex]);
+  }, [activeIndex, currentTheme]);
 
   useEffect(() => {
     updateIndicator();
@@ -118,17 +124,17 @@ export default function Header({ currentPath = '/', navigate }) {
     };
   }, [activeIndex]);
 
-  // Vérifie si un chemin est actif
-  const isActive = (path) => {
-    if (path === '/') return activeIndex === 0;
-    if (path.startsWith('/projets')) return activeIndex === 1;
-    if (path.startsWith('/parcours')) return activeIndex === 2;
-    return currentPath === path;
-  };
-
   const handleNav = (path) => (e) => {
     if (e) e.preventDefault();
     setMobileMenuOpen(false);
+
+    // Si on navigue vers l'univers personnel, on active le mode sombre
+    if (path === '/hors-cadre' || path === '/au-dela-du-travail') {
+      applyTheme('dark');
+    } else if (path === '/' || path === '/projets' || path === '/parcours') {
+      // Optionnel : ne pas forcer le mode clair si l'utilisateur souhaite naviguer en sombre
+    }
+
     if (navigate) {
       navigate(path);
     } else {
@@ -137,18 +143,34 @@ export default function Header({ currentPath = '/', navigate }) {
     }
   };
 
+  const handleToggleUniverse = (targetUniverse) => {
+    if (targetUniverse === 'dark') {
+      applyTheme('dark');
+      if (currentPath !== '/hors-cadre' && currentPath !== '/au-dela-du-travail') {
+        if (navigate) navigate('/hors-cadre');
+      }
+    } else {
+      applyTheme('light');
+      if (currentPath === '/hors-cadre' || currentPath === '/au-dela-du-travail') {
+        if (navigate) navigate('/');
+      }
+    }
+  };
+
+  const isDark = currentTheme === 'dark';
+
   return (
     <>
       <header
         className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
           scrolled
-            ? 'bg-white/95 backdrop-blur-md border-b border-zinc-200/80 py-3 shadow-[0_2px_15px_rgba(0,0,0,0.03)]'
-            : 'bg-white/80 backdrop-blur-sm py-4 border-b border-zinc-100'
+            ? 'bg-white/95 dark:bg-[#0B0A09]/95 backdrop-blur-md border-b border-zinc-200/80 dark:border-white/10 py-3 shadow-[0_2px_15px_rgba(0,0,0,0.03)]'
+            : 'bg-white/80 dark:bg-[#0B0A09]/80 backdrop-blur-sm py-4 border-b border-zinc-100 dark:border-white/5'
         }`}
       >
         <div className="max-w-[1280px] mx-auto px-5 sm:px-8 lg:px-10 flex items-center justify-between">
 
-          {/* Gauche : Logo officiel ROOM241 pur sans point ambré */}
+          {/* Gauche : Logo officiel ROOM241 (s'adapte au mode) */}
           <a
             href="/"
             onClick={handleNav('/')}
@@ -156,22 +178,22 @@ export default function Header({ currentPath = '/', navigate }) {
             aria-label="ROOM241 - Retour à l'accueil"
           >
             <img
-              src="/assets/logos/430x95_Framer_Black@4x.png"
+              src={isDark ? '/assets/logos/430x95_Framer_white@4x.png' : '/assets/logos/430x95_Framer_Black@4x.png'}
               alt="ROOM241"
               className="h-6 sm:h-7 md:h-8 w-auto object-contain transition-transform group-hover:scale-[1.02]"
               loading="eager"
             />
           </a>
 
-          {/* Centre : Navigation principale Desktop avec curseur coulissant continu 100% stable */}
+          {/* Centre : Navigation principale Desktop avec curseur coulissant continu */}
           <nav
             ref={navRef}
-            className="hidden md:flex items-center relative p-1 rounded-full bg-zinc-100/90 border border-zinc-200/80 shadow-inner"
+            className="hidden lg:flex items-center relative p-1 rounded-full bg-zinc-100/90 dark:bg-zinc-900/90 border border-zinc-200/80 dark:border-white/10 shadow-inner"
             aria-label="Navigation principale"
           >
             {/* Curseur coulissant physique continu */}
             <span
-              className={`absolute top-1 bottom-1 rounded-full bg-white shadow-sm transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] pointer-events-none ${
+              className={`absolute top-1 bottom-1 rounded-full bg-white dark:bg-zinc-800 shadow-sm transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] pointer-events-none ${
                 indicatorStyle.ready ? 'opacity-100' : 'opacity-0'
               }`}
               style={{
@@ -183,55 +205,106 @@ export default function Header({ currentPath = '/', navigate }) {
 
             {navLinks.map((link, index) => {
               const active = index === activeIndex;
+              const isPersonalLink = link.path === '/hors-cadre';
               return (
                 <a
                   key={link.path}
                   ref={(el) => (tabRefs.current[index] = el)}
                   href={link.path}
                   onClick={handleNav(link.path)}
-                  className={`relative z-10 px-5 py-2 text-xs font-semibold rounded-full transition-colors duration-200 select-none ${
-                    active ? 'text-zinc-950 font-bold' : 'text-zinc-600 hover:text-zinc-950'
+                  className={`relative z-10 px-4 py-2 text-xs font-semibold rounded-full transition-colors duration-200 select-none flex items-center gap-1.5 ${
+                    active
+                      ? 'text-zinc-950 dark:text-white font-bold'
+                      : 'text-zinc-600 dark:text-zinc-400 hover:text-zinc-950 dark:hover:text-white'
                   }`}
                   aria-current={active ? 'page' : undefined}
                 >
+                  {isPersonalLink && (
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#FFAD00]" />
+                  )}
                   <span>{link.label}</span>
                 </a>
               );
             })}
           </nav>
 
-          {/* Droite : Bouton distinct d'action « Prendre contact » Desktop */}
+          {/* Droite : Commutateur d'univers & Bouton Contact Desktop */}
           <div className="hidden md:flex items-center gap-3">
+            
+            {/* Commutateur Univers Professionnel / Univers Personnel */}
+            <div className="flex items-center p-0.5 rounded-full bg-zinc-100 dark:bg-zinc-900 border border-zinc-200/80 dark:border-white/10 text-xs">
+              <button
+                type="button"
+                onClick={() => handleToggleUniverse('light')}
+                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full font-semibold transition-all cursor-pointer ${
+                  !isDark
+                    ? 'bg-white text-zinc-950 shadow-xs'
+                    : 'text-zinc-400 hover:text-zinc-200'
+                }`}
+                title="Univers Professionnel (Mon travail)"
+              >
+                <Briefcase className="w-3.5 h-3.5 text-[#FFAD00]" />
+                <span className="text-[11px]">Travail</span>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => handleToggleUniverse('dark')}
+                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full font-semibold transition-all cursor-pointer ${
+                  isDark
+                    ? 'bg-zinc-800 text-white shadow-xs'
+                    : 'text-zinc-500 hover:text-zinc-800'
+                }`}
+                title="Univers Personnel (Au-delà du travail)"
+              >
+                <Compass className="w-3.5 h-3.5 text-[#FFAD00]" />
+                <span className="text-[11px]">Au-delà</span>
+              </button>
+            </div>
+
+            {/* Bouton Contact */}
             <a
               href="#contact"
               onClick={handleNav('#contact')}
-              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-[#09090B] text-white text-xs font-semibold hover:bg-zinc-800 transition-colors shadow-sm"
+              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-[#09090B] dark:bg-white text-white dark:text-[#09090B] text-xs font-semibold hover:bg-zinc-800 dark:hover:bg-zinc-200 transition-colors shadow-sm"
             >
-              <span>Prendre contact</span>
+              <span>Contact</span>
               <ArrowUpRight className="w-3.5 h-3.5 text-[#FFAD00]" />
             </a>
           </div>
 
-          {/* Mobile : Bouton hamburger d'ouverture */}
+          {/* Mobile : Switcher rapide + Bouton Menu */}
           <div className="flex md:hidden items-center gap-2">
             <button
               type="button"
+              onClick={() => handleToggleUniverse(isDark ? 'light' : 'dark')}
+              className="w-10 h-10 flex items-center justify-center rounded-xl bg-zinc-100 dark:bg-zinc-900 border border-zinc-200/80 dark:border-white/10 text-zinc-900 dark:text-white transition-colors"
+              aria-label="Basculer d'univers"
+              title={isDark ? "Passer à l'univers travail" : "Passer à l'univers personnel"}
+            >
+              {isDark ? (
+                <Sun className="w-4 h-4 text-[#FFAD00]" />
+              ) : (
+                <Compass className="w-4 h-4 text-zinc-800" />
+              )}
+            </button>
+
+            <button
+              type="button"
               onClick={() => setMobileMenuOpen(true)}
-              className="w-10 h-10 flex items-center justify-center rounded-xl bg-zinc-100 text-zinc-900 hover:bg-zinc-200 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FFAD00] active:scale-95"
+              className="w-10 h-10 flex items-center justify-center rounded-xl bg-zinc-100 dark:bg-zinc-900 border border-zinc-200/80 dark:border-white/10 text-zinc-900 dark:text-white transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FFAD00] active:scale-95"
               aria-label="Ouvrir le menu de navigation"
               aria-expanded={mobileMenuOpen}
               aria-controls="mobile-navigation"
             >
-              <Menu className="w-5 h-5 text-zinc-900" strokeWidth={2.25} />
+              <Menu className="w-5 h-5 text-zinc-900 dark:text-white" strokeWidth={2.25} />
             </button>
           </div>
 
         </div>
       </header>
 
-      {/* ========================================================
-          MENU MOBILE FLOTTANT EN GLASS DESIGN (EXPÉRIENCE AÉRO)
-         ======================================================== */}
+      {/* MENU MOBILE PLEIN ÉCRAN */}
       <AnimatePresence>
         {mobileMenuOpen && (
           <div
@@ -241,154 +314,100 @@ export default function Header({ currentPath = '/', navigate }) {
             aria-label="Menu principal"
             className="fixed inset-0 z-50 md:hidden flex items-center justify-center p-3 sm:p-5 overflow-y-auto"
           >
-            {/* Arrière-plan feutré translucide — Clic extérieur pour fermer immédiatement le menu */}
+            {/* Arrière-plan feutré */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.2 }}
               onClick={() => setMobileMenuOpen(false)}
-              className="fixed inset-0 bg-neutral-950/55 backdrop-blur-md cursor-pointer"
-              aria-label="Fermer le menu en cliquant à l'extérieur"
+              className="fixed inset-0 bg-black/70 backdrop-blur-md"
             />
 
-            {/* Carte Flottante Glass Design Haute Définition */}
+            {/* Boîte de dialogue du menu */}
             <motion.div
-              onClick={(e) => e.stopPropagation()}
-              initial={{ opacity: 0, scale: 0.96, y: -10 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.96, y: -10 }}
-              transition={{ duration: 0.26, ease: [0.16, 1, 0.3, 1] }}
-              className="relative w-full max-w-md my-auto rounded-3xl bg-white/90 backdrop-blur-2xl border border-white/80 shadow-[0_30px_80px_rgba(0,0,0,0.28),0_0_0_1px_rgba(255,255,255,0.7),inset_0_1px_1px_rgba(255,255,255,1)] flex flex-col justify-between overflow-hidden z-10 max-h-[90vh]"
+              initial={{ scale: 0.95, opacity: 0, y: 10 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.95, opacity: 0, y: 10 }}
+              transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
+              className="relative w-full max-w-sm rounded-3xl bg-white dark:bg-[#121110] border border-zinc-200 dark:border-white/15 p-6 shadow-2xl z-10 space-y-6"
             >
-              {/* Lueur d'ambiance dorée interne */}
-              <div className="absolute -top-24 -right-24 w-60 h-60 bg-gradient-to-bl from-[#FFAD00]/20 via-amber-200/10 to-transparent blur-3xl pointer-events-none" />
-
-              {/* 1. Barre d'en-tête flottante du menu mobile */}
-              <div className="px-5 py-3.5 border-b border-zinc-200/60 flex items-center justify-between shrink-0 relative z-10 bg-white/60 backdrop-blur-xl">
-                <a
-                  href="/"
-                  onClick={handleNav('/')}
-                  className="flex items-center"
-                  aria-label="ROOM241 - Accueil"
-                >
-                  <img
-                    src="/assets/logos/430x95_Framer_Black@4x.png"
-                    alt="ROOM241"
-                    className="h-6 w-auto object-contain"
-                  />
-                </a>
-
-                {/* Bouton fermeture évident et tactile */}
+              <div className="flex items-center justify-between border-b border-zinc-100 dark:border-white/10 pb-4">
+                <img
+                  src={isDark ? '/assets/logos/430x95_Framer_white@4x.png' : '/assets/logos/430x95_Framer_Black@4x.png'}
+                  alt="ROOM241"
+                  className="h-6 w-auto object-contain"
+                />
                 <button
                   type="button"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-zinc-100/90 hover:bg-zinc-200 text-zinc-800 text-xs font-semibold transition-all cursor-pointer active:scale-95 border border-zinc-200/80 shadow-2xs"
-                  aria-label="Fermer le menu"
+                  className="w-9 h-9 rounded-full bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center text-zinc-600 dark:text-zinc-300"
                 >
-                  <span className="text-[11px] font-sans font-medium text-zinc-600">Fermer</span>
-                  <X className="w-4 h-4 text-zinc-900" strokeWidth={2.5} />
+                  <X className="w-4 h-4" />
                 </button>
               </div>
 
-              {/* 2. Navigation centrale avec typographie éditoriale */}
-              <div className="px-5 py-6 flex-grow flex flex-col justify-center space-y-4 relative z-10 overflow-y-auto">
-                <div className="flex items-center gap-2 pb-1.5 border-b border-zinc-200/50">
-                  <span className="w-2 h-2 rounded-full bg-[#FFAD00] shadow-[0_0_8px_rgba(255,173,0,0.8)]" />
-                  <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-zinc-400">
-                    Navigation // Studio ROOM241
-                  </span>
-                </div>
-
-                <nav className="flex flex-col space-y-2">
-                  {navLinks.map((link, index) => {
-                    const active = index === activeIndex || isActive(link.path);
-                    return (
-                      <motion.a
-                        key={link.path}
-                        href={link.path}
-                        onClick={handleNav(link.path)}
-                        initial={{ opacity: 0, x: -8 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.22, delay: index * 0.05, ease: [0.16, 1, 0.3, 1] }}
-                        className={`group p-3.5 rounded-2xl transition-all flex items-center justify-between ${
-                          active
-                            ? 'bg-zinc-100/90 border border-zinc-200/90 shadow-2xs'
-                            : 'hover:bg-white/80 border border-transparent hover:border-zinc-200/50'
-                        }`}
-                        aria-current={active ? 'page' : undefined}
-                      >
-                        <div className="space-y-0.5">
-                          <div className="flex items-center gap-2.5">
-                            <span className="text-[11px] font-mono font-bold text-zinc-400 group-hover:text-[#FFAD00] transition-colors">
-                              0{index + 1}
-                            </span>
-                            <span className={`text-xl font-extrabold tracking-tight ${
-                              active ? 'text-zinc-950' : 'text-zinc-800 group-hover:text-zinc-950'
-                            }`}>
-                              {link.label}
-                            </span>
-                          </div>
-                          <p className="text-[11px] text-zinc-500 pl-6 leading-tight">
-                            {link.subtitle}
-                          </p>
-                        </div>
-
-                        {active ? (
-                          <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#FFAD00]/20 border border-[#FFAD00]/30 text-[11px] font-sans font-bold text-amber-950 shrink-0">
-                            <span className="w-1.5 h-1.5 rounded-full bg-[#FFAD00] animate-pulse" />
-                            Actuel
-                          </span>
-                        ) : (
-                          <ArrowUpRight className="w-4 h-4 text-zinc-300 group-hover:text-zinc-900 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all shrink-0" />
-                        )}
-                      </motion.a>
-                    );
-                  })}
-                </nav>
+              {/* Commutateur d'univers sur mobile */}
+              <div className="p-1 rounded-2xl bg-zinc-100 dark:bg-zinc-900 border border-zinc-200/80 dark:border-white/10 flex items-center">
+                <button
+                  type="button"
+                  onClick={() => {
+                    handleToggleUniverse('light');
+                    setMobileMenuOpen(false);
+                  }}
+                  className={`flex-1 flex items-center justify-center gap-1.5 py-2 rounded-xl text-xs font-semibold ${
+                    !isDark ? 'bg-white text-zinc-950 shadow-xs' : 'text-zinc-400'
+                  }`}
+                >
+                  <Briefcase className="w-3.5 h-3.5 text-[#FFAD00]" />
+                  <span>Mon travail</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    handleToggleUniverse('dark');
+                    setMobileMenuOpen(false);
+                  }}
+                  className={`flex-1 flex items-center justify-center gap-1.5 py-2 rounded-xl text-xs font-semibold ${
+                    isDark ? 'bg-zinc-800 text-white shadow-xs' : 'text-zinc-500'
+                  }`}
+                >
+                  <Compass className="w-3.5 h-3.5 text-[#FFAD00]" />
+                  <span>Au-delà</span>
+                </button>
               </div>
 
-              {/* 3. Zone inférieure intégrée en verre dépoli */}
-              <div className="p-4 sm:p-5 bg-white/70 border-t border-zinc-200/60 space-y-3 shrink-0 relative z-10 backdrop-blur-md">
-                {/* Statut de disponibilité */}
-                <div className="flex items-center justify-between px-3 py-2 rounded-xl bg-white/80 border border-zinc-200/70 shadow-2xs">
-                  <span className="text-[9px] font-mono font-bold uppercase tracking-wider text-zinc-400">
-                    Statut
-                  </span>
-                  <span className="inline-flex items-center gap-1.5 text-[11px] font-medium text-zinc-800">
-                    <span className="w-2 h-2 rounded-full bg-emerald-500 shadow-[0_0_6px_rgba(16,185,129,0.7)]" />
-                    Disponible immédiatement • Lille &amp; Hybride
-                  </span>
-                </div>
-
-                {/* Coordonnées rapides */}
-                <div className="flex items-center justify-between gap-2 text-[11px] font-medium text-zinc-600 px-1">
+              {/* Liste des liens de navigation */}
+              <div className="space-y-2">
+                {navLinks.map((link, idx) => (
                   <a
-                    href="mailto:brocart.remi02@gmail.com"
-                    className="hover:text-zinc-950 flex items-center gap-1.5 truncate"
+                    key={link.path}
+                    href={link.path}
+                    onClick={handleNav(link.path)}
+                    className="block p-3 rounded-2xl hover:bg-zinc-50 dark:hover:bg-zinc-800/60 transition-colors"
                   >
-                    <Mail className="w-3.5 h-3.5 text-[#FFAD00] shrink-0" />
-                    <span className="truncate">brocart.remi02@gmail.com</span>
+                    <div className="flex items-center justify-between">
+                      <span className="text-base font-bold text-zinc-900 dark:text-white">
+                        {link.label}
+                      </span>
+                      <ArrowRight className="w-4 h-4 text-zinc-400" />
+                    </div>
+                    <span className="text-xs text-zinc-500 dark:text-zinc-400 block mt-0.5">
+                      {link.subtitle}
+                    </span>
                   </a>
-                  <a
-                    href="https://www.linkedin.com/in/remibrocart/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="hover:text-zinc-950 flex items-center gap-1 shrink-0"
-                  >
-                    <Linkedin className="w-3.5 h-3.5 text-blue-600" />
-                    <span>LinkedIn</span>
-                  </a>
-                </div>
+                ))}
+              </div>
 
-                {/* Bouton d'action principal « Prendre contact » */}
+              {/* CTA Contact */}
+              <div className="pt-2 border-t border-zinc-100 dark:border-white/10">
                 <a
                   href="#contact"
                   onClick={handleNav('#contact')}
-                  className="w-full h-11 flex items-center justify-center gap-2 rounded-full bg-[#09090B] hover:bg-zinc-800 text-white text-xs font-bold shadow-md transition-all active:scale-[0.98] cursor-pointer"
+                  className="w-full inline-flex items-center justify-center gap-2 py-3 rounded-2xl bg-[#09090B] dark:bg-white text-white dark:text-[#09090B] text-xs font-bold"
                 >
-                  <span>Prendre contact avec Rémi</span>
-                  <ArrowUpRight className="w-3.5 h-3.5 text-[#FFAD00]" />
+                  <span>Prendre contact</span>
+                  <ArrowUpRight className="w-4 h-4 text-[#FFAD00]" />
                 </a>
               </div>
             </motion.div>
