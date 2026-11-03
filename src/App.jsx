@@ -147,11 +147,15 @@ export default function App() {
     return <Blocked navigate={navigate} />;
   }
 
-  // Rétro-compatibilité pour les liens profonds /realisations/:slug
-  const isProjectDetailRoute = currentPath.startsWith('/realisations/');
-  const projectSlug = isProjectDetailRoute ? currentPath.replace('/realisations/', '') : null;
+  // Prise en charge des routes dédiées aux études de cas (/realisations/:slug et /projets/:slug)
+  const isRealisationRoute = currentPath.startsWith('/realisations/');
+  const isProjetDetailRoute = currentPath.startsWith('/projets/') && currentPath !== '/projets/';
+  const isProjectDetailRoute = isRealisationRoute || isProjetDetailRoute;
+  const projectSlug = isRealisationRoute
+    ? currentPath.replace('/realisations/', '')
+    : (isProjetDetailRoute ? currentPath.replace('/projets/', '') : null);
 
-  if (isProjectDetailRoute && projectsData[projectSlug]) {
+  if (isProjectDetailRoute && projectSlug && projectsData[projectSlug]) {
     return (
       <div className="bg-[#FFFFFF] text-[#09090B] min-h-screen font-sans selection:bg-[#FFAD00] selection:text-black flex flex-col justify-between">
         <StudioPointer />

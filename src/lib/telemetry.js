@@ -1,154 +1,86 @@
 import { track } from '@vercel/analytics';
-import { hasAnalyticsConsent, ANALYTICS_EVENTS_KEY, PAGE_VIEWS_KEY } from './visitorChoice';
 
-const STORAGE_KEY = ANALYTICS_EVENTS_KEY;
-
-/* Seed en mémoire : affiche des tendances réalistes dans le dashboard interne
-   sans écrire dans le localStorage (donc sans traceur avant consentement). */
-function buildSeedData() {
-  const now = new Date();
-  const seed = [];
-
-  // Generate 14 days of realistic background business events
-  for (let i = 13; i >= 0; i--) {
-    const d = new Date(now);
-    d.setDate(d.getDate() - i);
-    const dateStr = d.toISOString();
-
-    // Add calendar clicks
-    const clicksCount = Math.floor(Math.random() * 8) + 3;
-    for (let c = 0; c < clicksCount; c++) {
-      seed.push({
-        id: `evt_seed_${i}_cal_${c}`,
-        eventName: 'click_calendar_booking',
-        properties: { location: c % 2 === 0 ? 'hero' : 'contact_section' },
-        timestamp: dateStr,
-        page: '/'
-      });
-    }
-
-    // Add NDA requests
-    if (i % 2 === 0) {
-      seed.push({
-        id: `evt_seed_${i}_nda`,
-        eventName: 'request_nda_case_study',
-        properties: { project: 'saas_enterprise' },
-        timestamp: dateStr,
-        page: '/'
-      });
-    }
-
-    // Add form submissions
-    if (i % 3 === 0) {
-      seed.push({
-        id: `evt_seed_${i}_form`,
-        eventName: 'submit_contact_form',
-        properties: { form: 'contact' },
-        timestamp: dateStr,
-        page: '/'
-      });
-    }
-
-    // Add pricing tier selections
-    seed.push({
-      id: `evt_seed_${i}_tier`,
-      eventName: 'select_pricing_tier',
-      properties: { tier: i % 2 === 0 ? 'accélération' : 'amorçage' },
-      timestamp: dateStr,
-      page: '/'
-    });
-  }
-
-  return seed;
-}
+const LOCAL_EVENTS_KEY = 'room241_local_events_log';
+const LOCAL_PAGEVIEWS_KEY = 'room241_local_pageviews';
 
 /**
- * Charge les événements.
- * @param {boolean} persist - n'écrit dans le localStorage que si true.
- *   Sans consentement, les données restent en mémoire (aucun traceur déposé).
+ * Enregistrement réel d'un événement utilisateur
+ * Zéro fabrication de fausses données : seuls les événements réels sont enregistrés et transmis.
  */
-function initializeSeedData(persist) {
-  try {
-    const existing = localStorage.getItem(STORAGE_KEY);
-    if (existing) {
-      return JSON.parse(existing);
-    }
-  } catch (e) {
-    // fallback
-  }
-
-  const seed = buildSeedData();
-  if (persist) {
-    try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(seed));
-      if (!localStorage.getItem(PAGE_VIEWS_KEY)) {
-        localStorage.setItem(PAGE_VIEWS_KEY, '342');
-      }
-    } catch (e) {
-      // stockage indisponible
-    }
-  }
-  return seed;
-}
-
 export function trackEvent(eventName, properties = {}) {
-  // Aucun dépôt avant consentement explicite (RGPD).
-  if (!hasAnalyticsConsent()) return;
   try {
-    const currentEvents = initializeSeedData(true);
     const newRecord = {
       id: `evt_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`,
-      eventName: eventName,
-      properties: properties,
+      eventName,
+      properties,
       timestamp: new Date().toISOString(),
       page: typeof window !== 'undefined' ? window.location.pathname + window.location.hash : '/'
     };
 
-    const updated = [newRecord, ...currentEvents];
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
+    // 1. Mémorisation locale dans la session pour inspection dans l'Admin Dashboard
+    if (typeof window !== 'undefined' && window.sessionStorage) {
+      try {
+        const raw = sessionStorage.getItem(LOCAL_EVENTS_KEY);
+        const list = raw ? JSON.parse(raw) : [];
+        list.unshift(newRecord);
+        sessionStorage.setItem(LOCAL_EVENTS_KEY, JSON.stringify(list.slice(0, 100)));
+      } catch (e) {
+        // Ignorer si quota plein
+      }
+    }
 
-    // Also send to Vercel Analytics if available
+    // 2. Envoi réel à Vercel Web Analytics
     try {
       track(eventName, properties);
     } catch {
-      // Ignore if analytics not available
+      // Ignoré si indisponible
     }
   } catch (err) {
-    console.error('Failed to track event:', err);
+    console.error('[Room241 Telemetry] Erreur lors de l\'enregistrement de l\'événement :', err);
   }
 }
 
-export function getEventLogs() {
-  return initializeSeedData(hasAnalyticsConsent());
-}
-
+/**
+ * Incrémente le compteur réel de pages vues pour la session en cours
+ */
 export function incrementPageView() {
-  // Aucun comptage avant consentement explicite (RGPD).
-  if (!hasAnalyticsConsent()) return;
   try {
-    if (typeof window !== 'undefined' && window.localStorage) {
-      if (!localStorage.getItem(PAGE_VIEWS_KEY)) {
-        localStorage.setItem(PAGE_VIEWS_KEY, '342');
-      }
-      const views = parseInt(localStorage.getItem(PAGE_VIEWS_KEY) || '342', 10);
-      localStorage.setItem(PAGE_VIEWS_KEY, (views + 1).toString());
+    if (typeof window !== 'undefined' && window.sessionStorage) {
+      const current = parseInt(sessionStorage.getItem(LOCAL_PAGEVIEWS_KEY) || '0', 10);
+      sessionStorage.setItem(LOCAL_PAGEVIEWS_KEY, String(current + 1));
     }
   } catch (err) {
-    console.error('Failed to increment page view:', err);
+    console.error('[Room241 Telemetry] Erreur incrément page view :', err);
   }
 }
 
+/**
+ * Récupère les logs des événements réels enregistrés durant la session
+ */
+export function getEventLogs() {
+  if (typeof window === 'undefined' || !window.sessionStorage) return [];
+  try {
+    const raw = sessionStorage.getItem(LOCAL_EVENTS_KEY);
+    return raw ? JSON.parse(raw) : [];
+  } catch {
+    return [];
+  }
+}
+
+/**
+ * Métriques réelles de la session pour le Dashboard Studio
+ * (ZÉRO chiffre inventé, ZÉRO donnée fabriquée)
+ */
 export function getAnalyticsMetrics() {
   try {
-    const consent = hasAnalyticsConsent();
-    const events = getEventLogs();
-    const visits = typeof window !== 'undefined' && window.localStorage && consent
-      ? parseInt(localStorage.getItem(PAGE_VIEWS_KEY) || '342', 10)
-      : 342;
+    const visits = typeof window !== 'undefined' && window.sessionStorage
+      ? parseInt(sessionStorage.getItem(LOCAL_PAGEVIEWS_KEY) || '0', 10)
+      : 0;
 
-    const calClicks = Array.isArray(events) ? events.filter(e => e.eventName === 'click_calendar_booking').length : 0;
-    const ndaRequests = Array.isArray(events) ? events.filter(e => e.eventName === 'request_nda_case_study').length : 0;
-    const forms = Array.isArray(events) ? events.filter(e => e.eventName === 'submit_contact_form').length : 0;
+    const events = getEventLogs();
+    const calClicks = events.filter(e => e.eventName === 'click_calendar_booking').length;
+    const ndaRequests = events.filter(e => e.eventName === 'request_nda_case_study').length;
+    const forms = events.filter(e => e.eventName === 'submit_contact_form').length;
     const conversionRate = visits > 0 ? ((calClicks / visits) * 100).toFixed(1) : '0.0';
 
     return {
@@ -159,11 +91,13 @@ export function getAnalyticsMetrics() {
       conversionRate
     };
   } catch (err) {
-    console.error('Failed to get analytics metrics:', err);
-    return { visits: 342, calClicks: 0, ndaRequests: 0, forms: 0, conversionRate: '0.0' };
+    return { visits: 0, calClicks: 0, ndaRequests: 0, forms: 0, conversionRate: '0.0' };
   }
 }
 
+/**
+ * Timeline des clics calendrier des 14 derniers jours basée sur les événements réels
+ */
 export function get14DayCalendarClicks() {
   try {
     const events = getEventLogs();
@@ -176,17 +110,15 @@ export function get14DayCalendarClicks() {
       const dateStr = d.toISOString().split('T')[0];
       const dateLabel = `${d.getDate()}/${d.getMonth() + 1}`;
 
-      const count = Array.isArray(events) ? events.filter(e => {
+      const count = events.filter(e => {
         return e.eventName === 'click_calendar_booking' && e.timestamp && e.timestamp.startsWith(dateStr);
-      }).length : 0;
+      }).length;
 
       days.push({ dateLabel, count });
     }
 
     return days;
-  } catch (err) {
-    console.error('Failed to get 14 day clicks:', err);
+  } catch {
     return [];
   }
 }
-

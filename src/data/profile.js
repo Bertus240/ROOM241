@@ -12,7 +12,7 @@ export const profileData = {
     brand: "Studio ROOM241",
     role: "Graphic Designer & Direction artistique",
     tagline: "Design graphique, scénographie de stands & production de contenus de terrain.",
-    location: "Métropole Européenne de Lille / Erquinghem-Lys (Véhiculé)",
+    location: "Métropole Européenne de Lille / Cysoing (Véhiculé)",
     status: "Disponible immédiatement · CDI & Collaborations",
     avatar: "/assets/remi-brocart-2026.png",
     logoBlack: "/assets/logos/430x95_Framer_Black@4x.png",

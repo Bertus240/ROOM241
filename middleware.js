@@ -667,12 +667,13 @@ const BLOCK_PAGE_HTML = `<!DOCTYPE html>
 </html>`;
 
 export default function middleware(request) {
-  // 1. Toujours autoriser les assets statiques et services Vercel sans interception
+  // 1. Toujours autoriser les assets statiques, services Vercel et API sans interception
   const pathname = request.nextUrl ? request.nextUrl.pathname : new URL(request.url).pathname;
   if (
     pathname.startsWith('/assets/') ||
     pathname.startsWith('/_next/') ||
     pathname.startsWith('/_vercel/') ||
+    pathname.startsWith('/api/') ||
     pathname === '/favicon.ico' ||
     pathname === '/robots.txt' ||
     /\.(png|jpg|jpeg|svg|webp|gif|ico|css|js|woff2?)$/i.test(pathname)
@@ -718,8 +719,15 @@ export default function middleware(request) {
     });
   }
 
-  // Pour toutes les autres requêtes légitimes : poursuite normale
-  return undefined;
+  // Pour toutes les requêtes légitimes de navigation : réécriture Edge vers /index.html pour le routing SPA React
+  // Garantit l'accès direct et le rechargement sans 404 sur les sous-pages (/politique-de-confidentialite, /mentions-legales, etc.)
+  const rewriteUrl = new URL('/index.html', request.url);
+  return new Response(null, {
+    status: 200,
+    headers: {
+      'x-middleware-rewrite': rewriteUrl.toString(),
+    },
+  });
 }
 
 export const config = {

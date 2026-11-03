@@ -75,10 +75,7 @@ export default function MentionsLegales({ navigate }) {
                   <strong className="text-room-text font-semibold">Taxe sur la Valeur Ajoutée (TVA) :</strong> Franchise en base de TVA — <em className="text-room-text font-medium not-italic">« TVA non applicable, article 293 B du CGI »</em>.
                 </p>
                 <p>
-                  <strong className="text-room-text font-semibold">Adresse professionnelle :</strong>{' '}
-                  <span className="text-room-subtle italic">
-                    [Adresse professionnelle — Cysoing (59830) / Métropole Européenne de Lille — à confirmer avant publication définitive]
-                  </span>
+                  <strong className="text-room-text font-semibold">Adresse professionnelle :</strong> 805 B rue Jean-Baptiste-Lebas, 59830 Cysoing, France.
                 </p>
                 <p>
                   <strong className="text-room-text font-semibold">Directeur de la publication :</strong> Rémi Brocart.

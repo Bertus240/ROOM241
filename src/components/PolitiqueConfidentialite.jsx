@@ -58,9 +58,7 @@ export default function PolitiqueConfidentialite({ navigate }) {
                   <p><strong className="text-room-text font-medium">Rémi Brocart</strong> — Entrepreneur Individuel (EI)</p>
                   <p>Nom commercial : ROOM241 (Micro-entreprise)</p>
                   <p>SIREN : 934 313 305 — SIRET : 934 313 305 00013</p>
-                  <p className="text-room-subtle italic">
-                    [Adresse professionnelle — Cysoing (59830) / Métropole Européenne de Lille — à confirmer avant publication définitive]
-                  </p>
+                  <p>Adresse professionnelle : 805 B rue Jean-Baptiste-Lebas, 59830 Cysoing, France</p>
                 </div>
                 <p>
                   Pour toute question relative à la protection de vos données ou pour exercer vos droits, vous pouvez contacter directement le responsable de traitement à l'adresse e-mail :{' '}
