@@ -54,6 +54,23 @@ export const SHOWCASE_PROJECTS = [
     alt: "Résin'Architecte - Démonstration technique de pose de résine drainante aux abords d'une piscine",
     badgeLabel: "Direction artistique BTP",
   },
+  {
+    id: 'jardimax',
+    slug: 'jardimax',
+    number: '04',
+    category: 'Vidéo, Motion & Retail',
+    title: "Jardimax — Production vidéo, intervention face caméra & motion design",
+    description: "Conception et réalisation d'un dispositif vidéo pour l'enseigne de motoculture Jardimax (SAS DESMEL à Bailleul) : écriture éditoriale, tournage showroom et atelier, animation motion design pédagogique et déclinaisons 16:9 et 9:16.",
+    highlights: [
+      'Formats 16:9 (YouTube) & 9:16 (TikTok)',
+      'Motion design pédagogique "430 €"',
+      'Tournage in situ à Bailleul (Flandres)',
+    ],
+    link: '/projets#jardimax',
+    image: '/assets/jardimax/jardimax_cover.jpg',
+    alt: "Jardimax - Showroom physique et production vidéo à Bailleul",
+    badgeLabel: "Vidéo & Motion",
+  },
 ];
 
 export default function ShowcaseProjects({ navigate }) {

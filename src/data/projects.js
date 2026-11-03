@@ -214,6 +214,102 @@ export const projectsData = {
       title: "03. L'Impact Mesurable",
       text: "Campagne Ulule validée à 116 % du premier palier. Conception d'outils d'aide à la vente clairs et rigoureux pour structurer la prospection commerciale auprès des décideurs de la filière."
     },
+    nextSlug: "jardimax",
+    nextTitle: "Jardimax (Vidéo & Motion Design)"
+  },
+  "jardimax": {
+    slug: "jardimax",
+    id: "PROJET 04",
+    title: "Jardimax",
+    subtitle: "Production vidéo, intervention face caméra & motion design pour l'enseigne e-commerce & showroom de motoculture (SAS DESMEL · Bailleul)",
+    category: "Vidéo, Motion & Retail",
+    sector: "E-commerce & Motoculture physique",
+    deliverables: "Construction éditoriale, Prise de parole face caméra, Montage vidéo 4K, Motion design '430 €', Déclinaison 16:9 & 9:16",
+    year: "2026",
+    statusLabel: "PRODUCTION VIDÉO & MOTION",
+    tags: ["Production Vidéo", "Motion Design", "Formats TikTok & YouTube", "Terrain Bailleul"],
+    metric: "1 jour",
+    metricLabel: "De la réflexion éditoriale à la finalisation des livrables 16:9 et 9:16",
+    heroMetric: "1 jour",
+    heroMetricLabel: "de la conception aux exports",
+    metrics: [
+      {
+        value: "1 jour",
+        label: "Délai d'exécution",
+        detail: "Conception, captation face caméra et double montage en autonomie"
+      },
+      {
+        value: "2 formats",
+        label: "Déclinaisons natives",
+        detail: "16:9 paysage (YouTube/Web) et 9:16 vertical (TikTok/Shorts)"
+      },
+      {
+        value: "430 €",
+        label: "Économie démontrée",
+        detail: "Séquence motion comparant le coût d'une réparation au rachat neuf"
+      },
+      {
+        value: "100 %",
+        label: "Maîtrise de la chaîne",
+        detail: "Script, intervention terrain, captation atelier et animation graphique"
+      }
+    ],
+    isNda: false,
+    isVideo: true,
+    videoYtbUrl: "/assets/jardimax/jardimax_ytb_1080p.mp4",
+    videoTiktokUrl: "/assets/jardimax/jardimax_tiktok_1080p.mp4",
+    posterYtb: "/assets/jardimax/poster_ytb.jpg",
+    posterTiktok: "/assets/jardimax/poster_tiktok.jpg",
+    image: "/assets/jardimax/jardimax_cover.jpg",
+    alt: "Jardimax — Production vidéo, motion design et showroom à Bailleul",
+    description: "Conception et production intégrale d'un dispositif vidéo pour Jardimax (marque historique de la SAS DESMEL à Bailleul) : construction du message éditorial, intervention face caméra, motion design chiffré, déclinaison horizontale YouTube 16:9 et verticale TikTok 9:16.",
+    cta: "Consulter l'étude de cas ↗",
+    act1: {
+      title: "01. Contexte & Enjeux",
+      text: "Jardimax, spécialiste reconnu de la pièce détachée de motoculture et filiale de la SAS DESMEL basée à Bailleul, souhaitait sensibiliser les particuliers à l'économie et à la durabilité de la réparation d'outils de jardinage face au réflexe du rachat systématique."
+    },
+    act2: {
+      title: "02. Approche Créative & Production",
+      text: "Écriture d'un script direct et percutant, prise de parole face caméra pour incarner le discours, animation motion design démontrant l'économie potentielle de 430 € sur une tondeuse, et tournage in situ dans le showroom et l'atelier technique de Bailleul."
+    },
+    act3: {
+      title: "03. Livrables & Déclinaisons Multi-Plateformes",
+      text: "Finalisation de deux formats distincts adaptés aux canaux de diffusion : une version horizontale 16:9 pour YouTube et le site web, et une version verticale 9:16 pour TikTok, Instagram Reels et YouTube Shorts, optimisées pour la rétention."
+    },
+    proofAssets: [
+      {
+        id: 1,
+        src: "/assets/jardimax/jardimax_motion_430.jpg",
+        thumbUrl: "/assets/jardimax/jardimax_motion_430.jpg",
+        title: "Motion design — Séquence '430 € d'économies'",
+        description: "Animation graphique pédagogique valorisant l'intérêt financier de réparer sa machine avec des pièces d'origine.",
+        caption: "Animation graphique pédagogique valorisant l'intérêt financier de réparer sa machine avec des pièces d'origine."
+      },
+      {
+        id: 2,
+        src: "/assets/jardimax/jardimax_cover.jpg",
+        thumbUrl: "/assets/jardimax/jardimax_cover.jpg",
+        title: "Showroom physique — Bailleul (Flandres)",
+        description: "Valorisation des locaux historiques de la SAS DESMEL et de l'envergure du stock de pièces en magasin.",
+        caption: "Valorisation des locaux historiques de la SAS DESMEL et de l'envergure du stock de pièces en magasin."
+      },
+      {
+        id: 3,
+        src: "/assets/jardimax/jardimax_atelier.jpg",
+        thumbUrl: "/assets/jardimax/jardimax_atelier.jpg",
+        title: "Atelier & Équipe technique",
+        description: "Prises de vue du savoir-faire technique en atelier de réparation pour asseoir la légitimité du conseil.",
+        caption: "Prises de vue du savoir-faire technique en atelier de réparation pour asseoir la légitimité du conseil."
+      },
+      {
+        id: 4,
+        src: "/assets/jardimax/jardimax_ecommerce.jpg",
+        thumbUrl: "/assets/jardimax/jardimax_ecommerce.jpg",
+        title: "Interface e-commerce & Vues éclatées",
+        description: "Démonstration du parcours d'achat et de l'identification précise des pièces sur le site marchand.",
+        caption: "Démonstration du parcours d'achat et de l'identification précise des pièces sur le site marchand."
+      }
+    ],
     nextSlug: "hornetsecurity",
     nextTitle: "Hornetsecurity (Cybersécurité B2B)"
   }

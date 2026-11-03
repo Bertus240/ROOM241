@@ -43,6 +43,7 @@ function ProofFigure({ src, title, caption }) {
 export default function ProjectDetail({ slug, navigate }) {
   const project = projectsData[slug] || projectsData["editeur-saas-cloud"];
   const [isPlayingVideo, setIsPlayingVideo] = useState(false);
+  const [activeVideoFormat, setActiveVideoFormat] = useState('ytb');
 
   /* Projet suivant calculé dynamiquement sur l'ordre de déclaration de projectsData
      (boucle circulaire : le dernier projet renvoie vers le premier). */
@@ -214,6 +215,69 @@ export default function ProjectDetail({ slug, navigate }) {
                   >
                     <span>Recevoir la présentation privée (dossier 3D) ↗</span>
                   </TrackedButton>
+                </div>
+              </div>
+            </div>
+          ) : project.isVideo && project.videoYtbUrl ? (
+            /* Cinema Stage for Jardimax (Direct HTML5 Dual-Format Video Player) */
+            <div className="space-y-6">
+              {/* Format Switcher Tabs */}
+              <div className="flex flex-wrap items-center justify-between gap-4 p-3 rounded-2xl bg-zinc-100 border border-zinc-200">
+                <div className="flex items-center gap-2">
+                  <button
+                    type="button"
+                    onClick={() => setActiveVideoFormat('ytb')}
+                    className={`px-4 py-2 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
+                      activeVideoFormat === 'ytb'
+                        ? 'bg-[#09090B] text-white shadow-xs'
+                        : 'text-zinc-600 hover:text-zinc-950'
+                    }`}
+                  >
+                    Format Horizontal (16:9 • YouTube / Web)
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setActiveVideoFormat('tiktok')}
+                    className={`px-4 py-2 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
+                      activeVideoFormat === 'tiktok'
+                        ? 'bg-[#09090B] text-white shadow-xs'
+                        : 'text-zinc-600 hover:text-zinc-950'
+                    }`}
+                  >
+                    Format Vertical (9:16 • TikTok / Shorts)
+                  </button>
+                </div>
+                <div className="text-xs font-mono text-zinc-500 pr-2">
+                  <span>{activeVideoFormat === 'ytb' ? '1920 × 1080 (1080p HD)' : '1080 × 1920 (Vertical HD)'}</span>
+                </div>
+              </div>
+
+              {/* Video Player Box */}
+              <div className="relative w-full rounded-2xl sm:rounded-3xl overflow-hidden border border-zinc-200 bg-black shadow-2xl flex items-center justify-center p-2 sm:p-4">
+                <div className={activeVideoFormat === 'ytb' ? 'w-full aspect-video' : 'w-full max-w-[360px] aspect-[9/16]'}>
+                  <video
+                    key={activeVideoFormat}
+                    controls
+                    playsInline
+                    preload="none"
+                    poster={activeVideoFormat === 'ytb' ? project.posterYtb : project.posterTiktok}
+                    src={activeVideoFormat === 'ytb' ? project.videoYtbUrl : project.videoTiktokUrl}
+                    className="w-full h-full object-contain rounded-xl"
+                  />
+                </div>
+              </div>
+
+              {/* Sub-bar with context */}
+              <div className="flex flex-wrap items-center justify-between gap-4 p-4 sm:p-5 rounded-2xl border border-zinc-200 bg-white">
+                <div className="flex flex-wrap items-center gap-3 sm:gap-4 text-xs font-mono text-zinc-600">
+                  <span className="inline-flex items-center gap-1.5 text-[#FFAD00] font-semibold">
+                    <Video className="w-3.5 h-3.5" />
+                    Production 4K • Déclinaison multi-plateformes
+                  </span>
+                  <span className="text-zinc-300 hidden sm:inline">•</span>
+                  <span>Jardimax (SAS DESMEL · Bailleul)</span>
+                  <span className="text-zinc-300 hidden sm:inline">•</span>
+                  <span>Motion Design '430 €' &amp; Tournage Showroom</span>
                 </div>
               </div>
             </div>

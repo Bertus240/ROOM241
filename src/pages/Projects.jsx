@@ -25,7 +25,11 @@ import {
   Target,
   HelpCircle,
   FileCheck,
-  Compass
+  Compass,
+  Smartphone,
+  Monitor,
+  Wrench,
+  Film
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import BadgesCarousel from '../components/BadgesCarousel';
@@ -35,7 +39,7 @@ import EditorialViewer from '../components/EditorialViewer';
 export default function Projects({ navigate }) {
   const tabContainerRef = useRef(null);
   const tabRefs = useRef([]);
-  const [activeTab, setActiveTab] = useState('all'); // 'all' | 'hornetsecurity' | 'fresh-data' | 'resin-architecte'
+  const [activeTab, setActiveTab] = useState('all'); // 'all' | 'hornetsecurity' | 'fresh-data' | 'resin-architecte' | 'jardimax'
   const [selectedArchFace, setSelectedArchFace] = useState('front'); // 'front' | 'back'
   const [isVideoFicPlaying, setIsVideoFicPlaying] = useState(false);
   const [isPlayingFreshVideo, setIsPlayingFreshVideo] = useState(false);
@@ -133,6 +137,8 @@ export default function Projects({ navigate }) {
   const [isRaZoomed, setIsRaZoomed] = useState(false);
   const [standModalImage, setStandModalImage] = useState(null);
   const [isFicViewerOpen, setIsFicViewerOpen] = useState(false);
+  const [jardimaxFormat, setJardimaxFormat] = useState('landscape'); // 'landscape' | 'vertical'
+  const [jardimaxModalIndex, setJardimaxModalIndex] = useState(null);
 
   const handleNav = (path) => (e) => {
     if (e) e.preventDefault();
@@ -141,7 +147,7 @@ export default function Projects({ navigate }) {
 
   // Verrouillage du scroll en arrière-plan lorsqu'un modal est ouvert
   useEffect(() => {
-    const isAnyModalOpen = isPosterModalOpen || captainViewerIndex !== null || raModalIndex !== null || standModalImage !== null;
+    const isAnyModalOpen = isPosterModalOpen || captainViewerIndex !== null || raModalIndex !== null || standModalImage !== null || jardimaxModalIndex !== null;
     if (isAnyModalOpen) {
       document.body.style.overflow = 'hidden';
     } else {
@@ -150,7 +156,7 @@ export default function Projects({ navigate }) {
     return () => {
       document.body.style.overflow = '';
     };
-  }, [badgeModalIndex, isPosterModalOpen, captainViewerIndex, raModalIndex, standModalImage]);
+  }, [badgeModalIndex, isPosterModalOpen, captainViewerIndex, raModalIndex, standModalImage, jardimaxModalIndex]);
 
   // Gestion des raccourcis clavier (Échap et flèches)
   useEffect(() => {
@@ -160,16 +166,22 @@ export default function Projects({ navigate }) {
         setCaptainViewerIndex(null);
         setRaModalIndex(null);
         setStandModalImage(null);
+        setJardimaxModalIndex(null);
       }
 
       if (raModalIndex !== null) {
         if (e.key === 'ArrowRight') setRaModalIndex((prev) => (prev + 1) % raAssets.length);
         if (e.key === 'ArrowLeft') setRaModalIndex((prev) => (prev - 1 + raAssets.length) % raAssets.length);
       }
+
+      if (jardimaxModalIndex !== null) {
+        if (e.key === 'ArrowRight') setJardimaxModalIndex((prev) => (prev + 1) % jardimaxAssets.length);
+        if (e.key === 'ArrowLeft') setJardimaxModalIndex((prev) => (prev - 1 + jardimaxAssets.length) % jardimaxAssets.length);
+      }
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [raModalIndex]);
+  }, [raModalIndex, jardimaxModalIndex]);
 
   const captainMediaList = [
     {
@@ -262,6 +274,41 @@ export default function Projects({ navigate }) {
   ];
   const raAssets = slidesResinArchitecte;
 
+  const jardimaxAssets = [
+    {
+      id: 1,
+      src: "/assets/jardimax/jardimax_motion_430.jpg",
+      thumbUrl: "/assets/jardimax/jardimax_motion_430.jpg",
+      title: "Motion design — Séquence '430 € d'économies'",
+      description: "Animation graphique pédagogique valorisant l'intérêt financier de réparer sa machine avec des pièces d'origine plutôt que de racheter neuf.",
+      badge: "Motion design"
+    },
+    {
+      id: 2,
+      src: "/assets/jardimax/jardimax_cover.jpg",
+      thumbUrl: "/assets/jardimax/jardimax_cover.jpg",
+      title: "Showroom physique — Bailleul (Flandres)",
+      description: "Valorisation des locaux historiques de la SAS DESMEL et de l'envergure du stock de pièces détachées en magasin.",
+      badge: "Showroom Bailleul"
+    },
+    {
+      id: 3,
+      src: "/assets/jardimax/jardimax_atelier.jpg",
+      thumbUrl: "/assets/jardimax/jardimax_atelier.jpg",
+      title: "Atelier & Équipe technique",
+      description: "Prises de vue du savoir-faire technique en atelier de réparation pour asseoir la légitimité du conseil et l'expertise locale.",
+      badge: "Atelier technique"
+    },
+    {
+      id: 4,
+      src: "/assets/jardimax/jardimax_ecommerce.jpg",
+      thumbUrl: "/assets/jardimax/jardimax_ecommerce.jpg",
+      title: "Interface e-commerce & Vues éclatées",
+      description: "Démonstration du parcours d'achat et de l'identification précise des pièces sur le site marchand Jardimax.",
+      badge: "Plateforme e-commerce"
+    }
+  ];
+
   return (
     <div className="pt-28 pb-28 space-y-20 sm:space-y-32">
 
@@ -299,7 +346,7 @@ export default function Projects({ navigate }) {
                   : 'bg-zinc-100 text-[#52525B] hover:text-black hover:bg-zinc-200'
               }`}
             >
-              Tous les projets (3)
+              Tous les projets (4)
             </button>
 
             <button
@@ -348,6 +395,22 @@ export default function Projects({ navigate }) {
               }`}
             >
               Résin'Architecte (BTP)
+            </button>
+
+            <button
+              type="button"
+              onClick={() => {
+                setActiveTab('jardimax');
+                const el = document.getElementById('jardimax');
+                if (el) el.scrollIntoView({ behavior: 'smooth' });
+              }}
+              className={`px-4 py-2 rounded-full text-xs font-semibold transition-all ${
+                activeTab === 'jardimax'
+                  ? 'bg-[#09090B] text-white shadow-sm'
+                  : 'bg-zinc-100 text-[#52525B] hover:text-black hover:bg-zinc-200'
+              }`}
+            >
+              Jardimax (Vidéo &amp; Motion)
             </button>
           </div>
 
@@ -915,7 +978,7 @@ export default function Projects({ navigate }) {
               <span className="w-2 h-2 rounded-full bg-[#FFAD00] shadow-[0_0_8px_rgba(255,173,0,0.7)] group-hover:scale-125 transition-transform" />
               <span className="font-bold text-[#09090B] dark:text-white tracking-wide">Projet suivant</span>
               <span className="text-zinc-300 dark:text-zinc-600">·</span>
-              <span className="text-zinc-500 dark:text-zinc-400">02 — 03</span>
+              <span className="text-zinc-500 dark:text-zinc-400">02 — 04</span>
               <span className="text-zinc-400 group-hover:text-black dark:group-hover:text-white group-hover:translate-x-0.5 transition-all">↓</span>
             </a>
           </div>
@@ -1137,7 +1200,7 @@ export default function Projects({ navigate }) {
               <span className="w-2 h-2 rounded-full bg-[#FFAD00] shadow-[0_0_8px_rgba(255,173,0,0.7)] group-hover:scale-125 transition-transform" />
               <span className="font-bold text-[#09090B] dark:text-white tracking-wide">Projet suivant</span>
               <span className="text-zinc-300 dark:text-zinc-600">·</span>
-              <span className="text-zinc-500 dark:text-zinc-400">03 — 03</span>
+              <span className="text-zinc-500 dark:text-zinc-400">03 — 04</span>
               <span className="text-zinc-400 group-hover:text-black dark:group-hover:text-white group-hover:translate-x-0.5 transition-all">↓</span>
             </a>
           </div>
@@ -1527,6 +1590,343 @@ export default function Projects({ navigate }) {
         </section>
       )}
 
+      {/* Séparateur architectural entre Projets 03 & 04 avec design glassmorphism */}
+      {activeTab === 'all' && (
+        <div className="max-w-[1280px] mx-auto px-5 sm:px-8 lg:px-10 py-10 sm:py-14">
+          <div className="relative flex items-center justify-center">
+            <div className="absolute inset-0 flex items-center" aria-hidden="true">
+              <div className="w-full h-px bg-gradient-to-r from-transparent via-zinc-200 dark:via-white/10 to-transparent" />
+            </div>
+            <a
+              href="#jardimax"
+              onClick={(e) => {
+                e.preventDefault();
+                const el = document.getElementById('jardimax');
+                if (el) el.scrollIntoView({ behavior: 'smooth' });
+              }}
+              className="group relative select-none backdrop-blur-xl bg-white/80 dark:bg-zinc-900/80 hover:bg-white dark:hover:bg-zinc-800 px-6 py-2.5 rounded-full border border-zinc-200/90 dark:border-white/15 shadow-[0_8px_30px_rgba(0,0,0,0.04)] hover:shadow-[0_12px_36px_rgba(0,0,0,0.08)] hover:border-[#FFAD00]/60 transition-all duration-300 flex items-center gap-3 text-xs font-mono cursor-pointer"
+            >
+              <span className="w-2 h-2 rounded-full bg-[#FFAD00] shadow-[0_0_8px_rgba(255,173,0,0.7)] group-hover:scale-125 transition-transform" />
+              <span className="font-bold text-[#09090B] dark:text-white tracking-wide">Projet suivant</span>
+              <span className="text-zinc-300 dark:text-zinc-600">·</span>
+              <span className="text-zinc-500 dark:text-zinc-400">04 — 04</span>
+              <span className="text-zinc-400 group-hover:text-black dark:group-hover:text-white group-hover:translate-x-0.5 transition-all">↓</span>
+            </a>
+          </div>
+        </div>
+      )}
+
+      {/* ========================================================
+          ÉTUDE 4 : JARDIMAX (PRODUCTION VIDÉO, MOTION & RETAIL)
+          SAS DESMEL · Bailleul (Flandres)
+         ======================================================== */}
+      {(activeTab === 'all' || activeTab === 'jardimax') && (
+        <section
+          id="jardimax"
+          className="max-w-[1280px] mx-auto px-5 sm:px-8 lg:px-10 scroll-mt-24 space-y-12"
+        >
+          <div className="border-t border-zinc-200/90 pt-10 space-y-4">
+            <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-zinc-500">
+              <span className="font-bold text-zinc-950">04</span>
+              <span>/</span>
+              <span>Jardimax • E-commerce &amp; Motoculture physique (Bailleul)</span>
+            </div>
+
+            <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-4">
+              <div>
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight text-[#09090B]">
+                  Jardimax — Production vidéo, intervention face caméra &amp; motion design
+                </h2>
+                <p className="text-sm sm:text-base text-[#52525B] mt-2 max-w-3xl leading-relaxed">
+                  Conception et production intégrale d'un dispositif vidéo pour Jardimax (enseigne e-commerce et magasin physique de la SAS DESMEL à Bailleul) : construction du message éditorial, intervention face caméra, motion design chiffré démontrant l'intérêt de la réparation (430 € d'économie) et double déclinaison 16:9 paysage / 9:16 vertical TikTok.
+                </p>
+              </div>
+
+              <span className="text-xs font-semibold text-zinc-900 bg-zinc-100 px-3.5 py-1.5 rounded-full border border-zinc-200 w-fit shrink-0">
+                Bailleul (Flandres) • SAS DESMEL
+              </span>
+            </div>
+
+            {/* Repères chiffrés factuels Jardimax — 4 indicateurs documentés */}
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 pt-6 border-t border-zinc-200/70">
+              <div className="p-4 sm:p-5 rounded-2xl bg-white/70 border border-zinc-200/80 shadow-2xs hover:border-[#FFAD00]/40 transition-colors">
+                <AnimatedStat
+                  value="1 jour"
+                  label="Délai d'exécution"
+                  description="De la réflexion éditoriale à la finalisation des livrables 16:9 et 9:16."
+                  size="card"
+                  delay={0}
+                />
+              </div>
+              <div className="p-4 sm:p-5 rounded-2xl bg-white/70 border border-zinc-200/80 shadow-2xs hover:border-[#FFAD00]/40 transition-colors">
+                <AnimatedStat
+                  value="2 formats"
+                  label="Déclinaisons natives"
+                  description="16:9 paysage (YouTube/Web) et 9:16 vertical (TikTok/Shorts)."
+                  size="card"
+                  delay={100}
+                />
+              </div>
+              <div className="p-4 sm:p-5 rounded-2xl bg-white/70 border border-zinc-200/80 shadow-2xs hover:border-[#FFAD00]/40 transition-colors">
+                <AnimatedStat
+                  value="430 €"
+                  label="Économie démontrée"
+                  description="Séquence motion comparant le coût d'une réparation au rachat neuf."
+                  size="card"
+                  delay={200}
+                />
+              </div>
+              <div className="p-4 sm:p-5 rounded-2xl bg-white/70 border border-zinc-200/80 shadow-2xs hover:border-[#FFAD00]/40 transition-colors">
+                <AnimatedStat
+                  value="100 %"
+                  label="Maîtrise de la chaîne"
+                  description="Script, intervention terrain, captation atelier et animation graphique."
+                  size="card"
+                  delay={300}
+                />
+              </div>
+            </div>
+
+            {/* Badges factuels Jardimax */}
+            <div className="flex flex-wrap items-center gap-2 pt-2">
+              <span className="px-3 py-1 text-xs font-medium rounded-full bg-zinc-100 text-zinc-800 border border-zinc-200/60">
+                Tournage in situ à Bailleul (59270)
+              </span>
+              <span className="px-3 py-1 text-xs font-medium rounded-full bg-zinc-100 text-zinc-700 border border-zinc-200/60">
+                Déclinaisons 16:9 Paysage &amp; 9:16 Vertical
+              </span>
+              <span className="px-3 py-1 text-xs font-medium rounded-full bg-zinc-100 text-zinc-700 border border-zinc-200/60">
+                Séquence motion design '430 €'
+              </span>
+              <span className="px-3 py-1 text-xs font-medium rounded-full bg-zinc-100 text-zinc-700 border border-zinc-200/60">
+                Intervention face caméra &amp; vulgarisation
+              </span>
+            </div>
+          </div>
+
+          {/* 4 Volets d'intervention */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div className="bg-white border border-zinc-200/70 rounded-2xl p-5 shadow-sm hover:border-zinc-300 transition-all">
+              <div className="text-[11px] font-mono text-zinc-400 mb-2">01 • ANGLE ÉDITORIAL</div>
+              <div className="text-zinc-900 font-semibold text-sm mb-2">Sensibilisation &amp; Réparabilité</div>
+              <p className="text-zinc-600 text-xs leading-relaxed">
+                Construction du discours pour dépasser le réflexe de jeter et racheter neuf : vulgariser la rentabilité de la pièce détachée d'origine auprès des particuliers et des professionnels.
+              </p>
+            </div>
+
+            <div className="bg-white border border-zinc-200/70 rounded-2xl p-5 shadow-sm hover:border-zinc-300 transition-all">
+              <div className="text-[11px] font-mono text-zinc-400 mb-2">02 • INCARNATION TERRAIN</div>
+              <div className="text-zinc-900 font-semibold text-sm mb-2">Intervention Face Caméra</div>
+              <p className="text-zinc-600 text-xs leading-relaxed">
+                Prise de parole dynamique face caméra dans le showroom et l'atelier de Bailleul pour humaniser l'enseigne, capter immédiatement l'attention et asseoir l'expertise technique.
+              </p>
+            </div>
+
+            <div className="bg-white border border-zinc-200/70 rounded-2xl p-5 shadow-sm hover:border-zinc-300 transition-all">
+              <div className="text-[11px] font-mono text-zinc-400 mb-2">03 • MOTION DESIGN</div>
+              <div className="text-zinc-900 font-semibold text-sm mb-2">Séquence Chiffrée '430 €'</div>
+              <p className="text-zinc-600 text-xs leading-relaxed">
+                Animation graphique After Effects comparant visuellement l'achat d'une tondeuse neuve (500 €) au remplacement du lanceur (70 €) pour rendre l'argument financier indiscutable.
+              </p>
+            </div>
+
+            <div className="bg-white border border-zinc-200/70 rounded-2xl p-5 shadow-sm hover:border-zinc-300 transition-all">
+              <div className="text-[11px] font-mono text-zinc-400 mb-2">04 • MULTI-PLATEFORMES</div>
+              <div className="text-zinc-900 font-semibold text-sm mb-2">Déclinaisons 16:9 &amp; 9:16</div>
+              <p className="text-zinc-600 text-xs leading-relaxed">
+                Double montage natif optimisé pour chaque canal de diffusion : format horizontal 16:9 pour YouTube/Web, et format vertical 9:16 calibré pour TikTok, Reels et Shorts.
+              </p>
+            </div>
+          </div>
+
+          {/* Zone Média : Double lecteur interactif avec switcher 16:9 / 9:16 */}
+          <div className="space-y-4">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-zinc-200/60 pb-3">
+              <div className="space-y-0.5">
+                <span className="text-xs font-bold uppercase tracking-wider text-[#FFAD00] flex items-center gap-1.5">
+                  <Film className="w-3.5 h-3.5" />
+                  Dispositif audiovisuel interactif
+                </span>
+                <h3 className="text-lg sm:text-xl font-extrabold text-[#09090B]">
+                  Visualisation des deux formats finaux
+                </h3>
+              </div>
+
+              {/* Sélecteur de format 16:9 / 9:16 */}
+              <div className="inline-flex items-center p-1 rounded-xl bg-zinc-100 border border-zinc-200/80 text-xs font-semibold">
+                <button
+                  type="button"
+                  onClick={() => setJardimaxFormat('landscape')}
+                  className={`inline-flex items-center gap-2 px-3.5 py-1.5 rounded-lg transition-all ${
+                    jardimaxFormat === 'landscape'
+                      ? 'bg-white text-zinc-950 shadow-xs'
+                      : 'text-zinc-600 hover:text-zinc-950'
+                  }`}
+                >
+                  <Monitor className="w-3.5 h-3.5" />
+                  <span>Paysage 16:9 (YouTube &amp; Web)</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setJardimaxFormat('vertical')}
+                  className={`inline-flex items-center gap-2 px-3.5 py-1.5 rounded-lg transition-all ${
+                    jardimaxFormat === 'vertical'
+                      ? 'bg-white text-zinc-950 shadow-xs'
+                      : 'text-zinc-600 hover:text-zinc-950'
+                  }`}
+                >
+                  <Smartphone className="w-3.5 h-3.5" />
+                  <span>Vertical 9:16 (TikTok &amp; Reels)</span>
+                </button>
+              </div>
+            </div>
+
+            {/* Lecteur vidéo conditionnel selon le format choisi */}
+            <div className="flex justify-center">
+              {jardimaxFormat === 'landscape' ? (
+                <div className="relative aspect-video w-full max-w-4xl rounded-2xl sm:rounded-3xl overflow-hidden border border-zinc-200 bg-neutral-950 shadow-sm">
+                  <video
+                    key="jardimax-landscape"
+                    controls
+                    playsInline
+                    preload="metadata"
+                    poster="/assets/jardimax/poster_ytb.jpg"
+                    className="w-full h-full object-cover"
+                  >
+                    <source src="/assets/jardimax/jardimax_ytb_1080p.mp4" type="video/mp4" />
+                    Votre navigateur ne prend pas en charge la lecture de vidéos MP4.
+                  </video>
+                </div>
+              ) : (
+                <div className="relative aspect-[9/16] w-full max-w-[340px] sm:max-w-[380px] rounded-2xl sm:rounded-3xl overflow-hidden border border-zinc-200 bg-neutral-950 shadow-sm">
+                  <video
+                    key="jardimax-vertical"
+                    controls
+                    playsInline
+                    preload="metadata"
+                    poster="/assets/jardimax/poster_tiktok.jpg"
+                    className="w-full h-full object-cover"
+                  >
+                    <source src="/assets/jardimax/jardimax_tiktok_1080p.mp4" type="video/mp4" />
+                    Votre navigateur ne prend pas en charge la lecture de vidéos MP4.
+                  </video>
+                </div>
+              )}
+            </div>
+
+            <p className="text-center text-xs text-zinc-500">
+              {jardimaxFormat === 'landscape'
+                ? "Format 16:9 optimisé 1080p — Destiné à la chaîne YouTube, aux écrans showroom et à l'intégration web."
+                : "Format 9:16 vertical 1080p — Rythmé pour les flux sociaux mobiles (TikTok, Instagram Reels, YouTube Shorts)."}
+            </p>
+          </div>
+
+          {/* Grille des 4 preuves visuelles & réalisations terrain */}
+          <div className="space-y-5">
+            <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-2 border-b border-zinc-200/60 pb-3">
+              <div>
+                <span className="text-xs font-bold uppercase tracking-wider text-[#FFAD00] flex items-center gap-1.5">
+                  <Layers className="w-3.5 h-3.5" />
+                  Preuves visuelles &amp; Tournage in situ
+                </span>
+                <h3 className="text-xl sm:text-2xl font-extrabold text-[#09090B] mt-0.5">
+                  Captation &amp; Création graphique
+                </h3>
+              </div>
+              <span className="text-xs text-[#71717A]">
+                Cliquez sur une image pour l'agrandir en haute définition
+              </span>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+              {jardimaxAssets.map((asset, idx) => (
+                <div
+                  key={asset.id}
+                  onClick={() => setJardimaxModalIndex(idx)}
+                  role="button"
+                  tabIndex={0}
+                  aria-label={`Agrandir ${asset.title}`}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      e.preventDefault();
+                      setJardimaxModalIndex(idx);
+                    }
+                  }}
+                  className="group cursor-pointer space-y-3"
+                >
+                  <div className="aspect-[16/10] rounded-2xl overflow-hidden border border-zinc-200/90 bg-zinc-50 p-1.5 relative shadow-sm group-hover:border-zinc-300 transition-all flex items-center justify-center">
+                    <img
+                      src={asset.src}
+                      alt={asset.title}
+                      className="w-full h-full object-cover rounded-xl transition-transform duration-300 group-hover:scale-102"
+                      loading="lazy"
+                    />
+                    <div className="absolute top-3 right-3 p-1.5 rounded-full bg-white/90 text-black opacity-0 group-hover:opacity-100 transition-opacity shadow-md">
+                      <Maximize2 className="w-3.5 h-3.5" />
+                    </div>
+                    <div className="absolute bottom-2.5 left-2.5 px-2 py-0.5 rounded-md bg-black/70 backdrop-blur-sm text-[10px] font-mono text-white">
+                      {asset.badge}
+                    </div>
+                  </div>
+                  <div className="space-y-1 px-1">
+                    <h4 className="text-sm font-bold text-[#09090B] group-hover:text-zinc-700 transition-colors">
+                      {asset.title}
+                    </h4>
+                    <p className="text-xs text-[#52525B] leading-relaxed line-clamp-2">
+                      {asset.description}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Récit structuré en 3 Actes éditoriaux */}
+          <div className="p-6 sm:p-10 rounded-3xl bg-zinc-50 border border-zinc-200/80 space-y-6">
+            <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2 border-b border-zinc-200/60 pb-4">
+              <div>
+                <span className="text-xs font-bold uppercase tracking-wider text-[#FFAD00] flex items-center gap-1.5">
+                  <Compass className="w-4 h-4" />
+                  Récit de mission • 3 Actes clés
+                </span>
+                <h3 className="text-xl sm:text-2xl font-extrabold text-[#09090B] mt-1">
+                  De la genèse de l'angle à la livraison finale
+                </h3>
+              </div>
+              <span className="text-xs font-semibold text-zinc-700 bg-white px-3 py-1 rounded-full border border-zinc-200 w-fit shrink-0">
+                Synthèse opérationnelle
+              </span>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div className="space-y-2">
+                <span className="text-xs font-mono font-bold text-[#FFAD00] block">ACTE 01</span>
+                <h4 className="text-base font-bold text-[#09090B]">Contexte &amp; Enjeux</h4>
+                <p className="text-xs text-[#52525B] leading-relaxed">
+                  Jardimax, spécialiste reconnu de la pièce détachée de motoculture et enseigne de la SAS DESMEL à Bailleul, souhaitait sensibiliser les particuliers à l'économie et à la durabilité de la réparation d'outils de jardinage face au réflexe d'achat neuf.
+                </p>
+              </div>
+
+              <div className="space-y-2">
+                <span className="text-xs font-mono font-bold text-[#FFAD00] block">ACTE 02</span>
+                <h4 className="text-base font-bold text-[#09090B]">Approche Créative &amp; Production</h4>
+                <p className="text-xs text-[#52525B] leading-relaxed">
+                  Écriture d'un script direct et percutant, prise de parole face caméra pour incarner le discours, animation motion design démontrant l'économie de 430 € sur une tondeuse, et tournage in situ dans le showroom et l'atelier technique de Bailleul.
+                </p>
+              </div>
+
+              <div className="space-y-2">
+                <span className="text-xs font-mono font-bold text-[#FFAD00] block">ACTE 03</span>
+                <h4 className="text-base font-bold text-[#09090B]">Livrables &amp; Déclinaisons</h4>
+                <p className="text-xs text-[#52525B] leading-relaxed">
+                  Finalisation de deux formats distincts adaptés aux usages de diffusion : version horizontale 16:9 pour YouTube et le web, et version verticale 9:16 pour TikTok, Reels et Shorts, optimisées pour la rétention et l'engagement.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
+
       {/* Navigation vers Parcours */}
       <div className="max-w-[1280px] mx-auto px-5 sm:px-8 lg:px-10 pt-8 flex items-center justify-between border-t border-zinc-100">
         <a
@@ -1596,6 +1996,16 @@ export default function Projects({ navigate }) {
               currentIndex={raModalIndex || 0}
               onIndexChange={(idx) => setRaModalIndex(idx)}
               projectContext="Résin'Architecte · Chantiers & Métriques"
+            />
+
+            {/* Visionneuse Jardimax */}
+            <EditorialViewer
+              isOpen={jardimaxModalIndex !== null}
+              onClose={() => setJardimaxModalIndex(null)}
+              items={jardimaxAssets}
+              currentIndex={jardimaxModalIndex || 0}
+              onIndexChange={(idx) => setJardimaxModalIndex(idx)}
+              projectContext="Jardimax · Production Vidéo &amp; Motion Design"
             />
           </>,
           document.body
