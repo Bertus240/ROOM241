@@ -314,7 +314,7 @@ export default function PersonalUniverse({ navigate, onSwitchToPro }) {
                 </div>
 
                 <p className="text-xs sm:text-sm text-zinc-400 leading-relaxed pt-2">
-                  L'intérêt va aussi vers la technique : la densité des mousses Pebax, la rigidité des plaques carbone et la géométrie du rocker pour optimiser l'économie de course.
+                  Ce qui me plaît dans le marathon, c'est autant la préparation que le jour de la course : la régularité, les kilomètres accumulés et le plaisir de se fixer un objectif qui paraît parfois un peu fou.
                 </p>
               </div>
 
@@ -342,17 +342,10 @@ export default function PersonalUniverse({ navigate, onSwitchToPro }) {
                 <h3 className="text-lg font-bold text-white">Constance d'entraînement</h3>
                 
                 {/* Données qualifiées de façon rigoureuse */}
-                <div className="p-4 rounded-2xl bg-black/50 border border-white/5 space-y-2">
-                  <div className="flex items-center justify-between">
-                    <span className="text-xs text-zinc-400">Activités enregistrées</span>
-                    <span className="text-sm font-mono font-bold text-white">5 618</span>
-                  </div>
+                <div className="p-4 rounded-2xl bg-black/50 border border-white/5">
                   <div className="flex items-center justify-between">
                     <span className="text-xs text-zinc-400">Semaines consécutives</span>
                     <span className="text-sm font-mono font-bold text-[#FFAD00]">{trainingStats.weeks} semaines</span>
-                  </div>
-                  <div className="pt-2 border-t border-white/5 text-[10px] font-mono text-zinc-500">
-                    Progression calculée depuis le {trainingStats.baseDateFormatted}
                   </div>
                 </div>
 
