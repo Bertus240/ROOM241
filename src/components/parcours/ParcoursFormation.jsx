@@ -1,5 +1,5 @@
 import React from 'react';
-import { VectorMasterISEG, VectorScientific, VectorBAFA } from '../EditorialVectors';
+import { VectorMasterISEG, VectorBachelorISEG, VectorScientific, VectorBAFA } from '../EditorialVectors';
 
 export default function ParcoursFormation() {
   return (
@@ -50,7 +50,7 @@ export default function ParcoursFormation() {
               <span className="font-mono text-xs font-bold text-zinc-950 block">
                 2020 — 2023
               </span>
-              <VectorMasterISEG className="w-6 h-6 text-zinc-900" />
+              <VectorBachelorISEG className="w-6 h-6 text-zinc-900" />
             </div>
             <h3 className="text-base font-bold text-zinc-950 leading-snug">
               Bachelor Marketing, communication &amp; digital

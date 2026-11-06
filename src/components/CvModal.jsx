@@ -6,6 +6,7 @@ import {
   ArrowUpRight,
   ArrowRight,
 } from 'lucide-react';
+import { VectorMasterISEG, VectorBachelorISEG, VectorScientific } from './EditorialVectors';
 import { profileData } from '../data/profile';
 
 /**
@@ -175,7 +176,7 @@ export default function CvModal({ isOpen, onClose }) {
               </div>
               <span className="hidden md:inline-flex items-center gap-1.5 text-xs font-sans text-zinc-200 px-3 py-1 rounded-full bg-white/5 border border-white/10">
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 shadow-[0_0_6px_rgba(52,211,153,0.7)]" />
-                Disponible tout de suite
+                À l'écoute d'opportunités
               </span>
             </div>
 
@@ -518,13 +519,16 @@ export default function CvModal({ isOpen, onClose }) {
                 {/* 1. MASTER ISEG LILLE (La partie la plus développée) */}
                 <div className="p-6 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm space-y-5 hover:border-[#FFAD00]/40 transition-all">
                   <div className="flex flex-wrap items-center justify-between gap-2 border-b border-white/10 pb-3">
-                    <div>
-                      <span className="inline-block px-2.5 py-0.5 rounded-md border border-white/10 bg-white/[0.04] font-mono text-[11px] font-medium text-zinc-300">
-                        2023 — 2025
-                      </span>
-                      <h3 className="text-base sm:text-lg font-bold text-white pt-1">
-                        Master Marketing, communication et digital — ISEG Lille
-                      </h3>
+                    <div className="flex items-start gap-3">
+                      <VectorMasterISEG className="w-6 h-6 text-[#FFAD00] shrink-0 mt-0.5" />
+                      <div>
+                        <span className="inline-block px-2.5 py-0.5 rounded-md border border-white/10 bg-white/[0.04] font-mono text-[11px] font-medium text-zinc-300">
+                          2023 — 2025
+                        </span>
+                        <h3 className="text-base sm:text-lg font-bold text-white pt-1">
+                          Master Marketing, communication et digital — ISEG Lille
+                        </h3>
+                      </div>
                     </div>
                     <span className="text-xs font-mono text-[#FFAD00] font-semibold px-2.5 py-1 rounded-full bg-[#FFAD00]/10 border border-[#FFAD00]/20">
                       Diplôme Master validé
@@ -608,13 +612,16 @@ export default function CvModal({ isOpen, onClose }) {
                 {/* 2. BACHELOR / LICENCE ISEG LILLE */}
                 <div className="p-6 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm space-y-4 hover:border-[#FFAD00]/40 transition-all">
                   <div className="flex flex-wrap items-center justify-between gap-2 border-b border-white/10 pb-3">
-                    <div>
-                      <span className="inline-block px-2.5 py-0.5 rounded-md border border-white/10 bg-white/[0.04] font-mono text-[11px] font-medium text-zinc-300">
-                        2020 — 2023
-                      </span>
-                      <h3 className="text-base sm:text-lg font-bold text-white pt-1">
-                        Licence Marketing, communication et digital — ISEG Lille
-                      </h3>
+                    <div className="flex items-start gap-3">
+                      <VectorBachelorISEG className="w-6 h-6 text-zinc-300 shrink-0 mt-0.5" />
+                      <div>
+                        <span className="inline-block px-2.5 py-0.5 rounded-md border border-white/10 bg-white/[0.04] font-mono text-[11px] font-medium text-zinc-300">
+                          2020 — 2023
+                        </span>
+                        <h3 className="text-base sm:text-lg font-bold text-white pt-1">
+                          Licence Marketing, communication et digital — ISEG Lille
+                        </h3>
+                      </div>
                     </div>
                     <span className="text-xs font-mono text-zinc-400">
                       Niveau Bachelor / Licence
@@ -752,9 +759,12 @@ export default function CvModal({ isOpen, onClose }) {
                   {/* 5. Formation initiale (Baccalauréat scientifique) */}
                   <div className="p-5 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm space-y-3">
                     <div className="flex items-center justify-between">
-                      <span className="inline-block px-2 py-0.5 rounded text-[10px] font-mono bg-white/[0.04] border border-white/10 text-zinc-300">
-                        2017 — 2020
-                      </span>
+                      <div className="flex items-center gap-2">
+                        <VectorScientific className="w-4 h-4 text-zinc-300" />
+                        <span className="inline-block px-2 py-0.5 rounded text-[10px] font-mono bg-white/[0.04] border border-white/10 text-zinc-300">
+                          2017 — 2020
+                        </span>
+                      </div>
                       <span className="text-[10px] font-mono text-zinc-400">Baccalauréat</span>
                     </div>
                     <div>
@@ -783,7 +793,7 @@ export default function CvModal({ isOpen, onClose }) {
              ======================================================== */}
           <footer className="relative px-6 sm:px-10 py-4 bg-zinc-950/80 backdrop-blur-xl border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-3 shrink-0 select-none z-10 print:hidden">
             <span className="text-xs text-zinc-400 font-medium text-center sm:text-left">
-              Disponible tout de suite · Lille, Métropole ou Mobilité
+              À l'écoute d'opportunités · Métropole de Lille &amp; Mobilité
             </span>
             <a
               href={`mailto:${identity.links.email}?subject=Opportunité professionnelle — Portfolio ROOM241`}

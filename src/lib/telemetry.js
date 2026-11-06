@@ -1,124 +1,89 @@
 import { track } from '@vercel/analytics';
 
-const LOCAL_EVENTS_KEY = 'room241_local_events_log';
-const LOCAL_PAGEVIEWS_KEY = 'room241_local_pageviews';
-
 /**
- * Enregistrement réel d'un événement utilisateur
- * Zéro fabrication de fausses données : seuls les événements réels sont enregistrés et transmis.
+ * ============================================================================
+ * TÉLÉMÉTRIE & ÉVÉNEMENTS — ROOM241 (MODE SOBRE / DÉSACTIVATION FIRST-PARTY)
+ * Studio ROOM241 • Rémi Brocart
+ *
+ * Décision de consolidation :
+ * - Aucune collecte de données superflue ou intrusive.
+ * - Collecte locale first-party désactivée en l'absence de dashboard actif.
+ * - Seules les métriques de base Vercel Web Analytics (si activées en production)
+ *   restent opérationnelles, dans le respect total du Do-Not-Track.
+ * ============================================================================
  */
+
 export function trackEvent(eventName, properties = {}) {
   try {
-    const newRecord = {
-      id: `evt_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`,
-      eventName,
-      properties,
-      timestamp: new Date().toISOString(),
-      page: typeof window !== 'undefined' ? window.location.pathname + window.location.hash : '/'
-    };
+    // Respect strict du signal Do Not Track
+    if (typeof window !== 'undefined' && (navigator.doNotTrack === '1' || window.doNotTrack === '1')) {
+      return;
+    }
 
-    // 1. Mémorisation locale dans la session pour inspection dans l'Admin Dashboard
-    if (typeof window !== 'undefined' && window.sessionStorage) {
+    // Transmission exclusive à Vercel Web Analytics si hébergé en production
+    if (typeof window !== 'undefined' && window.location.hostname !== 'localhost') {
       try {
-        const raw = sessionStorage.getItem(LOCAL_EVENTS_KEY);
-        const list = raw ? JSON.parse(raw) : [];
-        list.unshift(newRecord);
-        sessionStorage.setItem(LOCAL_EVENTS_KEY, JSON.stringify(list.slice(0, 100)));
-      } catch (e) {
-        // Ignorer si quota plein
+        track(eventName, properties);
+      } catch {
+        // Ignorer si analytics non initialisé
       }
     }
-
-    // 2. Envoi réel à Vercel Web Analytics
-    try {
-      track(eventName, properties);
-    } catch {
-      // Ignoré si indisponible
-    }
-  } catch (err) {
-    console.error('[Room241 Telemetry] Erreur lors de l\'enregistrement de l\'événement :', err);
+  } catch {
+    // Échec silencieux sans impact sur l'expérience
   }
 }
 
 /**
- * Incrémente le compteur réel de pages vues pour la session en cours
+ * Enregistrement des clics pour heatmap (Inactif en mode Option 1)
+ */
+export function trackClickForHeatmap(_event) {
+  // Aucun enregistrement
+}
+
+/**
+ * Incrémente le compteur de pages vues
  */
 export function incrementPageView() {
-  try {
-    if (typeof window !== 'undefined' && window.sessionStorage) {
-      const current = parseInt(sessionStorage.getItem(LOCAL_PAGEVIEWS_KEY) || '0', 10);
-      sessionStorage.setItem(LOCAL_PAGEVIEWS_KEY, String(current + 1));
-    }
-  } catch (err) {
-    console.error('[Room241 Telemetry] Erreur incrément page view :', err);
-  }
+  trackEvent('page_view', {
+    url: typeof window !== 'undefined' ? window.location.pathname : '/'
+  });
 }
 
 /**
- * Récupère les logs des événements réels enregistrés durant la session
+ * Paliers de scroll (Inactif en mode Option 1)
  */
+export function trackScrollDepth(_percent) {
+  // Inactif
+}
+
+export function trackProjectInteraction(slug, action = 'view') {
+  trackEvent('project_interaction', { slug, action });
+}
+
+export function trackCvAction(action) {
+  trackEvent('cv_action', { action });
+}
+
+export function trackContactIntent(channel, value = '') {
+  trackEvent('contact_intent', { channel, value });
+}
+
+export function trackVideoAction(videoTitle, action) {
+  trackEvent('video_action', { videoTitle, action });
+}
+
+export function trackKuroAction(action, details = {}) {
+  trackEvent('kuro_action', { action, ...details });
+}
+
 export function getEventLogs() {
-  if (typeof window === 'undefined' || !window.sessionStorage) return [];
-  try {
-    const raw = sessionStorage.getItem(LOCAL_EVENTS_KEY);
-    return raw ? JSON.parse(raw) : [];
-  } catch {
-    return [];
-  }
+  return [];
 }
 
-/**
- * Métriques réelles de la session pour le Dashboard Studio
- * (ZÉRO chiffre inventé, ZÉRO donnée fabriquée)
- */
 export function getAnalyticsMetrics() {
-  try {
-    const visits = typeof window !== 'undefined' && window.sessionStorage
-      ? parseInt(sessionStorage.getItem(LOCAL_PAGEVIEWS_KEY) || '0', 10)
-      : 0;
-
-    const events = getEventLogs();
-    const calClicks = events.filter(e => e.eventName === 'click_calendar_booking').length;
-    const ndaRequests = events.filter(e => e.eventName === 'request_nda_case_study').length;
-    const forms = events.filter(e => e.eventName === 'submit_contact_form').length;
-    const conversionRate = visits > 0 ? ((calClicks / visits) * 100).toFixed(1) : '0.0';
-
-    return {
-      visits,
-      calClicks,
-      ndaRequests,
-      forms,
-      conversionRate
-    };
-  } catch (err) {
-    return { visits: 0, calClicks: 0, ndaRequests: 0, forms: 0, conversionRate: '0.0' };
-  }
+  return { visits: 0, calClicks: 0, ndaRequests: 0, forms: 0, conversionRate: '0.0' };
 }
 
-/**
- * Timeline des clics calendrier des 14 derniers jours basée sur les événements réels
- */
 export function get14DayCalendarClicks() {
-  try {
-    const events = getEventLogs();
-    const now = new Date();
-    const days = [];
-
-    for (let i = 13; i >= 0; i--) {
-      const d = new Date(now);
-      d.setDate(d.getDate() - i);
-      const dateStr = d.toISOString().split('T')[0];
-      const dateLabel = `${d.getDate()}/${d.getMonth() + 1}`;
-
-      const count = events.filter(e => {
-        return e.eventName === 'click_calendar_booking' && e.timestamp && e.timestamp.startsWith(dateStr);
-      }).length;
-
-      days.push({ dateLabel, count });
-    }
-
-    return days;
-  } catch {
-    return [];
-  }
+  return [];
 }

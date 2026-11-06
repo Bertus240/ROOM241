@@ -83,7 +83,7 @@ export default function Home({ navigate }) {
               <span className="text-zinc-300 hidden sm:inline">•</span>
               <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-zinc-100/90 border border-zinc-200/70 text-[11px] font-medium text-zinc-700 tracking-wide uppercase">
                 <span className="w-1.5 h-1.5 rounded-full bg-[#FFAD00]" />
-                <span>Disponible immédiatement</span>
+                <span>À l'écoute d'opportunités · Métropole de Lille</span>
               </span>
             </div>
 

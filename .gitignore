@@ -35,3 +35,37 @@ Thumbs.db
 .env.production.local
 .env.local
 
+# Captures, reports & internal tooling
+captures/
+captures_*/
+RAPPORT_*.md
+.agents/
+.cursor/
+AGENTS.md
+
+# Development and scratch scripts (keep only production/integrity tests)
+scripts/capture-*.cjs
+scripts/cdp-*.cjs
+scripts/check-*.cjs
+scripts/read-*.cjs
+scripts/verify-*.cjs
+scripts/audit-*.cjs
+scripts/test-*.cjs
+!scripts/test-projects-integrity.cjs
+!scripts/test-badges-hierarchy.cjs
+!scripts/test-kuro-stack.cjs
+!scripts/test-training-stats.cjs
+!scripts/test-protection.js
+scripts/analyze-*.cjs
+scripts/compare-*.cjs
+scripts/copy-*.cjs
+scripts/deep-*.cjs
+scripts/find-*.cjs
+scripts/generate-*.cjs
+scripts/inspect-*.cjs
+scripts/list-*.cjs
+scripts/run_full_validation.cjs
+scripts/strava-sync.cjs
+
+
+

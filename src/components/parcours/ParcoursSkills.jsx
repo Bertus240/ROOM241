@@ -30,7 +30,7 @@ export default function ParcoursSkills() {
       icon: VectorScenographie,
       summary: "Conception graphique et aménagement visuel de stands professionnels, de la signalétique à l'organisation des parcours visiteurs, pour des salons en France et à l'international.",
       skills: [
-        "Scénographie événementielle & Stands d'envergure (> 150 m²)",
+        "Scénographie événementielle : stands d'envergure (> 150 m²) et formats intermédiaires",
         "Signalétique & Habillage grand format d'espaces",
         "Organisation des parcours visiteurs & Salons européens",
         "Coordination technique avec les prestataires scénographiques",

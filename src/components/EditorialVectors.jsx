@@ -112,6 +112,23 @@ export function VectorMasterISEG({ className = "w-6 h-6", color = "#C5A880", acc
   );
 }
 
+// 7b. FORMATION : SOCLE FONDATION & PALIER ACADÉMIQUE (Bachelor ISEG Lille)
+export function VectorBachelorISEG({ className = "w-6 h-6", color = "#C5A880", accent = "#FFAD00" }) {
+  return (
+    <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" className={className} aria-hidden="true">
+      {/* Losange académique / Mortarboard géométrique supérieur */}
+      <path d="M16 5L26 11L16 17L6 11L16 5Z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
+      {/* 3 gradins de fondation (Bac+3) */}
+      <path d="M10 18.5V23C10 25.5 12.5 27 16 27C19.5 27 22 25.5 22 23V18.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+      {/* Chevron de projection intermédiaire */}
+      <path d="M12 14.5L16 17L20 14.5" stroke={color} strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round" />
+      {/* Glandon / Point focal ambre */}
+      <circle cx="26" cy="16" r="1.75" fill={accent} />
+      <path d="M26 11V16" stroke={color} strokeWidth="1.25" />
+    </svg>
+  );
+}
+
 // 8. FORMATION : PRISME SCIENTIFIQUE (Baccalauréat Scientifique SI)
 export function VectorScientific({ className = "w-6 h-6", color = "#C5A880", accent = "#FFAD00" }) {
   return (

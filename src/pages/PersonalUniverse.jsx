@@ -15,6 +15,7 @@ import { editorialPhotos, marathonPhoto } from '../data/gallery';
 import { applyTheme } from '../lib/theme';
 import { getTrainingStats } from '../lib/trainingStats';
 import { VectorProcessor } from '../components/EditorialVectors';
+import MillionGoalSection from '../components/MillionGoalSection';
 
 /**
  * Composant d'animation progressive des chiffres (Count-up)
@@ -239,14 +240,16 @@ export default function PersonalUniverse({ navigate, onSwitchToPro }) {
                 {/* Métriques vérifiées et animées au scroll */}
                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-3.5 pt-1">
                   <div className="p-4 rounded-2xl bg-black/50 border border-white/10">
-                    <span className="text-2xl sm:text-3xl font-extrabold font-mono text-white block">
+                    <span className="text-xl sm:text-2xl xl:text-3xl font-extrabold font-mono text-white block">
                       <AnimatedSportStat
-                        target={168}
+                        target={10105}
                         delay={0}
                         formatFn={(val) => {
-                          const h = Math.floor(val / 60);
-                          const m = Math.round(val % 60);
-                          return `${h} h ${m.toString().padStart(2, '0')}`;
+                          const totalSec = Math.round(val);
+                          const h = Math.floor(totalSec / 3600);
+                          const m = Math.floor((totalSec % 3600) / 60);
+                          const s = totalSec % 60;
+                          return `${h} h ${m.toString().padStart(2, '0')} min ${s.toString().padStart(2, '0')} s`;
                         }}
                       />
                     </span>
@@ -529,59 +532,190 @@ export default function PersonalUniverse({ navigate, onSwitchToPro }) {
 
       {/* ========================================================
           03 — TOUJOURS CHERCHER À COMPRENDRE
-          La curiosité et la créativité
+          Séquence éditoriale en trois temps :
+          1. La démarche de curiosité intellectuelle
+          2. Exploration concrète : Prototype Meridian (Cartographie offline)
+          3. Passerelle professionnelle : La mécanique derrière les formes
          ======================================================== */}
-      <section className="py-20 sm:py-28 border-b border-white/10 bg-zinc-950/60">
-        <div className="max-w-[1280px] mx-auto px-5 sm:px-8 lg:px-10 space-y-12">
+      <section className="py-20 sm:py-28 border-b border-white/10 bg-zinc-950/70 relative overflow-hidden">
+        
+        {/* Glow ambré très diffus */}
+        <div
+          className="absolute top-1/3 right-10 w-[450px] h-[300px] bg-[#FFAD00]/[0.035] blur-[130px] rounded-full pointer-events-none"
+          aria-hidden="true"
+        />
+
+        <div className="max-w-[1280px] mx-auto px-5 sm:px-8 lg:px-10 space-y-12 relative z-10">
           
-          <div className="space-y-4 max-w-3xl">
+          {/* 1. La curiosité : expliquer la démarche de pensée */}
+          <div className="space-y-5 max-w-3xl">
             <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-zinc-500">
               <span className="font-bold text-[#FFAD00]">03</span>
               <span>/</span>
               <span>TOUJOURS CHERCHER À COMPRENDRE</span>
             </div>
+
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight text-white flex items-center gap-3">
-              <VectorProcessor className="w-8 h-8 text-[#FFAD00]" />
+              <VectorProcessor className="w-8 h-8 text-[#FFAD00] shrink-0" />
               <span>La curiosité et la créativité</span>
             </h2>
-            <div className="space-y-3 text-sm sm:text-base text-zinc-300 leading-relaxed font-normal">
+
+            <div className="space-y-4 text-sm sm:text-base text-zinc-300 leading-relaxed font-normal">
               <p>
                 J'aime comprendre comment les choses fonctionnent, ce qui se cache derrière une idée, un objet, une marque ou une expérience.
               </p>
               <p>
                 Je peux facilement me perdre dans un sujet simplement parce que j'ai envie d'en savoir davantage. Démonter une idée, explorer différentes pistes, faire des liens et imaginer d'autres possibilités : c'est une manière de fonctionner que je retrouve autant dans mes projets personnels que professionnels.
               </p>
-              <p className="text-white font-medium italic pt-1">
-                Créer, pour moi, c'est aussi être curieux de ce qui existe déjà.
+            </div>
+
+            <div className="pt-2 pl-4 border-l-2 border-[#FFAD00]/60">
+              <p className="text-base sm:text-lg text-white font-serif italic tracking-tight leading-relaxed">
+                « Créer, pour moi, c'est aussi être curieux de ce qui existe déjà. »
               </p>
             </div>
           </div>
 
-          {/* Exemple concret d'exploration : Meridian */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+          {/* Grille commune harmonisée : 2. Meridian + 3. Passerelle professionnelle */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-stretch">
             
-            <div className="lg:col-span-7 p-6 sm:p-8 rounded-3xl bg-zinc-900/80 border border-white/10 space-y-5">
-              <div className="flex items-center gap-2.5">
-                <Compass className="w-5 h-5 text-[#FFAD00]" />
-                <span className="text-xs font-mono uppercase tracking-wider text-[#FFAD00] font-semibold">Projet d'exploration autonome</span>
+            {/* 2. Meridian — Cartographie et orientation hors-ligne (7 colonnes) */}
+            <div className="lg:col-span-7 p-6 sm:p-8 rounded-3xl bg-zinc-900/80 border border-white/10 flex flex-col justify-between space-y-6 shadow-xl">
+              <div className="space-y-5">
+                
+                {/* Badge d'en-tête */}
+                <div className="flex flex-wrap items-center justify-between gap-2 border-b border-white/10 pb-4">
+                  <div className="flex items-center gap-2.5">
+                    <Compass className="w-4 h-4 text-[#FFAD00]" />
+                    <span className="text-xs font-mono uppercase tracking-wider text-[#FFAD00] font-semibold">
+                      Prototype personnel // R&amp;D autonome
+                    </span>
+                  </div>
+                  <span className="text-[11px] font-mono text-zinc-500">Expérimentation terrain</span>
+                </div>
+
+                <div className="space-y-2">
+                  <h3 className="text-lg sm:text-xl font-bold text-white tracking-tight">
+                    Meridian — Cartographie et orientation hors-ligne
+                  </h3>
+                  <p className="text-xs sm:text-sm text-zinc-300 leading-relaxed">
+                    Né d'une curiosité technique : comment s'orienter et tracer son expédition sur le terrain sans dépendre des réseaux mobiles ? Ce prototype personnel explore le rendu de tuiles vectorielles locales, la manipulation de projections géographiques et l'enregistrement de traces GPS.
+                  </p>
+                </div>
+
+                {/* Schéma graphique cartographique sobre et vectoriel */}
+                <div className="p-4 rounded-2xl bg-black/50 border border-white/10 relative overflow-hidden select-none">
+                  <div className="flex items-center justify-between pb-3 text-[10px] font-mono text-zinc-400 border-b border-white/5">
+                    <span className="flex items-center gap-1.5">
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#FFAD00] animate-pulse" />
+                      50°38'14" N · 3°03'48" E
+                    </span>
+                    <span className="text-zinc-500 uppercase">Projection MVT 256×256</span>
+                  </div>
+
+                  <svg
+                    viewBox="0 0 360 110"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="w-full h-24 pt-2 text-zinc-700"
+                    aria-hidden="true"
+                  >
+                    {/* Grille géodésique discrète */}
+                    <line x1="0" y1="25" x2="360" y2="25" stroke="rgba(255,255,255,0.06)" strokeDasharray="3 3" />
+                    <line x1="0" y1="55" x2="360" y2="55" stroke="rgba(255,255,255,0.06)" strokeDasharray="3 3" />
+                    <line x1="0" y1="85" x2="360" y2="85" stroke="rgba(255,255,255,0.06)" strokeDasharray="3 3" />
+                    <line x1="90" y1="0" x2="90" y2="110" stroke="rgba(255,255,255,0.06)" strokeDasharray="3 3" />
+                    <line x1="180" y1="0" x2="180" y2="110" stroke="rgba(255,255,255,0.06)" strokeDasharray="3 3" />
+                    <line x1="270" y1="0" x2="270" y2="110" stroke="rgba(255,255,255,0.06)" strokeDasharray="3 3" />
+
+                    {/* Lignes de niveau topographiques */}
+                    <path
+                      d="M 10 90 Q 60 70 120 75 T 230 60 T 350 45"
+                      stroke="rgba(197, 168, 128, 0.25)"
+                      strokeWidth="1"
+                    />
+                    <path
+                      d="M 10 70 Q 70 45 140 50 T 250 40 T 350 25"
+                      stroke="rgba(197, 168, 128, 0.35)"
+                      strokeWidth="1"
+                    />
+
+                    {/* Trace vectorielle d'expédition */}
+                    <path
+                      d="M 30 85 L 85 68 L 145 74 L 205 48 L 260 52 L 320 32"
+                      stroke="#FFAD00"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+
+                    {/* Waypoints */}
+                    <circle cx="30" cy="85" r="3" fill="#1A1918" stroke="#FFAD00" strokeWidth="1.5" />
+                    <circle cx="145" cy="74" r="2.5" fill="#FFAD00" />
+                    <circle cx="205" cy="48" r="2.5" fill="#FFAD00" />
+                    <circle cx="320" cy="32" r="4" fill="#FFAD00" />
+                    <circle cx="320" cy="32" r="7" stroke="#FFAD00" strokeWidth="1" opacity="0.5" />
+                  </svg>
+                </div>
               </div>
-              <h3 className="text-xl font-bold text-white">
-                Meridian — Cartographie et orientation hors-ligne
-              </h3>
-              <p className="text-xs sm:text-sm text-zinc-300 leading-relaxed">
-                Né d'une curiosité technique : comment s'orienter et tracer son expédition sur le terrain sans dépendre des réseaux mobiles ? Ce prototype personnel explore le rendu de tuiles vectorielles locales, la manipulation de projections géographiques et l'enregistrement de traces GPS.
-              </p>
-              <div className="p-3.5 rounded-xl bg-black/40 border border-white/5 text-xs text-zinc-300 font-mono">
-                <code>Stack explorée : React, MapLibre GL, Leaflet, tuiles vectorielles hors-ligne</code>
+
+              {/* Stack technique sobrement présentée */}
+              <div className="pt-2 border-t border-white/10">
+                <div className="flex flex-wrap items-center gap-2">
+                  <span className="text-[11px] font-mono text-zinc-500 uppercase mr-1">Stack :</span>
+                  {['React', 'MapLibre GL', 'Leaflet', 'Tuiles vectorielles hors-ligne'].map((tech) => (
+                    <span
+                      key={tech}
+                      className="px-2.5 py-1 rounded-lg bg-black/40 border border-white/10 text-[11px] font-mono text-zinc-300"
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                </div>
               </div>
+
             </div>
 
-            <div className="lg:col-span-5 p-6 sm:p-8 rounded-3xl bg-zinc-900/40 border border-white/5 space-y-3">
-              <span className="text-xs font-mono uppercase tracking-wider text-zinc-400">Ce que cette curiosité nourrit</span>
-              <h4 className="text-base font-bold text-white">La mécanique derrière les formes</h4>
-              <p className="text-xs sm:text-sm text-zinc-400 leading-relaxed">
-                Qu'il s'agisse d'un stand de plus de 150 m², d'une boucle After Effects ou d'un outil de navigation, l'exigence reste la même : comprendre la contrainte technique réelle avant de dessiner la première ligne.
-              </p>
+            {/* 3. Ce que cette curiosité nourrit (5 colonnes) */}
+            <div className="lg:col-span-5 p-6 sm:p-8 rounded-3xl bg-zinc-900/60 border border-white/10 flex flex-col justify-between space-y-6 shadow-xl">
+              <div className="space-y-5">
+                
+                {/* Badge d'en-tête */}
+                <div className="flex items-center justify-between border-b border-white/10 pb-4">
+                  <span className="text-xs font-mono uppercase tracking-wider text-zinc-400 font-semibold">
+                    Pont méthodologique
+                  </span>
+                  <span className="text-[11px] font-mono text-zinc-500">De l'idée au livrable</span>
+                </div>
+
+                <div className="space-y-3">
+                  <span className="text-xs font-mono uppercase tracking-wider text-[#FFAD00] block">
+                    Ce que cette curiosité nourrit
+                  </span>
+                  <h3 className="text-xl sm:text-2xl font-bold text-white tracking-tight">
+                    La mécanique derrière les formes
+                  </h3>
+                  <div className="space-y-3 text-sm text-zinc-300 leading-relaxed font-normal pt-1">
+                    <p>
+                      Qu'il s'agisse d'un stand de plus de 150 m², d'une boucle After Effects ou d'un outil de navigation, l'exigence reste la même : comprendre la contrainte technique réelle avant de dessiner la première ligne.
+                    </p>
+                    <p className="text-xs text-zinc-400">
+                      Cette curiosité évite les décors superficiels : chaque choix plastique répond à une contrainte de fabrication, d'espace, de flux ou de performance concrète.
+                    </p>
+                  </div>
+                </div>
+
+              </div>
+
+              {/* Repère d'alignement visuel */}
+              <div className="pt-4 border-t border-white/10 flex items-center justify-between text-xs font-mono text-zinc-400">
+                <span className="flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#FFAD00]" />
+                  <span>Comprendre avant de concevoir</span>
+                </span>
+                <span className="text-zinc-600">→</span>
+              </div>
+
             </div>
 
           </div>
@@ -622,63 +756,9 @@ export default function PersonalUniverse({ navigate, onSwitchToPro }) {
 
       {/* ========================================================
           L'AMBITION DU MILLION AVANT 30 ANS
-          Composition éditoriale asymétrique noble et épurée
+          Composition monumentale asymétrique & animation en 5 temps
          ======================================================== */}
-      <section className="relative py-24 sm:py-32 border-b border-white/10 overflow-hidden bg-gradient-to-b from-transparent via-white/[0.015] to-transparent">
-        {/* Glow ambré feutré */}
-        <div
-          className="absolute -top-24 left-1/3 w-[500px] h-[300px] bg-[#FFAD00]/[0.06] blur-[120px] rounded-full pointer-events-none"
-          aria-hidden="true"
-        />
-
-        <div className="max-w-[1280px] mx-auto px-5 sm:px-8 lg:px-10 relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
-            
-            {/* Colonne Gauche (5 cols) : Le chiffre monumental, sobre et précis */}
-            <div className="lg:col-span-5 space-y-4 lg:border-r lg:border-white/10 lg:pr-10">
-              <div className="flex items-center gap-2">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#FFAD00] shadow-[0_0_8px_rgba(255,173,0,0.8)]" />
-                <span className="text-xs font-mono uppercase tracking-widest text-[#FFAD00] font-semibold">
-                  Cap &amp; Vision personnelle
-                </span>
-              </div>
-
-              <div className="space-y-1 pt-1">
-                <span className="text-5xl sm:text-6xl xl:text-7xl font-extrabold font-mono text-white tracking-tighter block leading-none">
-                  1 000 000 €
-                </span>
-                <span className="text-base sm:text-lg font-mono text-zinc-400 block pt-1.5 font-medium">
-                  Avant 30 ans.
-                </span>
-              </div>
-
-              <div className="pt-3">
-                <span className="text-[11px] font-mono text-zinc-400 uppercase tracking-wider block">
-                  Discipline · Ambition · Indépendance
-                </span>
-              </div>
-            </div>
-
-            {/* Colonne Droite (7 cols) : La confidence éditoriale & l'intention */}
-            <div className="lg:col-span-7 space-y-5 lg:pl-4">
-              <div className="relative pl-6 sm:pl-8 border-l border-[#FFAD00]/40 space-y-4">
-                <p className="text-base sm:text-lg text-zinc-200 leading-relaxed font-normal">
-                  « C'est un objectif que je mentionne souvent. Pas pour impressionner, ni pour afficher un chiffre, mais parce que j'ai besoin d'avoir quelque chose de grand à poursuivre. »
-                </p>
-                <p className="text-sm sm:text-base text-zinc-400 leading-relaxed font-normal">
-                  Peut-être que j'y arriverai, peut-être pas. Ce qui compte surtout, c'est la direction que cet objectif me donne et tout ce qu'il me pousse à entreprendre en chemin : la discipline quotidienne, l'exigence dans chaque création et le refus de la tiédeur.
-                </p>
-              </div>
-
-              <div className="pt-2 flex items-center gap-4 text-xs font-mono text-zinc-400">
-                <span className="inline-block w-8 h-[1px] bg-white/20" />
-                <span>Le résultat comme repère, le chemin comme méthode</span>
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </section>
+      <MillionGoalSection />
 
       {/* ========================================================
           PASSERELLE DE RETOUR VERS L'UNIVERS PROFESSIONNEL

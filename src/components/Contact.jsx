@@ -123,7 +123,7 @@ export default function Contact({ isFullPage }) {
               Vous préférez l'écrit ?
             </h3>
             <p className="text-sm text-room-muted leading-relaxed mb-8 font-sans">
-              Transmettez vos enjeux et recevez une réponse cadrée sous 24h ouvrées.
+              Transmettez vos enjeux et vos besoins de communication.
             </p>
 
             {formSubmitted ? (
@@ -131,7 +131,7 @@ export default function Contact({ isFullPage }) {
                 <CheckCircle className="w-10 h-10 text-room-amber mx-auto" />
                 <h4 className="text-xl font-bold text-room-text font-sans">Message transmis.</h4>
                 <p className="text-xs text-room-muted font-sans">
-                  Merci {formData.fullName}. J&apos;étudie votre message et je vous réponds sous 24h ouvrées.
+                  Merci {formData.fullName}. J&apos;étudie votre message et je vous réponds rapidement.
                 </p>
                 <button
                   onClick={() => setFormSubmitted(false)}
@@ -203,7 +203,7 @@ export default function Contact({ isFullPage }) {
                   </TrackedButton>
 
                   <p className="text-center text-[11px] font-sans text-room-muted">
-                    Réponse garantie sous <span className="text-room-text font-medium">24h ouvrées</span>.
+                    Échanges directs et réactifs.
                   </p>
                 </div>
               </form>

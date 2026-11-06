@@ -182,7 +182,7 @@ export default function ProjectDetail({ slug, navigate }) {
                 </h3>
 
                 <p className="text-sm sm:text-base text-neutral-300 font-sans leading-relaxed max-w-xl mx-auto">
-                  La scénographie complète, les plans d'exécution et les modélisations 3D sont réservés aux marques et décideurs partenaires. Dossier technique complet transmis sous 24h ouvrées.
+                  La scénographie complète, les plans d'exécution et les modélisations 3D sont réservés aux marques et décideurs partenaires. Dossier technique complet transmis sur demande.
                 </p>
 
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-6 border-t border-white/10 text-left">

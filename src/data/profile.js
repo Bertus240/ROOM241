@@ -209,7 +209,7 @@ export const profileData = {
     // A. Compétences métier
     business: [
       "Direction artistique & Identités de marque",
-      "Scénographie événementielle & Stands (> 150 m²)",
+      "Scénographie événementielle : grands stands (> 150 m²) et formats compacts",
       "Motion design & Animation After Effects",
       "Stratégie éditoriale & Création de contenus",
       "Production vidéo & Captations de terrain",

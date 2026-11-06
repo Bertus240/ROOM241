@@ -7,7 +7,6 @@ import Parcours from './pages/Parcours';
 import PersonalUniverse from './pages/PersonalUniverse';
 import FooterContact from './components/FooterContact';
 import CvModal from './components/CvModal';
-import AdminDashboard from './components/AdminDashboard';
 import ProjectDetail from './components/ProjectDetail';
 import HornetCaseStudy from './pages/HornetCaseStudy';
 import MentionsLegales from './components/MentionsLegales';
@@ -125,6 +124,19 @@ export default function App() {
     syncThemeWithRoute(currentPath);
   }, [currentPath]);
 
+  // Redirection immédiate des routes privées /analytics et /admin vers l'accueil (Option 1)
+  useEffect(() => {
+    if (
+      currentPath === '/analytics' ||
+      currentPath === '/admin' ||
+      window.location.hash.includes('#analytics') ||
+      window.location.hash.includes('#admin')
+    ) {
+      window.history.replaceState({}, '', '/');
+      setCurrentPath('/');
+    }
+  }, [currentPath]);
+
   // Navigation client fluide avec pushState
   const navigate = (path) => {
     const [pathname, hash] = path.split('#');
@@ -158,11 +170,6 @@ export default function App() {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   };
-
-  // Accès administrateur
-  if (currentPath === '/admin' || window.location.hash.includes('#admin')) {
-    return <AdminDashboard />;
-  }
 
   // Page 403 / restriction d'accès dédiée (support URL directe et simulation locale ?test_country=DE)
   if (

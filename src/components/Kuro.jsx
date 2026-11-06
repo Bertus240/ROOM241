@@ -120,9 +120,13 @@ export default function Kuro({ currentPath = '/', navigate, onOpenCvModal }) {
     return () => mq.removeEventListener('change', handler);
   }, []);
 
-  // Détection du scroll pour discrétion visuelle
+  // Détection du scroll pour discrétion visuelle (désactivée si le menu ou l'invitation est actif pour éviter tout désynchronisme d'opacité)
   useEffect(() => {
     const handleScroll = () => {
+      if (isMenuOpen || showFirstVisitInvite) {
+        setIsScrolling(false);
+        return;
+      }
       setIsScrolling(true);
       if (scrollTimeout.current) clearTimeout(scrollTimeout.current);
       scrollTimeout.current = setTimeout(() => {
@@ -135,7 +139,7 @@ export default function Kuro({ currentPath = '/', navigate, onOpenCvModal }) {
       window.removeEventListener('scroll', handleScroll);
       if (scrollTimeout.current) clearTimeout(scrollTimeout.current);
     };
-  }, []);
+  }, [isMenuOpen, showFirstVisitInvite]);
 
   // Clignement périodique des yeux (organique et discret d'origine)
   useEffect(() => {
@@ -247,6 +251,9 @@ export default function Kuro({ currentPath = '/', navigate, onOpenCvModal }) {
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, [isMenuOpen, closeMenu]);
+
+  // Opacité synchronisée : ne jamais atténuer si le menu ou l'invitation est visible
+  const isDimmed = isScrolling && !isMenuOpen && !showFirstVisitInvite;
 
   // Gestion des clics sur les raccourcis
   const handleShortcutClick = (shortcut) => (e) => {
@@ -487,14 +494,15 @@ export default function Kuro({ currentPath = '/', navigate, onOpenCvModal }) {
                 toggleMenu();
               }}
               className="flex items-center gap-2.5 text-left flex-1 min-w-0 cursor-pointer group focus:outline-none focus-visible:ring-1 focus-visible:ring-[#FFAD00] rounded-lg"
+              aria-label="Explorer le portfolio avec Kuro"
             >
               <span className="w-2 h-2 rounded-full bg-[#FFAD00] shadow-[0_0_8px_rgba(255,173,0,0.9)] shrink-0 animate-pulse" />
               <div className="min-w-0 flex-1">
                 <span className="text-[11px] font-semibold text-zinc-100 group-hover:text-[#FFAD00] transition-colors block leading-snug">
-                  Première visite ?
+                  Explorer le portfolio
                 </span>
                 <span className="text-[10px] text-zinc-400 group-hover:text-zinc-300 transition-colors block truncate">
-                  Je peux vous guider vers les projets clés.
+                  Accès direct aux projets et études de cas
                 </span>
               </div>
             </button>
@@ -649,10 +657,14 @@ export default function Kuro({ currentPath = '/', navigate, onOpenCvModal }) {
         ref={capsuleButtonRef}
         type="button"
         onClick={toggleMenu}
-        onMouseEnter={() => setIsHovered(true)}
+        onMouseEnter={() => {
+          if (typeof window !== 'undefined' && window.matchMedia('(hover: hover)').matches) {
+            setIsHovered(true);
+          }
+        }}
         onMouseLeave={() => setIsHovered(false)}
-        className={`group relative flex items-center gap-2 px-2.5 py-1.5 sm:px-3 sm:py-2 rounded-full bg-[#09090B]/95 hover:bg-black text-white border border-white/20 hover:border-[#FFAD00]/60 shadow-[0_8px_25px_rgba(0,0,0,0.4)] cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FFAD00] transition-all duration-300 min-h-[44px] ${
-          isScrolling ? 'opacity-35 pointer-events-none' : 'opacity-100'
+        className={`group relative flex items-center gap-2 px-2.5 py-1.5 sm:px-3 sm:py-2 rounded-full bg-[#09090B]/95 hover:bg-black text-white border border-white/20 hover:border-[#FFAD00]/60 shadow-[0_8px_25px_rgba(0,0,0,0.4)] cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FFAD00] transition-all duration-200 min-h-[44px] ${
+          isDimmed ? 'opacity-35 pointer-events-none' : 'opacity-100'
         } ${isHovered ? 'scale-105' : 'scale-100'}`}
         aria-label="Kuro, menu de raccourcis du portfolio. Cliquez pour ouvrir."
         aria-expanded={isMenuOpen}
