@@ -4,6 +4,8 @@ import { projectsData } from '../data/projects';
 import TrackedButton from './actions/TrackedButton';
 import { Reveal, SpotCard, stagger, ImageShutterReveal } from '../lib/motion';
 import FluidDistortionImage from './webgl/FluidDistortionImage';
+import StatGroup from './StatGroup';
+import CaseStudyNavigation from './CaseStudyNavigation';
 
 /* Figure de preuve sociale : cadre studio + affichage intégral sans recadrage abusif. */
 function ProofFigure({ src, title, caption }) {
@@ -143,25 +145,21 @@ export default function ProjectDetail({ slug, navigate }) {
           </div>
         </Reveal>
 
-        {/* Grille des 4 métriques factuelles (Projet Résin'Architecte) — 4 colonnes desktop, 2x2 mobile */}
+        {/* Grille des métriques factuelles adaptatives (4 colonnes, 3 colonnes, etc.) */}
         {project.metrics && (
-          <Reveal delay={50} className="mb-16 grid grid-cols-2 lg:grid-cols-4 gap-4">
-            {project.metrics.map((m, i) => (
-              <div
-                key={i}
-                className="bg-neutral-100 dark:bg-neutral-900 border border-room-border rounded-2xl p-5 sm:p-6 flex flex-col gap-1"
-              >
-                <span className="text-2xl sm:text-3xl font-black font-sans text-neutral-900 dark:text-white tracking-tight">
-                  {m.value}
-                </span>
-                <span className="text-xs font-sans font-semibold text-neutral-900 dark:text-white">
-                  {m.label}
-                </span>
-                <span className="text-[11px] font-sans text-room-muted leading-snug">
-                  {m.detail}
-                </span>
-              </div>
-            ))}
+          <Reveal delay={50} className="mb-16 w-full">
+            <StatGroup
+              stats={project.metrics.map((m) => ({
+                value: m.value,
+                label: m.label,
+                description: m.detail,
+                attribution: m.attribution,
+                tag: m.tag,
+                size: 'card'
+              }))}
+              variant="card"
+              size="card"
+            />
           </Reveal>
         )}
 
@@ -194,7 +192,7 @@ export default function ProjectDetail({ slug, navigate }) {
                   </div>
                   <div>
                     <div className="text-[10px] font-mono text-neutral-400 uppercase">CONGRÈS</div>
-                    <div className="text-sm font-sans font-semibold text-white">Europe Tech</div>
+                    <div className="text-sm font-sans font-semibold text-white">FIC Lille (InCyber)</div>
                   </div>
                   <div>
                     <div className="text-[10px] font-mono text-neutral-400 uppercase">ACQUISITION</div>
@@ -277,7 +275,7 @@ export default function ProjectDetail({ slug, navigate }) {
                   <span className="text-zinc-300 hidden sm:inline">•</span>
                   <span>Jardimax (SAS DESMELIE · Bailleul)</span>
                   <span className="text-zinc-300 hidden sm:inline">•</span>
-                  <span>Motion Design pédagogique &amp; Tournage Showroom</span>
+                  <span>Motion Design pédagogique &amp; Captation extérieure</span>
                 </div>
               </div>
             </div>
@@ -400,7 +398,7 @@ export default function ProjectDetail({ slug, navigate }) {
                 </div>
               </div>
 
-              <div className="p-6 sm:p-8 rounded-2xl border border-room-border bg-room-surface flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+              <div id="financement-ulule" className="p-6 sm:p-8 rounded-2xl border border-room-border bg-room-surface flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 scroll-mt-28">
                 <div>
                   <span className="text-[10px] font-mono text-room-amber uppercase tracking-widest block mb-1">
                     CAPTATION TERRAIN MEDFEL · STRATÉGIE DE CONTENU B2B
@@ -474,7 +472,7 @@ export default function ProjectDetail({ slug, navigate }) {
 
               {/* Bandeau panoramique de validation Meta (ratio 4.7:1 préservé intégralement) */}
               {project.panoramicStats && (
-                <div className="rounded-2xl border border-neutral-200 dark:border-white/10 bg-white dark:bg-neutral-900 p-4 sm:p-6 shadow-sm">
+                <div id="resultats-portee" className="rounded-2xl border border-neutral-200 dark:border-white/10 bg-white dark:bg-neutral-900 p-4 sm:p-6 shadow-sm scroll-mt-28">
                   <div className="flex items-center justify-between mb-3 text-xs font-mono text-room-muted uppercase">
                     <span className="text-room-amber font-semibold">VALIDATION ANALYTIQUE META BUSINESS SUITE</span>
                     <span>30 PREMIERS JOURS</span>
@@ -550,47 +548,8 @@ export default function ProjectDetail({ slug, navigate }) {
           </Reveal>
         )}
 
-        {/* Carte d'appel d'air : étude de cas suivante avec style glassmorphism premium */}
-        <div className="border-t border-room-border pt-12 space-y-10">
-          <div
-            role="link"
-            tabIndex={0}
-            aria-label={`Découvrir l'étude de cas suivante : ${nextProject.title}`}
-            onClick={handleNext}
-            onKeyDown={handleNextKeyDown}
-            className="group cursor-pointer flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 border border-zinc-200/80 dark:border-white/10 rounded-3xl bg-white/70 dark:bg-zinc-900/60 backdrop-blur-xl px-7 py-7 sm:px-9 sm:py-8 transition-all duration-300 hover:shadow-[0_20px_50px_rgba(0,0,0,0.08)] hover:border-[#FFAD00]/50"
-          >
-            <div className="space-y-2">
-              <div className="flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-[#FFAD00] shadow-[0_0_8px_rgba(255,173,0,0.6)]" />
-                <span className="text-[11px] uppercase tracking-[0.2em] text-neutral-400 font-mono block">
-                  Étude de cas suivante
-                </span>
-              </div>
-              <h3 className="text-2xl sm:text-3xl font-extrabold text-neutral-900 dark:text-white group-hover:text-[#FFAD00] transition-colors tracking-tight">
-                {nextProject.title}
-              </h3>
-            </div>
-
-            <span className="inline-flex shrink-0 items-center gap-2 px-6 py-3 bg-[#09090B] text-white dark:bg-white dark:text-[#09090B] text-xs font-sans font-semibold rounded-full group-hover:scale-105 transition-all shadow-md">
-              <span>Découvrir le projet</span>
-              <span className="text-[#FFAD00]">↗</span>
-            </span>
-          </div>
-
-          <div className="flex justify-center sm:justify-end">
-            <TrackedButton
-              eventName="click_calendar_booking"
-              eventData={{ location: 'project_detail' }}
-              href="https://calendar.app.google/VHHhkb2uunEeRVt67"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-primary inline-flex items-center gap-2 px-6 py-3.5 bg-room-text text-room-bg font-sans font-semibold text-xs rounded-xl"
-            >
-              <span>Cadrer un projet similaire ↗</span>
-            </TrackedButton>
-          </div>
-        </div>
+        {/* Navigation unifiée circulaire entre études de cas */}
+        <CaseStudyNavigation currentSlug={project.slug} navigate={navigate} />
 
       </div>
     </article>

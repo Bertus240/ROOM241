@@ -13,11 +13,11 @@ const translations = {
     email: "Send an email",
     footer: "Studio ROOM241 • Rémi Brocart",
     kuroDialogues: [
-      "Oops... (•‿•)",
+      "Oops...",
       "Guarding the portal!",
-      "403! But let's connect ✉",
+      "403! But let's connect",
       "Looking for something?",
-      "*Happy bounce* ✨"
+      "*Discreet nod*"
     ]
   },
   fr: {
@@ -30,11 +30,11 @@ const translations = {
     email: "Envoyer un e-mail",
     footer: "Studio ROOM241 • Rémi Brocart",
     kuroDialogues: [
-      "Oups... (•‿•)",
-      "Je veille sur la porte !",
-      "403 ! Mais on peut échanger ✉",
+      "Oups...",
+      "Je veille sur la porte.",
+      "403 ! Mais on peut échanger",
       "Besoin d'un renseignement ?",
-      "*Petit bond joyeux* ✨"
+      "*Hochement attentif*"
     ]
   }
 };

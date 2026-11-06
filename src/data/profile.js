@@ -12,7 +12,7 @@ export const profileData = {
     brand: "Studio ROOM241",
     role: "Graphic Designer & Direction artistique",
     tagline: "Design graphique, scénographie de stands & production de contenus de terrain.",
-    location: "Métropole Européenne de Lille / Cysoing (Véhiculé)",
+    location: "Métropole Européenne de Lille",
     status: "Disponible immédiatement · CDI & Collaborations",
     avatar: "/assets/remi-brocart-2026.png",
     logoBlack: "/assets/logos/430x95_Framer_Black@4x.png",
@@ -29,24 +29,24 @@ export const profileData = {
 
   // 2. PRÉSENTATION & MANIFESTE ÉDITORIAL (CHRONOLOGIE STRICTE ET EXACTE)
   manifesto: {
-    title: "L'image, le terrain & la rigueur de l'effort.",
-    hook: "Une pratique du design ancrée dans le réel, où la rigueur logique rencontre la créativité opérationnelle.",
+    title: "Comprendre. Concevoir. Produire.",
+    hook: "Une pratique du design ancrée dans le réel, où la rigueur stratégique rencontre l'exécution concrète de terrain.",
     paragraphs: [
-      "Après un parcours en Sciences de l’Ingénieur, je me suis orienté vers le marketing, la communication et le digital à l’ISEG Lille. Aujourd’hui, je travaille sur des projets qui mêlent identité visuelle, création vidéo et expérience de marque. Du stand événementiel aux contenus réalisés sur le terrain, j’aime donner forme aux idées et les rendre concrètes.",
-      "Je privilégie le concret. De l'habillage de stands de plus de 150 m² lors de salons internationaux en cybersécurité à la création d'animations motion design sur After Effects, en passant par l'incarnation de marque et la captation vidéo, je m'assure que chaque projet tienne ses promesses une fois déployé dans le réel."
+      "Diplômé du Master de l'ISEG Lille, j'articule vision stratégique de marque, direction artistique et production de terrain. Mon approche repose sur une exigence simple : comprendre le contexte métier et les flux, concevoir des réponses visuelles justes, et les fabriquer sans déperdition.",
+      "De la scénographie de stands de plus de 150 m² lors de salons internationaux en cybersécurité aux animations After Effects pour arches LED, de la captation sur le terrain au montage de formats 16:9 et 9:16, je conçois des expériences visuelles pensées pour leurs conditions réelles de diffusion et d'utilisation."
     ],
     pillars: [
       {
-        label: "Culture scientifique & stratégique",
-        desc: "Rigueur cartésienne consolidée par la vision stratégique de marque (Master ISEG Lille)."
+        label: "Comprendre : Cadrage & méthode",
+        desc: "Analyse des flux réels, contraintes techniques d'exposition et vision de marque (Master ISEG Lille)."
       },
       {
-        label: "Conception & exécution de terrain",
-        desc: "De la réflexion de marque aux stands d'envergure européenne (> 150 m²) et au motion design After Effects."
+        label: "Concevoir : Direction artistique & espace",
+        desc: "Scénographie de stands d'envergure (> 150 m²), identités visuelles et écriture de récits de marque."
       },
       {
-        label: "Discipline athlétique",
-        desc: "Marathonien en 2 h 48 min 25 s : constance, gestion de l'effort et préparation méthodique."
+        label: "Produire : Exécution terrain & discipline",
+        desc: "Animation After Effects, prises de vues directes et rigueur d'effort issue de la préparation marathon (2 h 48 min 25 s)."
       }
     ]
   },
@@ -154,13 +154,43 @@ export const profileData = {
       degree: "Master Marketing, communication et digital",
       institution: "ISEG Lille",
       period: "2023 — 2025",
+      level: "Master",
       field: "Stratégie de marque, communication globale & business",
       description: "Vision stratégique globale, positionnement concurrentiel, architecture de marque et pilotage de projets de communication digitaux et événementiels."
     },
     {
+      degree: "Bachelor Marketing, communication & digital",
+      institution: "ISEG Lille",
+      period: "2020 — 2023",
+      level: "Bachelor / Licence",
+      field: "Marketing, communication & digital",
+      description: "Fondations en stratégie de marque, marketing international, projets digitaux, droit des technologies et masterclass professionnelles.",
+      associations: [
+        {
+          name: "EPEE — Association de promotion de l'ISEG Lille",
+          role: "Ambassadeur Campus"
+        },
+        {
+          name: "The View — Association audiovisuelle de l'ISEG Lille",
+          role: "Engagement dans l'association audiovisuelle de l'école"
+        }
+      ],
+      courses: [
+        "Stratégies de marque, communication & innovations",
+        "Marketing international",
+        "Outils numériques & projets digitaux",
+        "Business English & débats en anglais",
+        "Plan marketing & marketing sectoriel",
+        "Droit des nouvelles technologies",
+        "Arts & Culture",
+        "Masterclass professionnelles"
+      ]
+    },
+    {
       degree: "Baccalauréat Scientifique (Sciences de l'Ingénieur)",
-      institution: "Sciences de l'Ingénieur",
+      institution: "Lycée — Filière scientifique",
       period: "2020",
+      level: "Baccalauréat",
       field: "Rigueur logique, analyse & méthode",
       description: "Formation scientifique axée sur la méthode, la résolution de problèmes, la modélisation et la rigueur dans la gestion des contraintes techniques."
     },
@@ -168,6 +198,7 @@ export const profileData = {
       degree: "Brevet d'Aptitude aux Fonctions d'Animateur (BAFA)",
       institution: "Animation & Pédagogie",
       period: "2019",
+      level: "Brevet",
       field: "Pédagogie, animation & dynamique d'équipe",
       description: "Sens du collectif, prise de parole en public, écoute active et encadrement d'équipe."
     }

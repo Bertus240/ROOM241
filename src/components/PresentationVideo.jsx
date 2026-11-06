@@ -111,7 +111,7 @@ export default function PresentationVideo({ openVideoModal }) {
                   1:28
                 </span>
                 <span className="text-white/20 hidden sm:inline">•</span>
-                <span className="text-neutral-300">Double cursus Ingénieur &amp; Marketing</span>
+                <span className="text-neutral-300">Master Marketing &amp; Communication (ISEG Lille)</span>
                 <span className="text-white/20 hidden sm:inline">•</span>
                 <span className="text-neutral-300">Approche terrain &amp; conversion B2B</span>
               </div>

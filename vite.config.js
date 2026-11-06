@@ -5,7 +5,8 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   plugins: [react()],
   server: {
-    port: 3000,
+    port: 5174,
+    host: true,
     open: false,
     watch: {
       ignored: ['**/scratch/**', '**/.git/**', '**/public/assets/**', '**/*.mp4', '**/*.pdf']

@@ -23,7 +23,7 @@ const modes = [
   {
     id: '03',
     name: 'Studio partenaire',
-    tagline: 'Direction artistique externalisée 360°',
+    tagline: 'Direction artistique & production continue',
     description:
       'Votre service créatif à distance : direction artistique globale, supports événementiels XXL, campagnes organiques et paid, reporting ROI.',
     points: ['DA externalisée complète', 'Priorité sur les sprints urgents', 'Reporting ROI & attribution B2B'],

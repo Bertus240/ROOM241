@@ -66,9 +66,9 @@ export default function Contact({ isFullPage }) {
                       LinkedIn ↗
                     </span>
                   </h3>
-                  <p className="text-xs text-room-muted font-sans">Directeur Artistique &amp; Stratège de Contenu B2B</p>
+                  <p className="text-xs text-room-muted font-sans">Directeur Artistique &amp; Designer Digital</p>
                   <p className="text-xs text-room-muted leading-relaxed font-sans pt-2">
-                    "Chaque système visuel que nous créons répond à un impératif business : éliminer la météo de l'acquisition et installer une autorité technique indiscutable."
+                    &quot;Du positionnement stratégique à la scénographie concrète, je conçois et je produis des dispositifs qui installent une visibilité claire.&quot;
                   </p>
                 </div>
               </SpotCard>
@@ -87,7 +87,7 @@ export default function Contact({ isFullPage }) {
                 30 minutes pour cadrer votre projet.
               </h3>
               <p className="text-sm text-room-muted leading-relaxed mb-8 font-sans">
-                Sélectionnez un créneau dans notre agenda direct pour échanger en visioconférence.
+                Sélectionnez un créneau dans mon agenda direct pour échanger en visioconférence.
               </p>
 
               {/* Action Button pointing to Google Calendar Link */}
@@ -131,7 +131,7 @@ export default function Contact({ isFullPage }) {
                 <CheckCircle className="w-10 h-10 text-room-amber mx-auto" />
                 <h4 className="text-xl font-bold text-room-text font-sans">Message transmis.</h4>
                 <p className="text-xs text-room-muted font-sans">
-                  Merci {formData.fullName}. Notre équipe étudie votre demande et vous recontactera sous 24h ouvrées.
+                  Merci {formData.fullName}. J&apos;étudie votre message et je vous réponds sous 24h ouvrées.
                 </p>
                 <button
                   onClick={() => setFormSubmitted(false)}

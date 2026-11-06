@@ -1,5 +1,5 @@
 import React from 'react';
-import { motion } from 'framer-motion';
+import Badge from './Badge';
 
 export default function SectionMethodStack() {
   const poles = [
@@ -38,7 +38,7 @@ export default function SectionMethodStack() {
             Parcours &amp; Méthode
           </h2>
           <p className="text-sm sm:text-base text-[#3F3F46] mt-2">
-            Double cursus scientifique et marketing, rigueur athlétique et autonomie opérationnelle.
+            Master ISEG Lille, rigueur de méthode, discipline athlétique et autonomie opérationnelle.
           </p>
         </div>
 
@@ -50,10 +50,10 @@ export default function SectionMethodStack() {
               Formation &amp; Vision
             </h3>
             <p className="text-base text-[#09090B] font-semibold">
-              Sciences de l'Ingénieur • Master Stratégie &amp; Marketing (ISEG)
+              Master Marketing, communication et digital (ISEG Lille)
             </p>
             <p className="text-sm text-[#3F3F46] leading-relaxed">
-              Une articulation rare entre esprit d'analyse technique et sensibilité créative. Chaque choix visuel ou scénographique est guidé par une intention stratégique documentée, au service de la clarté et de l'atteinte d'objectifs business concrets.
+              Une articulation entre esprit d'analyse méthodique et sensibilité créative. Chaque choix visuel ou scénographique est guidé par une intention stratégique documentée, au service de la clarté et de l'atteinte d'objectifs business concrets.
             </p>
           </div>
 
@@ -79,13 +79,17 @@ export default function SectionMethodStack() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {poles.map((p, idx) => (
-              <div key={idx} className="space-y-2">
+              <div key={idx} className="space-y-3 p-5 rounded-2xl bg-zinc-50/70 border border-zinc-200/60 hover:border-zinc-300 transition-colors">
                 <h4 className="text-sm font-bold text-[#09090B]">
                   {p.title}
                 </h4>
-                <p className="text-xs font-medium text-[#FFAD00]">
-                  {p.tools}
-                </p>
+                <div className="flex flex-wrap gap-1.5">
+                  {p.tools.split(', ').map((tool, tIdx) => (
+                    <Badge key={tIdx} variant="tool" size="sm">
+                      {tool}
+                    </Badge>
+                  ))}
+                </div>
                 <p className="text-xs text-[#3F3F46] leading-relaxed pt-1">
                   {p.text}
                 </p>

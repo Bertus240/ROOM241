@@ -38,14 +38,10 @@ export default function FooterContact({ navigate }) {
       id="contact"
       className="relative py-20 sm:py-28 pb-48 sm:pb-52 bg-gradient-to-b from-white via-zinc-50/70 to-zinc-100/50 dark:from-[#0B0A09] dark:via-zinc-950 dark:to-black text-[#09090B] dark:text-[#EDEDED] border-t border-zinc-200/80 dark:border-white/10 scroll-mt-16 overflow-hidden transition-colors duration-300"
     >
-      {/* Halo ambré doux et lueur d'ambiance en arrière-plan */}
+      {/* Lueur d'ambiance feutrée en arrière-plan */}
       <div 
         aria-hidden="true" 
-        className="absolute top-1/4 right-0 w-[550px] h-[550px] bg-gradient-to-bl from-[#FFAD00]/10 via-amber-100/5 to-transparent rounded-full blur-3xl pointer-events-none" 
-      />
-      <div 
-        aria-hidden="true" 
-        className="absolute bottom-10 left-10 w-[450px] h-[450px] bg-gradient-to-tr from-sky-100/20 via-transparent to-transparent rounded-full blur-3xl pointer-events-none" 
+        className="absolute top-1/4 right-0 w-[550px] h-[550px] bg-gradient-to-bl from-[#FFAD00]/5 via-amber-50/5 to-transparent rounded-full blur-3xl pointer-events-none" 
       />
 
       <div className="relative max-w-[1280px] mx-auto px-5 sm:px-8 lg:px-10 space-y-16">
@@ -61,24 +57,12 @@ export default function FooterContact({ navigate }) {
             </div>
 
             <h2 className="text-3xl sm:text-4xl lg:text-[44px] font-extrabold tracking-tight text-[#09090B] dark:text-white leading-[1.12]">
-              Échangeons sur vos projets &amp; opportunités
+              Parlons de votre projet
             </h2>
 
             <p className="text-sm sm:text-base text-[#52525B] dark:text-zinc-300 leading-relaxed max-w-lg">
-              Disponible pour échanger sur vos besoins en direction artistique, scénographie événementielle, création de marque ou sur un poste en design graphique.
+              Je suis disponible pour échanger sur vos projets de communication, vos événements professionnels ou une opportunité en design graphique.
             </p>
-
-            {/* Badges de réassurance et disponibilité */}
-            <div className="pt-2 flex flex-wrap items-center gap-2.5">
-              <span className="inline-flex items-center gap-2 text-xs font-mono text-zinc-800 dark:text-zinc-300 bg-white/90 dark:bg-[#121214] backdrop-blur-md px-3.5 py-1.5 rounded-full border border-zinc-200/90 dark:border-zinc-800 shadow-[0_2px_8px_rgba(0,0,0,0.03)]">
-                <span className="w-2 h-2 rounded-full bg-emerald-500 shadow-[0_0_6px_rgba(16,185,129,0.7)]" />
-                <span>Disponible immédiatement • Lille, Métropole &amp; Hybride</span>
-              </span>
-
-              <span className="inline-flex items-center gap-1.5 text-xs font-mono text-zinc-500 dark:text-zinc-400 bg-zinc-100/90 dark:bg-zinc-900/90 px-3 py-1.5 rounded-full border border-zinc-200/60 dark:border-zinc-800">
-                <span>⏱ Réponse sous 24h ouvrées</span>
-              </span>
-            </div>
           </div>
 
           {/* Colonne Droite : 3 Cartes de coordonnées directes en Floating Glass Design */}
@@ -91,7 +75,7 @@ export default function FooterContact({ navigate }) {
                   <Mail className="w-5 h-5 text-[#FFAD00] group-hover:text-black transition-colors" />
                 </div>
                 <div className="space-y-1">
-                  <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-zinc-400 dark:text-zinc-500 block">
+                  <span className="text-xs font-semibold text-zinc-500 dark:text-zinc-400 block">
                     Email direct
                   </span>
                   <a
@@ -139,7 +123,7 @@ export default function FooterContact({ navigate }) {
                   <Phone className="w-5 h-5 text-zinc-700 dark:text-zinc-300 group-hover:text-white transition-colors" />
                 </div>
                 <div className="space-y-1">
-                  <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-zinc-400 dark:text-zinc-500 block">
+                  <span className="text-xs font-semibold text-zinc-500 dark:text-zinc-400 block">
                     Téléphone professionnel
                   </span>
                   <a
@@ -187,7 +171,7 @@ export default function FooterContact({ navigate }) {
                   <Linkedin className="w-5 h-5 text-blue-600 dark:text-blue-400 group-hover:text-white transition-colors" />
                 </div>
                 <div className="space-y-1">
-                  <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-zinc-400 dark:text-zinc-500 block">
+                  <span className="text-xs font-semibold text-zinc-500 dark:text-zinc-400 block">
                     Profil LinkedIn
                   </span>
                   <a
@@ -264,7 +248,7 @@ export default function FooterContact({ navigate }) {
             </a>
           </nav>
 
-          <div className="flex flex-col sm:flex-row items-center gap-3 text-xs text-zinc-400 font-mono text-center md:text-right">
+          <div className="flex flex-col sm:flex-row items-center gap-3 text-xs text-zinc-500 dark:text-zinc-400 text-center md:text-right">
             <a
               href="/"
               onClick={handleNav('/')}

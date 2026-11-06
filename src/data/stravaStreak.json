@@ -1,0 +1,14 @@
+{
+  "athleteId": "64835803",
+  "profileUrl": "https://www.strava.com/athletes/64835803",
+  "currentStreak": 325,
+  "longestStreak": 325,
+  "lastValidatedWeek": "2026-W44",
+  "status": "active_streak",
+  "anchorDate": "2026-11-02",
+  "allowedActivityTypes": [
+    "Run"
+  ],
+  "syncMode": "declared_anchor_ready_for_oauth",
+  "updatedAt": "2026-11-04T14:19:25.287Z"
+}

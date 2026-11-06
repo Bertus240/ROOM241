@@ -1,15 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
-import { ChevronLeft, ChevronRight, X } from 'lucide-react';
+import { ChevronLeft, ChevronRight, X, Maximize2 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 /**
- * BadgesCarousel — Carrousel visuel des insignes de partenariat Hornetsecurity.
+ * BadgesCarousel — Carrousel horizontal visuel des insignes de partenariat Hornetsecurity.
  * 
- * Conception & Fluidité :
- * - Défilement infini ultra-fluide 60/120 FPS via animation CSS GPU (aucune saccade, aucun saut).
- * - Pause naturelle au survol ou au toucher sans décrochage visuel.
- * - Format vectoriel d'origine respecté : aucune coupe, aucun étirement.
+ * Spécifications historiques fidèlement reproduites :
+ * - Sept badges originaux.
+ * - Une seule ligne horizontale.
+ * - Défilement continu fluide (GPU transform 60/120 FPS).
+ * - Aucun texte, aucune légende, aucun titre dans le bandeau.
+ * - Images seules, avec leurs proportions d'origine (object-contain).
+ * - Boucle fluide et sans rupture.
+ * - Rendu transversal, premium et responsive.
  * - Modale plein écran responsive avec zoom haute définition sans rognage.
  */
 export default function BadgesCarousel() {
@@ -70,7 +74,7 @@ export default function BadgesCarousel() {
         .badges-marquee-track {
           display: flex;
           width: max-content;
-          animation: badges-marquee 32s linear infinite;
+          animation: badges-marquee 30s linear infinite;
           will-change: transform;
         }
         .group\\/carousel:hover .badges-marquee-track,
@@ -87,55 +91,51 @@ export default function BadgesCarousel() {
 
       {/* Conteneur avec masques de fondu latéraux */}
       <div className="relative group/carousel overflow-hidden">
-        {/* Dégradé d'estompage gauche parfaitement accordé au conteneur */}
+        {/* Dégradé d'estompage gauche parfaitement accordé au conteneur blanc */}
         <div 
-          className="pointer-events-none absolute left-0 top-0 bottom-0 w-12 sm:w-24 bg-gradient-to-r from-zinc-50 via-zinc-50/85 to-transparent z-10" 
+          className="pointer-events-none absolute left-0 top-0 bottom-0 w-12 sm:w-24 bg-gradient-to-r from-white via-white/85 to-transparent z-10" 
           aria-hidden="true"
         />
 
-        {/* Dégradé d'estompage droit parfaitement accordé au conteneur */}
+        {/* Dégradé d'estompage droit parfaitement accordé au conteneur blanc */}
         <div 
-          className="pointer-events-none absolute right-0 top-0 bottom-0 w-12 sm:w-24 bg-gradient-to-l from-zinc-50 via-zinc-50/85 to-transparent z-10" 
+          className="pointer-events-none absolute right-0 top-0 bottom-0 w-12 sm:w-24 bg-gradient-to-l from-white via-white/85 to-transparent z-10" 
           aria-hidden="true"
         />
 
-        {/* Piste de défilement CSS sans saut ni réinitialisation */}
+        {/* Piste de défilement CSS continue sur une seule ligne */}
         <div className="badges-marquee-track py-3">
-          {/* Répétition double pour continuité 100% parfaite (les copies sont purement décoratives pour l'accessibilité) */}
+          {/* Répétition double pour continuité 100% parfaite sans saut */}
           {[...badges, ...badges].map((badge, idx) => {
             const originalIndex = idx % badges.length;
             const isDuplicate = idx >= badges.length;
             return (
-              <div
+              <button
                 key={`${badge.id}-${idx}`}
+                type="button"
                 onClick={() => setModalIndex(originalIndex)}
-                className="shrink-0 px-3 sm:px-4 cursor-pointer group/badge focus:outline-none"
+                className="group/badge relative shrink-0 mx-2.5 sm:mx-3.5 w-28 h-28 sm:w-36 sm:h-36 rounded-2xl bg-zinc-50/90 hover:bg-white border border-zinc-200/90 hover:border-[#FFAD00]/50 shadow-[0_2px_8px_rgba(0,0,0,0.02)] hover:shadow-[0_8px_20px_rgba(255,173,0,0.12)] transition-all duration-300 flex items-center justify-center p-3 sm:p-4 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FFAD00]"
                 role={isDuplicate ? undefined : "button"}
                 tabIndex={isDuplicate ? -1 : 0}
                 aria-hidden={isDuplicate ? "true" : undefined}
-                aria-label={isDuplicate ? undefined : `Agrandir l'insigne ${badge.title}`}
-                onKeyDown={(e) => {
-                  if (isDuplicate) return;
-                  if (e.key === 'Enter' || e.key === ' ') {
-                    e.preventDefault();
-                    setModalIndex(originalIndex);
-                  }
-                }}
+                aria-label={isDuplicate ? undefined : `${badge.alt} — Agrandir en haute définition`}
               >
-                <div className="relative flex flex-col items-center justify-between p-4 sm:p-4.5 w-44 sm:w-52 h-40 sm:h-44 rounded-2xl bg-white border border-zinc-200/90 shadow-[0_4px_20px_rgba(0,0,0,0.03)] hover:shadow-[0_10px_30px_rgba(0,0,0,0.08)] hover:border-[#FFAD00]/50 transition-all duration-300 transform group-hover/badge:-translate-y-1">
-                  <div className="flex-1 w-full flex items-center justify-center min-h-0 pt-1">
-                    <img
-                      src={`/assets/hornetsecurity/Badges/${badge.file}`}
-                      alt={badge.alt}
-                      className="max-h-full max-w-full w-auto h-auto object-contain transition-transform duration-300 group-hover/badge:scale-108 drop-shadow-sm"
-                      loading="lazy"
-                    />
-                  </div>
-                  <span className="text-[11px] font-mono font-bold text-zinc-800 tracking-tight text-center truncate w-full pt-2 border-t border-zinc-100">
-                    {badge.title}
-                  </span>
+                {/* Icône de zoom discrète au survol */}
+                <div 
+                  className="absolute top-2 right-2 p-1 rounded-full bg-white/80 text-[#FFAD00] opacity-0 group-hover/badge:opacity-100 transition-opacity shadow-xs"
+                  aria-hidden="true"
+                >
+                  <Maximize2 className="w-3 h-3" />
                 </div>
-              </div>
+
+                {/* Image seule, avec ses proportions d'origine : AUCUN texte ni légende */}
+                <img
+                  src={`/assets/hornetsecurity/Badges/${badge.file}`}
+                  alt={badge.alt}
+                  className="max-h-full max-w-full w-auto h-auto object-contain transition-transform duration-300 group-hover/badge:scale-108 drop-shadow-sm select-none pointer-events-none"
+                  loading="lazy"
+                />
+              </button>
             );
           })}
         </div>

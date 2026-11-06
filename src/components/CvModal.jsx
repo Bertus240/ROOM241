@@ -114,7 +114,7 @@ export default function CvModal({ isOpen, onClose }) {
 
   if (!isOpen) return null;
 
-  const { identity, education, skills } = profileData;
+  const { identity, skills } = profileData;
 
   const handleCopyEmail = () => {
     navigator.clipboard.writeText(identity.links.email);
@@ -194,9 +194,9 @@ export default function CvModal({ isOpen, onClose }) {
                   ROOM241 | CV
                 </span>
               </div>
-              <span className="hidden md:inline-flex items-center gap-1.5 text-xs font-sans text-zinc-300 px-3 py-1 rounded-full bg-white/5 border border-white/10">
+              <span className="hidden md:inline-flex items-center gap-1.5 text-xs font-sans text-zinc-200 px-3 py-1 rounded-full bg-white/5 border border-white/10">
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 shadow-[0_0_6px_rgba(52,211,153,0.7)]" />
-                Disponible immédiatement • CDI
+                Disponible tout de suite
               </span>
             </div>
 
@@ -298,7 +298,7 @@ export default function CvModal({ isOpen, onClose }) {
                   </p>
 
                   <p className="text-sm leading-relaxed text-zinc-300 max-w-2xl">
-                    Double culture alliant la rigueur des sciences de l'ingénieur, la vision stratégique de marque (Master ISEG Lille) et l'exécution créative sur le terrain.
+                    Diplômé du Master Marketing, communication et digital à l'ISEG Lille, alliant vision stratégique de marque, rigueur de méthode et exécution créative sur le terrain.
                   </p>
                 </div>
               </div>
@@ -379,11 +379,11 @@ export default function CvModal({ isOpen, onClose }) {
                 <div className="p-5 sm:p-6 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm space-y-4 hover:border-white/20 transition-all">
                   <div className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-8 items-start">
                     <div className="md:col-span-4 space-y-2">
-                      <span className="inline-flex items-center rounded-full border border-amber-400/20 bg-amber-400/10 px-3 py-1 text-xs font-mono font-medium text-amber-400">
+                      <span className="inline-flex items-center rounded-md border border-white/10 bg-white/[0.04] px-2.5 py-1 text-[11px] font-mono font-medium text-zinc-300">
                         SEPT. 2025 — OCT. 2026
                       </span>
                       <span className="text-xs font-mono text-zinc-400 block">
-                        CDI • Lille / Salons européens
+                        Lille / Salons européens
                       </span>
                       <h3 className="text-sm font-bold text-white pt-1">
                         Hornetsecurity by Proofpoint
@@ -403,19 +403,19 @@ export default function CvModal({ isOpen, onClose }) {
 
                       <ul className="space-y-2 text-xs sm:text-sm text-zinc-300 leading-relaxed">
                         <li className="flex items-start gap-2">
-                          <span className="text-[#FFAD00] font-bold mt-0.5">•</span>
-                          <span><strong className="text-white font-semibold">Stands &amp; Scénographie européenne (FIC 2026) :</strong> Habillage et signalétique du stand de plus de 150 m² au Forum InCyber à Lille Grand Palais, ainsi qu'à it-sa Nuremberg (+4 000 contacts qualifiés).</span>
+                          <span className="w-1.5 h-1.5 rounded-full bg-zinc-500 mt-2 shrink-0" />
+                          <span><strong className="text-white font-semibold">Stands &amp; Scénographie européenne (FIC 2026) :</strong> Habillage et signalétique du stand de plus de 150 m² au Forum InCyber à Lille Grand Palais, ainsi qu'à it-sa Nuremberg (+4 000 contacts qualifiés enregistrés collectivement par les équipes commerciales).</span>
                         </li>
                         <li className="flex items-start gap-2">
-                          <span className="text-[#FFAD00] font-bold mt-0.5">•</span>
+                          <span className="w-1.5 h-1.5 rounded-full bg-zinc-500 mt-2 shrink-0" />
                           <span><strong className="text-white font-semibold">Arche vidéo LED (Motion Design After Effects) :</strong> Création de l'animation d'accueil diffusée sur l'arche monumentale du stand FIC 2025.</span>
                         </li>
                         <li className="flex items-start gap-2">
-                          <span className="text-[#FFAD00] font-bold mt-0.5">•</span>
+                          <span className="w-1.5 h-1.5 rounded-full bg-zinc-500 mt-2 shrink-0" />
                           <span><strong className="text-white font-semibold">Incarnation de Captain Security :</strong> Incarnation physique du héros de marque en plénière et allées des salons.</span>
                         </li>
                         <li className="flex items-start gap-2">
-                          <span className="text-[#FFAD00] font-bold mt-0.5">•</span>
+                          <span className="w-1.5 h-1.5 rounded-full bg-zinc-500 mt-2 shrink-0" />
                           <span><strong className="text-white font-semibold">Sprint autonome 36 h à Hanovre (Helix Nova) :</strong> Conception complète d'un univers cyber-héros 3D en compétition internationale sous forte contrainte de temps.</span>
                         </li>
                       </ul>
@@ -427,7 +427,7 @@ export default function CvModal({ isOpen, onClose }) {
                 <div className="p-5 sm:p-6 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm space-y-4 hover:border-white/20 transition-all">
                   <div className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-8 items-start">
                     <div className="md:col-span-4 space-y-2">
-                      <span className="inline-flex items-center rounded-full border border-amber-400/20 bg-amber-400/10 px-3 py-1 text-xs font-mono font-medium text-amber-400">
+                      <span className="inline-flex items-center rounded-md border border-white/10 bg-white/[0.04] px-2.5 py-1 text-[11px] font-mono font-medium text-zinc-300">
                         DEPUIS 2023
                       </span>
                       <span className="text-xs font-mono text-zinc-400 block">
@@ -447,11 +447,11 @@ export default function CvModal({ isOpen, onClose }) {
                       </h4>
                       <ul className="space-y-2 text-xs sm:text-sm text-zinc-300 leading-relaxed">
                         <li className="flex items-start gap-2">
-                          <span className="text-[#FFAD00] font-bold mt-0.5">•</span>
+                          <span className="w-1.5 h-1.5 rounded-full bg-zinc-500 mt-2 shrink-0" />
                           <span><strong className="text-white font-semibold">Fresh Data (Retail Data) :</strong> Univers visuel complet, campagne Ulule validée à 116 %, captation vidéo de terrain au salon international MEDFEL (Perpignan) et dossiers d'aide à la vente B2B.</span>
                         </li>
                         <li className="flex items-start gap-2">
-                          <span className="text-[#FFAD00] font-bold mt-0.5">•</span>
+                          <span className="w-1.5 h-1.5 rounded-full bg-zinc-500 mt-2 shrink-0" />
                           <span><strong className="text-white font-semibold">Résin'Architecte (BTP haut de gamme) :</strong> Formalisation de la charte de marque, modèles pour réseaux sociaux, fiches techniques avant/après et captation vidéo directe sur chantier.</span>
                         </li>
                       </ul>
@@ -463,7 +463,7 @@ export default function CvModal({ isOpen, onClose }) {
                 <div className="p-5 sm:p-6 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm space-y-4 hover:border-white/20 transition-all">
                   <div className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-8 items-start">
                     <div className="md:col-span-4 space-y-2">
-                      <span className="inline-flex items-center rounded-full border border-amber-400/20 bg-amber-400/10 px-3 py-1 text-xs font-mono font-medium text-amber-400">
+                      <span className="inline-flex items-center rounded-md border border-white/10 bg-white/[0.04] px-2.5 py-1 text-[11px] font-mono font-medium text-zinc-300">
                         STAGE CONVENTIONNÉ
                       </span>
                       <span className="text-xs font-mono text-zinc-400 block">
@@ -578,26 +578,116 @@ export default function CvModal({ isOpen, onClose }) {
                 </span>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                {education.map((item, idx) => (
-                  <div
-                    key={idx}
-                    className="p-5 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm space-y-2 hover:border-[#FFAD00]/40 transition-all"
-                  >
-                    <span className="inline-block px-2.5 py-0.5 rounded-full border border-amber-400/20 bg-amber-400/10 font-mono text-[11px] font-medium text-amber-400">
-                      {item.period}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {/* 1. Master ISEG */}
+                <div className="p-5 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm space-y-3 hover:border-[#FFAD00]/40 transition-all">
+                  <div className="flex items-center justify-between">
+                    <span className="inline-block px-2.5 py-0.5 rounded-md border border-white/10 bg-white/[0.04] font-mono text-[11px] font-medium text-zinc-300">
+                      2023 — 2025
                     </span>
-                    <h3 className="text-sm font-bold text-white leading-snug pt-1">
-                      {item.degree}
-                    </h3>
-                    <p className="text-xs text-zinc-400">
-                      {item.institution}
-                    </p>
-                    <p className="text-xs text-zinc-300 pt-1 leading-relaxed">
-                      {item.field}
-                    </p>
+                    <span className="text-[11px] font-mono text-[#FFAD00] font-semibold">Niveau Master</span>
                   </div>
-                ))}
+                  <div>
+                    <h3 className="text-sm font-bold text-white leading-snug">
+                      Master Marketing, communication et digital
+                    </h3>
+                    <p className="text-xs text-zinc-400 font-medium">ISEG Lille</p>
+                  </div>
+                  <p className="text-xs text-zinc-300 leading-relaxed">
+                    Vision stratégique globale, positionnement concurrentiel, architecture de marque et pilotage de projets de communication digitaux et événementiels.
+                  </p>
+                </div>
+
+                {/* 2. Bachelor ISEG */}
+                <div className="p-5 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm space-y-3 hover:border-[#FFAD00]/40 transition-all">
+                  <div className="flex items-center justify-between">
+                    <span className="inline-block px-2.5 py-0.5 rounded-md border border-white/10 bg-white/[0.04] font-mono text-[11px] font-medium text-zinc-300">
+                      2020 — 2023
+                    </span>
+                    <span className="text-[11px] font-mono text-[#FFAD00] font-semibold">Niveau Bachelor</span>
+                  </div>
+                  <div>
+                    <h3 className="text-sm font-bold text-white leading-snug">
+                      Bachelor / Licence Marketing, communication &amp; digital
+                    </h3>
+                    <p className="text-xs text-zinc-400 font-medium">ISEG Lille</p>
+                  </div>
+                  <p className="text-xs text-zinc-300 leading-relaxed">
+                    Fondations marketing, stratégies de marque, projets digitaux, marketing international et masterclass professionnelles.
+                  </p>
+
+                  {/* Engagements associatifs */}
+                  <div className="pt-2 border-t border-white/10 space-y-1.5">
+                    <span className="text-[10px] font-mono uppercase tracking-wider text-zinc-400 block font-semibold">
+                      Engagements associatifs
+                    </span>
+                    <div className="space-y-1 text-xs text-zinc-300">
+                      <div className="flex items-baseline gap-2">
+                        <span className="w-1.5 h-1.5 rounded-full bg-[#FFAD00] shrink-0" />
+                        <span><strong className="text-white">EPEE</strong> (Promotion ISEG) · Ambassadeur Campus</span>
+                      </div>
+                      <div className="flex items-baseline gap-2">
+                        <span className="w-1.5 h-1.5 rounded-full bg-[#FFAD00] shrink-0" />
+                        <span><strong className="text-white">The View</strong> · Association audiovisuelle de l'école</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Domaines d'études clés */}
+                  <div className="pt-2 border-t border-white/10 space-y-1.5">
+                    <span className="text-[10px] font-mono uppercase tracking-wider text-zinc-400 block font-semibold">
+                      Enseignements clés
+                    </span>
+                    <div className="flex flex-wrap gap-1.5">
+                      {[
+                        'Stratégies de marque & innovations',
+                        'Marketing international',
+                        'Projets digitaux',
+                        'Business English',
+                        'Droit des technologies',
+                        'Masterclass professionnelles'
+                      ].map((course, cIdx) => (
+                        <span key={cIdx} className="px-2 py-0.5 rounded text-[10px] font-mono bg-white/[0.04] border border-white/10 text-zinc-300">
+                          {course}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+
+                {/* 3. Baccalauréat Scientifique */}
+                <div className="p-5 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm space-y-2 hover:border-[#FFAD00]/40 transition-all">
+                  <div className="flex items-center justify-between">
+                    <span className="inline-block px-2.5 py-0.5 rounded-md border border-white/10 bg-white/[0.04] font-mono text-[11px] font-medium text-zinc-300">
+                      2020
+                    </span>
+                    <span className="text-[11px] font-mono text-zinc-400">Baccalauréat</span>
+                  </div>
+                  <h3 className="text-sm font-bold text-white leading-snug">
+                    Baccalauréat Scientifique (Sciences de l'Ingénieur)
+                  </h3>
+                  <p className="text-xs text-zinc-400">Lycée — Filière scientifique</p>
+                  <p className="text-xs text-zinc-300 pt-1 leading-relaxed">
+                    Formation scientifique axée sur la méthode, la modélisation, la logique et la rigueur dans la gestion des contraintes techniques.
+                  </p>
+                </div>
+
+                {/* 4. BAFA */}
+                <div className="p-5 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm space-y-2 hover:border-[#FFAD00]/40 transition-all">
+                  <div className="flex items-center justify-between">
+                    <span className="inline-block px-2.5 py-0.5 rounded-md border border-white/10 bg-white/[0.04] font-mono text-[11px] font-medium text-zinc-300">
+                      2019
+                    </span>
+                    <span className="text-[11px] font-mono text-zinc-400">Brevet</span>
+                  </div>
+                  <h3 className="text-sm font-bold text-white leading-snug">
+                    Brevet d'Aptitude aux Fonctions d'Animateur (BAFA)
+                  </h3>
+                  <p className="text-xs text-zinc-400">Animation &amp; Pédagogie</p>
+                  <p className="text-xs text-zinc-300 pt-1 leading-relaxed">
+                    Sens du collectif, prise de parole en public, écoute active, animation de groupe et pédagogie opérationnelle en situation réelle.
+                  </p>
+                </div>
               </div>
             </section>
 
@@ -608,7 +698,7 @@ export default function CvModal({ isOpen, onClose }) {
              ======================================================== */}
           <footer className="relative px-6 sm:px-10 py-4 bg-zinc-950/80 backdrop-blur-xl border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-3 shrink-0 select-none z-10 print:hidden">
             <span className="text-xs text-zinc-400 font-medium text-center sm:text-left">
-              Disponible immédiatement pour opportunités en CDI (Lille, Métropole ou Hybride)
+              Disponible tout de suite · Lille, Métropole ou Mobilité
             </span>
             <a
               href={`mailto:${identity.links.email}?subject=Opportunité professionnelle — Portfolio ROOM241`}

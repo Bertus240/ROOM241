@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { ArrowRight } from 'lucide-react';
+import { motion } from 'framer-motion';
 import { projectsData } from '../data/projects';
 import ProjectBadgeHeader, { formatNbsp } from '../components/ProjectBadgeHeader';
 
@@ -15,8 +16,8 @@ import ProjectBadgeHeader, { formatNbsp } from '../components/ProjectBadgeHeader
 // Ordre stratégique prescrit des réalisations
 const STRATEGIC_PROJECT_KEYS = [
   'hornetsecurity',
-  'resin-architecte',
   'fresh-data',
+  'resin-architecte',
   'jardimax',
 ];
 
@@ -57,7 +58,7 @@ export default function Projects({ navigate }) {
         
         {/* Halo d'ambiance signature */}
         <div
-          className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[350px] bg-gradient-to-tr from-[#FFAD00]/15 via-transparent to-transparent blur-3xl rounded-full pointer-events-none"
+          className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[350px] bg-gradient-to-tr from-[#FFAD00]/10 via-transparent to-transparent blur-3xl rounded-full pointer-events-none"
           aria-hidden="true"
         />
 
@@ -65,12 +66,11 @@ export default function Projects({ navigate }) {
           
           {/* Titre & Sous-titre sobres */}
           <div className="max-w-3xl space-y-4">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-zinc-100 dark:bg-zinc-800/80 border border-zinc-200/80 dark:border-white/10 text-xs font-semibold text-zinc-800 dark:text-zinc-200 shadow-2xs">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#FFAD00] shadow-[0_0_6px_rgba(255,173,0,0.8)]" />
-              <span className="font-mono text-[11px] uppercase tracking-wider">PORTFOLIO &amp; ÉTUDES DE CAS</span>
-            </div>
+            <span className="text-[11px] font-medium text-zinc-400 uppercase tracking-[0.12em] block">
+              Portfolio &amp; Études de cas
+            </span>
 
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-[#09090B] dark:text-white leading-[1.14]">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-[#09090B] dark:text-white leading-[1.12]">
               Les Projets du Studio
             </h1>
 
@@ -88,9 +88,13 @@ export default function Projects({ navigate }) {
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10">
             {projectsList.map((project, index) => (
-              <article
+              <motion.article
                 key={project.slug}
                 id={project.slug}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '200px' }}
+                transition={{ duration: 0.5, delay: index * 0.08, ease: [0.16, 1, 0.3, 1] }}
                 onClick={handleNav(project.destination || `/realisations/${project.slug}`)}
                 role="button"
                 tabIndex={0}
@@ -108,7 +112,7 @@ export default function Projects({ navigate }) {
                 />
 
                 {/* 2. Overlay photographique progressif depuis le bas (garantit la lisibilité tout en laissant respirer l'image) */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/50 via-45% to-black/15 pointer-events-none" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/65 via-50% to-black/20 pointer-events-none" />
 
                 {/* 3. En-tête de carte hiérarchisé : Niveau 1 (Discipline) & Niveau 2 (Métrique clé) */}
                 <div className="relative z-10 p-4 sm:p-6 lg:p-8 flex items-start justify-between gap-3 pointer-events-none">
@@ -118,11 +122,11 @@ export default function Projects({ navigate }) {
                 {/* 4. Bloc éditorial en bas de la photographie */}
                 <div className="relative z-10 p-5 sm:p-7 lg:p-8 space-y-4 pt-16 pointer-events-none">
                   <div className="space-y-2">
-                    <span className="text-[11px] font-mono uppercase tracking-wider text-zinc-400 font-semibold block">
+                    <span className="text-[11px] uppercase tracking-wider text-zinc-400 font-medium block">
                       {project.projectName || project.client} • {project.id}
                     </span>
 
-                    <h2 className="text-xl sm:text-2xl lg:text-3xl font-extrabold tracking-tight text-white leading-tight group-hover:text-[#FFAD00] transition-colors duration-200">
+                    <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold tracking-tight text-white leading-tight group-hover:text-[#FFAD00] transition-colors duration-200">
                       {project.title}
                     </h2>
 
@@ -149,7 +153,7 @@ export default function Projects({ navigate }) {
                   <div className="pt-4 border-t border-white/15 flex flex-wrap sm:flex-nowrap items-center justify-between gap-2.5 text-xs text-white">
                     {project.secondaryMetric ? (
                       <div className="inline-flex items-center gap-1.5 text-zinc-300 shrink-0">
-                        <span className="font-mono font-bold text-[#FFAD00] whitespace-nowrap">
+                        <span className="font-bold text-[#FFAD00] whitespace-nowrap">
                           {formatNbsp(project.secondaryMetric.value)}
                         </span>
                         <span className="text-[11px] text-zinc-300 font-medium whitespace-nowrap">
@@ -157,16 +161,16 @@ export default function Projects({ navigate }) {
                         </span>
                       </div>
                     ) : (
-                      <span className="text-zinc-400 text-[11px] font-mono shrink-0">{project.category}</span>
+                      <span className="text-zinc-400 text-[11px] font-medium shrink-0">{project.category}</span>
                     )}
 
-                    <span className="inline-flex items-center gap-1.5 font-bold text-white group-hover:text-[#FFAD00] transition-colors whitespace-nowrap ml-auto">
+                    <span className="inline-flex items-center gap-1.5 font-semibold text-white group-hover:text-[#FFAD00] transition-colors whitespace-nowrap ml-auto">
                       <span>Consulter l'étude de cas</span>
                       <ArrowRight className="w-4 h-4 text-[#FFAD00] group-hover:translate-x-1 transition-transform shrink-0" />
                     </span>
                   </div>
                 </div>
-              </article>
+              </motion.article>
             ))}
           </div>
 

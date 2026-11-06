@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import Header from './components/Header';
 import Home from './pages/Home';
 import Projects from './pages/Projects';
@@ -8,6 +9,7 @@ import FooterContact from './components/FooterContact';
 import CvModal from './components/CvModal';
 import AdminDashboard from './components/AdminDashboard';
 import ProjectDetail from './components/ProjectDetail';
+import HornetCaseStudy from './pages/HornetCaseStudy';
 import MentionsLegales from './components/MentionsLegales';
 import PolitiqueConfidentialite from './components/PolitiqueConfidentialite';
 import BackToTop from './components/BackToTop';
@@ -37,6 +39,13 @@ export default function App() {
     if ('scrollRestoration' in window.history) {
       window.history.scrollRestoration = 'manual';
     }
+
+    const handleHashChange = () => {
+      if (window.location.hash === '#cv') {
+        setIsCvModalOpen(true);
+      }
+    };
+    window.addEventListener('hashchange', handleHashChange);
 
     // Restauration du scroll mémorisé au rechargement de page (reload)
     const savedPath = sessionStorage.getItem('room241_last_path');
@@ -173,12 +182,28 @@ export default function App() {
     : (isProjetDetailRoute ? currentPath.replace('/projets/', '') : null);
 
   if (isProjectDetailRoute && projectSlug && projectsData[projectSlug]) {
+    const isHornet = projectSlug === 'hornetsecurity';
     return (
       <div className="bg-[#FFFFFF] dark:bg-[#0B0A09] text-[#09090B] dark:text-[#EDEDED] min-h-screen font-sans selection:bg-[#FFAD00] selection:text-black flex flex-col justify-between transition-colors duration-300">
         <StudioPointer />
         <Header currentPath={currentPath} navigate={navigate} />
-        <main className="flex-grow">
-          <ProjectDetail slug={projectSlug} navigate={navigate} />
+        <main className="flex-grow flex flex-col">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={currentPath}
+              initial={{ opacity: 0, y: 6 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -4 }}
+              transition={{ duration: 0.18, ease: [0.16, 1, 0.3, 1] }}
+              className="flex-grow flex flex-col"
+            >
+              {isHornet ? (
+                <HornetCaseStudy navigate={navigate} />
+              ) : (
+                <ProjectDetail slug={projectSlug} navigate={navigate} />
+              )}
+            </motion.div>
+          </AnimatePresence>
         </main>
         <FooterContact navigate={navigate} />
         <CvModal isOpen={isCvModalOpen} onClose={() => setIsCvModalOpen(false)} />
@@ -195,9 +220,11 @@ export default function App() {
       // 2. Projets (regroupant toutes les études de cas documentées)
       case '/projets':
       case '/realisations':
-      case '/hornetsecurity':
       case '/studio':
         return <Projects navigate={navigate} />;
+
+      case '/hornetsecurity':
+        return <HornetCaseStudy navigate={navigate} />;
 
       // 3. Parcours (profil, expérience, compétences, CV)
       case '/parcours':
@@ -228,7 +255,7 @@ export default function App() {
       // 1. Accueil par défaut
       case '/':
       default:
-        return <Home navigate={navigate} />;
+        return <Home navigate={navigate} onOpenCvModal={() => setIsCvModalOpen(true)} />;
     }
   };
 
@@ -241,9 +268,20 @@ export default function App() {
       {/* 1. Header fixe épuré avec logo ROOM241 et exactement 3 entrées */}
       <Header currentPath={currentPath} navigate={navigate} />
 
-      {/* 2. Contenu principal selon la rubrique active */}
-      <main className="flex-grow">
-        {renderPage()}
+      {/* 2. Contenu principal selon la rubrique active avec transition de page fluide */}
+      <main className="flex-grow flex flex-col">
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={currentPath}
+            initial={{ opacity: 0, y: 6 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -4 }}
+            transition={{ duration: 0.18, ease: [0.16, 1, 0.3, 1] }}
+            className="flex-grow flex flex-col"
+          >
+            {renderPage()}
+          </motion.div>
+        </AnimatePresence>
       </main>
 
       {/* 3. Footer sobre avec coordonnées directes */}

@@ -47,12 +47,12 @@ export default function CaseStudies({ isPreview, isFullPage, navigate }) {
               <span>Portfolio · Réalisations sélectionnées</span>
             </div>
             <h2 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.08] max-w-3xl text-neutral-900 dark:text-white">
-              Des systèmes visuels pensés pour marquer les esprits et convertir.
+              De la vision stratégique à l&apos;impact concret sur le terrain.
             </h2>
           </div>
           <div className="max-w-md lg:text-right">
             <p className="text-sm sm:text-base text-neutral-600 dark:text-neutral-300 font-sans leading-relaxed">
-              Direction artistique globale, activation terrain et performances quantifiables pour entreprises B2B exigeantes.
+              Direction artistique, scénographie grand format et production de contenu : des réalisations conçues avec rigueur et éprouvées sur le terrain.
             </p>
           </div>
         </div>

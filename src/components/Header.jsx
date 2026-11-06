@@ -61,7 +61,7 @@ export default function Header({ currentPath = '/', navigate }) {
 
   // Liens de navigation éditoriale — Exactement 3 entrées principales
   const navLinks = [
-    { label: 'Accueil', path: '/', subtitle: 'Vision créative & présentation 360°' },
+    { label: 'Accueil', path: '/', subtitle: 'Vision créative & réalisations' },
     { label: 'Projets', path: '/projets', subtitle: 'Stands > 150 m², identités de marque & vidéo' },
     { label: 'Parcours', path: '/parcours', subtitle: 'Expériences, compétences & CV' },
   ];

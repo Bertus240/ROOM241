@@ -43,18 +43,24 @@ export const projectsData = {
     metrics: [
       {
         value: "+4 000",
-        label: "Visiteurs accueillis",
-        detail: "Contacts qualifiés et visiteurs accueillis sur le stand au salon FIC"
+        label: "Contacts B2B enregistrés",
+        detail: "Volume total recueilli sur le stand par les forces de vente durant le Forum InCyber",
+        attribution: "Bilan collectif commercial FIC",
+        tag: "Résultat collectif"
       },
       {
         value: "> 150 m²",
-        label: "Stand FIC Lille",
-        detail: "Stand d'exposition d'envergure avec piste e-karting intégrée"
+        label: "Stand d'exposition FIC",
+        detail: "Scénographie d'envergure, arche LED et piste e-karting à Lille Grand Palais",
+        attribution: "Conception visuelle 3D",
+        tag: "Scénographie"
       },
       {
         value: "3 ans",
-        label: "D'accompagnement",
-        detail: "Scénographie, print B2B, formats motion et présence terrain"
+        label: "D'accompagnement global",
+        detail: "Scénographie internationale, print B2B, formats motion et présence terrain continue",
+        attribution: "Alternance puis CDI",
+        tag: "Parcours"
       }
     ],
     bentoCards: [
@@ -155,7 +161,9 @@ export const projectsData = {
       }
     ],
     nextSlug: "fresh-data",
-    nextTitle: "Fresh Data (Retail Data & Financement)"
+    nextTitle: "Fresh Data (Retail Data & Financement)",
+    prevSlug: "jardimax",
+    prevTitle: "Jardimax (Vidéo & Motion Design)"
   },
   "fresh-data": {
     slug: "fresh-data",
@@ -186,30 +194,38 @@ export const projectsData = {
     },
     secondaryMetric: {
       value: "50+",
-      label: "clients pionniers"
+      label: "contributeurs & soutiens"
     },
     metric: "116 %",
     metricLabel: "Campagne Ulule validée avec succès",
     metrics: [
       {
         value: "116 %",
-        label: "Objectif Ulule",
-        detail: "Campagne de crowdfunding validée à 116 %"
+        label: "Objectif Ulule atteint",
+        detail: "Campagne de financement participatif validée à 116 %",
+        attribution: "Crowdfunding Ulule",
+        tag: "Financement"
       },
       {
         value: "50+",
-        label: "Clients pionniers",
-        detail: "Producteurs et coopératives agricoles signés au lancement"
+        label: "Contributeurs & soutiens",
+        detail: "Soutiens et professionnels engagés lors de la levée de fonds",
+        attribution: "Campagne Ulule",
+        tag: "Soutiens"
       },
       {
         value: "1",
-        label: "Salon International",
-        detail: "Dispositif d'interviews et captation vidéo au salon MEDFEL"
+        label: "Salon international",
+        detail: "Dispositif d'interviews et captation vidéo au salon MEDFEL à Perpignan",
+        attribution: "Captation terrain",
+        tag: "Événementiel"
       },
       {
         value: "100%",
-        label: "Autorité de marque",
-        detail: "Crédibilité technique installée auprès des décideurs de la filière"
+        label: "Supports de communication",
+        detail: "Identité visuelle, infographies de pige, page Ulule et captation vidéo",
+        attribution: "Collaboration avec le fondateur",
+        tag: "Livrables visuels"
       }
     ],
     isNda: false,
@@ -236,7 +252,9 @@ export const projectsData = {
       text: "Campagne Ulule validée à 116 % du premier palier. Conception d'outils d'aide à la vente clairs et rigoureux pour structurer la prospection commerciale auprès des décideurs de la filière."
     },
     nextSlug: "resin-architecte",
-    nextTitle: "Résin'Architecte (BTP & Savoir-faire)"
+    nextTitle: "Résin'Architecte (BTP & Savoir-faire)",
+    prevSlug: "hornetsecurity",
+    prevTitle: "Hornetsecurity (Cybersécurité B2B)"
   },
   "resin-architecte": {
     slug: "resin-architecte",
@@ -286,23 +304,31 @@ export const projectsData = {
     metrics: [
       {
         value: "+219 %",
-        label: "Portée organique",
-        detail: "Progression mesurée sur Meta Business sans aucun achat d'espace"
+        label: "Portée organique mesurée",
+        detail: "Progression d'audience sur Meta Business en 30 jours avec 0 € d'achat d'espace",
+        attribution: "Meta Business · 0 € Ads",
+        tag: "Réseaux sociaux"
       },
       {
         value: "648",
-        label: "Visites de profil",
-        detail: "Visites spontanées de prospects locaux générées sur Instagram"
+        label: "Visites de profil Instagram",
+        detail: "Visites de profil enregistrées sur Instagram durant la période test de 30 jours",
+        attribution: "Statistiques Instagram",
+        tag: "Trafic profil"
       },
       {
         value: "52 m²",
-        label: "Chantier pilote",
-        detail: "Rénovation de terrasse en moquette de pierre drainante en 48h"
+        label: "Chantier pilote documenté",
+        detail: "Pose de moquette de pierre drainante filmée sur site en 2 journées de captation",
+        attribution: "Immersion chantier (2 jours)",
+        tag: "Démonstration terrain"
       },
       {
         value: "12 mois",
         label: "Roadmap opérationnelle",
-        detail: "Planification stratégique SEO, GEO et déploiement de supports"
+        detail: "Planification des supports éditoriaux, fiches techniques et visibilité locale",
+        attribution: "Stratégie de marque",
+        tag: "Déploiement"
       }
     ],
     isNda: false,
@@ -362,7 +388,9 @@ export const projectsData = {
       }
     ],
     nextSlug: "jardimax",
-    nextTitle: "Jardimax (Vidéo & Motion Design)"
+    nextTitle: "Jardimax (Vidéo & Motion Design)",
+    prevSlug: "fresh-data",
+    prevTitle: "Fresh Data (Retail Data & Financement)"
   },
   "jardimax": {
     slug: "jardimax",
@@ -382,11 +410,11 @@ export const projectsData = {
     deliverables: "Construction éditoriale, Prise de parole face caméra, Montage vidéo, Motion design estimatif, Déclinaison 16:9 & 9:16",
     year: "2026",
     statusLabel: "VIDÉO & MOTION",
-    tags: ["Production Vidéo", "Motion Design", "Formats TikTok & YouTube", "Showroom & Atelier"],
+    tags: ["Production Vidéo", "Motion Design", "Formats TikTok & YouTube", "Captation extérieure"],
     highlights: [
       "Formats 16:9 (YouTube) & 9:16 (TikTok)",
       "Motion design didactique & pédagogique",
-      "Tournage en showroom & atelier technique"
+      "Captation vidéo extérieure face caméra"
     ],
     metricBadge: {
       value: "1 journée",
@@ -397,24 +425,30 @@ export const projectsData = {
       label: "16:9 & 9:16"
     },
     metric: "1 journée",
-    metricLabel: "de travail pour la conception, le tournage et le montage",
+    metricLabel: "de travail pour la conception, la captation et le montage",
     heroMetric: "1 journée",
     heroMetricLabel: "de travail",
     metrics: [
       {
         value: "1 journée",
-        label: "de travail",
-        detail: "Conception, captation face caméra et double montage en autonomie"
+        label: "Délai de réalisation",
+        detail: "Conception du script, captation extérieure chez Rémi et double montage réalisés en 1 journée",
+        attribution: "Exercice de recrutement",
+        tag: "Délai d'exécution"
       },
       {
         value: "2 formats",
-        label: "Déclinaisons natives",
-        detail: "16:9 paysage (YouTube/Web) et 9:16 vertical (TikTok/Shorts)"
+        label: "Déclinaisons vidéo",
+        detail: "Déclinaison horizontale 16:9 (YouTube) et verticale 9:16 (TikTok/Shorts)",
+        attribution: "Formats de démonstration",
+        tag: "Formats natifs"
       },
       {
         value: "100 %",
-        label: "Maîtrise de la chaîne",
-        detail: "Script, intervention terrain, captation showroom/atelier et animation graphique"
+        label: "Réalisation autonome",
+        detail: "Prise de parole face caméra, captation extérieure réalisée chez Rémi et motion design pédagogique en 5 étapes",
+        attribution: "Cas pratique recrutement",
+        tag: "Démonstration"
       }
     ],
     isNda: false,
@@ -424,8 +458,8 @@ export const projectsData = {
     posterYtb: "/assets/jardimax/poster_ytb.jpg",
     posterTiktok: "/assets/jardimax/poster_tiktok.jpg",
     image: "/assets/jardimax/jardimax_cover.jpg",
-    alt: "Jardimax — Production vidéo, motion design et showroom",
-    description: "Conception et production intégrale d'un dispositif vidéo pour Jardimax (enseigne de la SAS DESMELIE, basée à Bailleul) : construction du message éditorial, intervention face caméra, motion design pédagogique en 5 étapes, déclinaison horizontale YouTube 16:9 et verticale TikTok 9:16.",
+    alt: "Jardimax — Production vidéo, captation extérieure et motion design",
+    description: "Démonstration créative réalisée dans le cadre d'un recrutement pour Jardimax (enseigne de la SAS DESMELIE, basée à Bailleul) : construction du message éditorial, intervention face caméra, motion design pédagogique en 5 étapes, déclinaison horizontale YouTube 16:9 et verticale TikTok 9:16.",
     destination: "/realisations/jardimax",
     link: "/realisations/jardimax",
     cta: "Consulter l'étude de cas ↗",
@@ -435,19 +469,19 @@ export const projectsData = {
     },
     act2: {
       title: "02. Approche Créative & Production",
-      text: "Écriture d'un script direct, prise de parole face caméra pour incarner le propos, tournage in situ dans le showroom et l'atelier technique aux côtés des équipes (notamment Thomas côté conseil et Calvin côté atelier), et création d'une séquence motion design didactique articulée en 5 étapes : accroche, curiosité, argument d'autorité, démonstration didactique de l'intérêt d'entretenir son matériel face au rachat neuf, et introduction de la solution de pièces de rechange."
+      text: "Écriture d'un script direct, prise de parole face caméra pour incarner le propos (captation vidéo extérieure réalisée chez Rémi), et création d'une séquence motion design didactique articulée en 5 étapes : accroche, curiosité, argument d'autorité, démonstration didactique de l'intérêt d'entretenir son matériel face au rachat neuf, et valorisation de l'offre de pièces de rechange et du savoir-faire technique de l'enseigne."
     },
     act3: {
       title: "03. Livrables & Déclinaisons Multi-Plateformes",
       text: "Finalisation de deux formats distincts respectant les usages de diffusion : un film horizontal 16:9 pour YouTube et le web (83s), et une déclinaison verticale 9:16 calibrée pour TikTok, Instagram Reels et YouTube Shorts (60s), optimisée pour la rétention mobile."
     },
-    proofAssetsTitle: "Galerie de production & Visuels de tournage",
-    proofAssetsSubtitle: "Showroom physique, atelier technique et animation graphique",
+    proofAssetsTitle: "Galerie de production & Visuels du projet",
+    proofAssetsSubtitle: "Visuels de marque, animation graphique et e-commerce",
     proofAssets: [
       {
         id: 1,
-        src: "/assets/jardimax/jardimax_motion_430.jpg",
-        thumbUrl: "/assets/jardimax/jardimax_motion_430.jpg",
+        src: "/+430€ economies potentielles.png",
+        thumbUrl: "/+430€ economies potentielles.png",
         title: "Animation motion design pédagogique",
         description: "Animation graphique didactique articulée en 5 étapes pour sensibiliser à la durabilité des équipements.",
         caption: "Animation graphique didactique articulée en 5 étapes pour sensibiliser à la durabilité des équipements."
@@ -465,19 +499,21 @@ export const projectsData = {
         src: "/assets/jardimax/jardimax_atelier.jpg",
         thumbUrl: "/assets/jardimax/jardimax_atelier.jpg",
         title: "Atelier & Savoir-faire technique",
-        description: "Captation in situ de l'équipe et de l'atelier de réparation (avec Calvin) attestant des compétences concrètes d'entretien et de conseil.",
-        caption: "Captation in situ de l'équipe et de l'atelier de réparation (avec Calvin) attestant des compétences concrètes d'entretien et de conseil."
+        description: "Visuel illustrant le savoir-faire de réparation et de conseil technique de l'enseigne SAS DESMELIE.",
+        caption: "Visuel illustrant le savoir-faire de réparation et de conseil technique de l'enseigne SAS DESMELIE."
       },
       {
         id: 4,
         src: "/assets/jardimax/jardimax_ecommerce.jpg",
         thumbUrl: "/assets/jardimax/jardimax_ecommerce.jpg",
-        title: "Navigation e-commerce & Vues éclatées",
+        title: "Navigation e-commerce",
         description: "Mise en avant du parcours numérique de recherche de pièces détachées à partir des schémas techniques sur le site marchand.",
         caption: "Mise en avant du parcours numérique de recherche de pièces détachées à partir des schémas techniques sur le site marchand."
       }
     ],
     nextSlug: "hornetsecurity",
-    nextTitle: "Hornetsecurity (Cybersécurité B2B)"
+    nextTitle: "Hornetsecurity (Cybersécurité B2B)",
+    prevSlug: "resin-architecte",
+    prevTitle: "Résin'Architecte (BTP & Savoir-faire)"
   }
 };

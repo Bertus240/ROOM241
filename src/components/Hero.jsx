@@ -36,11 +36,11 @@ export default function Hero() {
             className="lg:col-span-7 space-y-6"
           >
             <h1 className="text-4xl sm:text-5xl xl:text-6xl font-extrabold tracking-tight leading-[1.08] text-[#09090B]">
-              Rigueur d'ingénieur, vision stratégique &amp; exécution 360°.
+              Rigueur de méthode, vision stratégique &amp; exécution de terrain.
             </h1>
 
             <p className="text-base sm:text-lg text-[#3F3F46] font-normal leading-relaxed max-w-xl">
-              Après un parcours en Sciences de l'Ingénieur, je me suis orienté vers le marketing, la communication et le digital à l'ISEG Lille. Aujourd'hui, je travaille sur des projets qui mêlent identité visuelle, création vidéo et expérience de marque. Du stand événementiel aux contenus réalisés sur le terrain, j'aime donner forme aux idées et les rendre concrètes.
+              Diplômé d'un Master en marketing, communication et digital à l'ISEG Lille, je travaille sur des projets qui mêlent identité visuelle, création vidéo et expérience de marque. Du stand événementiel aux contenus réalisés sur le terrain, j'aime donner forme aux idées et les rendre concrètes.
             </p>
 
             {/* CTAs sobres sans boîtes lourdes */}
@@ -71,7 +71,7 @@ export default function Hero() {
                   3 ans
                 </span>
                 <span className="text-xs text-[#71717A] block mt-0.5">
-                  Lead créatif cybersécurité
+                  Cybersécurité B2B
                 </span>
               </div>
 
@@ -80,7 +80,7 @@ export default function Hero() {
                   +4 000
                 </span>
                 <span className="text-xs text-[#71717A] block mt-0.5">
-                  Leads B2B salons
+                  Contacts collectifs FIC
                 </span>
               </div>
 

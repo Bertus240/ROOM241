@@ -93,10 +93,10 @@ export default function VideoModal({ isOpen, onClose }) {
           <div className="flex items-center gap-3 text-neutral-400 text-center sm:text-left">
             <span className="inline-flex items-center gap-1.5 text-room-amber font-mono font-semibold text-[11px]">
               <Sparkles className="w-3.5 h-3.5" />
-              DOUBLE CULTURE TECH &amp; MARQUE
+              VISION STRATÉGIQUE &amp; CRÉATION
             </span>
             <span className="hidden md:inline text-white/20">•</span>
-            <span className="hidden md:inline text-neutral-300">Rigueur d'ingénieur, créativité B2B &amp; culture du résultat</span>
+            <span className="hidden md:inline text-neutral-300">Rigueur de méthode, créativité B2B &amp; culture du résultat</span>
           </div>
 
           <div className="flex items-center gap-3 w-full sm:w-auto justify-end">

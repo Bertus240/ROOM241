@@ -141,7 +141,7 @@ export default function HornetsecurityBento() {
                   className="w-full h-full object-contain p-2 transition-transform duration-500 group-hover:scale-[1.02]"
                   loading="lazy"
                   onError={(e) => {
-                    e.currentTarget.src = '/assets/hornetsecurity/campaign-sharepoint.jpg';
+                    e.currentTarget.src = '/assets/hornetsecurity/Proofpoint_Sharepoint/1@4x.png';
                   }}
                 />
               </div>
@@ -172,7 +172,7 @@ export default function HornetsecurityBento() {
             <div className="space-y-3">
               <div className="aspect-[4/3] w-full rounded-2xl overflow-hidden border border-zinc-200/80 bg-zinc-950 group">
                 <img
-                  src="/assets/hornetsecurity/booth-xxl.jpg"
+                  src="/assets/hornetsecurity/fic/Stand/IMG20250401075104.jpg"
                   alt="Stand d'exposition Forum InCyber FIC — Hornetsecurity"
                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.02]"
                   loading="lazy"
