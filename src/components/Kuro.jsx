@@ -27,10 +27,10 @@ const BREATH_CYCLE = 4800;
 const SHORTCUTS = [
   {
     id: 'hornetsecurity',
-    title: "Stand FIC Lille (> 150 m²)",
+    title: "Stand grand format (> 150 m²)",
     subtitle: "Scénographie, arche vidéo & espace B2B",
     path: "/realisations/hornetsecurity",
-    badge: "FIC"
+    badge: "Scénographie"
   },
   {
     id: 'resin-architecte',
@@ -73,8 +73,22 @@ export default function Kuro({ currentPath = '/', navigate, onOpenCvModal }) {
   const headRef = useRef(null);
   const capsuleButtonRef = useRef(null);
   const scrollTimeout = useRef(null);
+  const inviteDismissTimerRef = useRef(null);
 
-  // Détection première visite pour invitation discrète non-bloquante
+  const dismissInvite = useCallback(() => {
+    setShowFirstVisitInvite(false);
+    if (inviteDismissTimerRef.current) {
+      clearTimeout(inviteDismissTimerRef.current);
+      inviteDismissTimerRef.current = null;
+    }
+    try {
+      localStorage.setItem('room241_kuro_welcomed', 'true');
+    } catch {
+      // Ignorer si localStorage est inaccessible
+    }
+  }, []);
+
+  // Détection première visite pour invitation discrète avec auto-disparition après 7 secondes
   useEffect(() => {
     if (typeof window === 'undefined') return;
     try {
@@ -82,22 +96,20 @@ export default function Kuro({ currentPath = '/', navigate, onOpenCvModal }) {
       if (!alreadyWelcomed) {
         const timer = setTimeout(() => {
           setShowFirstVisitInvite(true);
+          // Auto-disparition après 7 secondes sans clic
+          inviteDismissTimerRef.current = setTimeout(() => {
+            dismissInvite();
+          }, 7000);
         }, 1800);
-        return () => clearTimeout(timer);
+        return () => {
+          clearTimeout(timer);
+          if (inviteDismissTimerRef.current) clearTimeout(inviteDismissTimerRef.current);
+        };
       }
     } catch {
       // Ignorer si localStorage est inaccessible (ex. navigation privée stricte)
     }
-  }, []);
-
-  const dismissInvite = useCallback(() => {
-    setShowFirstVisitInvite(false);
-    try {
-      localStorage.setItem('room241_kuro_welcomed', 'true');
-    } catch {
-      // Ignorer
-    }
-  }, []);
+  }, [dismissInvite]);
 
   // Détection de prefers-reduced-motion
   useEffect(() => {
@@ -447,9 +459,17 @@ export default function Kuro({ currentPath = '/', navigate, onOpenCvModal }) {
         {showFirstVisitInvite && !isMenuOpen && (
           <motion.div
             initial={{ opacity: 0, y: 8, scale: 0.96 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
+            animate={
+              prefersReducedMotion
+                ? { opacity: 1, y: 0, scale: 1 }
+                : { opacity: 1, scale: 1, y: [0, -5, 0, -2, 0] }
+            }
             exit={{ opacity: 0, y: 6, scale: 0.96 }}
-            transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
+            transition={
+              prefersReducedMotion
+                ? { duration: 0.22, ease: [0.16, 1, 0.3, 1] }
+                : { duration: 0.9, times: [0, 0.3, 0.6, 0.8, 1], ease: 'easeInOut' }
+            }
             className="absolute bottom-[calc(100%+12px)] left-0 w-[270px] sm:w-[290px] rounded-2xl text-white z-40 p-3 flex items-center justify-between gap-2.5 shadow-[0_16px_40px_rgba(0,0,0,0.6),inset_0_1px_1px_rgba(255,255,255,0.2)]"
             style={{
               backgroundColor: 'rgba(22, 21, 20, 0.97)',

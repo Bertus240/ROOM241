@@ -183,7 +183,7 @@ export default function SocialCarouselSquare() {
     <div
       onKeyDown={handleKeyDown}
       tabIndex={0}
-      aria-label="Carrousel éditorial ratio 64:45"
+      aria-label="Carrousel éditorial ratio 4:5"
       className="p-5 sm:p-8 rounded-3xl bg-white dark:bg-zinc-900 border border-zinc-200/80 dark:border-white/10 shadow-[0_4px_25px_rgba(0,0,0,0.03)] space-y-6 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FFAD00]"
     >
       {/* En-tête : Sélecteur de série + Commandes */}
@@ -192,11 +192,11 @@ export default function SocialCarouselSquare() {
           <div className="flex items-center gap-2">
             <span className="w-2 h-2 rounded-full bg-[#FFAD00] shadow-[0_0_8px_rgba(255,173,0,0.6)]" />
             <span className="text-xs font-mono font-bold uppercase tracking-wider text-[#1A1918] dark:text-white">
-              Carrousels éditoriaux (Ratio 64:45 • 1920 × 1350 px)
+              Carrousels de campagnes (Ratio 4:5 · Formats verticaux réseaux sociaux)
             </span>
           </div>
           <p className="text-xs text-zinc-500 dark:text-zinc-400">
-            Proportions réelles respectées sans déformation ni recadrage destructeur · 6 slides narratives
+            Proportions réelles 4:5 respectées sans déformation ni recadrage · 6 slides narratives par série
           </p>
         </div>
 
@@ -285,30 +285,26 @@ export default function SocialCarouselSquare() {
         })}
       </div>
 
-      {/* Composition principale : Slide au ratio 64:45 à gauche, Contenu éditorial à droite */}
+      {/* Composition principale : Slide au ratio 4:5 à gauche, Contenu éditorial à droite */}
       <div
         onTouchStart={handleTouchStart}
         onTouchEnd={handleTouchEnd}
         className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-center"
       >
-        {/* Conteneur strict 64:45 pour la slide */}
-        <div className="lg:col-span-7 flex justify-center">
-          <div className="w-full max-w-[560px] aspect-[64/45] rounded-2xl overflow-hidden border border-zinc-200 dark:border-white/10 bg-zinc-950 flex items-center justify-center shadow-lg relative group">
+        {/* Conteneur strict 4:5 pour la slide (format vertical Instagram / LinkedIn) */}
+        <div className="lg:col-span-6 flex justify-center">
+          <div className="w-full max-w-[440px] aspect-[4/5] rounded-2xl overflow-hidden border border-zinc-200 dark:border-white/10 bg-zinc-950 flex items-center justify-center shadow-lg relative group">
             <img
               src={currentSlide.src}
               alt={currentSlide.title}
-              className="max-h-full max-w-full w-auto h-auto object-contain select-none pointer-events-none"
+              className="w-full h-full object-cover select-none pointer-events-none"
               loading="lazy"
             />
-            {/* Tag discret du format */}
-            <span className="absolute bottom-3 left-3 px-2 py-0.5 rounded-md bg-black/75 backdrop-blur-xs border border-white/20 text-[10px] font-mono text-white/90">
-              Ratio 64:45 · 1920 × 1350 px
-            </span>
           </div>
         </div>
 
         {/* Panneau éditorial détaillé de la slide active */}
-        <div className="lg:col-span-5 space-y-4">
+        <div className="lg:col-span-6 space-y-4">
           <div className="flex flex-wrap items-center gap-2">
             <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-[#FFAD00]/15 text-[#9E6A00] dark:text-[#FFAD00] border border-[#FFAD00]/30 text-xs font-mono font-bold">
               {currentSlide.step}

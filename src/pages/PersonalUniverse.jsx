@@ -1,14 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import {
   Compass,
   Coffee,
-  Activity,
   ArrowRight,
   ExternalLink,
   Camera,
   Maximize2,
-  Sparkles,
   ChevronRight,
   Dumbbell
 } from 'lucide-react';
@@ -16,6 +14,83 @@ import EditorialViewer from '../components/EditorialViewer';
 import { editorialPhotos, marathonPhoto } from '../data/gallery';
 import { applyTheme } from '../lib/theme';
 import { getTrainingStats } from '../lib/trainingStats';
+import { VectorProcessor } from '../components/EditorialVectors';
+
+/**
+ * Composant d'animation progressive des chiffres (Count-up)
+ * - Déclenchement à l'entrée dans le viewport (1 seule fois)
+ * - Progression fluide easeOutCubic
+ * - Respect strict de prefers-reduced-motion
+ */
+function AnimatedSportStat({ target, formatFn, delay = 0 }) {
+  const [currentVal, setCurrentVal] = useState(0);
+  const [hasStarted, setHasStarted] = useState(false);
+  const elRef = useRef(null);
+
+  useEffect(() => {
+    const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
+    if (mq.matches) {
+      setCurrentVal(target);
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setHasStarted(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.2 }
+    );
+
+    if (elRef.current) observer.observe(elRef.current);
+    return () => observer.disconnect();
+  }, [target]);
+
+  useEffect(() => {
+    if (!hasStarted) return;
+    const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
+    if (mq.matches) {
+      setCurrentVal(target);
+      return;
+    }
+
+    let startTime = null;
+    let rafId = null;
+    const duration = 1200;
+
+    const timer = setTimeout(() => {
+      const step = (now) => {
+        if (!startTime) startTime = now;
+        const elapsed = now - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        const ease = 1 - Math.pow(1 - progress, 3);
+        setCurrentVal(ease * target);
+
+        if (progress < 1) {
+          rafId = requestAnimationFrame(step);
+        } else {
+          setCurrentVal(target);
+        }
+      };
+      rafId = requestAnimationFrame(step);
+    }, delay);
+
+    return () => {
+      clearTimeout(timer);
+      if (rafId) cancelAnimationFrame(rafId);
+    };
+  }, [hasStarted, target, delay]);
+
+  const display = formatFn ? formatFn(currentVal) : Math.round(currentVal);
+
+  return (
+    <span ref={elRef} className="tabular-nums">
+      {display}
+    </span>
+  );
+}
 
 /**
  * Univers Personnel — « Hors cadre » (Direction artistique contemplative & habitée)
@@ -161,18 +236,44 @@ export default function PersonalUniverse({ navigate, onSwitchToPro }) {
                   </p>
                 </div>
                 
-                {/* Métriques vérifiées */}
+                {/* Métriques vérifiées et animées au scroll */}
                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-3.5 pt-1">
                   <div className="p-4 rounded-2xl bg-black/50 border border-white/10">
-                    <span className="text-2xl sm:text-3xl font-extrabold font-mono text-white block">2 h 48</span>
+                    <span className="text-2xl sm:text-3xl font-extrabold font-mono text-white block">
+                      <AnimatedSportStat
+                        target={168}
+                        delay={0}
+                        formatFn={(val) => {
+                          const h = Math.floor(val / 60);
+                          const m = Math.round(val % 60);
+                          return `${h} h ${m.toString().padStart(2, '0')}`;
+                        }}
+                      />
+                    </span>
                     <span className="text-[11px] font-mono text-zinc-400 block pt-0.5">Chronomètre officiel</span>
                   </div>
                   <div className="p-4 rounded-2xl bg-black/50 border border-white/10">
-                    <span className="text-2xl sm:text-3xl font-extrabold font-mono text-[#FFAD00] block">3'59</span>
+                    <span className="text-2xl sm:text-3xl font-extrabold font-mono text-[#FFAD00] block">
+                      <AnimatedSportStat
+                        target={239}
+                        delay={140}
+                        formatFn={(val) => {
+                          const m = Math.floor(val / 60);
+                          const s = Math.round(val % 60);
+                          return `${m}'${s.toString().padStart(2, '0')}`;
+                        }}
+                      />
+                    </span>
                     <span className="text-[11px] font-mono text-zinc-400 block pt-0.5">Allure moyenne au km</span>
                   </div>
                   <div className="p-4 rounded-2xl bg-black/50 border border-white/10 col-span-2 sm:col-span-1">
-                    <span className="text-2xl sm:text-3xl font-extrabold font-mono text-white block">42,195</span>
+                    <span className="text-2xl sm:text-3xl font-extrabold font-mono text-white block">
+                      <AnimatedSportStat
+                        target={42.195}
+                        delay={280}
+                        formatFn={(val) => val.toFixed(3).replace('.', ',')}
+                      />
+                    </span>
                     <span className="text-[11px] font-mono text-zinc-400 block pt-0.5">Kilomètres validés</span>
                   </div>
                 </div>
@@ -222,10 +323,14 @@ export default function PersonalUniverse({ navigate, onSwitchToPro }) {
                   </p>
                 </div>
 
-                {/* Compteur Strava authentique */}
+                {/* Compteur Strava authentique animé au scroll */}
                 <div className="p-5 rounded-2xl bg-black/40 border border-white/5 space-y-1">
                   <span className="text-3xl sm:text-4xl font-extrabold font-mono text-[#FFAD00] block tracking-tight">
-                    {trainingStats.currentWeeks || trainingStats.weeks}
+                    <AnimatedSportStat
+                      target={trainingStats.currentWeeks || trainingStats.weeks}
+                      delay={100}
+                      formatFn={(val) => Math.round(val)}
+                    />
                   </span>
                   <span className="text-xs font-mono text-zinc-400 tracking-wider block uppercase">
                     semaines consécutives d'entraînement
@@ -436,7 +541,7 @@ export default function PersonalUniverse({ navigate, onSwitchToPro }) {
               <span>TOUJOURS CHERCHER À COMPRENDRE</span>
             </div>
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight text-white flex items-center gap-3">
-              <Sparkles className="w-8 h-8 text-[#FFAD00]" />
+              <VectorProcessor className="w-8 h-8 text-[#FFAD00]" />
               <span>La curiosité et la créativité</span>
             </h2>
             <div className="space-y-3 text-sm sm:text-base text-zinc-300 leading-relaxed font-normal">
@@ -517,32 +622,58 @@ export default function PersonalUniverse({ navigate, onSwitchToPro }) {
 
       {/* ========================================================
           L'AMBITION DU MILLION AVANT 30 ANS
-          Confidence éditoriale sobre et sincère
+          Composition éditoriale asymétrique noble et épurée
          ======================================================== */}
-      <section className="py-20 sm:py-28 border-b border-white/10 bg-zinc-950/70">
-        <div className="max-w-[1280px] mx-auto px-5 sm:px-8 lg:px-10">
-          <div className="max-w-2xl mx-auto text-center space-y-6">
+      <section className="relative py-24 sm:py-32 border-b border-white/10 overflow-hidden bg-gradient-to-b from-transparent via-white/[0.015] to-transparent">
+        {/* Glow ambré feutré */}
+        <div
+          className="absolute -top-24 left-1/3 w-[500px] h-[300px] bg-[#FFAD00]/[0.06] blur-[120px] rounded-full pointer-events-none"
+          aria-hidden="true"
+        />
+
+        <div className="max-w-[1280px] mx-auto px-5 sm:px-8 lg:px-10 relative z-10">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
             
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-[11px] font-mono text-[#FFAD00] tracking-widest uppercase">
-              <span>Une ambition personnelle</span>
+            {/* Colonne Gauche (5 cols) : Le chiffre monumental, sobre et précis */}
+            <div className="lg:col-span-5 space-y-4 lg:border-r lg:border-white/10 lg:pr-10">
+              <div className="flex items-center gap-2">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#FFAD00] shadow-[0_0_8px_rgba(255,173,0,0.8)]" />
+                <span className="text-xs font-mono uppercase tracking-widest text-[#FFAD00] font-semibold">
+                  Cap &amp; Vision personnelle
+                </span>
+              </div>
+
+              <div className="space-y-1 pt-1">
+                <span className="text-5xl sm:text-6xl xl:text-7xl font-extrabold font-mono text-white tracking-tighter block leading-none">
+                  1 000 000 €
+                </span>
+                <span className="text-base sm:text-lg font-mono text-zinc-400 block pt-1.5 font-medium">
+                  Avant 30 ans.
+                </span>
+              </div>
+
+              <div className="pt-3">
+                <span className="text-[11px] font-mono text-zinc-400 uppercase tracking-wider block">
+                  Discipline · Ambition · Indépendance
+                </span>
+              </div>
             </div>
 
-            <div className="space-y-2">
-              <span className="text-5xl sm:text-6xl md:text-7xl font-extrabold font-mono text-white tracking-tight block">
-                1 000 000 €
-              </span>
-              <span className="text-lg sm:text-xl font-bold text-zinc-400 block">
-                Avant 30 ans.
-              </span>
-            </div>
+            {/* Colonne Droite (7 cols) : La confidence éditoriale & l'intention */}
+            <div className="lg:col-span-7 space-y-5 lg:pl-4">
+              <div className="relative pl-6 sm:pl-8 border-l border-[#FFAD00]/40 space-y-4">
+                <p className="text-base sm:text-lg text-zinc-200 leading-relaxed font-normal">
+                  « C'est un objectif que je mentionne souvent. Pas pour impressionner, ni pour afficher un chiffre, mais parce que j'ai besoin d'avoir quelque chose de grand à poursuivre. »
+                </p>
+                <p className="text-sm sm:text-base text-zinc-400 leading-relaxed font-normal">
+                  Peut-être que j'y arriverai, peut-être pas. Ce qui compte surtout, c'est la direction que cet objectif me donne et tout ce qu'il me pousse à entreprendre en chemin : la discipline quotidienne, l'exigence dans chaque création et le refus de la tiédeur.
+                </p>
+              </div>
 
-            <div className="space-y-3 text-xs sm:text-sm text-zinc-300 leading-relaxed text-left sm:text-center pt-2">
-              <p>
-                C'est un objectif que je mentionne souvent. Pas pour impressionner, ni pour afficher un chiffre, mais parce que j'ai besoin d'avoir quelque chose de grand à poursuivre.
-              </p>
-              <p className="text-zinc-400">
-                Peut-être que j'y arriverai, peut-être pas. Ce qui compte surtout, c'est la direction que cet objectif me donne et tout ce qu'il me pousse à entreprendre en chemin.
-              </p>
+              <div className="pt-2 flex items-center gap-4 text-xs font-mono text-zinc-400">
+                <span className="inline-block w-8 h-[1px] bg-white/20" />
+                <span>Le résultat comme repère, le chemin comme méthode</span>
+              </div>
             </div>
 
           </div>

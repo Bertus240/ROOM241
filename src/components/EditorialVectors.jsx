@@ -158,3 +158,23 @@ export function VectorSocialMedia({ className = "w-6 h-6", color = "#C5A880", ac
   );
 }
 
+// 11. PROCESSEUR / MICROCHIP (Curiosité technique, architecture interne & déconstruction)
+export function VectorProcessor({ className = "w-6 h-6", color = "#C5A880", accent = "#FFAD00" }) {
+  return (
+    <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" className={className} aria-hidden="true">
+      {/* Boîtier principal du microprocesseur */}
+      <rect x="7" y="7" width="18" height="18" rx="2.5" stroke="currentColor" strokeWidth="1.5" />
+      {/* Cœur de silicium central découpé */}
+      <rect x="12" y="12" width="8" height="8" rx="1.5" stroke={color} strokeWidth="1.25" />
+      <circle cx="16" cy="16" r="1.5" fill={accent} />
+      {/* Repère d'orientation pin 1 */}
+      <circle cx="9.5" cy="9.5" r="0.75" fill={color} />
+      {/* Broches de connexion (Pins) sur les 4 faces */}
+      <path d="M11 3V7M16 3V7M21 3V7" stroke={color} strokeWidth="1.25" strokeLinecap="round" />
+      <path d="M11 25V29M16 25V29M21 25V29" stroke={color} strokeWidth="1.25" strokeLinecap="round" />
+      <path d="M3 11H7M3 16H7M3 21H7" stroke={color} strokeWidth="1.25" strokeLinecap="round" />
+      <path d="M25 11H29M25 16H29M25 21H29" stroke={color} strokeWidth="1.25" strokeLinecap="round" />
+    </svg>
+  );
+}
+

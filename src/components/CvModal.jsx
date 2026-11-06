@@ -3,15 +3,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 import {
   X,
   Printer,
-  Mail,
-  Check,
   ArrowUpRight,
-  MapPin,
-  Linkedin,
   ArrowRight,
-  Sparkles,
-  Copy,
-  Phone,
 } from 'lucide-react';
 import { profileData } from '../data/profile';
 
@@ -32,8 +25,6 @@ import { profileData } from '../data/profile';
  */
 
 export default function CvModal({ isOpen, onClose }) {
-  const [copiedEmail, setCopiedEmail] = useState(false);
-  const [copiedPhone, setCopiedPhone] = useState(false);
   const [activeTab, setActiveTab] = useState('experiences');
   const scrollContainerRef = useRef(null);
   const isManualScrollRef = useRef(false);
@@ -115,18 +106,6 @@ export default function CvModal({ isOpen, onClose }) {
   if (!isOpen) return null;
 
   const { identity, skills } = profileData;
-
-  const handleCopyEmail = () => {
-    navigator.clipboard.writeText(identity.links.email);
-    setCopiedEmail(true);
-    setTimeout(() => setCopiedEmail(false), 2200);
-  };
-
-  const handleCopyPhone = () => {
-    navigator.clipboard.writeText(identity.links.phone);
-    setCopiedPhone(true);
-    setTimeout(() => setCopiedPhone(false), 2200);
-  };
 
   const handlePrint = () => {
     window.print();
@@ -268,8 +247,8 @@ export default function CvModal({ isOpen, onClose }) {
             className="p-6 sm:p-10 lg:p-12 space-y-10 overflow-y-auto flex-grow relative z-10 custom-scrollbar print:p-0 print:overflow-visible"
           >
             
-            {/* 1. En-tête Profil : Identité, Titre & Coordonnées */}
-            <header className="space-y-6 pb-8 border-b border-white/10">
+            {/* 1. En-tête Profil : Identité, Introduction & Coordonnées sur une seule ligne desktop */}
+            <header className="space-y-4 pb-8 border-b border-white/10">
               <div className="flex flex-col sm:flex-row sm:items-center gap-6">
                 
                 {/* Portrait Rémi Brocart */}
@@ -282,20 +261,11 @@ export default function CvModal({ isOpen, onClose }) {
                   />
                 </div>
 
-                {/* Nom, Titre & Paragraphe de présentation */}
+                {/* Hiérarchie stricte : 1. Nom, 2. Introduction */}
                 <div className="space-y-2 flex-grow">
-                  <div className="flex flex-wrap items-center gap-2.5">
-                    <h1 id="cv-modal-name" className="text-2xl sm:text-3xl font-bold tracking-tight text-white leading-tight">
-                      Rémi Brocart
-                    </h1>
-                    <span className="text-xs font-medium px-2.5 py-0.5 rounded-full bg-white/5 border border-white/10 text-zinc-300">
-                      Studio ROOM241
-                    </span>
-                  </div>
-
-                  <p className="font-medium text-zinc-200">
-                    Graphic Designer &amp; Direction artistique
-                  </p>
+                  <h1 id="cv-modal-name" className="text-2xl sm:text-3xl font-bold tracking-tight text-white leading-tight">
+                    Rémi Brocart
+                  </h1>
 
                   <p className="text-sm leading-relaxed text-zinc-300 max-w-2xl">
                     Diplômé du Master Marketing, communication et digital à l'ISEG Lille, alliant vision stratégique de marque, rigueur de méthode et exécution créative sur le terrain.
@@ -303,59 +273,35 @@ export default function CvModal({ isOpen, onClose }) {
                 </div>
               </div>
 
-              {/* Badges de Contact Harmonieux */}
-              <div className="pt-2 flex flex-wrap items-center gap-2.5">
-                
-                {/* Email */}
-                <div className="inline-flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-xs text-zinc-200 backdrop-blur-sm transition-colors duration-200 hover:bg-white/10">
-                  <Mail className="w-3.5 h-3.5 text-[#FFAD00] shrink-0" />
-                  <a href={`mailto:${identity.links.email}`} className="hover:text-white transition-colors">
-                    {identity.links.email}
-                  </a>
-                  <button
-                    type="button"
-                    onClick={handleCopyEmail}
-                    className="ml-1 text-zinc-400 hover:text-white cursor-pointer transition-colors"
-                    title="Copier l'email"
-                  >
-                    {copiedEmail ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
-                  </button>
-                </div>
-
-                {/* Téléphone */}
-                <div className="inline-flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-xs text-zinc-200 backdrop-blur-sm transition-colors duration-200 hover:bg-white/10">
-                  <Phone className="w-3.5 h-3.5 text-[#FFAD00] shrink-0" />
-                  <a href={`tel:${identity.links.phone}`} className="hover:text-white transition-colors">
-                    {identity.links.phoneFormatted}
-                  </a>
-                  <button
-                    type="button"
-                    onClick={handleCopyPhone}
-                    className="ml-1 text-zinc-400 hover:text-white cursor-pointer transition-colors"
-                    title="Copier le numéro"
-                  >
-                    {copiedPhone ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
-                  </button>
-                </div>
-
-                {/* Localisation */}
-                <div className="inline-flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-xs text-zinc-200 backdrop-blur-sm">
-                  <MapPin className="w-3.5 h-3.5 text-zinc-400 shrink-0" />
-                  <span>Métropole de Lille (Véhiculé)</span>
-                </div>
-
-                {/* LinkedIn */}
+              {/* 3. Coordonnées — Obligatoirement sur une seule ligne à 1440 px et 1024 px, sans SVG décoratifs */}
+              <div className="pt-2 border-t border-white/5 flex flex-wrap md:flex-nowrap items-center text-xs text-zinc-300 gap-y-2 gap-x-2.5 sm:gap-x-3">
                 <a
-                  href={identity.links.linkedin}
+                  href="mailto:brocart.remi02@gmail.com"
+                  className="hover:text-white transition-colors underline-offset-2 hover:underline whitespace-nowrap"
+                >
+                  brocart.remi02@gmail.com
+                </a>
+                <span className="text-zinc-600 hidden md:inline select-none" aria-hidden="true">|</span>
+                <a
+                  href="tel:0767123858"
+                  className="hover:text-white transition-colors underline-offset-2 hover:underline whitespace-nowrap"
+                >
+                  07 67 12 38 58
+                </a>
+                <span className="text-zinc-600 hidden md:inline select-none" aria-hidden="true">|</span>
+                <span className="text-zinc-300 whitespace-nowrap">
+                  Métropole de Lille (Véhiculé)
+                </span>
+                <span className="text-zinc-600 hidden md:inline select-none" aria-hidden="true">|</span>
+                <a
+                  href="https://www.linkedin.com/in/remibrocart/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-xs text-zinc-200 backdrop-blur-sm transition-colors duration-200 hover:bg-white/10"
+                  className="hover:text-white transition-colors underline-offset-2 hover:underline whitespace-nowrap inline-flex items-center gap-1"
                 >
-                  <Linkedin className="w-3.5 h-3.5 text-sky-400 shrink-0" />
-                  <span>{identity.links.linkedinDisplay}</span>
+                  <span>linkedin.com/in/remibrocart</span>
                   <ArrowUpRight className="w-3 h-3 text-zinc-400" />
                 </a>
-
               </div>
             </header>
 
@@ -537,34 +483,23 @@ export default function CvModal({ isOpen, onClose }) {
                   </ul>
                 </div>
 
-                {/* Colonne 3 : Outils IA & Prototypage */}
+                {/* Colonne 3 : IA & EXPÉRIMENTATION */}
                 <div className="p-5 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm space-y-3">
-                  <h3 className="font-mono text-xs font-bold uppercase tracking-wider text-white flex items-center gap-1.5">
-                    <Sparkles className="w-3.5 h-3.5 text-[#FFAD00]" />
-                    <span>Outils IA &amp; Prototypage</span>
+                  <h3 className="font-mono text-xs font-bold uppercase tracking-wider text-white">
+                    IA &amp; EXPÉRIMENTATION
                   </h3>
-                  <div className="flex flex-wrap gap-1.5">
-                    {skills.aiTools?.map((s, idx) => {
-                      const name = typeof s === 'object' && s !== null ? s.name : String(s);
-                      return (
-                        <span
-                          key={idx}
-                          className="px-2.5 py-1 rounded-lg bg-white/10 border border-white/10 text-xs font-medium text-zinc-200"
-                        >
-                          {name}
-                        </span>
-                      );
-                    })}
+                  <div className="text-xs font-medium text-zinc-200 leading-snug">
+                    <span>ChatGPT (OpenAI) · Claude (Anthropic) · Gemini (Google)</span>
                   </div>
                   <p className="text-[11px] text-zinc-400 leading-relaxed pt-1">
-                    Recherche documentaire, structuration de briefs, rédaction et veille créative.
+                    Mobilisation des outils d'intelligence artificielle pour explorer des pistes, structurer des idées, approfondir les recherches et accélérer la conception de briefs, de contenus et de prototypes.
                   </p>
                 </div>
 
               </div>
             </section>
 
-            {/* 4. Formation Académique (SANS AUCUNE MENTION DE BAC S « BIEN ») */}
+            {/* 4. Formation Académique (Master, Bachelor, Formations complémentaires, MUN, Baccalauréat) */}
             <section id="cv-section-education" className="space-y-6 scroll-mt-6">
               <div className="flex items-center justify-between pb-2 border-b border-white/10">
                 <div className="flex items-center gap-2">
@@ -578,116 +513,266 @@ export default function CvModal({ isOpen, onClose }) {
                 </span>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {/* 1. Master ISEG */}
-                <div className="p-5 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm space-y-3 hover:border-[#FFAD00]/40 transition-all">
-                  <div className="flex items-center justify-between">
-                    <span className="inline-block px-2.5 py-0.5 rounded-md border border-white/10 bg-white/[0.04] font-mono text-[11px] font-medium text-zinc-300">
-                      2023 — 2025
+              <div className="space-y-4">
+                
+                {/* 1. MASTER ISEG LILLE (La partie la plus développée) */}
+                <div className="p-6 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm space-y-5 hover:border-[#FFAD00]/40 transition-all">
+                  <div className="flex flex-wrap items-center justify-between gap-2 border-b border-white/10 pb-3">
+                    <div>
+                      <span className="inline-block px-2.5 py-0.5 rounded-md border border-white/10 bg-white/[0.04] font-mono text-[11px] font-medium text-zinc-300">
+                        2023 — 2025
+                      </span>
+                      <h3 className="text-base sm:text-lg font-bold text-white pt-1">
+                        Master Marketing, communication et digital — ISEG Lille
+                      </h3>
+                    </div>
+                    <span className="text-xs font-mono text-[#FFAD00] font-semibold px-2.5 py-1 rounded-full bg-[#FFAD00]/10 border border-[#FFAD00]/20">
+                      Diplôme Master validé
                     </span>
-                    <span className="text-[11px] font-mono text-[#FFAD00] font-semibold">Niveau Master</span>
                   </div>
-                  <div>
-                    <h3 className="text-sm font-bold text-white leading-snug">
-                      Master Marketing, communication et digital
-                    </h3>
-                    <p className="text-xs text-zinc-400 font-medium">ISEG Lille</p>
-                  </div>
-                  <p className="text-xs text-zinc-300 leading-relaxed">
-                    Vision stratégique globale, positionnement concurrentiel, architecture de marque et pilotage de projets de communication digitaux et événementiels.
+
+                  <p className="text-xs sm:text-sm text-zinc-300 leading-relaxed">
+                    Formation approfondie en stratégie de marque, management marketing, développement commercial et transformation des organisations.
                   </p>
+
+                  {/* Les 3 axes d'enseignements du Master */}
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-1">
+                    
+                    {/* Axe 1 */}
+                    <div className="p-4 rounded-xl bg-black/30 border border-white/5 space-y-2">
+                      <h4 className="text-xs font-mono font-bold uppercase tracking-wider text-zinc-200">
+                        Stratégie de marque &amp; développement
+                      </h4>
+                      <ul className="space-y-1 text-xs text-zinc-400 leading-relaxed">
+                        <li>• Brand management et identité visuelle</li>
+                        <li>• Product management et pilotage de l'offre</li>
+                        <li>• Merchandising</li>
+                        <li>• Stratégie de fidélisation</li>
+                        <li>• Marketing B2B</li>
+                        <li>• Marketing collaboratif</li>
+                        <li>• Business plan et fondamentaux de la création d'entreprise</li>
+                      </ul>
+                    </div>
+
+                    {/* Axe 2 */}
+                    <div className="p-4 rounded-xl bg-black/30 border border-white/5 space-y-2">
+                      <h4 className="text-xs font-mono font-bold uppercase tracking-wider text-zinc-200">
+                        Stratégie &amp; transformation
+                      </h4>
+                      <ul className="space-y-1 text-xs text-zinc-400 leading-relaxed">
+                        <li>• Prospective</li>
+                        <li>• RSE</li>
+                        <li>• IA et développement durable</li>
+                        <li>• Neuromarketing</li>
+                        <li>• Communication de crise</li>
+                        <li>• Écosystèmes et analyse systémique</li>
+                      </ul>
+                    </div>
+
+                    {/* Axe 3 */}
+                    <div className="p-4 rounded-xl bg-black/30 border border-white/5 space-y-2">
+                      <h4 className="text-xs font-mono font-bold uppercase tracking-wider text-zinc-200">
+                        Management &amp; analyse
+                      </h4>
+                      <ul className="space-y-1 text-xs text-zinc-400 leading-relaxed">
+                        <li>• Data science</li>
+                        <li>• Gestion de projet</li>
+                        <li>• Méthodes agiles</li>
+                        <li>• Efficacité au travail</li>
+                        <li>• Qualité de vie au travail</li>
+                      </ul>
+                    </div>
+
+                  </div>
+
+                  {/* Compétences associées au Master */}
+                  <div className="pt-2 border-t border-white/10 flex flex-wrap items-center gap-1.5 text-xs">
+                    <span className="text-[11px] font-mono text-zinc-400 mr-1">Compétences :</span>
+                    {[
+                      'stratégie marketing',
+                      'brand management',
+                      'product management',
+                      'marketing B2B',
+                      'merchandising',
+                      'gestion de projet',
+                      'méthodes agiles',
+                      'analyse stratégique'
+                    ].map((comp, idx) => (
+                      <span key={idx} className="px-2 py-0.5 rounded text-[11px] bg-white/[0.04] border border-white/10 text-zinc-300">
+                        {comp}
+                      </span>
+                    ))}
+                  </div>
                 </div>
 
-                {/* 2. Bachelor ISEG */}
-                <div className="p-5 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm space-y-3 hover:border-[#FFAD00]/40 transition-all">
-                  <div className="flex items-center justify-between">
-                    <span className="inline-block px-2.5 py-0.5 rounded-md border border-white/10 bg-white/[0.04] font-mono text-[11px] font-medium text-zinc-300">
-                      2020 — 2023
+                {/* 2. BACHELOR / LICENCE ISEG LILLE */}
+                <div className="p-6 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm space-y-4 hover:border-[#FFAD00]/40 transition-all">
+                  <div className="flex flex-wrap items-center justify-between gap-2 border-b border-white/10 pb-3">
+                    <div>
+                      <span className="inline-block px-2.5 py-0.5 rounded-md border border-white/10 bg-white/[0.04] font-mono text-[11px] font-medium text-zinc-300">
+                        2020 — 2023
+                      </span>
+                      <h3 className="text-base sm:text-lg font-bold text-white pt-1">
+                        Licence Marketing, communication et digital — ISEG Lille
+                      </h3>
+                    </div>
+                    <span className="text-xs font-mono text-zinc-400">
+                      Niveau Bachelor / Licence
                     </span>
-                    <span className="text-[11px] font-mono text-[#FFAD00] font-semibold">Niveau Bachelor</span>
                   </div>
-                  <div>
-                    <h3 className="text-sm font-bold text-white leading-snug">
-                      Bachelor / Licence Marketing, communication &amp; digital
-                    </h3>
-                    <p className="text-xs text-zinc-400 font-medium">ISEG Lille</p>
-                  </div>
-                  <p className="text-xs text-zinc-300 leading-relaxed">
-                    Fondations marketing, stratégies de marque, projets digitaux, marketing international et masterclass professionnelles.
+
+                  <p className="text-xs sm:text-sm text-zinc-300 leading-relaxed">
+                    Formation pluridisciplinaire en marketing, communication, stratégie de marque et environnement numérique, avec une ouverture internationale et une dimension projet.
                   </p>
 
-                  {/* Engagements associatifs */}
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-1">
+                    <div className="p-3.5 rounded-xl bg-black/30 border border-white/5 space-y-1.5">
+                      <h4 className="text-xs font-mono font-bold uppercase tracking-wider text-zinc-300">
+                        Marketing &amp; communication
+                      </h4>
+                      <ul className="space-y-1 text-xs text-zinc-400">
+                        <li>• Stratégies de marque, de communication et d'innovation</li>
+                        <li>• Plans marketing</li>
+                        <li>• Marketing international et sectoriel</li>
+                        <li>• Tendances et nouveaux usages</li>
+                      </ul>
+                    </div>
+
+                    <div className="p-3.5 rounded-xl bg-black/30 border border-white/5 space-y-1.5">
+                      <h4 className="text-xs font-mono font-bold uppercase tracking-wider text-zinc-300">
+                        Digital
+                      </h4>
+                      <ul className="space-y-1 text-xs text-zinc-400">
+                        <li>• Outils et projets digitaux</li>
+                        <li>• Droit des technologies numériques</li>
+                        <li>• Géopolitique</li>
+                      </ul>
+                    </div>
+
+                    <div className="p-3.5 rounded-xl bg-black/30 border border-white/5 space-y-1.5">
+                      <h4 className="text-xs font-mono font-bold uppercase tracking-wider text-zinc-300">
+                        International &amp; expression
+                      </h4>
+                      <ul className="space-y-1 text-xs text-zinc-400">
+                        <li>• Business English</li>
+                        <li>• Débats en anglais</li>
+                        <li>• Masterclasses professionnelles</li>
+                        <li>• Stage d'immersion</li>
+                      </ul>
+                    </div>
+                  </div>
+
+                  {/* Associations */}
                   <div className="pt-2 border-t border-white/10 space-y-1.5">
-                    <span className="text-[10px] font-mono uppercase tracking-wider text-zinc-400 block font-semibold">
-                      Engagements associatifs
+                    <span className="text-[11px] font-mono uppercase tracking-wider text-zinc-400 block font-semibold">
+                      Associations :
                     </span>
-                    <div className="space-y-1 text-xs text-zinc-300">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-zinc-300">
                       <div className="flex items-baseline gap-2">
                         <span className="w-1.5 h-1.5 rounded-full bg-[#FFAD00] shrink-0" />
-                        <span><strong className="text-white">EPEE</strong> (Promotion ISEG) · Ambassadeur Campus</span>
+                        <span><strong className="text-white">EPEE — Campus Ambassador :</strong> promotion et représentation de l'ISEG Lille.</span>
                       </div>
                       <div className="flex items-baseline gap-2">
                         <span className="w-1.5 h-1.5 rounded-full bg-[#FFAD00] shrink-0" />
-                        <span><strong className="text-white">The View</strong> · Association audiovisuelle de l'école</span>
+                        <span><strong className="text-white">The View — Association audiovisuelle :</strong> engagement autour de la création et de la production audiovisuelle.</span>
                       </div>
                     </div>
                   </div>
 
-                  {/* Domaines d'études clés */}
-                  <div className="pt-2 border-t border-white/10 space-y-1.5">
-                    <span className="text-[10px] font-mono uppercase tracking-wider text-zinc-400 block font-semibold">
-                      Enseignements clés
-                    </span>
-                    <div className="flex flex-wrap gap-1.5">
-                      {[
-                        'Stratégies de marque & innovations',
-                        'Marketing international',
-                        'Projets digitaux',
-                        'Business English',
-                        'Droit des technologies',
-                        'Masterclass professionnelles'
-                      ].map((course, cIdx) => (
-                        <span key={cIdx} className="px-2 py-0.5 rounded text-[10px] font-mono bg-white/[0.04] border border-white/10 text-zinc-300">
-                          {course}
-                        </span>
-                      ))}
+                  {/* Compétences Bachelor */}
+                  <div className="pt-2 border-t border-white/10 flex flex-wrap items-center gap-1.5 text-xs">
+                    <span className="text-[11px] font-mono text-zinc-400 mr-1">Compétences :</span>
+                    {[
+                      'marketing digital',
+                      'communication',
+                      'stratégie de marque',
+                      'marketing international',
+                      'outils numériques'
+                    ].map((comp, idx) => (
+                      <span key={idx} className="px-2 py-0.5 rounded text-[11px] bg-white/[0.04] border border-white/10 text-zinc-300">
+                        {comp}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Grille 3 colonnes pour 3. Formations complémentaires, 4. MUN, 5. Baccalauréat */}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  
+                  {/* 3. Formations complémentaires */}
+                  <div className="p-5 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm space-y-3">
+                    <div className="flex items-center justify-between">
+                      <span className="inline-block px-2 py-0.5 rounded text-[10px] font-mono bg-white/[0.04] border border-white/10 text-zinc-300">
+                        2022
+                      </span>
+                      <span className="text-[10px] font-mono text-zinc-400">Complémentaire</span>
                     </div>
+                    <h3 className="text-sm font-bold text-white leading-snug">
+                      Formations complémentaires
+                    </h3>
+                    <ul className="space-y-2 text-xs text-zinc-300 pt-1">
+                      <li>
+                        <strong className="text-white block font-semibold">PSC1 — Croix-Rouge Compétence</strong>
+                        <span className="text-zinc-400 text-[11px]">Octobre 2022 · Certificat obtenu</span>
+                      </li>
+                      <li>
+                        <strong className="text-white block font-semibold">QVT &amp; management de l'efficacité</strong>
+                        <span className="text-zinc-400 text-[11px]">IONISx / ISEG PPIX · Mars 2022</span>
+                      </li>
+                      <li>
+                        <strong className="text-white block font-semibold">Comprendre l'économie collaborative</strong>
+                        <span className="text-zinc-400 text-[11px]">IONISx / ISEG PPIX · Mars 2022</span>
+                      </li>
+                    </ul>
                   </div>
+
+                  {/* 4. Expérience académique internationale (MUN) */}
+                  <div className="p-5 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm space-y-3">
+                    <div className="flex items-center justify-between">
+                      <span className="inline-block px-2 py-0.5 rounded text-[10px] font-mono bg-white/[0.04] border border-white/10 text-zinc-300">
+                        Mars 2019
+                      </span>
+                      <span className="text-[10px] font-mono text-[#FFAD00]">International</span>
+                    </div>
+                    <div>
+                      <h3 className="text-sm font-bold text-white leading-snug">
+                        Model United Nations des Lycéens
+                      </h3>
+                      <p className="text-[11px] text-zinc-400">EDHEC Business School</p>
+                    </div>
+                    <ul className="space-y-1 text-xs text-zinc-300 pt-1">
+                      <li>• Simulation d'une assemblée des Nations unies (2 jours)</li>
+                      <li>• Immersion et échanges en anglais</li>
+                      <li>• Représentation de la Nouvelle-Zélande</li>
+                      <li>• Négociations, débats géopolitiques et diplomatiques</li>
+                      <li>• Rédaction d'un position paper</li>
+                    </ul>
+                  </div>
+
+                  {/* 5. Formation initiale (Baccalauréat scientifique) */}
+                  <div className="p-5 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm space-y-3">
+                    <div className="flex items-center justify-between">
+                      <span className="inline-block px-2 py-0.5 rounded text-[10px] font-mono bg-white/[0.04] border border-white/10 text-zinc-300">
+                        2017 — 2020
+                      </span>
+                      <span className="text-[10px] font-mono text-zinc-400">Baccalauréat</span>
+                    </div>
+                    <div>
+                      <h3 className="text-sm font-bold text-white leading-snug">
+                        Baccalauréat scientifique (SI)
+                      </h3>
+                      <p className="text-[11px] text-zinc-400">Lycée Ozanam Lille (OEC)</p>
+                    </div>
+                    <ul className="space-y-1 text-xs text-zinc-300 pt-1">
+                      <li>• Spécialité Sciences de l'Ingénieur</li>
+                      <li>• Participation au MUN</li>
+                      <li>• Association sportive : musculation, badminton, escalade</li>
+                      <li>• Cours préparatoires au BIA</li>
+                    </ul>
+                  </div>
+
                 </div>
 
-                {/* 3. Baccalauréat Scientifique */}
-                <div className="p-5 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm space-y-2 hover:border-[#FFAD00]/40 transition-all">
-                  <div className="flex items-center justify-between">
-                    <span className="inline-block px-2.5 py-0.5 rounded-md border border-white/10 bg-white/[0.04] font-mono text-[11px] font-medium text-zinc-300">
-                      2020
-                    </span>
-                    <span className="text-[11px] font-mono text-zinc-400">Baccalauréat</span>
-                  </div>
-                  <h3 className="text-sm font-bold text-white leading-snug">
-                    Baccalauréat Scientifique (Sciences de l'Ingénieur)
-                  </h3>
-                  <p className="text-xs text-zinc-400">Lycée — Filière scientifique</p>
-                  <p className="text-xs text-zinc-300 pt-1 leading-relaxed">
-                    Formation scientifique axée sur la méthode, la modélisation, la logique et la rigueur dans la gestion des contraintes techniques.
-                  </p>
-                </div>
-
-                {/* 4. BAFA */}
-                <div className="p-5 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm space-y-2 hover:border-[#FFAD00]/40 transition-all">
-                  <div className="flex items-center justify-between">
-                    <span className="inline-block px-2.5 py-0.5 rounded-md border border-white/10 bg-white/[0.04] font-mono text-[11px] font-medium text-zinc-300">
-                      2019
-                    </span>
-                    <span className="text-[11px] font-mono text-zinc-400">Brevet</span>
-                  </div>
-                  <h3 className="text-sm font-bold text-white leading-snug">
-                    Brevet d'Aptitude aux Fonctions d'Animateur (BAFA)
-                  </h3>
-                  <p className="text-xs text-zinc-400">Animation &amp; Pédagogie</p>
-                  <p className="text-xs text-zinc-300 pt-1 leading-relaxed">
-                    Sens du collectif, prise de parole en public, écoute active, animation de groupe et pédagogie opérationnelle en situation réelle.
-                  </p>
-                </div>
               </div>
             </section>
 

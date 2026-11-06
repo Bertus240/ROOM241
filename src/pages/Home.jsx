@@ -691,16 +691,16 @@ export default function Home({ navigate }) {
                   Étape 01 · Diagnostic
                 </span>
                 <h3 className="text-base font-bold text-zinc-950 tracking-tight">
-                  Comprendre le terrain
+                  Comprendre avant d'agir
                 </h3>
               </div>
               <p className="text-xs text-[#52525B] leading-relaxed">
-                Analyser le contexte métier, les objectifs, les publics et les contraintes réelles avant d'engager la création ou la stratégie éditoriale.
+                Analyser les objectifs, les publics et les contraintes du projet pour identifier les enjeux, définir les priorités et poser des bases solides avant toute intervention.
               </p>
               <ul className="space-y-1.5 text-xs text-zinc-600 font-medium pt-2 border-t border-zinc-200/60">
-                <li>• Analyse des flux et orientation des publics (projets d'espaces)</li>
-                <li>• Cadrage stratégique, éditorial &amp; hiérarchie des messages</li>
-                <li>• Analyse des besoins, des supports et contraintes techniques</li>
+                <li>• Analyse des besoins, des usages et des contraintes du terrain.</li>
+                <li>• Définition du positionnement, des objectifs et de la hiérarchie des messages.</li>
+                <li>• Étude des supports, des parcours et des environnements de diffusion.</li>
               </ul>
             </div>
 
@@ -715,17 +715,17 @@ export default function Home({ navigate }) {
                   Étape 02 · Création
                 </span>
                 <h3 className="text-base font-bold text-zinc-950 tracking-tight">
-                  Concevoir l'image
+                  Donner forme aux idées
                 </h3>
               </div>
               <p className="text-xs text-[#52525B] leading-relaxed">
-                Structurer l'univers de marque, concevoir les dispositifs visuels et développer les contenus adaptés à leurs contextes de diffusion.
+                Traduire les enjeux identifiés en concepts créatifs, en univers visuels et en dispositifs de communication cohérents avec l'identité et les objectifs du projet.
               </p>
               <ul className="space-y-1.5 text-xs text-zinc-600 font-medium pt-2 border-t border-zinc-200/60">
-                <li>• Direction artistique vectorielle &amp; chartes graphiques</li>
-                <li>• Conception graphique de stands (différentes dimensions)</li>
-                <li>• Stratégie éditoriale, lignes de contenu &amp; calendriers</li>
-                <li>• Storyboards, scripts vidéo et concepts créatifs</li>
+                <li>• Direction artistique, identité visuelle et systèmes graphiques.</li>
+                <li>• Conception graphique de stands et d'espaces événementiels.</li>
+                <li>• Stratégie éditoriale, lignes de contenu et calendriers de publication.</li>
+                <li>• Storyboards, scripts vidéo et concepts créatifs.</li>
               </ul>
             </div>
 
@@ -740,18 +740,18 @@ export default function Home({ navigate }) {
                   Étape 03 · Réalisation
                 </span>
                 <h3 className="text-base font-bold text-zinc-950 tracking-tight">
-                  Produire et déployer
+                  Donner vie aux projets
                 </h3>
               </div>
               <p className="text-xs text-[#52525B] leading-relaxed">
-                Assurer la production des supports et des contenus, leur adaptation aux formats de diffusion et leur mise en œuvre opérationnelle.
+                Produire les supports et les contenus, les adapter à leurs différents formats et assurer leur déploiement sur les canaux et dans les environnements prévus.
               </p>
               <ul className="space-y-1.5 text-xs text-zinc-600 font-medium pt-2 border-t border-zinc-200/60">
-                <li>• Animations motion design &amp; boucles After Effects pour arches LED</li>
-                <li>• Captation vidéo extérieure et prises de vues terrain</li>
-                <li>• Montages et déclinaisons multiformats 16:9 et 9:16</li>
-                <li>• Création, planification &amp; publication Social Media</li>
-                <li>• Suivi des performances et optimisation éditoriale</li>
+                <li>• Motion design et animations After Effects pour arches LED.</li>
+                <li>• Captation vidéo et prises de vues sur le terrain.</li>
+                <li>• Montage vidéo et déclinaison des contenus selon leurs supports de diffusion.</li>
+                <li>• Création, planification et publication de contenus Social Media.</li>
+                <li>• Analyse des performances et optimisation éditoriale.</li>
               </ul>
             </div>
 
