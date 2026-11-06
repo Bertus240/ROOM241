@@ -19,55 +19,55 @@ import { ChevronLeft, ChevronRight, Eye, Layers } from 'lucide-react';
 export const FIC_INSTAGRAM_SLIDES = [
   {
     id: 'fic-01',
-    src: '/assets/hornetsecurity/carousel_instagram_1080x1080/slide_01.png',
-    title: 'Couverture · 365 Total Protection MSP',
-    step: '01 / 06 · Couverture & Accroche',
-    narrative: 'Couverture',
+    src: '/assets/hornetsecurity/FIC_assets_2026/SOME/Post_7/v201.png',
+    title: 'Suite 365 Total Protection MSP',
+    step: '01 / 06 · Accroche MSP',
+    narrative: 'Suite 365 MSP',
     description: "Présentation de la suite tout-en-un Hornetsecurity pour les MSP lors du Forum InCyber à Lille : sécurité, sauvegarde & gouvernance.",
     tag: 'Accroche'
   },
   {
     id: 'fic-02',
-    src: '/assets/hornetsecurity/carousel_instagram_1080x1080/slide_02.png',
-    title: 'Sécurité Email propulsée par l’IA',
-    step: '02 / 06 · Protection IA',
-    narrative: 'Progression',
+    src: '/assets/hornetsecurity/FIC_assets_2026/SOME/Post_7/v202.png',
+    title: 'Sécurité Email & Filtrage IA',
+    step: '02 / 06 · Filtrage IA',
+    narrative: 'Défense IA',
     description: "Filtrage multicouche et analyse en temps réel : défense avancée contre le phishing ciblé, les attaques BEC et les ransomwares.",
     tag: 'Défense IA'
   },
   {
     id: 'fic-03',
-    src: '/assets/hornetsecurity/carousel_instagram_1080x1080/slide_03.png',
-    title: 'Sauvegarde & Restauration M365',
-    step: '03 / 06 · Résilience données',
-    narrative: 'Développement 1',
+    src: '/assets/hornetsecurity/FIC_assets_2026/SOME/Post_7/v203.png',
+    title: 'Sauvegarde M365 & Restauration',
+    step: '03 / 06 · Backup Cloud',
+    narrative: 'Backup M365',
     description: "Sauvegarde automatisée et restauration granulaire pour boîtes mail, canaux Teams, bibliothèques SharePoint et OneDrive.",
     tag: 'Backup Cloud'
   },
   {
     id: 'fic-04',
-    src: '/assets/hornetsecurity/carousel_instagram_1080x1080/slide_04.png',
-    title: 'Formation à la sensibilisation des collaborateurs',
+    src: '/assets/hornetsecurity/FIC_assets_2026/SOME/Post_7/v204.png',
+    title: 'Sensibilisation des équipes',
     step: '04 / 06 · Facteur humain',
-    narrative: 'Développement 2',
+    narrative: 'Sensibilisation',
     description: "Construction d'un pare-feu humain via des simulations de phishing automatisées et des parcours de formation continue personnalisés.",
-    tag: 'Awareness'
+    tag: 'Sensibilisation'
   },
   {
     id: 'fic-05',
-    src: '/assets/hornetsecurity/carousel_instagram_1080x1080/slide_05.png',
-    title: 'Gestion automatisée de la conformité',
-    step: '05 / 06 · Gouvernance & Normes',
-    narrative: 'Développement 3',
+    src: '/assets/hornetsecurity/FIC_assets_2026/SOME/Post_7/v205.png',
+    title: 'Conformité & Gouvernance',
+    step: '05 / 06 · Gouvernance IT',
+    narrative: 'Conformité',
     description: "Application homogène des politiques de conformité, signatures électroniques centralisées et disclaimers légaux sur tous les tenants.",
     tag: 'Conformité'
   },
   {
     id: 'fic-06',
-    src: '/assets/hornetsecurity/carousel_instagram_1080x1080/slide_06.png',
-    title: 'Conclusion & Rendez-vous InCyber Forum 2026',
-    step: '06 / 06 · Appel à l’action',
-    narrative: 'Conclusion & Date',
+    src: '/assets/hornetsecurity/FIC_assets_2026/SOME/Post_7/v206.png',
+    title: 'Rendez-vous InCyber Forum 2026',
+    step: '06 / 06 · Invitation FIC',
+    narrative: 'Rendez-vous FIC',
     description: "Une plate-forme unifiée pour une protection complète. Invitation sur le stand Hornetsecurity au Zénith de Lille (31 mars – 2 avril 2026).",
     tag: 'FIC 2026'
   }
@@ -76,57 +76,57 @@ export const FIC_INSTAGRAM_SLIDES = [
 export const SHAREPOINT_LINKEDIN_SLIDES = [
   {
     id: 'sp-01',
-    src: '/assets/hornetsecurity/carousel_sharepoint_1080x1080/slide_01.png',
-    title: 'The biggest risk in your SharePoint: It’s you!',
+    src: '/assets/hornetsecurity/Proofpoint_Sharepoint/1@4x.png',
+    title: 'Alerte DSI : La faille humaine',
     step: '01 / 06 · Accroche DSI',
-    narrative: 'Couverture',
+    narrative: 'Alerte DSI',
     description: "Campagne d'interpellation Paid Ads LinkedIn pour décideurs IT : sensibilisation aux failles de configuration humaine dans SharePoint.",
-    tag: 'Hook B2B'
+    tag: 'Alerte DSI'
   },
   {
     id: 'sp-02',
-    src: '/assets/hornetsecurity/carousel_sharepoint_1080x1080/slide_02.png',
-    title: '400 Employees · 2M Files · 100K+ Access Rights',
-    step: '02 / 06 · Métriques de vulnérabilité',
-    narrative: 'Progression',
+    src: '/assets/hornetsecurity/Proofpoint_Sharepoint/2@4x.png',
+    title: 'Droits non supervisés & Volume',
+    step: '02 / 06 · Volume & Risque',
+    narrative: 'Volume & Droits',
     description: "Mise en lumière de l'explosion des droits d'accès distincts non supervisés au sein des environnements d'entreprise Microsoft 365.",
-    tag: 'Chiffres clés'
+    tag: 'Volume & Droits'
   },
   {
     id: 'sp-03',
-    src: '/assets/hornetsecurity/carousel_sharepoint_1080x1080/slide_03.png',
-    title: 'Risk 1: Permission labels lie',
+    src: '/assets/hornetsecurity/Proofpoint_Sharepoint/3@4x.png',
+    title: 'Nommage trompeur des permissions',
     step: '03 / 06 · Faille de nommage',
-    narrative: 'Développement 1',
+    narrative: 'Labels trompeurs',
     description: "Démonstration visuelle de l'écart critique entre ce que l'administrateur lit (« Read ») et les droits réels accordés (« Full Control »).",
-    tag: 'Faille #1'
+    tag: 'Labels trompeurs'
   },
   {
     id: 'sp-04',
-    src: '/assets/hornetsecurity/carousel_sharepoint_1080x1080/slide_04.png',
-    title: 'Risk 2: Ghost access survives offboarding',
+    src: '/assets/hornetsecurity/Proofpoint_Sharepoint/4@4x.png',
+    title: 'Comptes résiduels & Accès fantômes',
     step: '04 / 06 · Accès fantômes',
-    narrative: 'Développement 2',
+    narrative: 'Accès fantômes',
     description: "Analyse des comptes résiduels conservant des droits d'accès aux fichiers stratégiques après le départ effectif des collaborateurs.",
-    tag: 'Faille #2'
+    tag: 'Accès fantômes'
   },
   {
     id: 'sp-05',
-    src: '/assets/hornetsecurity/carousel_sharepoint_1080x1080/slide_05.png',
-    title: 'Risk 3: Invisible data exfiltration',
-    step: '05 / 06 · Fuite de données',
-    narrative: 'Développement 3',
+    src: '/assets/hornetsecurity/Proofpoint_Sharepoint/5@4x.png',
+    title: 'Exfiltration furtive de fichiers',
+    step: '05 / 06 · Fuite furtive',
+    narrative: 'Fuite furtive',
     description: "Scénarisation didactique des 4 étapes d'une fuite furtive : création d'une bibliothèque masquée sans trace d'audit visible.",
-    tag: 'Faille #3'
+    tag: 'Fuite furtive'
   },
   {
     id: 'sp-06',
-    src: '/assets/hornetsecurity/carousel_sharepoint_1080x1080/slide_06.png',
-    title: 'Conclusion: You can’t audit what you can’t see',
-    step: '06 / 06 · Synthèse & CTA',
-    narrative: 'Conclusion',
+    src: '/assets/hornetsecurity/Proofpoint_Sharepoint/6@4x.png',
+    title: 'Audit proactif 365 Total Protection',
+    step: '06 / 06 · Audit proactif',
+    narrative: 'Audit proactif',
     description: "Appel à l'audit proactif via 365 Total Protection pour révéler et neutraliser les failles invisibles de l'écosystème SharePoint.",
-    tag: 'Solution'
+    tag: 'Audit proactif'
   }
 ];
 
@@ -183,7 +183,7 @@ export default function SocialCarouselSquare() {
     <div
       onKeyDown={handleKeyDown}
       tabIndex={0}
-      aria-label="Carrousel de formats carrés 1:1"
+      aria-label="Carrousel éditorial ratio 64:45"
       className="p-5 sm:p-8 rounded-3xl bg-white dark:bg-zinc-900 border border-zinc-200/80 dark:border-white/10 shadow-[0_4px_25px_rgba(0,0,0,0.03)] space-y-6 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FFAD00]"
     >
       {/* En-tête : Sélecteur de série + Commandes */}
@@ -192,11 +192,11 @@ export default function SocialCarouselSquare() {
           <div className="flex items-center gap-2">
             <span className="w-2 h-2 rounded-full bg-[#FFAD00] shadow-[0_0_8px_rgba(255,173,0,0.6)]" />
             <span className="text-xs font-mono font-bold uppercase tracking-wider text-[#1A1918] dark:text-white">
-              Formats carrés 1:1 (1080 × 1080 px)
+              Carrousels éditoriaux (Ratio 64:45 • 1920 × 1350 px)
             </span>
           </div>
           <p className="text-xs text-zinc-500 dark:text-zinc-400">
-            Navigation séquentielle sans déformation ni coupure · 6 slides narratives complètes
+            Proportions réelles respectées sans déformation ni recadrage destructeur · 6 slides narratives
           </p>
         </div>
 
@@ -279,32 +279,30 @@ export default function SocialCarouselSquare() {
               <span className={`font-mono text-[10px] ${isSelected ? 'text-[#FFAD00] font-bold' : 'text-zinc-400'}`}>
                 0{idx + 1}
               </span>
-              <span className="truncate max-w-[120px] sm:max-w-none">{s.narrative}</span>
+              <span className="truncate max-w-[140px] sm:max-w-none">{s.narrative}</span>
             </button>
           );
         })}
       </div>
 
-      {/* Composition principale : Slide carrée 1:1 à gauche, Contenu éditorial à droite */}
+      {/* Composition principale : Slide au ratio 64:45 à gauche, Contenu éditorial à droite */}
       <div
         onTouchStart={handleTouchStart}
         onTouchEnd={handleTouchEnd}
         className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-center"
       >
-        {/* Conteneur strict 1:1 pour la slide */}
+        {/* Conteneur strict 64:45 pour la slide */}
         <div className="lg:col-span-7 flex justify-center">
-          <div className="w-full max-w-[500px] aspect-square rounded-2xl overflow-hidden border border-zinc-200 dark:border-white/10 bg-black flex items-center justify-center shadow-lg relative group">
+          <div className="w-full max-w-[560px] aspect-[64/45] rounded-2xl overflow-hidden border border-zinc-200 dark:border-white/10 bg-zinc-950 flex items-center justify-center shadow-lg relative group">
             <img
               src={currentSlide.src}
               alt={currentSlide.title}
-              width={1080}
-              height={1080}
-              className="w-full h-full object-contain"
+              className="max-h-full max-w-full w-auto h-auto object-contain select-none pointer-events-none"
               loading="lazy"
             />
             {/* Tag discret du format */}
-            <span className="absolute bottom-3 left-3 px-2 py-0.5 rounded-md bg-black/70 backdrop-blur-xs border border-white/20 text-[10px] font-mono text-white/90">
-              1080 × 1080 px · 1:1
+            <span className="absolute bottom-3 left-3 px-2 py-0.5 rounded-md bg-black/75 backdrop-blur-xs border border-white/20 text-[10px] font-mono text-white/90">
+              Ratio 64:45 · 1920 × 1350 px
             </span>
           </div>
         </div>

@@ -16,7 +16,7 @@ export default function ParcoursSkills({ skills }) {
     return [
       {
         id: 'scenography',
-        category: 'Scénographie & 3D',
+        category: 'Scénographie & Espaces',
         items: [
           'Scénographie événementielle & Stands (> 150 m²)',
           'Signalétique & Habillage d\'espaces',
@@ -25,8 +25,19 @@ export default function ParcoursSkills({ skills }) {
         ]
       },
       {
-        id: 'motion',
-        category: 'Motion & Vidéo',
+        id: 'art-direction',
+        category: 'Direction artistique',
+        items: [
+          'Direction artistique & Identité de marque',
+          'Adobe Illustrator (Design vectoriel, chartes)',
+          'Adobe Photoshop (Retouche photo, compositing)',
+          'Adobe InDesign (Édition, fiches techniques, print)',
+          'Figma (Design system & Ergonomie d\'interfaces)'
+        ]
+      },
+      {
+        id: 'video-motion',
+        category: 'Vidéo & Motion Design',
         items: [
           'Adobe After Effects (Animations & Boucles LED)',
           'Adobe Premiere Pro (Montage & Titrages)',
@@ -35,14 +46,16 @@ export default function ParcoursSkills({ skills }) {
         ]
       },
       {
-        id: 'art-direction',
-        category: 'Direction Artistique & UI',
+        id: 'social-media',
+        category: 'Social Media Management',
         items: [
-          'Direction artistique & Identité de marque',
-          'Adobe Illustrator (Design vectoriel, chartes)',
-          'Adobe Photoshop (Retouche photo, compositing)',
-          'Adobe InDesign (Édition, fiches techniques, print)',
-          'Figma (Design system & Ergonomie d\'interfaces)'
+          'Stratégie de présence & Positionnement social media',
+          'Définition de lignes éditoriales & Calendriers',
+          'Création & Adaptation de contenus multi-plateformes',
+          'Rédaction de textes & Conception visuelle',
+          'Montage de vidéos courtes (Reels, TikTok, Shorts)',
+          'Gestion, animation & Programmation de comptes',
+          'Suivi des KPIs & Analyse de performance'
         ]
       },
       {
@@ -80,8 +93,8 @@ export default function ParcoursSkills({ skills }) {
         </p>
       </div>
 
-      {/* 1. Les 3 Piliers de compétences en triptyque éditorial équilibré (3 colonnes) */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      {/* 1. Les 4 Piliers de compétences en composition éditoriale équilibrée (4 colonnes) */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {mainPillars.map((skillGroup) => (
           <div
             key={skillGroup.id}

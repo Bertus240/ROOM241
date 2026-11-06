@@ -26,14 +26,14 @@ export default function PresentationVideo({ openVideoModal }) {
           <div>
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-neutral-200/50 dark:bg-white/[0.05] border border-neutral-300/50 dark:border-white/10 text-xs font-medium text-neutral-600 dark:text-neutral-300 mb-4">
               <span className="w-1.5 h-1.5 rounded-full bg-room-amber" />
-              <span>Le pitch en 88 secondes</span>
+              <span>Film de présentation</span>
             </div>
             <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-neutral-900 dark:text-white leading-[1.1] max-w-2xl">
               Mettre un visage et une voix sur votre futur partenaire.
             </h2>
           </div>
           <p className="text-neutral-600 dark:text-neutral-300 text-sm sm:text-base font-sans max-w-md leading-relaxed">
-            Pas d'agence anonyme ni de slides théoriques : 88 secondes pour comprendre comment j'articule rigueur analytique, tournage terrain et direction artistique B2B.
+            Pas d'agence anonyme ni de slides théoriques : une présentation claire pour comprendre comment j'articule rigueur analytique, tournage terrain et direction artistique B2B.
           </p>
         </Reveal>
 
@@ -96,7 +96,7 @@ export default function PresentationVideo({ openVideoModal }) {
                       Lancer la vidéo
                     </span>
                     <span className="whitespace-nowrap text-white/85 font-sans text-xs mt-0.5 select-none">
-                      1 min 28 s • Son &amp; haute définition
+                      Haute définition • Stéréo
                     </span>
                   </div>
                 </div>
@@ -108,7 +108,7 @@ export default function PresentationVideo({ openVideoModal }) {
               <div className="flex flex-wrap items-center gap-3 sm:gap-4 text-xs font-sans text-neutral-400">
                 <span className="inline-flex items-center gap-1.5 text-room-amber font-semibold">
                   <Timer className="w-3.5 h-3.5" />
-                  1:28
+                  Film de présentation
                 </span>
                 <span className="text-white/20 hidden sm:inline">•</span>
                 <span className="text-neutral-300">Master Marketing &amp; Communication (ISEG Lille)</span>

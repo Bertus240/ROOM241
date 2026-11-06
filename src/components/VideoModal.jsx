@@ -59,7 +59,7 @@ export default function VideoModal({ isOpen, onClose }) {
           <div className="flex items-center gap-3">
             <span className="flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-white/5 border border-white/10 text-[11px] font-mono font-medium text-room-amber uppercase tracking-wider">
               <span className="w-1.5 h-1.5 rounded-full bg-room-amber animate-pulse" />
-              PITCH 88S • ROOM241
+              PRÉSENTATION • ROOM241
             </span>
             <div className="hidden sm:block text-xs text-neutral-300 font-sans font-medium">
               Rémi Brocart — Fondateur &amp; Directeur Artistique

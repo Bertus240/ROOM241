@@ -141,3 +141,20 @@ export function VectorBAFA({ className = "w-6 h-6", color = "#C5A880", accent = 
   );
 }
 
+// 10. SOCIAL MEDIA MANAGEMENT (Stratégie éditoriale, diffusion & animation de communautés)
+export function VectorSocialMedia({ className = "w-6 h-6", color = "#C5A880", accent = "#FFAD00" }) {
+  return (
+    <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" className={className} aria-hidden="true">
+      {/* Calendrier et flux de diffusion multicanale */}
+      <rect x="5" y="7" width="22" height="19" rx="3" stroke="currentColor" strokeWidth="1.5" />
+      <path d="M5 13H27" stroke={color} strokeWidth="1.25" />
+      <path d="M10 4V8M22 4V8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+      {/* Nœuds de partage & statistiques */}
+      <circle cx="11" cy="19.5" r="1.5" fill={accent} />
+      <circle cx="16" cy="19.5" r="1.5" fill="currentColor" />
+      <circle cx="21" cy="19.5" r="1.5" fill={color} />
+      <path d="M11 19.5L16 19.5M16 19.5L21 19.5" stroke={color} strokeWidth="1" strokeDasharray="1 1" />
+    </svg>
+  );
+}
+

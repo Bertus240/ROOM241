@@ -215,7 +215,20 @@ export const profileData = {
       "Production vidéo & Captations de terrain",
       "Supports commerciaux & Fiches techniques (Sales Enablement)"
     ],
-    // B. Logiciels et outils créatifs
+    // B. Social Media Management
+    socialMedia: [
+      "Stratégie de présence et positionnement sur les réseaux sociaux",
+      "Définition de lignes éditoriales",
+      "Construction de calendriers de publication",
+      "Création et adaptation de contenus selon les plateformes",
+      "Rédaction de textes et conception de visuels",
+      "Montage et déclinaison de vidéos courtes",
+      "Planification et programmation des publications",
+      "Gestion et animation des comptes",
+      "Suivi des indicateurs de performance",
+      "Analyse des résultats et recommandations d'optimisation"
+    ],
+    // C. Logiciels et outils créatifs
     software: [
       "Adobe Illustrator (Design vectoriel, logos, chartes)",
       "Adobe Photoshop (Retouche photo, compositing)",

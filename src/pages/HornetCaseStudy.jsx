@@ -869,7 +869,7 @@ export default function HornetCaseStudy({ navigate }) {
           {/* Bandeau défilant des 7 badges officiels Hornetsecurity — Défilement continu, une seule ligne, images seules sans aucun texte */}
           <BadgesCarousel />
 
-          {/* Carrousel interactif des formats carrés 1:1 (InCyber 2026 Instagram & SharePoint LinkedIn) */}
+          {/* Carrousel interactif des formats carrousels ratio 64:45 (InCyber 2026 Instagram & SharePoint LinkedIn) */}
           <div className="pt-6 border-t border-zinc-200/60">
             <SocialCarouselSquare />
           </div>

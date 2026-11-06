@@ -14,7 +14,8 @@ import {
   VectorProduire,
   VectorScenographie,
   VectorBrandDA,
-  VectorMotionVideo
+  VectorMotionVideo,
+  VectorSocialMedia
 } from '../components/EditorialVectors';
 
 const HOME_STATS = [
@@ -143,24 +144,26 @@ export default function Home({ navigate }) {
             </motion.div>
           </div>
 
-          {/* Repères d'intervention concrète : la preuve du positionnement hybride en 3 domaines (largeur pleine) */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 pt-8 sm:pt-10 border-t border-zinc-200/70 w-full text-xs">
+          {/* Repères d'intervention concrète : 4 domaines complémentaires (largeur pleine) */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 pt-8 sm:pt-10 border-t border-zinc-200/70 w-full text-xs">
             <motion.div
               initial={{ opacity: 0, y: 12 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '200px' }}
               transition={{ duration: 0.45, delay: 0.05, ease: [0.16, 1, 0.3, 1] }}
-              className="space-y-2 p-4 rounded-2xl bg-zinc-50/60 border border-zinc-200/60 transition-all duration-200 hover:border-zinc-300"
+              className="space-y-2 p-4 rounded-2xl bg-zinc-50/60 border border-zinc-200/60 transition-all duration-200 hover:border-zinc-300 flex flex-col justify-between"
             >
-              <div className="flex items-center gap-2">
-                <VectorScenographie className="w-5 h-5 text-zinc-900 shrink-0" />
-                <span className="text-xs font-semibold text-zinc-900 tracking-tight block">
-                  <span className="text-zinc-400 font-normal mr-1">01.</span> Scénographie &amp; Espaces
-                </span>
+              <div className="space-y-2">
+                <div className="flex items-center gap-2">
+                  <VectorScenographie className="w-5 h-5 text-zinc-900 shrink-0" />
+                  <span className="text-xs font-semibold text-zinc-900 tracking-tight block">
+                    <span className="text-zinc-400 font-normal mr-1">01.</span> Scénographie &amp; Espaces
+                  </span>
+                </div>
+                <p className="text-zinc-500 leading-relaxed font-normal text-[11px] sm:text-xs">
+                  Conception graphique et aménagement visuel de stands professionnels, de la signalétique à l'organisation des parcours visiteurs, pour des salons en France et à l'international.
+                </p>
               </div>
-              <p className="text-zinc-500 leading-relaxed font-normal text-[11px] sm:text-xs">
-                Conception graphique et aménagement visuel de stands professionnels, de la signalétique à l'organisation des parcours visiteurs, pour des salons en France et à l'international.
-              </p>
             </motion.div>
 
             <motion.div
@@ -168,17 +171,19 @@ export default function Home({ navigate }) {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '200px' }}
               transition={{ duration: 0.45, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-              className="space-y-2 p-4 rounded-2xl bg-zinc-50/60 border border-zinc-200/60 transition-all duration-200 hover:border-zinc-300"
+              className="space-y-2 p-4 rounded-2xl bg-zinc-50/60 border border-zinc-200/60 transition-all duration-200 hover:border-zinc-300 flex flex-col justify-between"
             >
-              <div className="flex items-center gap-2">
-                <VectorBrandDA className="w-5 h-5 text-zinc-900 shrink-0" />
-                <span className="text-xs font-semibold text-zinc-900 tracking-tight block">
-                  <span className="text-zinc-400 font-normal mr-1">02.</span> Direction artistique
-                </span>
+              <div className="space-y-2">
+                <div className="flex items-center gap-2">
+                  <VectorBrandDA className="w-5 h-5 text-zinc-900 shrink-0" />
+                  <span className="text-xs font-semibold text-zinc-900 tracking-tight block">
+                    <span className="text-zinc-400 font-normal mr-1">02.</span> Direction artistique
+                  </span>
+                </div>
+                <p className="text-zinc-500 leading-relaxed font-normal text-[11px] sm:text-xs">
+                  Création d'identités visuelles, de chartes graphiques et de supports de communication, du print aux formats numériques.
+                </p>
               </div>
-              <p className="text-zinc-500 leading-relaxed font-normal text-[11px] sm:text-xs">
-                Création d'identités visuelles, de chartes graphiques et de supports de communication, du print aux formats numériques.
-              </p>
             </motion.div>
 
             <motion.div
@@ -186,17 +191,39 @@ export default function Home({ navigate }) {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '200px' }}
               transition={{ duration: 0.45, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
-              className="space-y-2 p-4 rounded-2xl bg-zinc-50/60 border border-zinc-200/60 transition-all duration-200 hover:border-zinc-300"
+              className="space-y-2 p-4 rounded-2xl bg-zinc-50/60 border border-zinc-200/60 transition-all duration-200 hover:border-zinc-300 flex flex-col justify-between"
             >
-              <div className="flex items-center gap-2">
-                <VectorMotionVideo className="w-5 h-5 text-zinc-900 shrink-0" />
-                <span className="text-xs font-semibold text-zinc-900 tracking-tight block">
-                  <span className="text-zinc-400 font-normal mr-1">03.</span> Vidéo &amp; Motion Design
-                </span>
+              <div className="space-y-2">
+                <div className="flex items-center gap-2">
+                  <VectorMotionVideo className="w-5 h-5 text-zinc-900 shrink-0" />
+                  <span className="text-xs font-semibold text-zinc-900 tracking-tight block">
+                    <span className="text-zinc-400 font-normal mr-1">03.</span> Vidéo &amp; Motion Design
+                  </span>
+                </div>
+                <p className="text-zinc-500 leading-relaxed font-normal text-[11px] sm:text-xs">
+                  Captation vidéo sur le terrain, création d'animations graphiques et montage vidéo, du format court aux contenus multiformats.
+                </p>
               </div>
-              <p className="text-zinc-500 leading-relaxed font-normal text-[11px] sm:text-xs">
-                Captation vidéo sur le terrain, création d'animations graphiques et montage vidéo, du format court aux contenus multiformats.
-              </p>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 12 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '200px' }}
+              transition={{ duration: 0.45, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+              className="space-y-2 p-4 rounded-2xl bg-zinc-50/60 border border-zinc-200/60 transition-all duration-200 hover:border-zinc-300 flex flex-col justify-between"
+            >
+              <div className="space-y-2">
+                <div className="flex items-center gap-2">
+                  <VectorSocialMedia className="w-5 h-5 text-zinc-900 shrink-0" />
+                  <span className="text-xs font-semibold text-zinc-900 tracking-tight block">
+                    <span className="text-zinc-400 font-normal mr-1">04.</span> Social Media Management
+                  </span>
+                </div>
+                <p className="text-zinc-500 leading-relaxed font-normal text-[11px] sm:text-xs">
+                  Définition de stratégies éditoriales, création et adaptation de contenus, planification des publications, gestion des comptes et suivi des performances.
+                </p>
+              </div>
             </motion.div>
           </div>
 
@@ -565,7 +592,7 @@ export default function Home({ navigate }) {
             className="lg:col-span-5 space-y-4"
           >
             <span className="text-[11px] font-medium text-zinc-400 uppercase tracking-[0.12em] block">
-              Présentation vidéo · 1 min 28 s
+              Film de présentation
             </span>
             <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-zinc-950">
               Une minute pour faire connaissance.
@@ -605,14 +632,14 @@ export default function Home({ navigate }) {
                       whileTap={{ scale: 0.94 }}
                       type="button"
                       onClick={() => setIsPlayingPitch(true)}
-                      aria-label="Lancer la vidéo de présentation (1 min 28 s)"
+                      aria-label="Lancer le film de présentation"
                       className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-white text-zinc-950 flex items-center justify-center shadow-xl transition-all focus:outline-none focus:ring-4 focus:ring-zinc-400/40 cursor-pointer"
                     >
                       <Play className="w-6 h-6 sm:w-7 sm:h-7 fill-current ml-1 text-zinc-950" />
                     </motion.button>
                   </div>
                   <div className="absolute bottom-3 left-4 text-xs font-medium text-white/90 bg-black/60 backdrop-blur-md px-3 py-1 rounded-full">
-                    Format court · 1 min 28 s
+                    Film de présentation
                   </div>
                 </>
               ) : (
@@ -650,7 +677,7 @@ export default function Home({ navigate }) {
             </p>
           </div>
 
-          {/* Grille éditoriale 3 piliers : Comprendre, Concevoir, Produire */}
+          {/* Grille éditoriale 3 piliers : Comprendre, Concevoir, Produire et Déployer */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 pt-4 border-t border-zinc-200/60 text-sm text-[#52525B]">
             
             {/* 01. Comprendre */}
@@ -668,12 +695,12 @@ export default function Home({ navigate }) {
                 </h3>
               </div>
               <p className="text-xs text-[#52525B] leading-relaxed">
-                Analyser le contexte métier, la circulation des flux visiteurs et les contraintes techniques réelles avant d'engager la création.
+                Analyser le contexte métier, les objectifs, les publics et les contraintes réelles avant d'engager la création ou la stratégie éditoriale.
               </p>
               <ul className="space-y-1.5 text-xs text-zinc-600 font-medium pt-2 border-t border-zinc-200/60">
-                <li>• Analyse des flux et orientation des publics</li>
-                <li>• Cadrage éditorial &amp; hiérarchie des messages</li>
-                <li>• Faisabilité matérielle et contraintes d'espace</li>
+                <li>• Analyse des flux et orientation des publics (projets d'espaces)</li>
+                <li>• Cadrage stratégique, éditorial &amp; hiérarchie des messages</li>
+                <li>• Analyse des besoins, des supports et contraintes techniques</li>
               </ul>
             </div>
 
@@ -692,12 +719,13 @@ export default function Home({ navigate }) {
                 </h3>
               </div>
               <p className="text-xs text-[#52525B] leading-relaxed">
-                Structurer l'univers de marque, l'architecture d'information des stands grand format et le séquençage After Effects des boucles vidéo.
+                Structurer l'univers de marque, concevoir les dispositifs visuels et développer les contenus adaptés à leurs contextes de diffusion.
               </p>
               <ul className="space-y-1.5 text-xs text-zinc-600 font-medium pt-2 border-t border-zinc-200/60">
-                <li>• Direction artistique vectorielle &amp; chartes</li>
-                <li>• Scénographie événementielle (&gt; 150 m²)</li>
-                <li>• Storyboards et écriture de scripts vidéo</li>
+                <li>• Direction artistique vectorielle &amp; chartes graphiques</li>
+                <li>• Conception graphique de stands (différentes dimensions)</li>
+                <li>• Stratégie éditoriale, lignes de contenu &amp; calendriers</li>
+                <li>• Storyboards, scripts vidéo et concepts créatifs</li>
               </ul>
             </div>
 
@@ -712,16 +740,18 @@ export default function Home({ navigate }) {
                   Étape 03 · Réalisation
                 </span>
                 <h3 className="text-base font-bold text-zinc-950 tracking-tight">
-                  Produire sans filtre
+                  Produire et déployer
                 </h3>
               </div>
               <p className="text-xs text-[#52525B] leading-relaxed">
-                Prendre en charge l'exécution directe : animation motion design pour arches LED, captation caméra au poing et montages multiformats.
+                Assurer la production des supports et des contenus, leur adaptation aux formats de diffusion et leur mise en œuvre opérationnelle.
               </p>
               <ul className="space-y-1.5 text-xs text-zinc-600 font-medium pt-2 border-t border-zinc-200/60">
-                <li>• Boucles d'arches vidéo LED After Effects</li>
-                <li>• Prises de vues directes en conditions réelles</li>
-                <li>• Montages calibrés 16:9 paysage et 9:16 vertical</li>
+                <li>• Animations motion design &amp; boucles After Effects pour arches LED</li>
+                <li>• Captation vidéo extérieure et prises de vues terrain</li>
+                <li>• Montages et déclinaisons multiformats 16:9 et 9:16</li>
+                <li>• Création, planification &amp; publication Social Media</li>
+                <li>• Suivi des performances et optimisation éditoriale</li>
               </ul>
             </div>
 

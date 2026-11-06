@@ -152,7 +152,7 @@ export default function Hero() {
             </div>
             
             <p className="text-xs text-[#71717A] mt-2.5 text-center">
-              Vidéo de présentation • 1 min 28 s
+              Film de présentation
             </p>
           </motion.div>
 

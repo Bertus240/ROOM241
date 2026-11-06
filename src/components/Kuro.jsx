@@ -30,7 +30,7 @@ const SHORTCUTS = [
     title: "Stand FIC Lille (> 150 m²)",
     subtitle: "Scénographie, arche vidéo & espace B2B",
     path: "/realisations/hornetsecurity",
-    badge: "FIC 2025"
+    badge: "FIC"
   },
   {
     id: 'resin-architecte',
@@ -41,12 +41,12 @@ const SHORTCUTS = [
   },
   {
     id: 'video',
-    title: "Vidéo de présentation",
-    subtitle: "Vision, méthode & compétences en 1 min 28 s",
+    title: "Film de présentation",
+    subtitle: "Vision, méthode & compétences",
     isAnchor: true,
     anchorId: 'presentation-video',
     fallbackPath: '/#presentation-video',
-    badge: "1:28"
+    badge: "Vidéo"
   }
 ];
 
