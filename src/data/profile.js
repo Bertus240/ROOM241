@@ -217,16 +217,16 @@ export const profileData = {
     ],
     // B. Social Media Management
     socialMedia: [
-      "Stratégie de présence et positionnement sur les réseaux sociaux",
-      "Définition de lignes éditoriales",
-      "Construction de calendriers de publication",
-      "Création et adaptation de contenus selon les plateformes",
-      "Rédaction de textes et conception de visuels",
-      "Montage et déclinaison de vidéos courtes",
-      "Planification et programmation des publications",
-      "Gestion et animation des comptes",
-      "Suivi des indicateurs de performance",
-      "Analyse des résultats et recommandations d'optimisation"
+      "Stratégie de présence sur les réseaux sociaux",
+      "Lignes éditoriales",
+      "Calendriers de publication",
+      "Création et adaptation de contenus",
+      "Copywriting et design visuel",
+      "Montage vidéo court",
+      "Planification",
+      "Gestion des comptes et animation de communauté",
+      "Suivi des performances",
+      "Analyse et optimisation éditoriale"
     ],
     // C. Logiciels et outils créatifs
     software: [

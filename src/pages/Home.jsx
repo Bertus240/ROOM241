@@ -221,7 +221,7 @@ export default function Home({ navigate }) {
                   </span>
                 </div>
                 <p className="text-zinc-500 leading-relaxed font-normal text-[11px] sm:text-xs">
-                  Définition de stratégies éditoriales, création et adaptation de contenus, planification des publications, gestion des comptes et suivi des performances.
+                  Définition de stratégies éditoriales, création et adaptation de contenus, planification des publications, gestion des comptes et suivi des performances pour développer une présence cohérente et durable sur les réseaux sociaux.
                 </p>
               </div>
             </motion.div>
