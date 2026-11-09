@@ -75,6 +75,8 @@ export default function HornetCaseStudy({ navigate }) {
   // Navigation FIC Carrousel
   const [hornetMediaIndex, setHornetMediaIndex] = useState(0);
   const [isFicViewerOpen, setIsFicViewerOpen] = useState(false);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(true);
   const tabContainerRef = useRef(null);
   const tabRefs = useRef([]);
 
@@ -199,6 +201,26 @@ export default function HornetCaseStudy({ navigate }) {
     setHornetMediaIndex((prev) => (prev + 1) % ficMediaList.length);
   };
 
+  // Détection dynamique du débordement et affordance de défilement horizontal
+  const updateScrollAffordance = () => {
+    const el = tabContainerRef.current;
+    if (!el) return;
+    setCanScrollLeft(el.scrollLeft > 6);
+    setCanScrollRight(el.scrollLeft + el.clientWidth < el.scrollWidth - 6);
+  };
+
+  useEffect(() => {
+    const el = tabContainerRef.current;
+    if (!el) return;
+    updateScrollAffordance();
+    el.addEventListener('scroll', updateScrollAffordance, { passive: true });
+    window.addEventListener('resize', updateScrollAffordance);
+    return () => {
+      el.removeEventListener('scroll', updateScrollAffordance);
+      window.removeEventListener('resize', updateScrollAffordance);
+    };
+  }, []);
+
   // Synchronisation du défilement des onglets
   useEffect(() => {
     const activeTabEl = tabRefs.current[hornetMediaIndex];
@@ -209,6 +231,7 @@ export default function HornetCaseStudy({ navigate }) {
         inline: 'center'
       });
     }
+    updateScrollAffordance();
   }, [hornetMediaIndex]);
 
   return (
@@ -387,7 +410,7 @@ export default function HornetCaseStudy({ navigate }) {
                 type="button"
                 onClick={handleHornetPrev}
                 aria-label="Média précédent"
-                className="w-9 h-9 rounded-full bg-zinc-100 hover:bg-zinc-200 text-zinc-800 border border-zinc-200 flex items-center justify-center transition-all cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FFAD00]"
+                className="w-10 h-10 min-w-[40px] min-h-[40px] rounded-full bg-zinc-100 hover:bg-zinc-200 text-zinc-800 border border-zinc-200 flex items-center justify-center transition-all cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FFAD00]"
               >
                 <ChevronLeft className="w-4 h-4" />
               </button>
@@ -398,15 +421,28 @@ export default function HornetCaseStudy({ navigate }) {
                 type="button"
                 onClick={handleHornetNext}
                 aria-label="Média suivant"
-                className="w-9 h-9 rounded-full bg-zinc-100 hover:bg-zinc-200 text-zinc-800 border border-zinc-200 flex items-center justify-center transition-all cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FFAD00]"
+                className="w-10 h-10 min-w-[40px] min-h-[40px] rounded-full bg-zinc-100 hover:bg-zinc-200 text-zinc-800 border border-zinc-200 flex items-center justify-center transition-all cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FFAD00]"
               >
                 <ChevronRight className="w-4 h-4" />
               </button>
             </div>
           </div>
 
-          {/* Barre de sélection d'onglets studio ROOM241 */}
+          {/* Barre de sélection d'onglets studio ROOM241 avec affordance de défilement horizontal */}
           <div className="relative w-full">
+            {/* Masques de dégradé indicateurs de défilement (visibles sur mobile quand le contenu dépasse) */}
+            <div
+              aria-hidden="true"
+              className={`absolute left-0 top-0 bottom-0 w-8 bg-gradient-to-r from-white via-white/80 to-transparent z-10 pointer-events-none transition-opacity duration-200 sm:hidden ${
+                canScrollLeft ? 'opacity-100' : 'opacity-0'
+              }`}
+            />
+            <div
+              aria-hidden="true"
+              className={`absolute right-0 top-0 bottom-0 w-8 bg-gradient-to-l from-white via-white/80 to-transparent z-10 pointer-events-none transition-opacity duration-200 sm:hidden ${
+                canScrollRight ? 'opacity-100' : 'opacity-0'
+              }`}
+            />
             <div
               ref={tabContainerRef}
               className="flex items-center gap-1 p-1 rounded-full bg-zinc-100/80 border border-zinc-200/70 text-xs overflow-x-auto no-scrollbar sm:grid sm:grid-cols-6 backdrop-blur-xs"
@@ -426,7 +462,7 @@ export default function HornetCaseStudy({ navigate }) {
                     onClick={() => {
                       setHornetMediaIndex(idx);
                     }}
-                    className={`py-2 px-3 rounded-full transition-all duration-200 shrink-0 cursor-pointer text-xs font-sans whitespace-nowrap sm:whitespace-normal flex items-center justify-center gap-1.5 ${
+                    className={`min-h-[40px] py-2 px-3.5 rounded-full transition-all duration-200 shrink-0 cursor-pointer text-xs font-sans whitespace-nowrap sm:whitespace-normal flex items-center justify-center gap-1.5 ${
                       isActive
                         ? "bg-white text-zinc-950 font-bold shadow-xs border border-zinc-200/90"
                         : "text-zinc-500 hover:text-zinc-950 hover:bg-white/50"
@@ -484,7 +520,7 @@ export default function HornetCaseStudy({ navigate }) {
                     {/* Légende in situ */}
                     <div className="absolute bottom-4 left-4 right-4 flex items-end justify-between gap-4 text-white pointer-events-none">
                       <div className="space-y-0.5 max-w-xl">
-                        <span className="text-[10px] font-mono uppercase tracking-widest text-[#FFAD00] px-2.5 py-0.5 rounded-full bg-black/60 backdrop-blur-md border border-white/15">
+                        <span className="text-[11px] font-mono uppercase tracking-wider text-[#FFAD00] px-2.5 py-0.5 rounded-full bg-black/60 backdrop-blur-md border border-white/15">
                           {ficMediaList[hornetMediaIndex].badge}
                         </span>
                         <p className="text-xs sm:text-sm font-semibold pt-1 drop-shadow">
@@ -517,7 +553,7 @@ export default function HornetCaseStudy({ navigate }) {
                     Votre navigateur ne supporte pas la lecture vidéo.
                   </video>
                   <div className="absolute top-4 left-4 pointer-events-none z-10">
-                    <span className="text-[10px] font-mono uppercase tracking-widest text-white px-2.5 py-1 rounded-full bg-black/75 backdrop-blur-md border border-white/20">
+                    <span className="text-[11px] font-mono uppercase tracking-wider text-white px-2.5 py-1 rounded-full bg-black/75 backdrop-blur-md border border-white/20">
                       {ficMediaList[hornetMediaIndex].badge}
                     </span>
                   </div>

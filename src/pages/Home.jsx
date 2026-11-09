@@ -70,7 +70,7 @@ export default function Home({ navigate }) {
           1. INTRODUCTION / HERO : POSITIONNEMENT ÉDITORIAL & REPÈRES D'EXPERTISE
           (Directeur artistique & designer global — Hiérarchie équilibrée, 2 CTAs)
          ======================================================== */}
-      <section className="relative pt-28 pb-20 sm:pt-36 sm:pb-24 lg:pt-40 lg:pb-28 border-b border-zinc-200/60 overflow-hidden">
+      <section className="relative pt-24 pb-16 sm:pt-36 sm:pb-24 lg:pt-40 lg:pb-28 border-b border-zinc-200/60 overflow-hidden">
 
         <div className="max-w-[1240px] mx-auto px-5 sm:px-8 lg:px-10 relative z-10 space-y-12 sm:space-y-16">
           
@@ -99,7 +99,7 @@ export default function Home({ navigate }) {
               initial={{ opacity: 0, y: 14 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-              className="text-4xl sm:text-5xl md:text-6xl lg:text-[62px] font-bold tracking-[-0.03em] leading-[1.08] text-[#09090B]"
+              className="text-4xl sm:text-5xl md:text-6xl lg:text-[62px] font-bold tracking-[-0.03em] leading-[1.08] text-[#09090B] text-balance"
             >
               Direction artistique, scénographie &amp; communication de marque.
             </motion.h1>
@@ -127,7 +127,7 @@ export default function Home({ navigate }) {
                   const el = document.getElementById('highlight');
                   if (el) el.scrollIntoView({ behavior: 'smooth' });
                 }}
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#09090B] text-white font-medium hover:bg-zinc-800 transition-all duration-200 shadow-sm active:scale-[0.98]"
+                className="inline-flex items-center gap-2 px-6 py-3 min-h-[44px] rounded-full bg-[#09090B] text-white font-medium hover:bg-zinc-800 transition-all duration-200 shadow-sm active:scale-[0.98]"
               >
                 <span>Découvrir les réalisations</span>
                 <ArrowRight className="w-3.5 h-3.5 text-zinc-300" />
@@ -136,7 +136,7 @@ export default function Home({ navigate }) {
               <a
                 href="/parcours"
                 onClick={handleNav('/parcours')}
-                className="inline-flex items-center gap-1.5 text-zinc-600 hover:text-zinc-950 font-medium transition-colors"
+                className="inline-flex items-center gap-1.5 py-2.5 sm:py-2 min-h-[44px] text-zinc-600 hover:text-zinc-950 font-medium transition-colors"
               >
                 <span>Mon parcours</span>
                 <ArrowUpRight className="w-3.5 h-3.5 text-zinc-400" />
@@ -305,7 +305,7 @@ export default function Home({ navigate }) {
                 <span className="text-2xl sm:text-3xl font-bold text-zinc-950 tracking-tight font-sans">
                   +4 000
                 </span>
-                <span className="text-[10px] font-semibold text-zinc-400 uppercase tracking-[0.1em]">
+                <span className="text-[11px] font-semibold text-zinc-400 dark:text-zinc-400 uppercase tracking-wider">
                   Résultat collectif
                 </span>
               </div>
@@ -323,7 +323,7 @@ export default function Home({ navigate }) {
               <a
                 href="/realisations/hornetsecurity"
                 onClick={handleNav('/realisations/hornetsecurity')}
-                className="inline-flex items-center gap-1.5 font-semibold text-zinc-950 hover:text-zinc-600 transition-colors shrink-0 group"
+                className="inline-flex items-center gap-1.5 py-2 min-h-[44px] font-semibold text-zinc-950 hover:text-zinc-600 transition-colors shrink-0 group"
               >
                 <span>Lire l'étude de cas complète</span>
                 <ArrowRight className="w-3.5 h-3.5 text-zinc-400 group-hover:translate-x-0.5 transition-transform" />
@@ -346,14 +346,14 @@ export default function Home({ navigate }) {
             <span className="text-[11px] font-medium text-zinc-400 uppercase tracking-[0.12em] block">
               Sélection de projets
             </span>
-            <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-zinc-950">
+            <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-zinc-950 text-balance">
               Du terrain à la vidéo : des approches adaptées à chaque contexte
             </h2>
           </div>
           <a
             href="/projets"
             onClick={handleNav('/projets')}
-            className="inline-flex items-center gap-1.5 text-xs font-semibold text-zinc-700 hover:text-zinc-950 transition-colors group"
+            className="inline-flex items-center gap-1.5 py-2 min-h-[44px] text-xs font-semibold text-zinc-700 hover:text-zinc-950 transition-colors group"
           >
             <span>Voir l'ensemble des projets</span>
             <ArrowRight className="w-3.5 h-3.5 text-zinc-400 group-hover:translate-x-0.5 transition-transform" />
@@ -400,7 +400,7 @@ export default function Home({ navigate }) {
                 </div>
 
                 <div className="absolute bottom-3 left-4 right-4 text-white space-y-0.5">
-                  <span className="text-[10px] font-semibold text-white/75 uppercase tracking-[0.08em] block">
+                  <span className="text-[11px] font-semibold text-white/90 uppercase tracking-wider block">
                     Artisanat &amp; BTP
                   </span>
                   <span className="text-sm font-semibold block leading-tight">
@@ -425,7 +425,7 @@ export default function Home({ navigate }) {
               <a
                 href="/realisations/resin-architecte"
                 onClick={handleNav('/realisations/resin-architecte')}
-                className="inline-flex items-center gap-1 text-xs font-semibold text-zinc-950 hover:text-zinc-600 transition-colors group"
+                className="inline-flex items-center gap-1 py-2 min-h-[44px] text-xs font-semibold text-zinc-950 hover:text-zinc-600 transition-colors group"
               >
                 <span>Découvrir l'étude Résin'Architecte</span>
                 <ArrowRight className="w-3 h-3 text-zinc-400 group-hover:translate-x-0.5 transition-transform" />
@@ -470,7 +470,7 @@ export default function Home({ navigate }) {
                 </div>
 
                 <div className="absolute bottom-3 left-4 right-4 text-white space-y-0.5">
-                  <span className="text-[10px] font-semibold text-white/75 uppercase tracking-[0.08em] block">
+                  <span className="text-[11px] font-semibold text-white/90 uppercase tracking-wider block">
                     Fintech &amp; Distribution
                   </span>
                   <span className="text-sm font-semibold block leading-tight">
@@ -495,7 +495,7 @@ export default function Home({ navigate }) {
               <a
                 href="/realisations/fresh-data"
                 onClick={handleNav('/realisations/fresh-data')}
-                className="inline-flex items-center gap-1 text-xs font-semibold text-zinc-950 hover:text-zinc-600 transition-colors group"
+                className="inline-flex items-center gap-1 py-2 min-h-[44px] text-xs font-semibold text-zinc-950 hover:text-zinc-600 transition-colors group"
               >
                 <span>Voir la fiche Fresh Data</span>
                 <ArrowRight className="w-3 h-3 text-zinc-400 group-hover:translate-x-0.5 transition-transform" />
@@ -540,7 +540,7 @@ export default function Home({ navigate }) {
                 </div>
 
                 <div className="absolute bottom-3 left-4 right-4 text-white space-y-0.5">
-                  <span className="text-[10px] font-semibold text-white/75 uppercase tracking-[0.08em] block">
+                  <span className="text-[11px] font-semibold text-white/90 uppercase tracking-wider block">
                     Démonstration en recrutement
                   </span>
                   <span className="text-sm font-semibold block leading-tight">
@@ -565,7 +565,7 @@ export default function Home({ navigate }) {
               <a
                 href="/realisations/jardimax"
                 onClick={handleNav('/realisations/jardimax')}
-                className="inline-flex items-center gap-1 text-xs font-semibold text-zinc-950 hover:text-zinc-600 transition-colors group"
+                className="inline-flex items-center gap-1 py-2 min-h-[44px] text-xs font-semibold text-zinc-950 hover:text-zinc-600 transition-colors group"
               >
                 <span>Consulter la démonstration Jardimax</span>
                 <ArrowRight className="w-3 h-3 text-zinc-400 group-hover:translate-x-0.5 transition-transform" />
@@ -687,7 +687,7 @@ export default function Home({ navigate }) {
                 <span className="font-mono text-[11px] font-semibold text-zinc-400">01</span>
               </div>
               <div>
-                <span className="text-[10px] font-mono uppercase tracking-wider text-zinc-400 block mb-1">
+                <span className="text-[11px] font-mono uppercase tracking-wider text-zinc-400 block mb-1">
                   Étape 01 · Diagnostic
                 </span>
                 <h3 className="text-base font-bold text-zinc-950 tracking-tight">
@@ -711,7 +711,7 @@ export default function Home({ navigate }) {
                 <span className="font-mono text-[11px] font-semibold text-zinc-400">02</span>
               </div>
               <div>
-                <span className="text-[10px] font-mono uppercase tracking-wider text-zinc-400 block mb-1">
+                <span className="text-[11px] font-mono uppercase tracking-wider text-zinc-400 block mb-1">
                   Étape 02 · Création
                 </span>
                 <h3 className="text-base font-bold text-zinc-950 tracking-tight">
@@ -736,7 +736,7 @@ export default function Home({ navigate }) {
                 <span className="font-mono text-[11px] font-semibold text-zinc-400">03</span>
               </div>
               <div>
-                <span className="text-[10px] font-mono uppercase tracking-wider text-zinc-400 block mb-1">
+                <span className="text-[11px] font-mono uppercase tracking-wider text-zinc-400 block mb-1">
                   Étape 03 · Réalisation
                 </span>
                 <h3 className="text-base font-bold text-zinc-950 tracking-tight">

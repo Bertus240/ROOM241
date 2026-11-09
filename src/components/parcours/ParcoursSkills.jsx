@@ -163,7 +163,7 @@ export default function ParcoursSkills() {
                       {dom.title}
                     </h3>
                   </div>
-                  <span className="text-[10px] font-mono uppercase tracking-wider text-zinc-400 bg-zinc-100 dark:bg-zinc-800 px-2 py-0.5 rounded-md">
+                  <span className="text-[11px] font-mono uppercase tracking-wider text-zinc-400 bg-zinc-100 dark:bg-zinc-800 px-2 py-0.5 rounded-md">
                     Domaine clé
                   </span>
                 </div>
@@ -176,7 +176,7 @@ export default function ParcoursSkills() {
 
               {/* Liste des compétences — adaptative et parfaitement contenue dans le cadre */}
               <div className="pt-2 border-t border-zinc-100 dark:border-white/5 space-y-2.5">
-                <span className="text-[10px] font-mono uppercase tracking-wider text-zinc-400 block font-semibold">
+                <span className="text-[11px] font-mono uppercase tracking-wider text-zinc-400 block font-semibold">
                   Compétences mobilisées ({dom.skills.length}) :
                 </span>
 

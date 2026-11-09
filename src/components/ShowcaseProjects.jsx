@@ -238,7 +238,7 @@ export default function ShowcaseProjects({ navigate }) {
                             <span className="font-mono font-bold text-xs sm:text-base text-[#FFAD00] tracking-tight whitespace-nowrap">
                               {formatNbsp(currentProject.metricBadge.value)}
                             </span>
-                            <span className="text-[10px] sm:text-xs text-zinc-200 font-medium tracking-wide whitespace-nowrap">
+                            <span className="text-[11px] sm:text-xs text-zinc-200 font-medium tracking-wide whitespace-nowrap">
                               {formatNbsp(currentProject.metricBadge.label)}
                             </span>
                           </div>
@@ -247,7 +247,7 @@ export default function ShowcaseProjects({ navigate }) {
 
                       {/* Badge de statut / tag éditorial au bas de l'image */}
                       <div className="absolute bottom-3 left-3 sm:bottom-4 sm:left-4 z-10 pointer-events-none">
-                        <span className="inline-flex items-center gap-1.5 text-[10px] sm:text-[11px] font-semibold uppercase tracking-wider text-white bg-black/65 backdrop-blur-md px-2.5 py-1 sm:px-3 sm:py-1 rounded-full border border-white/20 shadow-sm">
+                        <span className="inline-flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-wider text-white bg-black/65 backdrop-blur-md px-2.5 py-1 sm:px-3 sm:py-1 rounded-full border border-white/20 shadow-sm">
                           <span className="w-1.5 h-1.5 rounded-full bg-[#FFAD00] shadow-[0_0_6px_rgba(255,173,0,0.8)]" />
                           <span>{currentProject.shortTag || currentProject.editorialTag || currentProject.badgeLabel}</span>
                         </span>
@@ -326,7 +326,7 @@ export default function ShowcaseProjects({ navigate }) {
           >
             <div className="space-y-4">
               <div className="flex items-center justify-between">
-                <span className="text-[10px] font-mono uppercase tracking-wider text-zinc-500 dark:text-zinc-400 font-bold">
+                <span className="text-[11px] font-mono uppercase tracking-wider text-zinc-500 dark:text-zinc-400 font-bold">
                   Suivant • {nextProject.number}
                 </span>
                 <ChevronRight className="w-4 h-4 text-zinc-400 group-hover:text-zinc-800 dark:group-hover:text-white group-hover:translate-x-0.5 transition-all" />

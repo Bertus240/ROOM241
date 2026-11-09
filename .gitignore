@@ -47,6 +47,7 @@ AGENTS.md
 scripts/capture-*.cjs
 scripts/cdp-*.cjs
 scripts/check-*.cjs
+scripts/poll-*.cjs
 scripts/read-*.cjs
 scripts/verify-*.cjs
 scripts/audit-*.cjs
@@ -65,6 +66,9 @@ scripts/generate-*.cjs
 scripts/inspect-*.cjs
 scripts/list-*.cjs
 scripts/run_full_validation.cjs
+scripts/run-responsive-audit.cjs
+scripts/audit_after_results.json
+scripts/phase3_measurements.json
 scripts/strava-sync.cjs
 
 

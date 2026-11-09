@@ -30,7 +30,7 @@ export default function Badge({
 
   // Tailles proportionnées
   const sizeClasses = {
-    sm: 'text-[10px] px-2 py-0.5 gap-1',
+    sm: 'text-[11px] px-2 py-0.5 gap-1',
     md: 'text-[11px] px-2.5 py-1 gap-1.5',
     lg: 'text-xs px-3.5 py-1.5 gap-2'
   };
@@ -51,9 +51,9 @@ export default function Badge({
     
     tool: active
       ? 'bg-[#1A1918] text-white border-[#FFAD00]/60'
-      : 'bg-zinc-100/90 dark:bg-zinc-800/80 text-zinc-700 dark:text-zinc-300 border-zinc-200 dark:border-zinc-700 hover:border-zinc-400 font-mono text-[10px]',
+      : 'bg-zinc-100/90 dark:bg-zinc-800/80 text-zinc-700 dark:text-zinc-300 border-zinc-200 dark:border-zinc-700 hover:border-zinc-400 font-mono text-[11px]',
     
-    format: 'bg-zinc-900/85 text-zinc-300 border-white/10 font-mono text-[10px] tracking-wide',
+    format: 'bg-zinc-900/85 text-zinc-300 border-white/10 font-mono text-[11px] tracking-wide',
     
     status: 'bg-white/95 dark:bg-zinc-900/90 text-zinc-800 dark:text-zinc-200 border-zinc-200/80 dark:border-white/15 font-sans font-medium'
   };

@@ -233,7 +233,7 @@ export default function Header({ currentPath = '/', navigate }) {
             <button
               type="button"
               onClick={() => setMobileMenuOpen(true)}
-              className="w-10 h-10 flex items-center justify-center rounded-xl bg-zinc-100 dark:bg-zinc-900 border border-zinc-200/80 dark:border-white/10 text-zinc-900 dark:text-white transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FFAD00] active:scale-95"
+              className="w-11 h-11 min-w-[44px] min-h-[44px] flex items-center justify-center rounded-xl bg-zinc-100 dark:bg-zinc-900 border border-zinc-200/80 dark:border-white/10 text-zinc-900 dark:text-white transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FFAD00] active:scale-95"
               aria-label="Ouvrir le menu de navigation"
               aria-expanded={mobileMenuOpen}
               aria-controls="mobile-navigation"
@@ -282,9 +282,10 @@ export default function Header({ currentPath = '/', navigate }) {
                 <button
                   type="button"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="w-9 h-9 rounded-full bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center text-zinc-600 dark:text-zinc-300"
+                  className="w-11 h-11 min-w-[44px] min-h-[44px] rounded-full bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center text-zinc-600 dark:text-zinc-300 active:scale-95 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FFAD00]"
+                  aria-label="Fermer le menu"
                 >
-                  <X className="w-4 h-4" />
+                  <X className="w-5 h-5" />
                 </button>
               </div>
 

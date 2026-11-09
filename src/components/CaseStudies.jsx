@@ -137,7 +137,7 @@ export default function CaseStudies({ isPreview, isFullPage, navigate }) {
                   eventName="request_nda_case_study"
                   eventData={{ project: "editeur-saas-cloud" }}
                   onClick={handleNdaMailClick}
-                  className="btn-primary inline-flex items-center gap-3 px-6 py-3 bg-room-text text-room-bg text-xs font-sans font-semibold rounded-xl hover:opacity-90 shadow-sm"
+                  className="btn-primary inline-flex items-center gap-3 px-6 py-3 min-h-[44px] bg-room-text text-room-bg text-xs font-sans font-semibold rounded-xl hover:opacity-90 shadow-sm"
                 >
                   <span>Recevoir la présentation privée</span>
                   <span className="text-room-amber font-bold">↗</span>
@@ -208,7 +208,7 @@ export default function CaseStudies({ isPreview, isFullPage, navigate }) {
                   </span>
                 </div>
 
-                <div className="inline-flex items-center gap-2 text-sm font-sans font-semibold text-neutral-900 dark:text-white group-hover:text-room-amber transition-colors duration-150">
+                <div className="inline-flex items-center gap-2 min-h-[44px] py-2 text-sm font-sans font-semibold text-neutral-900 dark:text-white group-hover:text-room-amber transition-colors duration-150">
                   <span>Consulter l'étude de cas complète</span>
                   <ArrowUpRight className="w-4 h-4 text-room-amber transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                 </div>
@@ -294,7 +294,7 @@ export default function CaseStudies({ isPreview, isFullPage, navigate }) {
                   </span>
                 </div>
 
-                <div className="inline-flex items-center gap-2 text-sm font-sans font-semibold text-neutral-900 dark:text-white group-hover:text-room-amber transition-colors duration-150">
+                <div className="inline-flex items-center gap-2 min-h-[44px] py-2 text-sm font-sans font-semibold text-neutral-900 dark:text-white group-hover:text-room-amber transition-colors duration-150">
                   <span>Consulter l'étude &amp; la vidéo</span>
                   <ArrowUpRight className="w-4 h-4 text-room-amber transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                 </div>

@@ -94,7 +94,7 @@ export default function Pricing({ isFullPage, navigate }) {
                   <span className="font-mono text-xs text-room-amber font-semibold tracking-widest">
                     [ {mode.num} ]
                   </span>
-                  <span className="text-[10px] font-mono uppercase tracking-wider text-room-muted px-2.5 py-1 rounded bg-room-bg border border-room-border">
+                  <span className="text-[11px] font-mono uppercase tracking-wider text-room-muted px-2.5 py-1 rounded bg-room-bg border border-room-border">
                     Sur-mesure
                   </span>
                 </div>

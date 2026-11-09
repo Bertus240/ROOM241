@@ -224,7 +224,7 @@ export default function MotionVideoCarousel() {
                 >
                   <Play className="w-2.5 h-2.5 fill-current" />
                   <span>{sub.label}</span>
-                  <span className="text-[10px] opacity-70">({sub.duration})</span>
+                  <span className="text-[11px] opacity-70">({sub.duration})</span>
                 </button>
               ))}
             </div>
@@ -303,7 +303,7 @@ export default function MotionVideoCarousel() {
               {/* Titre et sous-titre placés SOUS la miniature — lisibilité totale sans troncature */}
               <div className="space-y-1 px-0.5 flex-1 flex flex-col justify-between">
                 <div>
-                  <span className="text-[10px] font-mono text-[#FFAD00] uppercase font-bold tracking-wider block">
+                  <span className="text-[11px] font-mono text-[#FFAD00] uppercase font-bold tracking-wider block">
                     0{idx + 1} · {vid.tag}
                   </span>
                   <h4

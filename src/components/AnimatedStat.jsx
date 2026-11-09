@@ -185,7 +185,7 @@ export default function AnimatedStat({
           {tag ? (
             <div className="flex items-center gap-1.5 min-w-0">
               <span className="w-1.5 h-1.5 rounded-full bg-[#FFAD00] shrink-0" />
-              <span className="text-[10px] font-sans font-semibold uppercase tracking-wider text-zinc-400 truncate">
+              <span className="text-[11px] font-sans font-semibold uppercase tracking-wider text-zinc-400 truncate">
                 {tag}
               </span>
             </div>
@@ -229,7 +229,7 @@ export default function AnimatedStat({
       {/* Partie Basse : Attribution factuelle uniquement (sans texte lourd 'Découvrir l'explication') */}
       {attribution && (
         <div className="pt-2 border-t border-zinc-100 dark:border-white/5 flex flex-col gap-0.5 mt-auto">
-          <span className="inline-block text-[10px] font-mono text-zinc-400 uppercase tracking-wider">
+          <span className="inline-block text-[11px] font-mono text-zinc-400 uppercase tracking-wider">
             {attribution}
           </span>
         </div>

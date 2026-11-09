@@ -153,7 +153,7 @@ export default function CvModal({ isOpen, onClose }) {
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.97, y: 14 }}
           transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
-          className="relative w-full max-w-4xl text-white rounded-3xl bg-zinc-950/80 backdrop-blur-xl border border-white/10 shadow-2xl z-10 overflow-hidden my-3 sm:my-6 max-h-[92vh] flex flex-col font-sans print:bg-white print:text-black print:shadow-none print:border-none print:max-h-none print:m-0 print:p-0"
+          className="relative w-full max-w-4xl text-white rounded-3xl bg-zinc-950/80 backdrop-blur-xl border border-white/10 shadow-2xl z-10 overflow-hidden max-h-[calc(100dvh-2.5rem)] sm:max-h-[calc(100dvh-4rem)] lg:max-h-[calc(100dvh-5rem)] flex flex-col font-sans print:bg-white print:text-black print:shadow-none print:border-none print:max-h-none print:m-0 print:p-0"
         >
           {/* Lueur d'ambiance ambrée discrète intégrée au verre */}
           <div
@@ -222,20 +222,20 @@ export default function CvModal({ isOpen, onClose }) {
               <button
                 type="button"
                 onClick={handlePrint}
-                className="px-3.5 py-1.5 rounded-full bg-white/5 hover:bg-white/10 text-zinc-200 text-xs font-medium transition-all inline-flex items-center gap-1.5 border border-white/10 cursor-pointer active:scale-95"
+                className="min-h-[44px] px-3.5 sm:px-4 py-2 rounded-full bg-white/5 hover:bg-white/10 text-zinc-200 text-xs font-medium transition-all inline-flex items-center gap-2 border border-white/10 cursor-pointer active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FFAD00]"
                 title="Imprimer ou enregistrer le CV au format PDF"
               >
-                <Printer className="w-3.5 h-3.5 text-zinc-300" />
+                <Printer className="w-4 h-4 text-zinc-300" />
                 <span className="hidden xs:inline">Imprimer / PDF</span>
               </button>
 
               <button
                 type="button"
                 onClick={onClose}
-                className="w-9 h-9 min-w-[36px] min-h-[36px] rounded-full bg-white/5 hover:bg-white/15 text-zinc-300 hover:text-white flex items-center justify-center transition-all cursor-pointer active:scale-95 border border-white/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FFAD00]"
+                className="w-11 h-11 min-w-[44px] min-h-[44px] rounded-full bg-white/5 hover:bg-white/15 text-zinc-300 hover:text-white flex items-center justify-center transition-all cursor-pointer active:scale-95 border border-white/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FFAD00]"
                 aria-label="Fermer le CV"
               >
-                <X className="w-4 h-4" />
+                <X className="w-5 h-5" />
               </button>
             </div>
           </div>
@@ -275,22 +275,22 @@ export default function CvModal({ isOpen, onClose }) {
               </div>
 
               {/* 3. Coordonnées — Obligatoirement sur une seule ligne à 1440 px et 1024 px, sans SVG décoratifs */}
-              <div className="pt-2 border-t border-white/5 flex flex-wrap md:flex-nowrap items-center text-xs text-zinc-300 gap-y-2 gap-x-2.5 sm:gap-x-3">
+              <div className="pt-2 border-t border-white/5 flex flex-wrap md:flex-nowrap items-center text-xs text-zinc-300 gap-y-1 sm:gap-y-2 gap-x-2.5 sm:gap-x-3">
                 <a
                   href="mailto:brocart.remi02@gmail.com"
-                  className="hover:text-white transition-colors underline-offset-2 hover:underline whitespace-nowrap"
+                  className="hover:text-white transition-colors underline-offset-2 hover:underline whitespace-nowrap py-1 inline-flex items-center"
                 >
                   brocart.remi02@gmail.com
                 </a>
                 <span className="text-zinc-600 hidden md:inline select-none" aria-hidden="true">|</span>
                 <a
                   href="tel:0767123858"
-                  className="hover:text-white transition-colors underline-offset-2 hover:underline whitespace-nowrap"
+                  className="hover:text-white transition-colors underline-offset-2 hover:underline whitespace-nowrap py-1 inline-flex items-center"
                 >
                   07 67 12 38 58
                 </a>
                 <span className="text-zinc-600 hidden md:inline select-none" aria-hidden="true">|</span>
-                <span className="text-zinc-300 whitespace-nowrap">
+                <span className="text-zinc-300 whitespace-nowrap py-1 inline-flex items-center">
                   Métropole de Lille (Véhiculé)
                 </span>
                 <span className="text-zinc-600 hidden md:inline select-none" aria-hidden="true">|</span>
@@ -298,7 +298,7 @@ export default function CvModal({ isOpen, onClose }) {
                   href="https://www.linkedin.com/in/remibrocart/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hover:text-white transition-colors underline-offset-2 hover:underline whitespace-nowrap inline-flex items-center gap-1"
+                  className="hover:text-white transition-colors underline-offset-2 hover:underline whitespace-nowrap py-1 inline-flex items-center gap-1"
                 >
                   <span>linkedin.com/in/remibrocart</span>
                   <ArrowUpRight className="w-3 h-3 text-zinc-400" />
@@ -709,10 +709,10 @@ export default function CvModal({ isOpen, onClose }) {
                   {/* 3. Formations complémentaires */}
                   <div className="p-5 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm space-y-3">
                     <div className="flex items-center justify-between">
-                      <span className="inline-block px-2 py-0.5 rounded text-[10px] font-mono bg-white/[0.04] border border-white/10 text-zinc-300">
+                      <span className="inline-block px-2 py-0.5 rounded text-[11px] font-mono bg-white/[0.04] border border-white/10 text-zinc-300">
                         2022
                       </span>
-                      <span className="text-[10px] font-mono text-zinc-400">Complémentaire</span>
+                      <span className="text-[11px] font-mono text-zinc-400">Complémentaire</span>
                     </div>
                     <h3 className="text-sm font-bold text-white leading-snug">
                       Formations complémentaires
@@ -736,10 +736,10 @@ export default function CvModal({ isOpen, onClose }) {
                   {/* 4. Expérience académique internationale (MUN) */}
                   <div className="p-5 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm space-y-3">
                     <div className="flex items-center justify-between">
-                      <span className="inline-block px-2 py-0.5 rounded text-[10px] font-mono bg-white/[0.04] border border-white/10 text-zinc-300">
+                      <span className="inline-block px-2 py-0.5 rounded text-[11px] font-mono bg-white/[0.04] border border-white/10 text-zinc-300">
                         Mars 2019
                       </span>
-                      <span className="text-[10px] font-mono text-[#FFAD00]">International</span>
+                      <span className="text-[11px] font-mono text-[#FFAD00] font-semibold">International</span>
                     </div>
                     <div>
                       <h3 className="text-sm font-bold text-white leading-snug">
@@ -761,11 +761,11 @@ export default function CvModal({ isOpen, onClose }) {
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-2">
                         <VectorScientific className="w-4 h-4 text-zinc-300" />
-                        <span className="inline-block px-2 py-0.5 rounded text-[10px] font-mono bg-white/[0.04] border border-white/10 text-zinc-300">
+                        <span className="inline-block px-2 py-0.5 rounded text-[11px] font-mono bg-white/[0.04] border border-white/10 text-zinc-300">
                           2017 — 2020
                         </span>
                       </div>
-                      <span className="text-[10px] font-mono text-zinc-400">Baccalauréat</span>
+                      <span className="text-[11px] font-mono text-zinc-400">Baccalauréat</span>
                     </div>
                     <div>
                       <h3 className="text-sm font-bold text-white leading-snug">

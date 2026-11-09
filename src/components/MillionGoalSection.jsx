@@ -82,7 +82,7 @@ export default function MillionGoalSection() {
     <section
       ref={sectionRef}
       id="ambition-million"
-      className="relative py-24 sm:py-32 lg:py-36 border-b border-white/10 overflow-hidden bg-gradient-to-b from-[#0B0A09] via-zinc-950/70 to-[#0B0A09]"
+      className="relative py-16 sm:py-28 lg:py-36 border-b border-white/10 overflow-hidden bg-gradient-to-b from-[#0B0A09] via-zinc-950/70 to-[#0B0A09]"
     >
       {/* 5. Stabilisation : Halo ambré feutré en arrière-plan */}
       <div
@@ -115,7 +115,7 @@ export default function MillionGoalSection() {
                 <span className="text-xs font-mono uppercase tracking-widest text-[#FFAD00] font-semibold">
                   Cap &amp; Vision personnelle
                 </span>
-                <span className="text-[10px] font-mono text-zinc-500 uppercase tracking-widest">
+                <span className="text-[11px] font-mono text-zinc-400 uppercase tracking-wider">
                   {"// Repère volontaire"}
                 </span>
               </div>
@@ -127,7 +127,7 @@ export default function MillionGoalSection() {
                     step >= 2 ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-8 scale-[0.98]'
                   }`}
                 >
-                  <span className="text-5xl sm:text-6xl md:text-7xl xl:text-8xl font-black font-mono text-white tracking-tighter block leading-none tabular-nums whitespace-nowrap">
+                  <span className="text-4xl xs:text-5xl sm:text-6xl md:text-7xl xl:text-8xl font-black font-mono text-white tracking-tighter block leading-none tabular-nums whitespace-nowrap">
                     1 000 000 <span className="text-[#FFAD00]">€</span>
                   </span>
                 </div>

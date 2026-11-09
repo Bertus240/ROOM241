@@ -187,19 +187,19 @@ export default function ProjectDetail({ slug, navigate }) {
 
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-6 border-t border-white/10 text-left">
                   <div>
-                    <div className="text-[10px] font-mono text-neutral-400 uppercase">SUPERFICIE</div>
+                    <div className="text-[11px] font-mono text-neutral-300 uppercase">SUPERFICIE</div>
                     <div className="text-lg font-mono font-bold text-room-amber">150 m²</div>
                   </div>
                   <div>
-                    <div className="text-[10px] font-mono text-neutral-400 uppercase">CONGRÈS</div>
+                    <div className="text-[11px] font-mono text-neutral-300 uppercase">CONGRÈS</div>
                     <div className="text-sm font-sans font-semibold text-white">FIC Lille (InCyber)</div>
                   </div>
                   <div>
-                    <div className="text-[10px] font-mono text-neutral-400 uppercase">ACQUISITION</div>
+                    <div className="text-[11px] font-mono text-neutral-300 uppercase">ACQUISITION</div>
                     <div className="text-lg font-mono font-bold text-room-amber">+4 000</div>
                   </div>
                   <div>
-                    <div className="text-[10px] font-mono text-neutral-400 uppercase">LIVRABLES</div>
+                    <div className="text-[11px] font-mono text-neutral-300 uppercase">LIVRABLES</div>
                     <div className="text-sm font-sans font-semibold text-white">Stand &gt; 150 m² (FIC) + Vidéo</div>
                   </div>
                 </div>
@@ -400,7 +400,7 @@ export default function ProjectDetail({ slug, navigate }) {
 
               <div id="financement-ulule" className="p-6 sm:p-8 rounded-2xl border border-room-border bg-room-surface flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 scroll-mt-28">
                 <div>
-                  <span className="text-[10px] font-mono text-room-amber uppercase tracking-widest block mb-1">
+                  <span className="text-[11px] font-mono text-room-amber uppercase tracking-wider block mb-1">
                     CAPTATION TERRAIN MEDFEL · STRATÉGIE DE CONTENU B2B
                   </span>
                   <h4 className="text-lg sm:text-xl font-bold font-sans text-neutral-900 dark:text-white">
@@ -412,7 +412,7 @@ export default function ProjectDetail({ slug, navigate }) {
                 </div>
                 <div className="shrink-0 px-5 py-3 rounded-xl bg-room-bg border border-room-border text-center">
                   <div className="text-2xl font-mono font-extrabold text-room-amber">116%</div>
-                  <div className="text-[10px] font-mono text-room-muted uppercase">Financement Ulule</div>
+                  <div className="text-[11px] font-mono text-room-muted uppercase">Financement Ulule</div>
                 </div>
               </div>
             </div>
@@ -459,7 +459,7 @@ export default function ProjectDetail({ slug, navigate }) {
                             </span>
                           )}
                           {project.heroStage.metricBadge.label && (
-                            <span className="text-[10px] font-mono text-neutral-300 whitespace-nowrap">
+                            <span className="text-[11px] font-mono text-neutral-300 whitespace-nowrap">
                               {project.heroStage.metricBadge.label}
                             </span>
                           )}

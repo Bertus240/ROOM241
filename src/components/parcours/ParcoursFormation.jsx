@@ -60,7 +60,7 @@ export default function ParcoursFormation() {
               Fondations marketing, stratégies de marque, outils numériques, marketing international et masterclass professionnelles.
             </p>
             <div className="pt-2 border-t border-zinc-100 space-y-1">
-              <span className="text-[10px] font-mono uppercase tracking-wider text-zinc-400 font-semibold block">Engagements</span>
+              <span className="text-[11px] font-mono uppercase tracking-wider text-zinc-400 font-semibold block">Engagements</span>
               <p className="text-[11px] text-zinc-600">EPEE (Ambassadeur Campus) · The View (Audiovisuel)</p>
             </div>
           </div>

@@ -405,7 +405,7 @@ export default function AnalyticsDashboard({ navigate }) {
                     <div key={i} className="flex-1 flex flex-col items-center gap-2 h-full justify-end group relative">
                       
                       {/* Tooltip au survol */}
-                      <div className="opacity-0 group-hover:opacity-100 transition-opacity absolute -top-12 bg-zinc-900 text-white text-[10px] font-mono px-2 py-1 rounded shadow-lg pointer-events-none whitespace-nowrap z-20">
+                      <div className="opacity-0 group-hover:opacity-100 transition-opacity absolute -top-12 bg-zinc-900 text-white text-[11px] font-mono px-2 py-1 rounded shadow-lg pointer-events-none whitespace-nowrap z-20">
                         {d.date} : {d.visits} visites · {d.cvViews} CV
                       </div>
 
@@ -422,7 +422,7 @@ export default function AnalyticsDashboard({ navigate }) {
                         />
                       </div>
 
-                      <span className="text-[10px] font-mono text-zinc-400 rotate-45 sm:rotate-0 mt-1 truncate">
+                      <span className="text-[11px] font-mono text-zinc-400 rotate-45 sm:rotate-0 mt-1 truncate">
                         {d.date}
                       </span>
                     </div>
@@ -522,7 +522,7 @@ export default function AnalyticsDashboard({ navigate }) {
               <div className="overflow-x-auto">
                 <table className="w-full text-left text-xs font-sans">
                   <thead>
-                    <tr className="border-b border-zinc-200 font-mono uppercase text-zinc-400 text-[10px] tracking-wider">
+                    <tr className="border-b border-zinc-200 font-mono uppercase text-zinc-400 text-[11px] tracking-wider">
                       <th className="pb-3 font-semibold">Projet &amp; Réalisation</th>
                       <th className="pb-3 font-semibold">Vues globales</th>
                       <th className="pb-3 font-semibold">Ouvertures dossier</th>
@@ -618,7 +618,7 @@ export default function AnalyticsDashboard({ navigate }) {
                   <div key={idx} className="p-3.5 rounded-2xl bg-[#FAF8F5] border border-zinc-200/60 flex items-center justify-between gap-3">
                     <div className="space-y-0.5">
                       <div className="text-xs font-semibold text-zinc-900">{intent.label}</div>
-                      <div className="text-[10px] text-zinc-500">{intent.note}</div>
+                      <div className="text-[11px] text-zinc-500">{intent.note}</div>
                     </div>
                     <span className="font-mono text-sm font-extrabold text-[#1A1918] shrink-0">
                       {intent.count}
@@ -797,7 +797,7 @@ export default function AnalyticsDashboard({ navigate }) {
                           className="h-full bg-zinc-900 rounded-full"
                         />
                       </div>
-                      <p className="text-[10px] text-zinc-500">{depth.label}</p>
+                      <p className="text-[11px] text-zinc-500">{depth.label}</p>
                     </div>
                   ))}
                 </div>
@@ -838,9 +838,9 @@ export default function AnalyticsDashboard({ navigate }) {
                   { label: 'TTFB (Time to First Byte)', val: dataset.webVitals.ttfb.value, target: dataset.webVitals.ttfb.target, status: dataset.webVitals.ttfb.status }
                 ].map((vital, i) => (
                   <div key={i} className="p-4 rounded-2xl bg-[#FAF8F5] border border-zinc-200/60 space-y-1.5">
-                    <span className="text-[10px] font-mono uppercase text-zinc-500 block truncate">{vital.label}</span>
+                    <span className="text-[11px] font-mono uppercase text-zinc-500 block truncate">{vital.label}</span>
                     <div className="text-2xl font-mono font-extrabold text-zinc-950">{vital.val}</div>
-                    <div className="flex items-center justify-between text-[10px] font-mono text-zinc-400">
+                    <div className="flex items-center justify-between text-[11px] font-mono text-zinc-400">
                       <span>Cible : {vital.target}</span>
                       <span className="text-emerald-600 font-bold">{vital.status}</span>
                     </div>

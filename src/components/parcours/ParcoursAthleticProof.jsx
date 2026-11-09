@@ -32,7 +32,7 @@ export default function ParcoursAthleticProof({
               </div>
               <div className="absolute bottom-2.5 left-3 right-3 flex items-center justify-between text-[11px] text-white">
                 <span className="font-medium truncate drop-shadow">Venise, Italie</span>
-                <span className="font-mono text-[10px] text-white/80 shrink-0">Agrandir ↗</span>
+                <span className="font-mono text-[11px] text-white/90 shrink-0">Agrandir ↗</span>
               </div>
             </div>
             {marathonPhoto?.caption && (

@@ -70,9 +70,9 @@ export default function VideoModal({ isOpen, onClose }) {
             type="button"
             onClick={onClose}
             aria-label="Fermer la vidéo de présentation (Échap)"
-            className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-mono text-neutral-400 hover:text-white hover:bg-white/10 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-room-amber/50"
+            className="flex items-center gap-1.5 min-h-[44px] px-3 py-2 rounded-lg text-xs font-mono text-neutral-400 hover:text-white hover:bg-white/10 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-room-amber/50 cursor-pointer"
           >
-            <span className="hidden sm:inline text-[10px] uppercase tracking-wider opacity-70">Échap</span>
+            <span className="hidden sm:inline text-[11px] uppercase tracking-wider opacity-70">Échap</span>
             <X className="w-4 h-4" />
           </button>
         </div>

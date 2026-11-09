@@ -64,7 +64,7 @@ export default function ProjectBadgeHeader({ project, className = '' }) {
             className="w-1.5 h-1.5 rounded-full bg-[#FFAD00] shadow-[0_0_6px_rgba(255,173,0,0.8)] shrink-0"
             aria-hidden="true"
           />
-          <span className="text-[10px] sm:text-[11px] font-semibold uppercase tracking-wider text-[#FFAD00] font-mono leading-none truncate max-w-[260px] sm:max-w-none">
+          <span className="text-[11px] font-semibold uppercase tracking-wider text-[#FFAD00] font-mono leading-none truncate max-w-[260px] sm:max-w-none">
             {shortTag ? (
               <>
                 <span className="lg:hidden">{shortTag}</span>
@@ -84,7 +84,7 @@ export default function ProjectBadgeHeader({ project, className = '' }) {
             {formatNbsp(metric.value)}
           </span>
           {metric.label && (
-            <span className="text-[10px] sm:text-[11px] text-zinc-200 font-medium tracking-wide whitespace-nowrap leading-none">
+            <span className="text-[11px] text-zinc-200 font-medium tracking-wide whitespace-nowrap leading-none">
               {formatNbsp(metric.label)}
             </span>
           )}

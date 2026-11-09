@@ -157,7 +157,7 @@ export default function ParcoursTimeline({ onOpenLightbox }) {
                 </div>
                 <div className="absolute bottom-2 left-2.5 right-2.5 flex items-center justify-between text-[11px] text-white">
                   <span className="font-medium truncate drop-shadow">Stand 150 m² au Zénith (accès Grand Palais)</span>
-                  <span className="font-mono text-[10px] text-white/80 shrink-0 ml-1">Agrandir ↗</span>
+                  <span className="font-mono text-[11px] text-white/90 shrink-0 ml-1">Agrandir ↗</span>
                 </div>
               </div>
 
@@ -205,7 +205,7 @@ export default function ParcoursTimeline({ onOpenLightbox }) {
                 </div>
                 <div className="absolute bottom-2 left-2.5 right-2.5 flex items-center justify-between text-[11px] text-white">
                   <span className="font-medium truncate drop-shadow">Rendu After Effects 1080p 60fps</span>
-                  <span className="font-mono text-[10px] text-white/80 shrink-0 ml-1">Agrandir ↗</span>
+                  <span className="font-mono text-[11px] text-white/90 shrink-0 ml-1">Agrandir ↗</span>
                 </div>
               </div>
 
